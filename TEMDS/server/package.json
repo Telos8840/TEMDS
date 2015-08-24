@@ -1,0 +1,30 @@
+{
+  "name": "temds",
+  "version": "0.1.0",
+  "description": "A REST server for TEMDS",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Telos8840/TEMDS.git"
+  },
+  "keywords": [
+    "temds"
+  ],
+  "author": "Saul Guardado <seguardado88@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": "0.12.x"
+  },
+  "bugs": {
+    "url": "https://github.com/Telos8840/TEMDS/issues"
+  },
+  "homepage": "https://github.com/Telos8840/TEMDS",
+  "dependencies": {
+    "bcrypt": "^0.8.5",
+    "mongojs": "^1.3.0",
+    "restify": "^4.0.0"
+  }
+}
