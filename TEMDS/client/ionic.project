@@ -1,6 +1,6 @@
 {
-  "name": "ionTheme-1",
-  "app_id": "",
+  "name": "TEMDS",
+  "app_id": "e3be89e9",
   "gulpStartupTasks": [
     "default",
     "watch",
