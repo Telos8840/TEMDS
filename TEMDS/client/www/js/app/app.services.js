@@ -1,4 +1,4 @@
-angular.module('your_app_name.app.services', [])
+angular.module('temds.app.services', [])
 
 .service('AuthService', function (){
 

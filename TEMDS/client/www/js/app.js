@@ -3,13 +3,13 @@ angular.module('underscore', [])
   return window._; // assumes underscore has already been loaded on the page
 });
 
-angular.module('your_app_name', [
+angular.module('temds', [
   'ionic',
-  'your_app_name.common.directives',
-  'your_app_name.app.controllers',
-  'your_app_name.auth.controllers',
-  'your_app_name.app.services',
-  'your_app_name.views',
+  'temds.common.directives',
+  'temds.app.controllers',
+  'temds.auth.controllers',
+  'temds.app.services',
+  'temds.views',
   'underscore',
   'angularMoment'
 ])
