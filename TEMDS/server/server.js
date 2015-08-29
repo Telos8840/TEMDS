@@ -5,12 +5,22 @@
 * Time: 9:02 PM
 */
 
-var restify = require('restify'),
+var restify           = require('restify'),
+	nodemailer        = require('nodemailer'),				//http://blog.nodeknockout.com/post/34641712180/sending-email-from-nodejs
 	restifyValidation = require('node-restify-validation'), //https://github.com/z0mt3c/node-restify-validation/blob/master/README.md
-	server = restify.createServer();
+	server            = restify.createServer();
 
-var mongojs = require('mongojs');
-var db = mongojs('temdsapp');
+var mongojs = require('mongojs'),
+    db      = mongojs('temdsapp');
+
+//TODO: Get SMTP authentication from businessowner
+var smtpTransport = nodemailer.createTransport("SMTP",{
+   service: "Gmail",
+   auth: {
+       user: "tester@ghlee.com",
+       pass: "testerPassword"
+   }
+});
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
@@ -39,6 +49,10 @@ server.listen(process.env.PORT || 9804, function () {
 	console.log("Server started @ ", process.env.PORT || 9804)
 });
 
+/****************************
+ *         USER API         *
+ ****************************/
+// Create new user
 server.post({url: '/user/new', 
 	validation: {
 		resources: {
@@ -46,5 +60,19 @@ server.post({url: '/user/new',
 		}
 	}
 }, function (req, res, next) {
-	res.send('Email Received: '+req.params.email);
+	// 5 digit confirmation number
+	var cnfrm = (""+Math.random()).substring(2,7);
+	// Send confirmation email
+	// TODO: Make email body sexier!
+	smtpTransport.sendMail({
+		from: "TEMDS Sender <donotreply@temds.com>", // sender address
+		to: "<"+req.params.email+">", // comma separated list of receivers
+		subject: "TEMDS - Email Confirmation Number",
+		text: cnfrm
+	}, function(error, response) {
+		if (error) res.send(error);
+		else res.send('Confirmation sent to ' + req.params.email + '.');
+	});
+	// TODO: Push confirmation number and email to db
+
 });
