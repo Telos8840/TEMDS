@@ -1,12 +1,14 @@
 {
   "name": "TEMDS",
-  "app_id": "324e752d",
+  "app_id": "e3be89e9",
   "gulpStartupTasks": [
-    "sass",
-    "watch"
+    "default",
+    "watch",
+    "templatecache"
   ],
   "watchPatterns": [
     "www/**/*",
     "!www/lib/**/*"
-  ]
+  ],
+  "documentRoot": "www"
 }

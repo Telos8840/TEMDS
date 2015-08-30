@@ -1,6 +1,16 @@
 # Specifies intentionally untracked files to ignore when using Git
 # http://git-scm.com/docs/gitignore
 
-node_modules/
+TEMDS/.idea/workspace.xml
 platforms/
 plugins/
+showcase/
+UPLOAD/
+RELEASE/
+APK/
+tmp/
+
+www/img/orig
+www/js/tracking-config.js
+
+.DS_Store
