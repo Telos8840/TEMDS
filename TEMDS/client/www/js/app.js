@@ -178,6 +178,12 @@ angular.module('temds', [
 
 
   //AUTH ROUTES
+  .state('splash-page', {
+    url: "/splash-page",
+    templateUrl: "views/auth/splash-page.html",
+    controller: 'WelcomeCtrl'
+  })
+
   .state('facebook-sign-in', {
     url: "/facebook-sign-in",
     templateUrl: "views/auth/facebook-sign-in.html",
@@ -204,7 +210,7 @@ angular.module('temds', [
 ;
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/facebook-sign-in');
+  $urlRouterProvider.otherwise('/splash-page');
   // $urlRouterProvider.otherwise('/app/feed');
 })
 
