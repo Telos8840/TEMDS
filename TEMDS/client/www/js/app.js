@@ -184,6 +184,21 @@ angular.module('temds', [
     controller: 'WelcomeCtrl'
   })
 
+  // TODO: THIS PAGE NEEDS TO BE BUILT
+  .state('sign-in', {
+    url: "/sign-in",
+    templateUrl: "views/auth/sign-in.html",
+    controller: 'WelcomeCtrl'
+  })
+
+  // TODO: THIS PAGE NEEDS TO BE BUILT
+  .state('sign-up', {
+    url: "/sign-up",
+    templateUrl: "views/auth/sign-up.html",
+    controller: 'WelcomeCtrl'
+  })
+
+
   .state('facebook-sign-in', {
     url: "/facebook-sign-in",
     templateUrl: "views/auth/facebook-sign-in.html",
