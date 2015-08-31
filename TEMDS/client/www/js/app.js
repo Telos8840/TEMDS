@@ -178,6 +178,27 @@ angular.module('temds', [
 
 
   //AUTH ROUTES
+  .state('splash-page', {
+    url: "/splash-page",
+    templateUrl: "views/auth/splash-page.html",
+    controller: 'WelcomeCtrl'
+  })
+
+  // TODO: THIS PAGE NEEDS TO BE BUILT
+  .state('sign-in', {
+    url: "/sign-in",
+    templateUrl: "views/auth/sign-in.html",
+    controller: 'WelcomeCtrl'
+  })
+
+  // TODO: THIS PAGE NEEDS TO BE BUILT
+  .state('sign-up', {
+    url: "/sign-up",
+    templateUrl: "views/auth/sign-up.html",
+    controller: 'WelcomeCtrl'
+  })
+
+
   .state('facebook-sign-in', {
     url: "/facebook-sign-in",
     templateUrl: "views/auth/facebook-sign-in.html",
@@ -204,7 +225,7 @@ angular.module('temds', [
 ;
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/facebook-sign-in');
+  $urlRouterProvider.otherwise('/splash-page');
   // $urlRouterProvider.otherwise('/app/feed');
 })
 

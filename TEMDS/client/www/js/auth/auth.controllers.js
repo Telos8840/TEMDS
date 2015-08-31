@@ -5,6 +5,18 @@ angular.module('temds.auth.controllers', [])
     // $scope.bgs = ["http://lorempixel.com/640/1136"];
     $scope.bgs = ["img/welcome-bg.jpeg"];
 
+    /// Sign In button is pressed
+    /// Goto Sign In View
+    $scope.signInForm = function() {
+      console.log("display sign-in form");
+      $state.go('sign-in');
+    }
+
+    $scope.signUpForm = function() {
+      console.log("display sign-up form");
+      $state.go('sign-up');
+    }
+
     $scope.facebookSignIn = function () {
       console.log("doing facebbok sign in");
       $state.go('app.feed');
