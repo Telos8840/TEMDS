@@ -6,13 +6,21 @@
 */
 
 var databaseUrl = 'mongodb://admin:T3m284D107$@ds035663.mongolab.com:35663/temds';
-var collections = ['users_dev'];
+var collections = ['users_dev', 'pending_users'];
 
 var restify           = require('restify'),
 	  restifyValidation = require('node-restify-validation'), //https://github.com/z0mt3c/node-restify-validation/blob/master/README.md
     mongojs           = require('mongojs'),
     db                = mongojs(databaseUrl, collections),
 	  server            = restify.createServer();
+
+db.on('ready', function() {
+  console.log('Database connected');
+});
+
+db.on('error', function(err) {
+  console.log('Connection error', err);
+});
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
