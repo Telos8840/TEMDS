@@ -11,10 +11,17 @@
 	{
 		z-index: 0;
 	}
-
+  .bgVid
+  {
+  	position: absolute;
+  	height: 100%;
+  	top: 0px;
+  	right: -100px;
+  }
   .top-content
   {
     height: 66%;
+    position:relative;
 
 		.app-copy
 		{
@@ -25,9 +32,8 @@
 		.app-logo
 		{
 			font-size: 50px;
-			font-family: cursive;
 			font-weight: 600;
-			font-style: italic;
+			font-style: bold;
 			color: $welcome-color;
 		}
 
@@ -59,6 +65,12 @@
 		{
 			margin-bottom: 20px;
 		}
+
+	.sign-in {
+		color: rgba($welcome-sign-in-color, .9);
+      	background-color: rgba($welcome-sign-in-bg, .2);
+      	border-color: rgba(darken($welcome-sign-in-bg, 1), .9);
+	}
 
     .facebook-sign-in
     {
