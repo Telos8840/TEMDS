@@ -6,9 +6,15 @@ angular.module('underscore', [])
 angular.module('temds', [
   'ionic',
   'temds.common.directives',
+
+  /* Main Application */
   'temds.app.controllers',
-  'temds.auth.controllers',
   'temds.app.services',
+
+  /* Authentication */
+  'temds.auth.controllers',
+  'temds.auth.services',
+
   'temds.views',
   'underscore',
   'angularMoment'
@@ -195,7 +201,7 @@ angular.module('temds', [
   .state('sign-up', {
     url: "/sign-up",
     templateUrl: "views/auth/sign-up.html",
-    controller: 'WelcomeCtrl'
+    controller: 'RegisterAccountCtrl'
   })
 
 

@@ -1,7 +1,7 @@
 angular.module('temds.auth.controllers', [])
 
 
-  .controller('WelcomeCtrl', function ($scope, $state, $ionicModal) {
+.controller('WelcomeCtrl', function($scope, $state, $ionicModal) {
     // $scope.bgs = ["http://lorempixel.com/640/1136"];
     $scope.bgs = ["img/welcome-bg.jpeg"];
 
@@ -17,10 +17,11 @@ angular.module('temds.auth.controllers', [])
       $state.go('sign-up');
     }
 
+    /* keeping for reference use
     $scope.facebookSignIn = function () {
       console.log("doing facebbok sign in");
       $state.go('app.feed');
-    };
+    }; */
 
     $ionicModal.fromTemplateUrl('views/app/legal/privacy-policy.html', {
       scope: $scope,
@@ -45,33 +46,39 @@ angular.module('temds.auth.controllers', [])
     };
   })
 
-  .controller('CreateAccountCtrl', function ($scope, $state) {
-    $scope.doSignUp = function () {
-      console.log("doing sign up");
-      $state.go('app.feed');
-    };
-  })
+// Register Account Controller
+.controller('RegisterAccountCtrl', function ($scope, RegisterService, $state) {
+  $scope.user = {};
+  
+  $scope.sendRegisterEmailConfirmation = function () {
+      console.log("send confirmation here: "+$scope.user.email);
 
-  .controller('WelcomeBackCtrl', function ($scope, $state, $ionicModal) {
-    $scope.doLogIn = function () {
-      console.log("doing log in");
-      $state.go('app.feed');
-    };
+      RegisterService.sendRegisterEmailConfirmation($scope.user.email).then(function(data) {
+        console.log(data);
+      });
+  };
+})
 
-    $ionicModal.fromTemplateUrl('views/auth/forgot-password.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function (modal) {
-      $scope.forgot_password_modal = modal;
-    });
+.controller('WelcomeBackCtrl', function ($scope, $state, $ionicModal) {
+  $scope.doLogIn = function () {
+    console.log("doing log in");
+    $state.go('app.feed');
+  };
 
-    $scope.showForgotPassword = function () {
-      $scope.forgot_password_modal.show();
-    };
+  $ionicModal.fromTemplateUrl('views/auth/forgot-password.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function (modal) {
+    $scope.forgot_password_modal = modal;
+  });
 
-    $scope.requestNewPassword = function () {
-      console.log("requesting new password");
-    };
+  $scope.showForgotPassword = function () {
+    $scope.forgot_password_modal.show();
+  };
+
+  $scope.requestNewPassword = function () {
+    console.log("requesting new password");
+  };
 
     // //Cleanup the modal when we're done with it!
     // $scope.$on('$destroy', function() {
@@ -85,10 +92,10 @@ angular.module('temds.auth.controllers', [])
     // $scope.$on('modal.removed', function() {
     //   // Execute action
     // });
-  })
+})
 
-  .controller('ForgotPasswordCtrl', function ($scope) {
+.controller('ForgotPasswordCtrl', function ($scope) {
 
-  })
+})
 
 ;
