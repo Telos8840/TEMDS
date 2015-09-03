@@ -50,7 +50,7 @@ module.exports = function (server, db) {
     console.log("User being registered \n");
 
     var userEmail = req.params.email;
-    db.pending_users.findOne({email: userEmail}, function (err, penUser) {
+    db.pending_users.findOne({Email: userEmail}, function (err, penUser) {
       if (err) {
         console.log("Error registering email \n");
 
@@ -66,7 +66,12 @@ module.exports = function (server, db) {
       } else if(!err && !penUser) {
         // 5 digit confirmation number
         var cnfrm = (""+Math.random()).substring(2,7);
-        var user = {email: userEmail, confirmationNumber: cnfrm};
+        var user = {
+          Email: userEmail,
+          ConfirmationNumber: cnfrm,
+          InsertDate: new Date(),
+          ModifiedDate: new Date()
+        };
 
         db.pending_users.insert(user, function (err, dbUser) {
           console.log("User created", dbUser);
@@ -84,6 +89,7 @@ module.exports = function (server, db) {
         res.writeHead(204, {
           'Content-Type': 'application/json; charset=utf-8'
         });
+
         res.end(JSON.stringify({
           message: "A user with this email already exists"
         }));

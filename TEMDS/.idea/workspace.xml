@@ -82,8 +82,8 @@
           <file leaf-file-name="manageUser.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server/auth/manageUser.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.15835412" vertical-offset="638" max-vertical-offset="1695">
-                  <caret line="51" column="37" selection-start-line="51" selection-start-column="37" selection-end-line="51" selection-end-column="37" />
+                <state vertical-scroll-proportion="0.52369076" vertical-offset="660" max-vertical-offset="1785">
+                  <caret line="72" column="33" selection-start-line="72" selection-start-column="33" selection-end-line="72" selection-end-column="33" />
                   <folding />
                 </state>
               </provider>
@@ -408,8 +408,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/auth/manageUser.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15835412" vertical-offset="638" max-vertical-offset="1695">
-          <caret line="51" column="37" selection-start-line="51" selection-start-column="37" selection-end-line="51" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.52369076" vertical-offset="660" max-vertical-offset="1785">
+          <caret line="72" column="33" selection-start-line="72" selection-start-column="33" selection-end-line="72" selection-end-column="33" />
           <folding />
         </state>
       </provider>
