@@ -12,9 +12,11 @@ angular.module('temds.auth.controllers', [])
       $state.go('sign-in');
     }
 
-    $scope.signUpForm = function() {
-      console.log("display sign-up form");
-      $state.go('sign-up');
+    $scope.signUp = function() {
+      /// <summary>
+      /// Open new user registration step 1: Email Confirmation Form
+      /// </summary>
+      $state.go('email-confirm');
     }
 
     /* keeping for reference use
@@ -46,17 +48,58 @@ angular.module('temds.auth.controllers', [])
     };
   })
 
-// Register Account Controller
-.controller('RegisterAccountCtrl', function ($scope, RegisterService, $state) {
+/* Register Account Controller */
+.controller('RegisterAccountCtrl', function ($scope, RegisterService, $state, $ionicPopup, $interval) {
   $scope.user = {};
-  
-  $scope.sendRegisterEmailConfirmation = function () {
-      console.log("send confirmation here: "+$scope.user.email);
+  $scope.sendConfirmText = "Send Confirmation Email";
+  $scope.timerInvalid = false;
 
-      RegisterService.sendRegisterEmailConfirmation($scope.user.email).then(function(data) {
-        console.log(data);
-      });
+  var sendConfirmTimer, sendConfirmTime = 0;
+
+  $scope.sendRegisterEmailConfirmation = function () {
+    RegisterService.sendRegisterEmailConfirmation($scope.user.email)
+    .then(function(data) {
+      if (data.startsWith('success')) {
+        $ionicPopup.alert({
+          title: 'Confirmaion Sent',
+          content: 'Email has been sent to '+$scope.user.email 
+                  +' with five digit confirmation numbers.'
+        }).then(function() {
+          // set timer to limit spam calls
+          sendConfirmTime = 10; // TODO: Set 120 sec instead. 10 sec is too short....
+          $scope.timerInvalid = true;
+          $scope.sendConfirmText = "Please wait "+sendConfirmTime+" seconds..."
+
+          sendConfirmTimer = $interval(function() {
+            if (sendConfirmTime <= 1) {
+              $interval.cancel(sendConfirmTimer);
+              sendConfirmTimer = undefined;
+              $scope.sendConfirmText = "Send Confirmation Email";
+              $scope.timerInvalid = false;
+            } else {
+              $scope.sendConfirmText = "Please wait "+(--sendConfirmTime)+" seconds..."
+            }
+          }, 1000);
+        });
+      } else {
+        $ionicPopup.alert({
+          title: 'Error',
+          content: data
+        });
+      }
+    });
   };
+
+  $scope.checkConfirmation = function () {
+    //TODO: CHECK CONFIRMATION NUMBER
+    $ionicPopup.alert({
+      title: 'Email Confirmed',
+      content: $scope.user.confirmNum + ' matched with email, ' // temp msg....
+              + $scope.user.email+"!"
+    }).then(function() {
+      $state.go('register-form');
+    });
+  };  
 })
 
 .controller('WelcomeBackCtrl', function ($scope, $state, $ionicModal) {

@@ -28,11 +28,11 @@
                   Required!</span>
                   <span class="error" ng-show="email_verification_form.email.$error.email">
                     Not valid email!</span> <!-- TODO: Style -->
-                  </div>
-                </label>
+              </div>
+            </label>
 
-                <button type="submit" class="sign-up button button-block" ng-click="sendRegisterEmailConfirmation()" ng-disabled="email_verification_form.$invalid">
-                  Send Confirmation Email
+                <button type="submit" class="sign-up button button-block" ng-click="sendRegisterEmailConfirmation()" ng-disabled="email_verification_form.$invalid || timerInvalid" ng-bind="sendConfirmText">
+                  
                 </button>
                 <p ng-show="error" class="message error">{{error}}</p> <!-- Not sure if this works.... -->
               </div>
@@ -45,7 +45,13 @@
                 <hr class="separator-line" style="width:100%"/>
 
                 <label class="item item-input">
-                  <input type="tel" placeholder="Confirmation Number" name="confirmNum" ng-model="user.confirmNum" required>
+                  <input type="tel" placeholder="Confirmation Number" name="confirmNum" ng-model="user.confirmNum" ng-minlength="5" ng-maxlength="5" ng-pattern="/^\d+$/" required>
+                  <div role="alert">
+                <span class="error" ng-show="confirmation_verification_form.confirmNum.$error.required">
+                  Required!</span>
+                  <span class="error" ng-show="confirmation_verification_form.confirmNum.$error.minlength || confirmation_verification_form.confirmNum.$error.pattern || confirmation_verification_form.confirmNum.$error.maxlength">
+                    Must be a 5 digit number!</span> <!-- TODO: Style -->
+              </div>
                 </label>
                 <button type="submit" class="sign-up button button-block" ng-click="checkConfirmation()" ng-disabled="confirmation_verification_form.$invalid">
                   Submit

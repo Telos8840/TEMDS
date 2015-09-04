@@ -197,13 +197,18 @@ angular.module('temds', [
     controller: 'WelcomeCtrl'
   })
 
-  // TODO: THIS PAGE NEEDS TO BE BUILT
-  .state('sign-up', {
-    url: "/sign-up",
-    templateUrl: "views/auth/sign-up.html",
+  .state('email-confirm', {
+    url: "/user/register-email-confirm",
+    templateUrl: "views/auth/register-email-confirm.html",
     controller: 'RegisterAccountCtrl'
   })
 
+  // TODO: THIS PAGE NEEDS TO BE BUILT
+  .state('register-form', {
+    url: "/user/register-form",
+    templateUrl: "views/auth/register-form.html",
+    controller: 'RegisterAccountCtrl'
+  })  
 
   .state('facebook-sign-in', {
     url: "/facebook-sign-in",
