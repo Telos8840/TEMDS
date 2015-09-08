@@ -24,14 +24,14 @@ var sendConfirmationEmail = function (res, email) {
     from: "TEMDS Sender <donotreply@temds.com>", // sender address
     to: "<"+email+">", // comma separated list of receivers
     subject: "TEMDS - Email Confirmation Number",
-    text: cnfrm
+    text: ""
   }, function(error, response) {
     if (error) res.send(error);
     else res.send('Confirmation sent to ' + email + '.');
   });
   // TODO: Push confirmation number and email to db
 
-}
+};
 
 /****************************
  *         USER API         *
@@ -40,17 +40,20 @@ module.exports = function (server, db) {
 
   // unique index
   db.pending_users.ensureIndex({
-    email: 1
+    "Email": 1
   }, {
     unique: true
   });
 
   // Create new user
   server.post('api/user/register', function (req, res, next) {
-    console.log("User being registered \n");
+    console.log("\n *** User being registered *** \n");
 
     var userEmail = req.params.email;
-    db.pending_users.findOne({Email: userEmail}, function (err, penUser) {
+    db.users.findOne({Email: userEmail}, function (err, userExists) {
+      console.log("Looking in users table");
+
+      // Check if user already exists in main user table
       if (err) {
         console.log("Error registering email \n");
 
@@ -63,25 +66,61 @@ module.exports = function (server, db) {
           message: "Error trying to find email"
         }));
 
-      } else if(!err && !penUser) {
-        // 5 digit confirmation number
-        var cnfrm = (""+Math.random()).substring(2,7);
-        var user = {
-          Email: userEmail,
-          ConfirmationNumber: cnfrm,
-          InsertDate: new Date(),
-          ModifiedDate: new Date()
-        };
+      } else if(!err && !userExists) {
+        // User doesn't exist in main User table
+        // Check if they're in pending table
+        db.pending_users.findOne({Email: userEmail}, function (err, penUser) {
+          console.log("Looking in pending users");
 
-        db.pending_users.insert(user, function (err, dbUser) {
-          console.log("User created", dbUser);
+          if (err) {
+            res.writeHead(400, {
+              'Content-Type': 'application/json; charset=utf-8'
+            });
 
-          //sendConfirmationEmail(res, dbUser);
-          res.writeHead(200, {
-            'Content-Type': 'application/json; charset=utf-8'
-          });
-          res.end(JSON.stringify(dbUser));
+            res.end(JSON.stringify({
+              error: err,
+              message: "Error trying to find email"
+            }));
+          } else if(!err && penUser) {
+            console.log("User exists in both tables");
 
+            // User exists in pending users, resend confirmation email
+            //sendConfirmationEmail(res, penUser.Email);
+
+            res.writeHead(204, {
+              'Content-Type': 'application/json; charset=utf-8'
+            });
+
+            res.end(JSON.stringify({
+              message: "User already registered. Confirmation email resent"
+            }));
+          } else if(!err && !penUser) {
+            // Add user to pending users
+            // 5 digit confirmation number
+            var cnfrm = (""+Math.random()).substring(2,7);
+            var user = {
+              Email: userEmail,
+              ConfirmationNumber: cnfrm,
+              InsertDate: new Date(),
+              ModifiedDate: new Date()
+            };
+
+            db.pending_users.insert(user, function (err, dbUser) {
+
+              if(err) {
+                console.log(err);
+
+              }
+              console.log("User created", dbUser);
+
+              //sendConfirmationEmail(res, dbUser);
+              res.writeHead(200, {
+                'Content-Type': 'application/json; charset=utf-8'
+              });
+              res.end(JSON.stringify(dbUser));
+
+            });
+          }
         });
       } else {
         console.log("Email already exists \n");
