@@ -1,67 +1,74 @@
 <!-- TODO: THIS PAGE NEEDS TO BE WORKED ON -->
 <ion-view class="auth-view" cache-view="false">
-<ion-nav-bar class="view-navigation">
-<ion-nav-back-button>
-</ion-nav-back-button>
-</ion-nav-bar>
-<ion-content class="padding">
-<div class="row">
-  <div class="col">
-    <h1 class="form-title">Sign Up</h1>
-        <!-- Save for phase 2
+    <ion-nav-bar class="view-navigation">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-content class="padding">
+        <div class="row">
+            <div class="col">
+                <h1 class="form-title">Sign Up</h1>
+                <br/>
+                <br/>
+                <br/>
+                <!-- Save for phase 2
         <h3 class="form-sub-title">Sign up with Social Network or Email</h3>
         <div class="social-sign-up button-bar">
           <a class="button icon ion-social-facebook button-positive"></a>
           <a class="button icon ion-social-twitter button-calm"></a>
         </div> -->
-      </div>
-    </div>
-    <div class="row form-wrapper">
-      <div class="col">
-        <form name="email_verification_form" novalidate>
-          <div class="form-fields-outer list list-inset">
+            </div>
+        </div>
+        <div class="row form-wrapper">
+            <div class="col">
+                <form name="email_verification_form" novalidate>
+                    <div class="form-fields-outer list list-inset">
 
-            <label class="item item-input">
-              <input type="email" placeholder="Email" name="email" ng-model="user.email" required>
-              <div role="alert">
-                <span class="error" ng-show="email_verification_form.email.$error.required">
+                        <label class="item item-input">
+                            <input type="email" placeholder="Email" name="email" ng-model="user.email" required>
+                            <div role="alert">
+                                <span class="error" ng-show="email_verification_form.email.$error.required">
                   Required!</span>
-                  <span class="error" ng-show="email_verification_form.email.$error.email">
-                    Not valid email!</span> <!-- TODO: Style -->
-              </div>
-            </label>
+                                <span class="error" ng-show="email_verification_form.email.$error.email"> 
+                    Not valid email!</span>
+                                <!-- TODO: Style -->
+                            </div>
+                        </label>
 
-                <button type="submit" class="sign-up button button-block" ng-click="sendRegisterEmailConfirmation()" ng-disabled="email_verification_form.$invalid || timerInvalid" ng-bind="sendConfirmText">
-                  
-                </button>
-                <p ng-show="error" class="message error">{{error}}</p> <!-- Not sure if this works.... -->
-              </div>
-            </form>
+                        <button type="submit" class="sign-up button button-block" ng-click="sendRegisterEmailConfirmation()" ng-disabled="email_verification_form.$invalid || timerInvalid" ng-bind="sendConfirmText">
 
-            <form name="confirmation_verification_form" novalidate>
-              <div class="form-fields-outer list list-inset">
-                <p ng-show="error" class="message error">{{error}}</p>
+                        </button>
+                        <p ng-show="error" class="message error">{{error}}</p>
+                        <!-- Not sure if this works.... -->
+                    </div>
+                </form>
 
-                <hr class="separator-line" style="width:100%"/>
-
-                <label class="item item-input">
-                  <input type="tel" placeholder="Confirmation Number" name="confirmNum" ng-model="user.confirmNum" ng-minlength="5" ng-maxlength="5" ng-pattern="/^\d+$/" required>
-                  <div role="alert">
-                <span class="error" ng-show="confirmation_verification_form.confirmNum.$error.required">
+                <form name="confirmation_verification_form" novalidate>
+                    <div class="form-fields-outer list list-inset">
+                        <p ng-show="error" class="message error">{{error}}</p>
+                        <br/>
+                        <hr class="separator-line" style="width:100%" />
+                        <br/>
+                        <label class="item item-input">
+                            <input type="tel" placeholder="Confirmation Number" name="confirmNum" ng-model="user.confirmNum" ng-minlength="5" ng-maxlength="5" ng-pattern="/^\d+$/" required>
+                            <div role="alert">
+                                <span class="error" ng-show="confirmation_verification_form.confirmNum.$error.required">
                   Required!</span>
-                  <span class="error" ng-show="confirmation_verification_form.confirmNum.$error.minlength || confirmation_verification_form.confirmNum.$error.pattern || confirmation_verification_form.confirmNum.$error.maxlength">
-                    Must be a 5 digit number!</span> <!-- TODO: Style -->
-              </div>
-                </label>
-                <button type="submit" class="sign-up button button-block" ng-click="checkConfirmation()" ng-disabled="confirmation_verification_form.$invalid">
-                  Submit
-                </button>
+                                <span class="error" ng-show="confirmation_verification_form.confirmNum.$error.minlength || confirmation_verification_form.confirmNum.$error.pattern || confirmation_verification_form.confirmNum.$error.maxlength">
+                    Must be a 5 digit number!</span>
+                                <!-- TODO: Style -->
+                            </div>
+                        </label>
+                        <button type="submit" class="sign-up button button-block" ng-click="checkConfirmation()" ng-disabled="confirmation_verification_form.$invalid">
+                            Submit
+                        </button>
 
-                <p ng-show="error" class="message error">{{error}}</p> <!-- Not sure if this works.... -->
-              </div>
-            </form>
-          </div>
+                        <p ng-show="error" class="message error">{{error}}</p>
+                        <!-- Not sure if this works.... -->
+                    </div>
+                </form>
+            </div>
 
         </div>
-      </ion-content>
-    </ion-view>
+    </ion-content>
+</ion-view>
