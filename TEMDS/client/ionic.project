@@ -4,7 +4,8 @@
   "gulpStartupTasks": [
     "default",
     "watch",
-    "templatecache"
+    "templatecache",
+    "sass"
   ],
   "watchPatterns": [
     "www/**/*",

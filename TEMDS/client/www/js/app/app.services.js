@@ -1,17 +1,15 @@
 angular.module('temds.app.services', [])
 
-.service('AuthService', function (){
-
+/// AUTH SERVICE
+.service('AuthService', function ($http, $q){
   this.saveUser = function(user){
     window.localStorage.your_app_name_user = JSON.stringify(user);
   };
 
   this.getLoggedUser = function(){
-
     return (window.localStorage.your_app_name_user) ?
       JSON.parse(window.localStorage.your_app_name_user) : null;
   };
-
 })
 
 .service('PostService', function ($http, $q){

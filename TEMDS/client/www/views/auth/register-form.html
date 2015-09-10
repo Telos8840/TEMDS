@@ -1,0 +1,115 @@
+<!-- TODO: THIS PAGE NEEDS TO BE WORKED ON -->
+<ion-view class="auth-view" cache-view="false">
+    <ion-nav-bar class="view-navigation">
+        <ion-nav-back-button ng-click="gotoSplash()">
+        </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-content class="padding">
+        <div class="row form-heading">
+            <div class="col">
+                <h1 class="form-title">Welcome to TEMDS</h1>
+                <h3 class="form-sub-title" ng-bind="user.email"></h3>
+                <!-- <div class="social-sign-up button-bar">
+                    <a class="button icon ion-social-facebook button-positive"></a>
+                    <a class="button icon ion-social-twitter button-calm"></a>
+                </div> TODO: Future Phase -->
+                <br/>
+            </div>
+        </div>
+        <!--<div class="row form-separator">
+      <hr class="separator-line"/>
+      <span class="separator-mark">OR</span>
+      <hr class="separator-line"/>
+    </div> -->
+        <div class="row form-wrapper">
+            <div class="col">
+                <form name="register_form" class="" novalidate>
+                    <div class="form-fields-outer list list-inset">
+                        <!-- Password -->
+                        <label class="item item-input" show-hide-container>
+                            <input type="password" placeholder="Password" name="password" ng-model="user.password" ng-minlength="6" required show-hide-input>
+                            <span class="error" ng-show="register_form.password.$error.minlength" style="padding:9px 50px 0 0">
+                                Must be at least 6 characters long!
+                            </span>
+                            <span class="error" ng-show="register_form.password.$error.required" style="padding:9px 50px 0 0">
+                                Required!
+                            </span>
+                        </label>
+
+                        <!-- User Name -->
+                        <div class="row multi-inputs">
+                            <div class="col">
+                                <label class="item item-input">
+                                    <input class="multi-input" type="text" placeholder="First Name" name="fname" ng-model="user.fname" required>
+                                    <span class="error" ng-show="register_form.fname.$error.required">
+                                        Required!
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label class="item item-input">
+                                    <input class="multi-input" type="text" placeholder="Last Name" name="lname" ng-model="user.lname" required>
+                                    <span class="error" ng-show="register_form.lname.$error.required">
+                                        Required!
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- User Phone Number -->
+                        <label class="item item-input">
+                            <input type="tel" placeholder="Phone Number" ng-minlength="10" ng-maxlength="16" name="phone" ng-model="user.phone" ng-pattern="/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/" required>
+                            <span class="error" ng-show="register_form.phone.$error.required || register_form.phone.$error.pattern || register_form.phone.$error.maxlength">
+                                eg. 123-456-7890
+                            </span>
+                        </label>
+
+                        <hr class="separator-line" style="width:100%; margin-bottom:3px;" />
+
+                        <!-- Address -->
+                        <label class="item item-input">
+                            <input class="multi-input" type="text" placeholder="Address" name="addr1" ng-model="user.address.addr1" required>
+                            <span class="error" ng-show="register_form.addr1.$error.required">
+                                Required!
+                            </span>
+                        </label>
+                        <label class="item item-input">
+                            <input class="multi-input" type="text" placeholder="Ste. / Apt. / Fl. " name="addr2" ng-model="user.address.addr2">
+                        </label>
+                        <label class="item item-input">
+                            <input class="multi-input" type="text" placeholder="City" name="city" ng-model="user.address.city" required>
+                            <span class="error" ng-show="register_form.city.$error.required">
+                                Required!
+                            </span>
+                        </label>
+                        <div class="row multi-inputs">
+                            <div class="col">
+                                <div class="item item-input item-select">
+                                    <div class="input-label">State </div>
+                                    <select ng-model="user.address.state" ng-init="user.address.state = statelist[0]" ng-options="state.abbr for state in statelist track by state.abbr">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label class="item item-input">
+                                    <input class="multi-input" type="tel" ng-minlength="5" ng-maxlength="5" placeholder="Zipcode" name="zipcode" ng-model="user.address.zipcode" required>
+                                    <span class="error" ng-show="register_form.zipcode.$error.required">
+                                        Required!
+                                    </span>
+                                    <span class="error" ng-show="register_form.zipcode.$error.number || register_form.zipcode.$error.minlength || register_form.zipcode.$error.maxlength">
+                                        Invalid zipcode!
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <hr class="separator-line" style="width:100%; margin: 24px 0 0 0;" />
+                        <button type="submit" class="sign-up button button-block" ng-click="doSignUp()" ng-disabled="register_form.$invalid">
+                            Sign Up
+                        </button>
+                        <p ng-show="error" class="message error">{{error}}</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

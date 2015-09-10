@@ -83,13 +83,13 @@ angular.module('temds.app.controllers', [])
       title: 'Add to Cart',
       scope: $scope,
       buttons: [
-        { text: '', type: 'close-popup ion-ios-close-outline' },
-        {
-          text: 'Add to cart',
-          onTap: function(e) {
-            return $scope.data;
-          }
+      { text: '', type: 'close-popup ion-ios-close-outline' },
+      {
+        text: 'Add to cart',
+        onTap: function(e) {
+          return $scope.data;
         }
+      }
       ]
     });
     myPopup.then(function(res) {
