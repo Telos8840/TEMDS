@@ -31,11 +31,10 @@
                   Required!</span>
                                 <span class="error" ng-show="email_verification_form.email.$error.email"> 
                     Not valid email!</span>
-                                <!-- TODO: Style -->
                             </div>
                         </label>
 
-                        <button type="submit" class="sign-up button button-block" ng-click="sendRegisterEmailConfirmation()" ng-disabled="email_verification_form.$invalid || timerInvalid" ng-bind="sendConfirmText">
+                        <button type="submit" class="sign-up button button-block" ng-click="sendEmailConfirmation()" ng-disabled="email_verification_form.$invalid || timerInvalid" ng-bind="sendConfirmText">
 
                         </button>
                         <p ng-show="error" class="message error">{{error}}</p>
@@ -56,7 +55,6 @@
                   Required!</span>
                                 <span class="error" ng-show="confirmation_verification_form.confirmNum.$error.minlength || confirmation_verification_form.confirmNum.$error.pattern || confirmation_verification_form.confirmNum.$error.maxlength">
                     Must be a 5 digit number!</span>
-                                <!-- TODO: Style -->
                             </div>
                         </label>
                         <button type="submit" class="sign-up button button-block" ng-click="checkConfirmation()" ng-disabled="confirmation_verification_form.$invalid">

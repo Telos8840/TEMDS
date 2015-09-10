@@ -49,21 +49,25 @@ angular.module('temds.auth.controllers', [])
 })
 
 /* Register Account Controller */
-.controller('RegisterAccountCtrl', function ($scope, RegisterService, $state, $ionicPopup, $interval) {
+.controller('RegisterAccountCtrl', function ($scope, $http, RegisterService, $state, $ionicPopup, $interval, $stateParams, $ionicHistory) {
     $scope.user = {};
+
+    if ($stateParams.email)
+        $scope.user.email = $stateParams.email;
+
     $scope.sendConfirmText = "Send Confirmation Email";
     $scope.timerInvalid = false;
+    $scope.statelist = _US_STATES_;
 
     var sendConfirmTimer, sendConfirmTime = 0;
 
     $scope.sendEmailConfirmation = function () {
-        RegisterService.sendRegisterEmailConfirmation($scope.user.email)
+        RegisterService.sendEmailConfirmation($scope.user.email)
             .then(function (data) {
                 if (data.startsWith('success')) {
                     $ionicPopup.alert({
                         title: 'Confirmaion Sent',
-                        content: 'Email has been sent to ' + $scope.user.email 
-                                + ' with five digit confirmation numbers.'
+                        content: 'Email has been sent to ' + $scope.user.email + ' with five digit confirmation numbers.'
                     }).then(function () {
                         // set timer to limit spam calls
                         sendConfirmTime = 120;
@@ -77,8 +81,7 @@ angular.module('temds.auth.controllers', [])
                                 $scope.sendConfirmText = "Send Confirmation Email";
                                 $scope.timerInvalid = false;
                             } else {
-                                $scope.sendConfirmText = "Please wait " + (--sendConfirmTime)
-                                                        + " seconds..."
+                                $scope.sendConfirmText = "Please wait " + (--sendConfirmTime) + " seconds..."
                             }
                         }, 1000);
                     });
@@ -92,15 +95,28 @@ angular.module('temds.auth.controllers', [])
     };
 
     $scope.checkConfirmation = function () {
-        //TODO: CHECK CONFIRMATION NUMBER
-        $ionicPopup.alert({
-            title: 'Email Confirmed',
-            content: $scope.user.confirmNum + ' matched with email, ' // temp msg....
-                + $scope.user.email + "!"
-        }).then(function () {
-            $state.go('register-form');
-        });
+        RegisterService.checkEmailConfirmation($scope.user.email, $scope.user.confirmNum)
+            .then(function (data) {
+                if (data) {
+                    $state.go('register-form', {
+                        email: $scope.user.email
+                    });
+                } else {
+                    $ionicPopup.alert({
+                        title: 'Invalid Confirmation',
+                        content: 'Please check your confirmation number.'
+                    });
+                }
+            });
     };
+
+    $scope.gotoSplash = function () {
+        $ionicHistory.nextViewOptions({
+            disableBack: true
+        });
+
+        $state.go('splash-page');
+    }
 })
 
 .controller('WelcomeBackCtrl', function ($scope, $state, $ionicModal) {
