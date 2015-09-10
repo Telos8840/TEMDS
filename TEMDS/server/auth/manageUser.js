@@ -17,17 +17,36 @@ var smtpTransport = nodeMailer.createTransport("SMTP",{
   }
 });
 
-var sendConfirmationEmail = function (res, email) {
+/**
+ * Sends email to given user with confirmation number
+ * @param res
+ * @param email
+ */
+var sendConfirmationEmail = function (res, user) {
   // Send confirmation email
   // TODO: Make email body sexier!
-  smtpTransport.sendMail({
+  console.log("Sending email to: ", user.Email);
+
+  var mailOptions = {
     from: "TEMDS Sender <donotreply@temds.com>", // sender address
-    to: "<"+email+">", // comma separated list of receivers
+    to: "<"+user.Email+">", // comma separated list of receivers
     subject: "TEMDS - Email Confirmation Number",
-    text: ""
-  }, function(error, response) {
-    if (error) res.send(error);
-    else res.send('Confirmation sent to ' + email + '.');
+    text: "Confirmation Number: " + user.ConfirmationNumber
+  };
+
+  smtpTransport.sendMail(mailOptions, function(error, response) {
+    console.log("email response: ", response);
+
+    if (error) {
+      console.log("Error sending email: ", error);
+
+      res.send(error);
+    }
+    else {
+      console.log("Email successfully sent");
+
+      res.send('Confirmation sent to ' + user.Email + '.');
+    }
   });
   // TODO: Push confirmation number and email to db
 
@@ -45,8 +64,17 @@ module.exports = function (server, db) {
     unique: true
   });
 
-  // Create new user
-  server.post('api/user/register', function (req, res, next) {
+  db.users.ensureIndex({
+    "Email": 1
+  }, {
+    unique: true
+  });
+
+  /**
+   * Adds new user to pending users table. Creates confirmation number and emails to user
+   * @param email
+   */
+  server.post('api/user/emailConfirmation', function (req, res, next) {
     console.log("\n *** User being registered *** \n");
 
     var userEmail = req.params.email;
@@ -85,14 +113,14 @@ module.exports = function (server, db) {
             console.log("User exists in both tables");
 
             // User exists in pending users, resend confirmation email
-            //sendConfirmationEmail(res, penUser.Email);
+            sendConfirmationEmail(res, penUser);
 
-            res.writeHead(204, {
+            res.writeHead(400, {
               'Content-Type': 'application/json; charset=utf-8'
             });
 
             res.end(JSON.stringify({
-              message: "User already registered. Confirmation email resent"
+              message: "Error user already registered. Confirmation email resent"
             }));
           } else if(!err && !penUser) {
             // Add user to pending users
@@ -101,6 +129,7 @@ module.exports = function (server, db) {
             var user = {
               Email: userEmail,
               ConfirmationNumber: cnfrm,
+              Activated: false,
               InsertDate: new Date(),
               ModifiedDate: new Date()
             };
@@ -113,12 +142,13 @@ module.exports = function (server, db) {
               }
               console.log("User created", dbUser);
 
-              //sendConfirmationEmail(res, dbUser);
+              sendConfirmationEmail(res, dbUser);
+
               res.writeHead(200, {
                 'Content-Type': 'application/json; charset=utf-8'
               });
-              res.end(JSON.stringify(dbUser));
 
+              res.end(JSON.stringify(dbUser));
             });
           }
         });
@@ -130,7 +160,7 @@ module.exports = function (server, db) {
         });
 
         res.end(JSON.stringify({
-          message: "A user with this email already exists"
+          message: "Error a user with this email already exists"
         }));
       }
     });
@@ -138,16 +168,68 @@ module.exports = function (server, db) {
     return next();
   });
 
-  server.post('api/user/confirmUser', function (req, res, next) {
-    var user = req.params;
-    pwdMgr.cryptPassword(user.password, function (err, hash) {
-      user.password = hash;
+  /**
+   * Checks pending users confirmation number and activates account
+   * @param email
+   * @param confirmNum
+   */
+  server.get('api/user/emailConfirmation', function (req, res, next) {
+    console.log("\n *** Checking user email and confirmation number *** \n");
 
-      db.users_dev.insert(user,
-        function (err, dbUser) {
+    var email       = req.params.email,
+        confirmNum  = parseInt(req.params.confirmNum);
 
+    db.pending_users.findOne({Email: email}, function (err, dbUser) {
+      if (err) {
+        console.log("Error finding email \n");
+
+        res.writeHead(400, {
+          'Content-Type': 'application/json; charset=utf-8'
         });
+
+        res.end(JSON.stringify({
+          error: err,
+          message: "Error trying to find email"
+        }));
+      } else if(!err && dbUser) {
+        var dbConfirm = parseInt(dbUser.ConfirmationNumber);
+
+        if(confirmNum == dbConfirm) {
+          console.log("Confirmation numbers match");
+
+          db.pending_users.update({Email: email}, { $set: {Activated: true, ModifiedDate: new Date()} },
+            function (err, data) {
+            res.writeHead(200, {
+              'Content-Type': 'application/json; charset=utf-8'
+            });
+            res.end(JSON.stringify("User email confirmed"));
+          });
+        } else {
+          console.log("Confirmation numbers don't match");
+
+          res.writeHead(400, {
+            'Content-Type': 'application/json; charset=utf-8'
+          });
+
+          res.end(JSON.stringify({
+            error: err,
+            message: "Error: Confirmation number doesn't match"
+          }));
+        }
+      } else {
+        console.log("Email doesn't exist");
+
+        res.writeHead(400, {
+          'Content-Type': 'application/json; charset=utf-8'
+        });
+
+        res.end(JSON.stringify({
+          error: err,
+          message: "Error: Email doesn't exist"
+        }));
+      }
     });
+
     return next();
   })
 };
