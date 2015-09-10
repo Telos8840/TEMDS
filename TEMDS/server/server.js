@@ -14,13 +14,6 @@ var restify           = require('restify'),
     db                = mongojs(databaseUrl, collections),
 	  server            = restify.createServer();
 
-db.on('ready', function() {
-  console.log('Database connected');
-});
-
-db.on('error', function(err) {
-  console.log('Connection error', err);
-});
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
