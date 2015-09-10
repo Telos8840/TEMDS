@@ -5,7 +5,7 @@
  * Time: 5:37 PM
  */
 
-var pwdMgr = require('./managePasswords');
+//var pwdMgr = require('./managePasswords');
 var nodeMailer = require('nodemailer');				//http://blog.nodeknockout.com/post/34641712180/sending-email-from-nodejs
 
 //TODO: Get SMTP authentication from businessowner
@@ -110,17 +110,28 @@ module.exports = function (server, db) {
               message: "Error trying to find email"
             }));
           } else if(!err && penUser) {
-            console.log("User exists in both tables");
+            console.log("User exists in table, regenerating confirm number");
+
+            var cnfrm = (""+Math.random()).substring(2,7);
+            penUser.ConfirmationNumber = cnfrm;
+
+            db.pending_users.update({Email: userEmail}, { $set: {ConfirmationNumber: cnfrm, ModifiedDate: new Date()} },
+              function (err, data) {
+                res.writeHead(200, {
+                  'Content-Type': 'application/json; charset=utf-8'
+                });
+                res.end(JSON.stringify("Confirmation number changed"));
+              });
 
             // User exists in pending users, resend confirmation email
             sendConfirmationEmail(res, penUser);
 
-            res.writeHead(400, {
+            res.writeHead(200, {
               'Content-Type': 'application/json; charset=utf-8'
             });
 
             res.end(JSON.stringify({
-              message: "Error user already registered. Confirmation email resent"
+              message: "User already registered. Confirmation email resent"
             }));
           } else if(!err && !penUser) {
             // Add user to pending users
@@ -173,8 +184,10 @@ module.exports = function (server, db) {
    * @param email
    * @param confirmNum
    */
-  server.get('api/user/emailConfirmation', function (req, res, next) {
+  server.post('api/user/confirmationNumber', function (req, res, next) {
     console.log("\n *** Checking user email and confirmation number *** \n");
+
+    console.log("Number and email : ", req.params.confirmNum, req.params.email);
 
     var email       = req.params.email,
         confirmNum  = parseInt(req.params.confirmNum);
@@ -193,6 +206,8 @@ module.exports = function (server, db) {
         }));
       } else if(!err && dbUser) {
         var dbConfirm = parseInt(dbUser.ConfirmationNumber);
+
+        console.log("Numbers: ", confirmNum, dbConfirm);
 
         if(confirmNum == dbConfirm) {
           console.log("Confirmation numbers match");
@@ -231,5 +246,19 @@ module.exports = function (server, db) {
     });
 
     return next();
-  })
+  });
+
+  /**
+   * API to register new user
+   *
+   * @param email
+   * @param firstName
+   * @param lastName
+   * @param birthday
+   * @param phone
+   * @param password
+   */
+  server.post('api/user/registerUser', function (req, res, next) {
+
+  });
 };
