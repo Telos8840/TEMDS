@@ -61,39 +61,61 @@ angular.module('temds.auth.controllers', [])
 
     var sendConfirmTimer, sendConfirmTime = 0;
 
+    /**
+     * Send an email to user with confirmation number.
+     * Confirmation number is used to validate user's email.
+     * On submit, countdown is placed to prevent multiple/spam
+     * submition. 
+     */
     $scope.sendEmailConfirmation = function () {
+        // Start spam proof timer
+        sendConfirmTime = 120;
+        $scope.timerInvalid = true;
+        $scope.sendConfirmText = "Please wait " + sendConfirmTime + " seconds...";
+
+        sendConfirmTimer = $interval(function () {
+            if (sendConfirmTime <= 1) {
+                $interval.cancel(sendConfirmTimer);
+                sendConfirmTimer = undefined;
+                $scope.sendConfirmText = "Send Confirmation Email";
+                $scope.timerInvalid = false;
+            } else {
+                $scope.sendConfirmText = "Please wait " + (--sendConfirmTime) + " seconds..."
+            }
+        }, 1000);
+
+        // Send email confirmation
         RegisterService.sendEmailConfirmation($scope.user.email)
             .then(function (data) {
-                if (data.startsWith('success')) {
+                if (data) {
                     $ionicPopup.alert({
                         title: 'Confirmaion Sent',
-                        content: 'Email has been sent to ' + $scope.user.email + ' with five digit confirmation numbers.'
-                    }).then(function () {
-                        // set timer to limit spam calls
-                        sendConfirmTime = 120;
-                        $scope.timerInvalid = true;
-                        $scope.sendConfirmText = "Please wait " + sendConfirmTime + " seconds..."
-
-                        sendConfirmTimer = $interval(function () {
-                            if (sendConfirmTime <= 1) {
-                                $interval.cancel(sendConfirmTimer);
-                                sendConfirmTimer = undefined;
-                                $scope.sendConfirmText = "Send Confirmation Email";
-                                $scope.timerInvalid = false;
-                            } else {
-                                $scope.sendConfirmText = "Please wait " + (--sendConfirmTime) + " seconds..."
-                            }
-                        }, 1000);
-                    });
+                        content: 'Email has been sent to ' + $scope.user.email +
+                            ' with five digit confirmation numbers.'
+                    }).then(function () {});
                 } else {
+                    // Stop Timer on Error
+                    if (sendConfirmTimer) {
+                        $interval.cancel(sendConfirmTimer);
+                        sendConfirmTimer = undefined;
+                        $scope.timerInvalid = false;
+                        $scope.sendConfirmText = "Send Confirmation Email";
+                    }
+
+                    // Display Error
                     $ionicPopup.alert({
                         title: 'Error',
-                        content: data
+                        content: 'We were unable to send a confirmation email to ' +
+                            $scope.user.email + '. Please contact the administrator.'
                     });
                 }
             });
     };
 
+    /**
+     * Check email confirmation number.
+     * Returns true on valid confirmation number.
+     */
     $scope.checkConfirmation = function () {
         RegisterService.checkEmailConfirmation($scope.user.email, $scope.user.confirmNum)
             .then(function (data) {
@@ -110,6 +132,34 @@ angular.module('temds.auth.controllers', [])
             });
     };
 
+    $scope.registerNewUser = function () {
+        RegisterService.registerNewUser(
+            $scope.user.email,
+            $scope.user.password,
+            $scope.user.fname,
+            $scope.user.lname,
+            $scope.user.phone,
+            $scope.user.address.addr1,
+            $scope.user.address.addr2,
+            $scope.user.address.city,
+            $scope.user.address.state,
+            $scope.user.address.zipcode
+        ).then(function (data) {
+            if (data) {
+                // TODO: Go somewhere
+                // $state.go('');
+            } else {
+                $ionicPopup.alert({
+                    title: 'Error',
+                    content: 'Unable to create new user. Please contact the administrator.'
+                });
+            }
+        })
+    }
+
+    /**
+     * Go to splash/intro view without adding a back button.
+     */
     $scope.gotoSplash = function () {
         $ionicHistory.nextViewOptions({
             disableBack: true
