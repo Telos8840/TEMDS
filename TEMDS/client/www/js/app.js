@@ -4,20 +4,25 @@ angular.module('underscore', [])
     });
 
 angular.module('temds', [
-  'ionic',
-  'temds.common.directives',
+    'ionic',
+    'temds.common.directives',
 
-  /* Main Application */
-  'temds.app.controllers',
-  'temds.app.services',
+  /* Main Application */ //NOTE: used for reference.
+    'temds.app.controllers',
+    'temds.app.services',
 
   /* Authentication */
-  'temds.auth.controllers',
-  'temds.auth.services',
+    'temds.auth.controllers',
+    'temds.auth.services',
 
-  'temds.views',
-  'underscore',
-  'angularMoment'
+  /* MyAccount */
+    'temds.myAccount.controllers',
+    'temds.myAccount.services',
+
+
+    'temds.views',
+    'underscore',
+    'angularMoment'
 ])
 
 
@@ -203,13 +208,23 @@ angular.module('temds', [
         controller: 'RegisterAccountCtrl'
     })
 
-    // TODO: THIS PAGE NEEDS TO BE BUILT
     .state('register-form', {
         url: "/user/register-form",
         templateUrl: "views/auth/register-form.html",
         controller: 'RegisterAccountCtrl',
         params: {
             'email': null
+        }
+    })
+
+    /** My Account **/
+    .state('app.address-book', {
+        url: "/address-book",
+        views: {
+            'menuContent': {
+                templateUrl: "views/app/myAccount/addressBook.html",
+                controller: "AddressBookCtrl"
+            }
         }
     })
 
@@ -238,8 +253,10 @@ angular.module('temds', [
     });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/splash-page');
-    // $urlRouterProvider.otherwise('/app/feed');
+    //$urlRouterProvider.otherwise('/splash-page');
+    //$urlRouterProvider.otherwise('/app/address-book');
+
+    $urlRouterProvider.otherwise('/app/feed');
 })
 
 ;
