@@ -9,7 +9,7 @@ UPLOAD/
 RELEASE/
 APK/
 tmp/
-node_modules
+node_modules/
 www/img/orig
 www/js/tracking-config.js
 

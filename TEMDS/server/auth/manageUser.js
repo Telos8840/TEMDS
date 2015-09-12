@@ -5,7 +5,7 @@
  * Time: 5:37 PM
  */
 
-//var pwdMgr = require('./managePasswords');
+var pwdMgr = require('./managePasswords');
 var nodeMailer = require('nodemailer');				//http://blog.nodeknockout.com/post/34641712180/sending-email-from-nodejs
 
 //TODO: Get SMTP authentication from businessowner
@@ -259,6 +259,33 @@ module.exports = function (server, db) {
    * @param password
    */
   server.post('api/user/registerUser', function (req, res, next) {
+    console.log("\n *** Registering new user *** \n");
 
+    var user = req.params;
+    pwdMgr.cryptPassword(user.password, function (err, hash) {
+      user.password = hash;
+      console.log("n", hash);
+      //db.appUsers.insert(user,
+      //  function (err, dbUser) {
+      //    if (err) { // duplicate key error
+      //      if (err.code == 11000) /* http://www.mongodb.org/about/contributors/error-codes/*/ {
+      //        res.writeHead(400, {
+      //          'Content-Type': 'application/json; charset=utf-8'
+      //        });
+      //        res.end(JSON.stringify({
+      //          error: err,
+      //          message: "A user with this email already exists"
+      //        }));
+      //      }
+      //    } else {
+      //      res.writeHead(200, {
+      //        'Content-Type': 'application/json; charset=utf-8'
+      //      });
+      //      dbUser.password = "";
+      //      res.end(JSON.stringify(dbUser));
+      //    }
+      //  });
+    });
+    return next();
   });
 };
