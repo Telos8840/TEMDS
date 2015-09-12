@@ -1,0 +1,20 @@
+<div class="content">
+    <div class="primary" ng-click="togglePrimaryAddress(address)" ng-class="{'active': address.primary}">
+        <div class="indicator" ng-class="{'active': address.primary}"></div>
+    </div>
+    <div class="body">
+        <div class="title">
+            {{address.name}}
+        </div>
+        <div class="detail">
+            <div class="address">
+                <p>{{address.addr1}}<span ng-hide="address.addr2==''">, </span> {{address.addr2}}</p>
+                <p>{{address.city}}, {{address.state}} {{address.zipcode}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="arrow" ng-click="addressDetail(address)">
+        <i class="icon ion-ios-arrow-right"></i>
+    </div>
+</div>

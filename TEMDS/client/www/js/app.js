@@ -15,11 +15,6 @@ angular.module('temds', [
     'temds.auth.controllers',
     'temds.auth.services',
 
-  /* MyAccount */
-    'temds.myAccount.controllers',
-    'temds.myAccount.services',
-
-
     'temds.views',
     'underscore',
     'angularMoment'
@@ -217,12 +212,12 @@ angular.module('temds', [
         }
     })
 
-    /** My Account **/
+    /** Address Book **/
     .state('app.address-book', {
         url: "/address-book",
         views: {
             'menuContent': {
-                templateUrl: "views/app/myAccount/addressBook.html",
+                templateUrl: "views/app/address-book/address-book.html",
                 controller: "AddressBookCtrl"
             }
         }
@@ -254,9 +249,9 @@ angular.module('temds', [
 
     // if none of the above states are matched, use this as the fallback
     //$urlRouterProvider.otherwise('/splash-page');
-    //$urlRouterProvider.otherwise('/app/address-book');
+    $urlRouterProvider.otherwise('/app/address-book');
 
-    $urlRouterProvider.otherwise('/app/feed');
+    //$urlRouterProvider.otherwise('/app/feed');
 })
 
 ;

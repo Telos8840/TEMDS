@@ -1,0 +1,83 @@
+.address-book-repeat.ng-enter {
+    -webkit-animation: fadeInLeft 1s;
+    animation: fadeInLeft 1s;
+}
+
+.address-book-repeat.ng-enter-stagger {
+    -webkit-animation-delay: 120ms;
+    animation-delay: 120ms;
+    -webkit-animation-duration: 0;
+    animation-duration: 0;
+}
+
+.address-book-repeat {
+    .address-book-cell {
+        border-bottom: 1px solid $address-book-cell-border-color;
+        .content {
+            height: 74px;
+            width: 100%;
+            background-color: $address-book-cell-bg-color;
+            .primary {
+                .indicator {
+                    float: left;
+                    width: 5px;
+                    height: 100%;
+                }
+                .active {
+                    background-color: gold;
+                }
+                width: 40px;
+                height: 100%;
+                float: left;
+                &:active:not(.active) {
+                    .indicator {
+                        background-color: yellow;
+                    }
+                }
+            }
+            .body {
+                height: 100%;
+                float: left;
+                .title {
+                    text-transform: uppercase;
+                    padding: 12px 0 0 8px;
+                    margin: 0px;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    font-size: 14px;
+                    color: lighten($address-book-cell-text-color, 25%);
+                    font-weight: 500;
+                }
+                .detail {
+                    .address {
+                        padding: 0 0 0 8px;
+                        color: lighten($address-book-cell-text-color, 50%);
+                        line-height: 14px;
+                        margin: 0px;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        font-size: 12px;
+                        p {
+                            padding: 0;
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+            .arrow {
+                float: right;
+                height: 100%;
+                text-align: center;
+                width: 30px;
+                padding: 28px 0 0 0;
+                i {
+                    font-size: 20px;
+                    font-weight: 800px;
+                    color: $address-book-cell-border-color;
+                }
+            }
+        }
+    }
+}
