@@ -5,6 +5,7 @@
  * Time: 5:37 PM
  */
 
+var response = require('./response');
 var pwdMgr = require('./managePasswords');
 var nodeMailer = require('nodemailer');				//http://blog.nodeknockout.com/post/34641712180/sending-email-from-nodejs
 
@@ -83,33 +84,22 @@ module.exports = function (server, db) {
 
       // Check if user already exists in main user table
       if (err) {
-        console.log("Error registering email \n");
 
-        res.writeHead(400, {
-          'Content-Type': 'application/json; charset=utf-8'
-        });
-
-        res.end(JSON.stringify({
-          error: err,
-          message: "Error trying to find email"
-        }));
+        response.error(res, "Error trying to find email in users table");
 
       } else if(!err && !userExists) {
+
         // User doesn't exist in main User table
         // Check if they're in pending table
         db.pending_users.findOne({Email: userEmail}, function (err, penUser) {
           console.log("Looking in pending users");
 
           if (err) {
-            res.writeHead(400, {
-              'Content-Type': 'application/json; charset=utf-8'
-            });
 
-            res.end(JSON.stringify({
-              error: err,
-              message: "Error trying to find email"
-            }));
+            response.error(res, "Error trying to find email in pending_users table");
+
           } else if(!err && penUser) {
+
             console.log("User exists in table, regenerating confirm number");
 
             var cnfrm = (""+Math.random()).substring(2,7);
@@ -117,22 +107,13 @@ module.exports = function (server, db) {
 
             db.pending_users.update({Email: userEmail}, { $set: {ConfirmationNumber: cnfrm, ModifiedDate: new Date()} },
               function (err, data) {
-                res.writeHead(200, {
-                  'Content-Type': 'application/json; charset=utf-8'
-                });
-                res.end(JSON.stringify("Confirmation number changed"));
+                if(err) response.error(res, "Error updating activation number for " + userEmail);
               });
 
             // User exists in pending users, resend confirmation email
             sendConfirmationEmail(res, penUser);
+            response.success(res, "User already registered. Confirmation email resent to " + userEmail);
 
-            res.writeHead(200, {
-              'Content-Type': 'application/json; charset=utf-8'
-            });
-
-            res.end(JSON.stringify({
-              message: "User already registered. Confirmation email resent"
-            }));
           } else if(!err && !penUser) {
             // Add user to pending users
             // 5 digit confirmation number
@@ -147,32 +128,16 @@ module.exports = function (server, db) {
 
             db.pending_users.insert(user, function (err, dbUser) {
 
-              if(err) {
-                console.log(err);
-
-              }
-              console.log("User created", dbUser);
+              if(err) response.error(res, "Error inserting pending_user - " + userEmail);
 
               sendConfirmationEmail(res, dbUser);
 
-              res.writeHead(200, {
-                'Content-Type': 'application/json; charset=utf-8'
-              });
-
-              res.end(JSON.stringify(dbUser));
+              response.success(res, "User inserted into pending_users - " + userEmail);
             });
           }
         });
       } else {
-        console.log("Email already exists \n");
-
-        res.writeHead(204, {
-          'Content-Type': 'application/json; charset=utf-8'
-        });
-
-        res.end(JSON.stringify({
-          message: "Error a user with this email already exists"
-        }));
+        response.error(res, "Error a user with this email already exists - " + userEmail);
       }
     });
 
@@ -187,61 +152,29 @@ module.exports = function (server, db) {
   server.post('api/user/confirmationNumber', function (req, res, next) {
     console.log("\n *** Checking user email and confirmation number *** \n");
 
-    console.log("Number and email : ", req.params.confirmNum, req.params.email);
-
     var email       = req.params.email,
         confirmNum  = parseInt(req.params.confirmNum);
 
     db.pending_users.findOne({Email: email}, function (err, dbUser) {
       if (err) {
-        console.log("Error finding email \n");
+        response.error(res, "Error finding email - " + email);
 
-        res.writeHead(400, {
-          'Content-Type': 'application/json; charset=utf-8'
-        });
-
-        res.end(JSON.stringify({
-          error: err,
-          message: "Error trying to find email"
-        }));
       } else if(!err && dbUser) {
         var dbConfirm = parseInt(dbUser.ConfirmationNumber);
 
-        console.log("Numbers: ", confirmNum, dbConfirm);
-
         if(confirmNum == dbConfirm) {
-          console.log("Confirmation numbers match");
 
           db.pending_users.update({Email: email}, { $set: {Activated: true, ModifiedDate: new Date()} },
             function (err, data) {
-            res.writeHead(200, {
-              'Content-Type': 'application/json; charset=utf-8'
-            });
-            res.end(JSON.stringify("User email confirmed"));
+              if(err) response.error(res, "Error updating user " + email);
+              else response.success(res, "User updated " + email);
+
           });
         } else {
-          console.log("Confirmation numbers don't match");
-
-          res.writeHead(400, {
-            'Content-Type': 'application/json; charset=utf-8'
-          });
-
-          res.end(JSON.stringify({
-            error: err,
-            message: "Error: Confirmation number doesn't match"
-          }));
+          response.error(res, "Error: Confirmation number doesn't match for " + email);
         }
       } else {
-        console.log("Email doesn't exist");
-
-        res.writeHead(400, {
-          'Content-Type': 'application/json; charset=utf-8'
-        });
-
-        res.end(JSON.stringify({
-          error: err,
-          message: "Error: Email doesn't exist"
-        }));
+        response.error(res, "Error: Email doesn't exist - " + email);
       }
     });
 
