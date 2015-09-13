@@ -138,6 +138,7 @@ angular.module('temds.auth.controllers', [])
             $scope.user.password,
             $scope.user.fname,
             $scope.user.lname,
+            $scope.user.bday,
             $scope.user.phone,
             $scope.user.address.addr1,
             $scope.user.address.addr2,

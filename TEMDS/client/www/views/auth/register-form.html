@@ -5,7 +5,7 @@
         </ion-nav-back-button>
     </ion-nav-bar>
     <ion-content class="padding">
-        <div class="row form-heading">
+        <div class="row form-heading" style="height:80px;">
             <div class="col">
                 <h1 class="form-title">Welcome to TEMDS</h1>
                 <h3 class="form-sub-title" ng-bind="user.email"></h3>
@@ -13,7 +13,6 @@
                     <a class="button icon ion-social-facebook button-positive"></a>
                     <a class="button icon ion-social-twitter button-calm"></a>
                 </div> TODO: Future Phase -->
-                <br/>
             </div>
         </div>
         <!--<div class="row form-separator">
@@ -56,6 +55,11 @@
                             </div>
                         </div>
 
+                        <label class="item item-input">
+                            <span class="input-label" style="font-size:15px; color:#9a9a9a;">Birthday</span>
+                            <input class="multi-input" type="date" placeholder="Birthday" name="bday" ng-model="user.bday" required>
+                        </label>
+
                         <!-- User Phone Number -->
                         <label class="item item-input">
                             <input type="tel" placeholder="Phone Number" ng-minlength="10" ng-maxlength="16" name="phone" ng-model="user.phone" ng-pattern="/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/" required>
@@ -85,7 +89,7 @@
                         <div class="row multi-inputs">
                             <div class="col">
                                 <div class="item item-input item-select">
-                                    <div class="input-label">State </div>
+                                    <div class="input-label" style="font-size:15px; color:#9a9a9a;">State </div>
                                     <select ng-model="user.address.state" ng-init="user.address.state = statelist[0]" ng-options="state.abbr for state in statelist track by state.abbr">
                                     </select>
                                 </div>

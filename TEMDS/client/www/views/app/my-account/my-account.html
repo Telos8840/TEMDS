@@ -1,0 +1,42 @@
+<ion-view view-title="My Account" class="my-account-view">
+    <ion-content>
+        <div class="list">
+            <div class="item item-divider title">
+                Account
+            </div>
+            <div class="item item-icon-left settings-option">
+                <i class="icon ion-ios-email-outline"></i> {{user.email}}
+            </div>
+            <a class="item item-icon-left settings-option" ng-click="changePasswordPrompt()">
+                <i class="icon ion-ios-locked-outline"></i> Change Password
+            </a>
+            <div class="item item-icon-left settings-option">
+                <i class="icon ion-ios-person-outline"></i> {{user.fname}} {{user.lname}}
+            </div>
+            <div class="item item-icon-left settings-option">
+                <i class="icon ion-iphone"></i> {{user.phoneNum}}
+            </div>
+            <a class="item item-icon-left settings-option" ng-click="addressBook()">
+                <i class="icon ion-ios-location-outline"></i> Address Book
+            </a>
+            <div class="item item-divider title">
+                App Settings
+            </div>
+            <a class="item item-icon-left settings-option" ui-sref="facebook-sign-in">
+                <i class="icon ion-ios-close-outline"></i> Sign Out
+            </a>
+            <div class="item item-divider title">
+                More
+            </div>
+            <a class="item item-icon-left settings-option" ng-click="showTerms()">
+                <i class="icon ion-ios-information-outline"></i> Terms of Service
+            </a>
+            <a class="item item-icon-left settings-option" ng-click="showPrivacyPolicy()">
+                <i class="icon ion-ios-locked-outline"></i> Privacy Policy
+            </a>
+            <a class="item item-icon-left settings-option">
+                <i class="icon ion-ios-help-outline"></i> Feedback
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

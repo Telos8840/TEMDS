@@ -61,7 +61,7 @@ angular.module('temds.auth.services', [])
      * @returns {Boolean} true on success
      */
     this.registerNewUser = function (
-        email, rawPass, fname, lname, phoneNum, addr1, addr2, city, state, zipcode) {
+        email, rawPass, fname, lname, bday, phoneNum, addr1, addr2, city, state, zipcode) {
         var dfd = $q.defer();
         /*TODO: Set URI
         $http.post(_API_HOST_ + '', {
@@ -69,6 +69,7 @@ angular.module('temds.auth.services', [])
             rawPass: rawPass,
             fname: fname,
             lname: lname,
+            bday: bday,
             phoneNum: phoneNum,
             address: {
                 name: 'My Address', // default address name
@@ -94,6 +95,7 @@ angular.module('temds.auth.services', [])
             rawPass: rawPass,
             fname: fname,
             lname: lname,
+            bday: bday,
             phoneNum: phoneNum,
             address: {
                 name: 'My Address', // default address name

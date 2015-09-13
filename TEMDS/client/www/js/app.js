@@ -92,16 +92,6 @@ angular.module('temds', [
         }
     })
 
-    .state('app.settings', {
-        url: "/settings",
-        views: {
-            'menuContent': {
-                templateUrl: "views/app/profile/settings.html",
-                controller: 'SettingsCtrl'
-            }
-        }
-    })
-
     .state('app.shop', {
         url: "/shop",
         abstract: true,
@@ -182,6 +172,39 @@ angular.module('temds', [
         }
     })
 
+    .state('app.settings', {
+        url: "/settings",
+        views: {
+            'menuContent': {
+                templateUrl: "views/app/profile/settings.html",
+                controller: 'SettingsCtrl'
+            }
+        }
+    })
+
+    /** Address Book **/
+    .state('app.address-book', {
+        url: "/address-book",
+        views: {
+            'menuContent': {
+                templateUrl: "views/app/address-book/address-book.html",
+                controller: "AddressBookCtrl"
+            }
+        }
+    })
+
+    /** My Account **/
+    .state('app.my-account', {
+        url: "/my-account",
+        views: {
+            'menuContent': {
+                templateUrl: "views/app/my-account/my-account.html",
+                controller: 'MyAccountCtrl'
+            }
+        }
+    })
+
+
 
     //AUTH ROUTES
     .state('splash-page', {
@@ -204,30 +227,18 @@ angular.module('temds', [
     })
 
     .state('register-form', {
-        url: "/user/register-form",
-        templateUrl: "views/auth/register-form.html",
-        controller: 'RegisterAccountCtrl',
-        params: {
-            'email': null
-        }
-    })
-
-    /** Address Book **/
-    .state('app.address-book', {
-        url: "/address-book",
-        views: {
-            'menuContent': {
-                templateUrl: "views/app/address-book/address-book.html",
-                controller: "AddressBookCtrl"
+            url: "/user/register-form",
+            templateUrl: "views/auth/register-form.html",
+            controller: 'RegisterAccountCtrl',
+            params: {
+                'email': null
             }
-        }
-    })
-
-    .state('facebook-sign-in', {
-        url: "/facebook-sign-in",
-        templateUrl: "views/auth/facebook-sign-in.html",
-        controller: 'WelcomeCtrl'
-    })
+        })
+        .state('facebook-sign-in', {
+            url: "/facebook-sign-in",
+            templateUrl: "views/auth/facebook-sign-in.html",
+            controller: 'WelcomeCtrl'
+        })
 
     .state('dont-have-facebook', {
         url: "/dont-have-facebook",
@@ -249,7 +260,8 @@ angular.module('temds', [
 
     // if none of the above states are matched, use this as the fallback
     //$urlRouterProvider.otherwise('/splash-page');
-    $urlRouterProvider.otherwise('/app/address-book');
+    //$urlRouterProvider.otherwise('/app/my-account');
+    $urlRouterProvider.otherwise('user/register-form');
 
     //$urlRouterProvider.otherwise('/app/feed');
 })
