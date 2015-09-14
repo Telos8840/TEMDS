@@ -5,7 +5,7 @@
  * Time: 5:37 PM
  */
 
-var response = require('./response');
+var response = require('../helpers/response');
 var pwdMgr = require('./managePasswords');
 var nodeMailer = require('nodemailer');				//http://blog.nodeknockout.com/post/34641712180/sending-email-from-nodejs
 
@@ -96,7 +96,7 @@ module.exports = function (server, db) {
 
           if (err) {
 
-            response.error(res, "Error trying to find email in pending_users table");
+            response.error(res, "Error trying to find email in pending_users table", err);
 
           } else if(!err && penUser) {
 
@@ -107,7 +107,7 @@ module.exports = function (server, db) {
 
             db.pending_users.update({Email: userEmail}, { $set: {ConfirmationNumber: cnfrm, ModifiedDate: new Date()} },
               function (err, data) {
-                if(err) response.error(res, "Error updating activation number for " + userEmail);
+                if(err) response.error(res, "Error updating activation number for " + userEmail, err);
               });
 
             // User exists in pending users, resend confirmation email
@@ -128,7 +128,7 @@ module.exports = function (server, db) {
 
             db.pending_users.insert(user, function (err, dbUser) {
 
-              if(err) response.error(res, "Error inserting pending_user - " + userEmail);
+              if(err) response.error(res, "Error inserting pending_user - " + userEmail, err);
 
               sendConfirmationEmail(res, dbUser);
 
@@ -137,7 +137,7 @@ module.exports = function (server, db) {
           }
         });
       } else {
-        response.error(res, "Error a user with this email already exists - " + userEmail);
+        response.error(res, "Error a user with this email already exists - " + userEmail, err);
       }
     });
 
@@ -157,7 +157,7 @@ module.exports = function (server, db) {
 
     db.pending_users.findOne({Email: email}, function (err, dbUser) {
       if (err) {
-        response.error(res, "Error finding email - " + email);
+        response.error(res, "Error finding email - " + email, err);
 
       } else if(!err && dbUser) {
         var dbConfirm = parseInt(dbUser.ConfirmationNumber);
@@ -166,15 +166,15 @@ module.exports = function (server, db) {
 
           db.pending_users.update({Email: email}, { $set: {Activated: true, ModifiedDate: new Date()} },
             function (err, data) {
-              if(err) response.error(res, "Error updating user " + email);
-              else response.success(res, "User updated " + email);
+              if(err) response.error(res, "Error updating user " + email, err);
+              else response.success(res, "User activated " + email);
 
           });
         } else {
-          response.error(res, "Error: Confirmation number doesn't match for " + email);
+          response.error(res, "Error: Confirmation number doesn't match for " + email, err);
         }
       } else {
-        response.error(res, "Error: Email doesn't exist - " + email);
+        response.error(res, "Error: Email doesn't exist - " + email, err);
       }
     });
 
@@ -182,42 +182,72 @@ module.exports = function (server, db) {
   });
 
   /**
-   * API to register new user
+   * API to register new user. Checks if user has activated account
+   * via confirmation number. If account is activated, delete record
+   * from pending users and add to main user table.
    *
    * @param email
-   * @param firstName
-   * @param lastName
+   * @param fName
+   * @param lName
    * @param birthday
-   * @param phone
-   * @param password
+   * @param phoneNum
+   * @param rawPassword
    */
   server.post('api/user/registerUser', function (req, res, next) {
     console.log("\n *** Registering new user *** \n");
 
     var user = req.params;
-    pwdMgr.cryptPassword(user.password, function (err, hash) {
-      user.password = hash;
-      console.log("n", hash);
-      //db.appUsers.insert(user,
-      //  function (err, dbUser) {
-      //    if (err) { // duplicate key error
-      //      if (err.code == 11000) /* http://www.mongodb.org/about/contributors/error-codes/*/ {
-      //        res.writeHead(400, {
-      //          'Content-Type': 'application/json; charset=utf-8'
-      //        });
-      //        res.end(JSON.stringify({
-      //          error: err,
-      //          message: "A user with this email already exists"
-      //        }));
-      //      }
-      //    } else {
-      //      res.writeHead(200, {
-      //        'Content-Type': 'application/json; charset=utf-8'
-      //      });
-      //      dbUser.password = "";
-      //      res.end(JSON.stringify(dbUser));
-      //    }
-      //  });
+
+    pwdMgr.cryptPassword(user.rawPassword, function (err, hash) {
+      user.rawPassword = hash;
+
+      db.pending_users.findOne({Email: user.email} , function (err, penUser) {
+        if (!penUser) response.error(res, "User not found");
+
+        console.log("user found", penUser);
+
+        if(penUser.Activated) {
+
+          var userInsert = {
+            Email: user.email,
+            Password: user.rawPassword,
+            InsertDate: new Date(),
+            ModifiedDate: new Date()
+          };
+
+          console.log("user table", userInsert);
+
+          db.users.insert(userInsert, function (err, actUser) {
+            if(err) {
+              response.error(res, "Error inserting into user table - " + userInsert.email, err);
+            } else {
+              db.pending_users.remove({_id: db.ObjectId(penUser._id)}, function (err, data) {
+                if (err) response.error(res, "Error deleting user - " + actUser.email, err);
+              });
+
+              var userDetail = {
+                UserKey: actUser._id,
+                FirstName: user.fName,
+                LastName: user.lName,
+                Phone: user.phoneNum,
+                Birthday: user.bday,
+                Address: {},
+                InsertDate: new Date(),
+                ModifiedDate: new Date()
+              };
+
+              console.log("user detail", userDetail);
+
+              db.user_detail.insert(userDetail, function (err, detail) {
+                if (err) response.error(res, "Error inserting user detail for - " + user.email, err);
+                else response.success(res, "User Registered");
+              });
+            }
+          });
+        } else {
+          response.error(res, "User hasn't used confirmation number yet - " + user.email, err);
+        }
+      });
     });
     return next();
   });

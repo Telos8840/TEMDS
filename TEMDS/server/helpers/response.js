@@ -19,7 +19,7 @@ module.exports.success = function (res, message) {
   }));
 };
 
-module.exports.error = function (res, message) {
+module.exports.error = function (res, message, err) {
   message = !message ? "Error" : message;
 
   console.log("HTTP Status 400:", message);
@@ -29,6 +29,7 @@ module.exports.error = function (res, message) {
   });
 
   res.end(JSON.stringify({
+    error: err,
     message: message
   }));
-}
+};

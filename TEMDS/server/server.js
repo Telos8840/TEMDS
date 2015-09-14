@@ -6,7 +6,7 @@
 */
 
 var databaseUrl = 'mongodb://admin:T3m284D107$@ds035663.mongolab.com:35663/temds';
-var collections = ['users', 'pending_users'];
+var collections = ['users', 'pending_users', 'user_detail'];
 
 var restify           = require('restify'),
 	  restifyValidation = require('node-restify-validation'), //https://github.com/z0mt3c/node-restify-validation/blob/master/README.md
