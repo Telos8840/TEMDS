@@ -136,10 +136,10 @@ angular.module('temds.auth.controllers', [])
         RegisterService.registerNewUser(
             $scope.user.email,
             $scope.user.password,
-            $scope.user.fname,
-            $scope.user.lname,
-            $scope.user.bday,
-            $scope.user.phone,
+            $scope.user.fName,
+            $scope.user.lName,
+            $scope.user.bDay,
+            $scope.user.phoneNum,
             $scope.user.address.addr1,
             $scope.user.address.addr2,
             $scope.user.address.city,
@@ -147,8 +147,10 @@ angular.module('temds.auth.controllers', [])
             $scope.user.address.zipcode
         ).then(function (data) {
             if (data) {
-                // TODO: Go somewhere
-                // $state.go('');
+                $ionicPopup.alert({
+                    title: 'Success',
+                    content: 'Worked!'
+                });
             } else {
                 $ionicPopup.alert({
                     title: 'Error',

@@ -61,21 +61,21 @@ angular.module('temds.auth.services', [])
      * @returns {Boolean} true on success
      */
     this.registerNewUser = function (
-        email, rawPass, fname, lname, bday, phoneNum, addr1, addr2, city, state, zipcode) {
+        email, rawPass, fName, lName, bDay, phoneNum, addr1, addr2, city, state, zipcode) {
         var dfd = $q.defer();
-        /*TODO: Set URI
-        $http.post(_API_HOST_ + '', {
+
+        $http.post(_API_HOST_ + 'api/user/registerUser', {
             email: email,
-            rawPass: rawPass,
-            fname: fname,
-            lname: lname,
-            bday: bday,
+            rawPass: encodeURIComponent(rawPass),
+            fName: encodeURIComponent(fName),
+            lName: encodeURIComponent(lName),
+            bDay: moment(bDay).format('MM/DD/YYYY'),
             phoneNum: phoneNum,
             address: {
-                name: 'My Address', // default address name
-                addr1: addr1,
-                addr2: addr2 ? addr2 : '',
-                city: city,
+                name: 'Home', // default address name
+                addr1: encodeURIComponent(addr1),
+                addr2: encodeURIComponent(addr2 ? addr2 : ''),
+                city: encodeURIComponent(city),
                 state: state,
                 zipcode: zipcode,
                 primary: true // this is the first address                
@@ -88,14 +88,13 @@ angular.module('temds.auth.services', [])
             console.log(response.data.message);
             dfd.resolve(false);
         });
-        */
 
         console.log({
             email: email,
             rawPass: rawPass,
-            fname: fname,
-            lname: lname,
-            bday: bday,
+            fName: fName,
+            lName: lName,
+            bDay: moment(bDay).format('MM/DD/YYYY'),
             phoneNum: phoneNum,
             address: {
                 name: 'My Address', // default address name

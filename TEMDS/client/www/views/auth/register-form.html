@@ -39,16 +39,16 @@
                         <div class="row multi-inputs">
                             <div class="col">
                                 <label class="item item-input">
-                                    <input class="multi-input" type="text" placeholder="First Name" name="fname" ng-model="user.fname" required>
-                                    <span class="error" ng-show="register_form.fname.$error.required">
+                                    <input class="multi-input" type="text" placeholder="First Name" name="fName" ng-model="user.fName" required>
+                                    <span class="error" ng-show="register_form.fName.$error.required">
                                         Required!
                                     </span>
                                 </label>
                             </div>
                             <div class="col">
                                 <label class="item item-input">
-                                    <input class="multi-input" type="text" placeholder="Last Name" name="lname" ng-model="user.lname" required>
-                                    <span class="error" ng-show="register_form.lname.$error.required">
+                                    <input class="multi-input" type="text" placeholder="Last Name" name="lName" ng-model="user.lName" required>
+                                    <span class="error" ng-show="register_form.lName.$error.required">
                                         Required!
                                     </span>
                                 </label>
@@ -57,13 +57,13 @@
 
                         <label class="item item-input">
                             <span class="input-label" style="font-size:15px; color:#9a9a9a;">Birthday</span>
-                            <input class="multi-input" type="date" placeholder="Birthday" name="bday" ng-model="user.bday" required>
+                            <input class="multi-input" type="date" placeholder="Birthday" name="bDay" ng-model="user.bDay" required>
                         </label>
 
                         <!-- User Phone Number -->
                         <label class="item item-input">
-                            <input type="tel" placeholder="Phone Number" ng-minlength="10" ng-maxlength="16" name="phone" ng-model="user.phone" ng-pattern="/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/" required>
-                            <span class="error" ng-show="register_form.phone.$error.required || register_form.phone.$error.pattern || register_form.phone.$error.maxlength">
+                            <input type="tel" placeholder="Phone Number" ng-minlength="10" ng-maxlength="16" name="phoneNum" ng-model="user.phoneNum" ng-pattern="/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/" required>
+                            <span class="error" ng-show="register_form.phoneNum.$error.required || register_form.phoneNum.$error.pattern || register_form.phoneNum.$error.maxlength">
                                 eg. 123-456-7890
                             </span>
                         </label>
