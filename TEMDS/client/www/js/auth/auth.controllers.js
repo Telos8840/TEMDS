@@ -61,6 +61,13 @@ angular.module('temds.auth.controllers', [])
 
     var sendConfirmTimer, sendConfirmTime = 0;
 
+    $scope.resetTimer = function () {
+        $interval.cancel(sendConfirmTimer);
+        sendConfirmTimer = undefined;
+        $scope.timerInvalid = false;
+        $scope.sendConfirmText = "Send Confirmation Email";
+    }
+
     /**
      * Send an email to user with confirmation number.
      * Confirmation number is used to validate user's email.
@@ -75,10 +82,7 @@ angular.module('temds.auth.controllers', [])
 
         sendConfirmTimer = $interval(function () {
             if (sendConfirmTime <= 1) {
-                $interval.cancel(sendConfirmTimer);
-                sendConfirmTimer = undefined;
-                $scope.sendConfirmText = "Send Confirmation Email";
-                $scope.timerInvalid = false;
+                $scope.resetTimer();
             } else {
                 $scope.sendConfirmText = "Please wait " + (--sendConfirmTime) + " seconds..."
             }
@@ -87,27 +91,32 @@ angular.module('temds.auth.controllers', [])
         // Send email confirmation
         RegisterService.sendEmailConfirmation($scope.user.email)
             .then(function (data) {
-                if (data) {
+                switch (data) {
+                case 200:
                     $ionicPopup.alert({
                         title: 'Confirmaion Sent',
                         content: 'Email has been sent to ' + $scope.user.email +
                             ' with five digit confirmation numbers.'
                     }).then(function () {});
-                } else {
-                    // Stop Timer on Error
-                    if (sendConfirmTimer) {
-                        $interval.cancel(sendConfirmTimer);
-                        sendConfirmTimer = undefined;
-                        $scope.timerInvalid = false;
-                        $scope.sendConfirmText = "Send Confirmation Email";
-                    }
-
+                    break;
+                case 400:
+                    // Display Error
+                    $ionicPopup.alert({
+                        title: 'Invalid Email',
+                        content: $scope.user.email + ' is already in our database.'
+                    }).then(function () {
+                        console.log("TODO: sendEmailConfirmation - send to password recovery view.")
+                    });
+                    $scope.resetTimer();
+                    break;
+                default:
                     // Display Error
                     $ionicPopup.alert({
                         title: 'Error',
                         content: 'We were unable to send a confirmation email to ' +
                             $scope.user.email + '. Please contact the administrator.'
                     });
+                    $scope.resetTimer();
                 }
             });
     };

@@ -260,8 +260,8 @@ angular.module('temds', [
 
     // if none of the above states are matched, use this as the fallback
     //$urlRouterProvider.otherwise('/splash-page');
-    //$urlRouterProvider.otherwise('/app/my-account');
-    $urlRouterProvider.otherwise('user/register-form');
+    $urlRouterProvider.otherwise('/app/my-account');
+    //$urlRouterProvider.otherwise('user/register-form');
 
     //$urlRouterProvider.otherwise('/app/feed');
 })

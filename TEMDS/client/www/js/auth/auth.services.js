@@ -7,7 +7,7 @@ angular.module('temds.auth.services', [])
      * Validate user email by sending an email with number. 
      * This is the 1st step to register a new user.
      * @param   {String!}  email User email address
-     * @returns {Boolean} True on success
+     * @returns {Number} Status Code
      */
     this.sendEmailConfirmation = function (email) {
         var dfd = $q.defer();
@@ -15,10 +15,10 @@ angular.module('temds.auth.services', [])
         $http.post(_API_HOST_ + 'api/user/emailConfirmation', {
             email: email
         }).success(function (response) {
-            dfd.resolve(true);
+            dfd.resolve(response.status);
         }).catch(function (response) {
-            console.log(response.data.message);
-            dfd.resolve(false);
+            console.log(response);
+            dfd.resolve(response.status);
         });
 
         return dfd.promise;
@@ -66,17 +66,17 @@ angular.module('temds.auth.services', [])
 
         $http.post(_API_HOST_ + 'api/user/registerUser', {
             email: email,
-            rawPass: encodeURIComponent(rawPass),
-            fName: encodeURIComponent(fName),
-            lName: encodeURIComponent(lName),
+            rawPass: rawPass,
+            fName: fName,
+            lName: lName,
             bDay: moment(bDay).format('MM/DD/YYYY'),
             phoneNum: phoneNum,
             address: {
                 name: 'Home', // default address name
-                addr1: encodeURIComponent(addr1),
-                addr2: encodeURIComponent(addr2 ? addr2 : ''),
-                city: encodeURIComponent(city),
-                state: state,
+                addr1: addr1,
+                addr2: addr2 ? addr2 : '',
+                city: city,
+                state: state.abbr,
                 zipcode: zipcode,
                 primary: true // this is the first address                
             }
@@ -101,7 +101,7 @@ angular.module('temds.auth.services', [])
                 addr1: addr1,
                 addr2: addr2 ? addr2 : '',
                 city: city,
-                state: state,
+                state: state.abbr,
                 zipcode: zipcode,
                 primary: true // this is the first address                
             }
