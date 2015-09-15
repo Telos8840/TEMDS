@@ -27,27 +27,23 @@ var smtpTransport = nodeMailer.createTransport("SMTP",{
 var sendConfirmationEmail = function (res, user) {
   // Send confirmation email
   // TODO: Make email body sexier!
-  console.log("Sending email to: ", user.Email);
+  console.log("Sending email to: ", user.email);
 
   var mailOptions = {
     from: "TEMDS Sender <donotreply@temds.com>", // sender address
-    to: "<"+user.Email+">", // comma separated list of receivers
+    to: "<"+user.email+">", // comma separated list of receivers
     subject: "TEMDS - Email Confirmation Number",
-    text: "Confirmation Number: " + user.ConfirmationNumber
+    text: "Confirmation Number: " + user.confirmationNumber
   };
 
   smtpTransport.sendMail(mailOptions, function(error, response) {
     console.log("email response: ", response);
 
     if (error) {
-      console.log("Error sending email: ", error);
-
-      res.send(error);
+      response.error(res, "Error sending email to " + user.email);
     }
     else {
-      console.log("Email successfully sent");
-
-      res.send('Confirmation sent to ' + user.Email + '.');
+      response.success(res, 'Confirmation sent to ' + user.email);
     }
   });
   // TODO: Push confirmation number and email to db
@@ -61,13 +57,13 @@ module.exports = function (server, db) {
 
   // unique index
   db.pending_users.ensureIndex({
-    "Email": 1
+    "email": 1
   }, {
     unique: true
   });
 
   db.users.ensureIndex({
-    "Email": 1
+    "email": 1
   }, {
     unique: true
   });
@@ -80,7 +76,7 @@ module.exports = function (server, db) {
     console.log("\n *** User being registered *** \n");
 
     var userEmail = req.params.email;
-    db.users.findOne({Email: userEmail}, function (err, userExists) {
+    db.users.findOne({email: userEmail}, function (err, userExists) {
       console.log("Looking in users table");
 
       // Check if user already exists in main user table
@@ -92,7 +88,7 @@ module.exports = function (server, db) {
 
         // User doesn't exist in main User table
         // Check if they're in pending table
-        db.pending_users.findOne({Email: userEmail}, function (err, penUser) {
+        db.pending_users.findOne({email: userEmail}, function (err, penUser) {
           console.log("Looking in pending users");
 
           if (err) {
@@ -104,9 +100,9 @@ module.exports = function (server, db) {
             console.log("User exists in table, regenerating confirm number");
 
             var cnfrm = (""+Math.random()).substring(2,7);
-            penUser.ConfirmationNumber = cnfrm;
+            penUser.confirmationNumber = cnfrm;
 
-            db.pending_users.update({_id: db.ObjectId(penUser._id)}, { $set: {ConfirmationNumber: cnfrm, ModifiedDate: new Date()} },
+            db.pending_users.update({_id: db.ObjectId(penUser._id)}, { $set: {confirmationNumber: cnfrm, modifiedDate: new Date()} },
               function (err, data) {
                 if(err) response.error(res, "Error updating activation number for " + userEmail, err);
               });
@@ -120,11 +116,11 @@ module.exports = function (server, db) {
             // 5 digit confirmation number
             var cnfrm = (""+Math.random()).substring(2,7);
             var user = {
-              Email: userEmail,
-              ConfirmationNumber: cnfrm,
-              Activated: false,
-              InsertDate: new Date(),
-              ModifiedDate: new Date()
+              email: userEmail,
+              confirmationNumber: cnfrm,
+              activated: false,
+              insertDate: new Date(),
+              modifiedDate: new Date()
             };
 
             db.pending_users.insert(user, function (err, dbUser) {
@@ -156,20 +152,19 @@ module.exports = function (server, db) {
     var email       = req.params.email,
         confirmNum  = parseInt(req.params.confirmNum);
 
-    db.pending_users.findOne({Email: email}, function (err, dbUser) {
+    db.pending_users.findOne({email: email}, function (err, dbUser) {
       if (err) {
         response.error(res, "Error finding email - " + email, err);
 
       } else if(!err && dbUser) {
-        var dbConfirm = parseInt(dbUser.ConfirmationNumber);
+        var dbConfirm = parseInt(dbUser.confirmationNumber);
 
         if(confirmNum == dbConfirm) {
 
-          db.pending_users.update({_id: db.ObjectId(dbUser._id)}, { $set: {Activated: true, ModifiedDate: new Date()} },
+          db.pending_users.update({_id: db.ObjectId(dbUser._id)}, { $set: {activated: true, modifiedDate: new Date()} },
             function (err, data) {
               if(err) response.error(res, "Error updating user " + email, err);
               else response.success(res, "User activated " + email);
-
           });
         } else {
           response.error(res, "Error: Confirmation number doesn't match for " + email, err);
@@ -202,18 +197,18 @@ module.exports = function (server, db) {
     pwdMgr.cryptPassword(user.rawPassword, function (err, hash) {
       user.rawPassword = hash;
 
-      db.pending_users.findOne({Email: user.email} , function (err, penUser) {
-        if (!penUser) response.error(res, "User not found");
+      db.pending_users.findOne({email: user.email} , function (err, penUser) {
+        if (!penUser) response.error(res, "User not found - " + user.email);
 
         console.log("user found", penUser);
 
         if(penUser.Activated) {
 
           var userInsert = {
-            Email: user.email,
-            Password: user.rawPassword,
-            InsertDate: new Date(),
-            ModifiedDate: new Date()
+            email: user.email,
+            rawPassword: user.rawPassword,
+            insertDate: new Date(),
+            modifiedDate: new Date()
           };
 
           console.log("user table", userInsert);
@@ -226,15 +221,29 @@ module.exports = function (server, db) {
                 if (err) response.error(res, "Error deleting user - " + actUser.email, err);
               });
 
+              var address = [];
+              var newAdd = {
+                id: db.ObjectId(),
+                name: user.address.name,
+                addr1: user.address.addr1,
+                addr2: user.address.addr2,
+                city: user.address.city,
+                state: user.address.state,
+                zipcode: user.address.zipcode,
+                primary: user.address.primary
+              };
+
+              address.push(newAdd);
+
               var userDetail = {
-                UserKey: actUser._id,
-                FirstName: user.fName,
-                LastName: user.lName,
-                Phone: user.phoneNum,
-                Birthday: user.bday,
-                Address: [],
-                InsertDate: new Date(),
-                ModifiedDate: new Date()
+                userKey: actUser._id,
+                fName: user.fName,
+                lName: user.lName,
+                phoneNum: user.phoneNum,
+                bDay: user.bDay,
+                address: address,
+                insertDate: new Date(),
+                modifiedDate: new Date()
               };
 
               console.log("user detail", userDetail);
@@ -270,91 +279,69 @@ module.exports = function (server, db) {
 
     var detail = req.params;
 
-    db.user_detail.findOne({UserKey: db.ObjectId(detail.id)}, function (err, dbDetail) {
-      if (err) response.error(res, "Error finding user_detail id", err);
+    db.user_detail.findOne({userKey: db.ObjectId(detail.id)}, function (err, dbDetail) {
+      if (err) response.error(res, "Error finding user_detail id - " + detail.id, err);
       else if (!dbDetail) response.error(res, "Can't find id in user detail " + detail.id, err);
       else {
 
         var newAdd = {
-            Name: detail.name,
-            Addr1: detail.addr1,
-            Addr2: detail.addr2,
-            City: detail.city,
-            State: detail.state,
-            Zipcod: detail.zipcode,
-            Primary: detail.primary
+            id: db.ObjectId(),
+            name: detail.name,
+            addr1: detail.addr1,
+            addr2: detail.addr2,
+            city: detail.city,
+            state: detail.state,
+            zipcode: detail.zipcode,
+            primary: detail.primary
           };
 
-        /**dbDetail.Address = [
-            {
-              "id": "000000000002",
-              "name": "Work",
-              "addr1": "666 Devil Blvd",
-              "addr2": "Ste #6",
-              "city": "Los Angeles",
-              "state": "CA",
-              "zipcode": 90006,
-              "primary": false
-            },
-            {
-              "id": "000000000003",
-              "name": "Bryant's Office",
-              "addr1": "4321 Wilshire Blvd.",
-              "addr2": "Ste 1320",
-              "city": "Los Angeles",
-              "state": "CA",
-              "zipcode": 90004,
-              "primary": false
-            },
-            {
-              "id": "000000000004",
-              "name": "Jade's grandmother's apartment",
-              "addr1": "2610 West 3rd Street",
-              "addr2": "",
-              "city": "Los Angeles",
-              "state": "CA",
-              "zipcode": 90057,
-              "primary": false
-            },
-            {
-              "id": "000000000005",
-              "name": "Mom",
-              "addr1": "931 Andover Dr",
-              "addr2": "Fl. 3",
-              "city": "Burbank",
-              "state": "CA",
-              "zipcode": 91504,
-              "primary": false
-            },
-            {
-              "id": "000000000006",
-              "name": "Uncle Bob",
-              "addr1": "13100 Prairie Ave",
-              "addr2": "",
-              "city": "Hawthorne",
-              "state": "CA",
-              "zipcode": 90250,
-              "primary": false
-            }
-
-          ];**/
-
         if(detail.primary == true) {
-          _.forEach(dbDetail.Address, function (n) {
-            if(n.Primary) n.Primary = false;
+          _.forEach(dbDetail.address, function (n) {
+            if(n.primary) n.primary = false;
           });
 
-          dbDetail.Address.unshift(newAdd);
+          dbDetail.address.unshift(newAdd);
         } else {
-          dbDetail.Address.push(newAdd);
+          dbDetail.address.push(newAdd);
         }
 
-        db.user_detail.update({UserKey: db.ObjectId(detail.id)},
-          {$set: {Address: dbDetail.Address, ModifiedDate: new Date()}}, function (err, data) {
+        db.user_detail.update({userKey: db.ObjectId(detail.id)},
+          {$set: {address: dbDetail.address, modifiedDate: new Date()}}, function (err, data) {
           if (err) response.error(res, "Error updating details for " + detail.id, err);
         });
 
-        response.success(res);
+        response.success(res, "Address added to user list");
+      }
+    });
+    return next();
+  });
+
+  /**
+   * Gets list of address for given user
+   *
+   * @param id
+   * @param itemPerList
+   * @param listNumber
+   */
+  server.get('api/user/getAddresses/:id/:itemPerList/:listNumber', function (req, res, next) {
+    console.log("\n *** Getting addresses *** \n");
+
+    console.log("params", req.params);
+
+    var itemPerList = req.params.itemPerList,
+        listNumber  = req.params.listNumber;
+
+    db.user_detail.findOne({userKey: db.ObjectId(req.params.id)}, function (err, dbDetail) {
+      if (err) response.error(res, "Error finding user_detail id - " + req.params.id, err);
+      else if (!dbDetail) response.error(res, "Can't find id in user detail " + req.params.id, err);
+      else {
+        var addresses = dbDetail.address;
+
+        if(_.size(addresses) < itemPerList) {
+          response.sendJSON(res, addresses);
+        } else {
+          response.sendJSON(res, addresses);
+        }
       }
     });
     return next();

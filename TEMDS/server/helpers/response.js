@@ -15,7 +15,8 @@ module.exports.success = function (res, message) {
   });
 
   res.end(JSON.stringify({
-    message: message
+    message: message,
+    data: data
   }));
 };
 
@@ -33,3 +34,13 @@ module.exports.error = function (res, message, err) {
     message: message
   }));
 };
+
+module.exports.sendJSON = function (res, json) {
+  console.log("HTTP Status 200: Sending JSON");
+
+  res.writeHead(200, {
+    'Content-Type': 'application/json; charset=utf-8'
+  });
+
+  res.end(JSON.stringify(json));
+}
