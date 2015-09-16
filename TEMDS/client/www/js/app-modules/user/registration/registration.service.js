@@ -1,6 +1,6 @@
 angular.module('temds.user.services')
 
-.service('RegisterService', function ($http, $q) {
+.service('RegisterService', function ($http, $q, $localstorage) {
     // Signup Step #1: Send confirmation email
 
     /**
@@ -12,10 +12,10 @@ angular.module('temds.user.services')
     this.sendEmailConfirmation = function (email) {
         var dfd = $q.defer();
 
-        $http.post(_API_HOST_ + 'api/user/emailConfirmation', {
+        $http.post(_API_HOST_ + 'api/auth/emailConfirmation', {
             email: email
         }).success(function (response) {
-            dfd.resolve(200);
+            dfd.resolve(_SUCCESS_);
         }).catch(function (response) {
             console.log(response);
             dfd.resolve(response.status);
@@ -33,7 +33,7 @@ angular.module('temds.user.services')
     this.checkEmailConfirmation = function (email, confirmNum) {
         var dfd = $q.defer();
 
-        $http.post(_API_HOST_ + 'api/user/confirmationNumber', {
+        $http.post(_API_HOST_ + 'api/auth/confirmationNumber', {
             email: email,
             confirmNum: parseInt(confirmNum)
         }).success(function (response) {
@@ -47,66 +47,40 @@ angular.module('temds.user.services')
     }
 
     /**
-     * Create new user.
-     * @param   {String!} email    email address
-     * @param   {String!} rawPass  raw password
-     * @param   {String!} fname    first name
-     * @param   {String!} lname    last name
-     * @param   {String!} phoneNum phone number
-     * @param   {String!} addr1    address field 1
-     * @param   {String?} addr2    typically apt. ste. fl. number
-     * @param   {String!} city     city/county
-     * @param   {String!} state    state abbriviation
-     * @param   {Number!} zipcode  zipcode
-     * @returns {Boolean} true on success
+     * Create user
+     * @param   {Object}  userData User Object
+     * @returns {Boolean} success or fail
      */
-    this.registerNewUser = function (
-        email, rawPass, fName, lName, bDay, phoneNum, addr1, addr2, city, state, zipcode) {
+    this.registerNewUser = function (userData) {
         var dfd = $q.defer();
 
-        $http.post(_API_HOST_ + 'api/user/registerUser', {
-            email: email,
-            rawPass: rawPass,
-            fName: fName,
-            lName: lName,
-            bDay: moment(bDay).format('MM/DD/YYYY'),
-            phoneNum: phoneNum,
-            address: {
-                name: 'Home', // default address name
-                addr1: addr1,
-                addr2: addr2 ? addr2 : '',
-                city: city,
-                state: state.abbr,
-                zipcode: zipcode,
-                primary: true // this is the first address                
-            }
-        }).success(function (response) {
-            // TODO: Save local user data here!
-            // Save user uId and salt password
-            dfd.resolve(true);
-        }).catch(function (response) {
-            console.log(response.data.message);
-            dfd.resolve(false);
-        });
+        // format and set defaults
+        var data = angular.copy(userData);
+        data.bDay = moment(userData.bDay).format('MM/DD/YYYY');
+        data.address.name = 'My Home';
+        data.address.state = userData.address.state.abbr;
+        data.address.primary = true;
 
-        console.log({
-            email: email,
-            rawPass: rawPass,
-            fName: fName,
-            lName: lName,
-            bDay: moment(bDay).format('MM/DD/YYYY'),
-            phoneNum: phoneNum,
-            address: {
-                name: 'My Address', // default address name
-                addr1: addr1,
-                addr2: addr2 ? addr2 : '',
-                city: city,
-                state: state.abbr,
-                zipcode: zipcode,
-                primary: true // this is the first address                
-            }
-        });
+        $http.post(_API_HOST_ + 'api/auth/registerUser', data)
+            .success(function (response) {
+                data.id = response.id;
+                data.saltPass = response.saltPass;
+                delete data.rawPass;
+                $localstorage.setObject('user', data);
+                dfd.resolve(true);
+            }).catch(function (response) {
+                console.log(response.data.message);
+                dfd.resolve(false);
+            });
 
         return dfd.promise;
+    }
+
+    /**
+     * This is debug use only.
+     * TODO: remove
+     */
+    this.LocalStorageUser = function () {
+        return $localstorage.getObject('user');
     }
 });

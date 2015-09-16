@@ -1,3 +1,6 @@
+/* Global Enum */
+var _SUCCESS_ = 777;
+
 /* Global Variables */
 var _API_HOST_ = 'http://temds.herokuapp.com/';
 

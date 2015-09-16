@@ -44,7 +44,7 @@ angular.module('temds.user.controllers')
         RegisterService.sendEmailConfirmation($scope.user.email)
             .then(function (data) {
                 switch (data) {
-                case 200:
+                case _SUCCESS_:
                     $ionicPopup.alert({
                         title: 'Confirmaion Sent',
                         content: 'Email has been sent to ' + $scope.user.email +
@@ -93,32 +93,29 @@ angular.module('temds.user.controllers')
             });
     };
 
+    /**
+     * Register new user.
+     * user object should contain:
+     *     email, rawPass, fName, lName, phoneNum, bDay, and address object.
+     *     address object should contain:
+     *         name, addr1, addr2, city, state, zipcode, and primary
+     */
     $scope.registerNewUser = function () {
-        RegisterService.registerNewUser(
-            $scope.user.email,
-            $scope.user.password,
-            $scope.user.fName,
-            $scope.user.lName,
-            $scope.user.bDay,
-            $scope.user.phoneNum,
-            $scope.user.address.addr1,
-            $scope.user.address.addr2,
-            $scope.user.address.city,
-            $scope.user.address.state,
-            $scope.user.address.zipcode
-        ).then(function (data) {
-            if (data) {
-                $ionicPopup.alert({
-                    title: 'Success',
-                    content: 'Worked!'
-                });
-            } else {
-                $ionicPopup.alert({
-                    title: 'Error',
-                    content: 'Unable to create new user. Please contact the administrator.'
-                });
-            }
-        })
+        RegisterService.registerNewUser($scope.user)
+            .then(function (data) {
+                if (data) {
+                    $ionicPopup.alert({
+                        title: 'Success',
+                        content: 'Worked!'
+                    });
+                    console.log(RegisterService.LocalStorageUser());
+                } else {
+                    $ionicPopup.alert({
+                        title: 'Error',
+                        content: 'Unable to create new user. Please contact the administrator.'
+                    });
+                }
+            });
     }
 
     /**

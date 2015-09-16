@@ -7,6 +7,9 @@ angular.module('temds', [
     'ionic',
     'temds.common.directives',
 
+    /* Utils */
+    'temds.utils.controllers',
+
   /* Main Application */ //NOTE: used for reference.
     'temds.app.controllers',
     'temds.app.services',
@@ -262,8 +265,8 @@ angular.module('temds', [
     });
 
     // if none of the above states are matched, use this as the fallback
-    //$urlRouterProvider.otherwise('/splash-page');
-    $urlRouterProvider.otherwise('/app/my-account');
+    $urlRouterProvider.otherwise('/splash-page');
+    //$urlRouterProvider.otherwise('/app/my-account');
     //$urlRouterProvider.otherwise('user/register-form');
 
     //$urlRouterProvider.otherwise('/app/feed');
