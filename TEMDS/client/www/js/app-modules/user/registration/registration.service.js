@@ -1,4 +1,4 @@
-angular.module('temds.auth.services', [])
+angular.module('temds.user.services')
 
 .service('RegisterService', function ($http, $q) {
     // Signup Step #1: Send confirmation email
@@ -15,7 +15,7 @@ angular.module('temds.auth.services', [])
         $http.post(_API_HOST_ + 'api/user/emailConfirmation', {
             email: email
         }).success(function (response) {
-            dfd.resolve(response.status);
+            dfd.resolve(200);
         }).catch(function (response) {
             console.log(response);
             dfd.resolve(response.status);

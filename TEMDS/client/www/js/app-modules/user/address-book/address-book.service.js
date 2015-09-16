@@ -11,23 +11,12 @@ angular.module('temds.app.services')
             totalPages = 1,
             dfd = $q.defer();
 
-        userid = userid ? userid : '55f651ad0b2c96c9044c1e5e';
+        userid = userid ? userid : '55f8e4d43869c70e00b7a8bb';
 
         //$http.get('data/sample_addressbook.json').success(function (database) {
         $http.get(_API_HOST_ + 'api/user/getAddresses/' + userid +
             '/' + pageSize + '/' + page).success(function (database) {
-
-            console.log(database);
-
-            totalPosts = database.length;
-            totalPages = totalPosts / pageSize;
-
-            var addressList = database.slice(skip, skip + pageSize);
-
-            dfd.resolve({
-                addressList: addressList,
-                totalPages: totalPages
-            });
+            dfd.resolve(database);
         }).catch(function (response) {
             console.log(response);
             dfd.resolve({

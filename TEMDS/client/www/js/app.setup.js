@@ -11,9 +11,12 @@ angular.module('temds', [
     'temds.app.controllers',
     'temds.app.services',
 
+    /* User Registration */
+    'temds.user.controllers',
+    'temds.user.services',
+
   /* Authentication */
     'temds.auth.controllers',
-    'temds.auth.services',
 
     'temds.views',
     'underscore',
