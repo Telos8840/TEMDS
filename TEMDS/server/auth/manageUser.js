@@ -73,7 +73,7 @@ module.exports = function (server, db) {
    * @param email
    */
   server.post('api/user/emailConfirmation', function (req, res, next) {
-    console.log("\n *** User being registered *** \n");
+    console.log("\n *** User confirming number and email *** \n");
 
     var userEmail = req.params.email;
     db.users.findOne({email: userEmail}, function (err, userExists) {
@@ -102,7 +102,8 @@ module.exports = function (server, db) {
             var cnfrm = (""+Math.random()).substring(2,7);
             penUser.confirmationNumber = cnfrm;
 
-            db.pending_users.update({_id: db.ObjectId(penUser._id)}, { $set: {confirmationNumber: cnfrm, modifiedDate: new Date()} },
+            db.pending_users.update({_id: db.ObjectId(penUser._id)},
+              { $set: {confirmationNumber: cnfrm, activated: false, modifiedDate: new Date()} },
               function (err, data) {
                 if(err) response.error(res, "Error updating activation number for " + userEmail, err);
               });
@@ -202,7 +203,7 @@ module.exports = function (server, db) {
 
         console.log("user found", penUser);
 
-        if(penUser.Activated) {
+        if(penUser.activated) {
 
           var userInsert = {
             email: user.email,
@@ -250,7 +251,13 @@ module.exports = function (server, db) {
 
               db.user_detail.insert(userDetail, function (err, detail) {
                 if (err) response.error(res, "Error inserting user detail for - " + user.email, err);
-                else response.success(res, "User Registered");
+                else {
+                  var userRes = {
+                    id: actUser._id,
+                    saltPass: actUser.rawPassword
+                  };
+                  response.sendJSON(res, userRes);
+                }
               });
             }
           });
@@ -335,13 +342,20 @@ module.exports = function (server, db) {
       if (err) response.error(res, "Error finding user_detail id - " + req.params.id, err);
       else if (!dbDetail) response.error(res, "Can't find id in user detail " + req.params.id, err);
       else {
-        var addresses = dbDetail.address;
+        var addresses = dbDetail.address,
+            skip      = itemPerList * (listNumber - 1);
 
-        if(_.size(addresses) < itemPerList) {
-          response.sendJSON(res, addresses);
-        } else {
-          response.sendJSON(res, addresses);
-        }
+        var totalPosts = addresses.length,
+            totalPages = _.ceil(totalPosts / itemPerList);
+
+        var addressList = addresses.slice(skip, skip + itemPerList);
+
+        var json = {
+          addressList: addressList,
+          totalPages: totalPages
+        };
+
+        response.sendJSON(res, json);
       }
     });
     return next();

@@ -15,8 +15,7 @@ module.exports.success = function (res, message) {
   });
 
   res.end(JSON.stringify({
-    message: message,
-    data: data
+    message: message
   }));
 };
 
