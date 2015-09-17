@@ -34,6 +34,20 @@ module.exports.error = function (res, message, err) {
   }));
 };
 
+module.exports.invalid = function (res, message) {
+  message = !message ? "Invalid" : message;
+
+  console.log("HTTP Status 403:", message);
+
+  res.writeHead(403, {
+    'Content-Type': 'application/json; charset=utf-8'
+  });
+
+  res.end(JSON.stringify({
+    message: message
+  }));
+};
+
 module.exports.sendJSON = function (res, json) {
   console.log("HTTP Status 200: Sending JSON");
 
@@ -42,4 +56,4 @@ module.exports.sendJSON = function (res, json) {
   });
 
   res.end(JSON.stringify(json));
-}
+};

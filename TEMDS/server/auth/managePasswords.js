@@ -5,7 +5,7 @@
  * Time: 6:30 PM
  */
 
-http://stackoverflow.com/a/14015883/1015046
+//https://www.npmjs.com/package/bcrypt-nodejs
 var bcrypt = require('bcrypt-nodejs');
 
 module.exports.cryptPassword = function (password, callback) {

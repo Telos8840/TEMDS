@@ -30,16 +30,9 @@ server.use(function(req, res, next) {
 	next();
 });
 
-function respond(req, res, next) {
-	res.send('hello ' + req.params.name);
-	next();
-}
-
-//http://localhost:9804/hello/saul
-server.get('/hello/:name', respond);
-
 server.listen(process.env.PORT || 9804, function () {
 	console.log("Server started @ ", process.env.PORT || 9804)
 });
 
-var manageUsers =   require('./auth/manageUser')(server, db);
+var authentication  = require('./auth/authentication')(server, db);
+var manageUsers     = require('./auth/manageUser')(server, db);

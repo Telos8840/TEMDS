@@ -5,7 +5,9 @@
  * Time: 5:37 PM
  */
 
-var _ = require('lodash');
+var response    = require('../helpers/response');
+var _           = require('lodash');
+var pwdMgr      = require('./managePasswords');
 
 /****************************
  *         USER API         *
@@ -35,15 +37,15 @@ module.exports = function (server, db) {
       else {
 
         var newAdd = {
-            id: db.ObjectId(),
-            name: detail.name,
-            addr1: detail.addr1,
-            addr2: detail.addr2,
-            city: detail.city,
-            state: detail.state,
-            zipcode: detail.zipcode,
-            primary: detail.primary
-          };
+          id: db.ObjectId(),
+          name: detail.name,
+          addr1: detail.addr1,
+          addr2: detail.addr2,
+          city: detail.city,
+          state: detail.state,
+          zipcode: detail.zipcode,
+          primary: detail.primary
+        };
 
         if(detail.primary == true) {
           _.forEach(dbDetail.address, function (n) {
@@ -57,8 +59,8 @@ module.exports = function (server, db) {
 
         db.user_detail.update({userKey: db.ObjectId(detail.id)},
           {$set: {address: dbDetail.address, modifiedDate: new Date()}}, function (err, data) {
-          if (err) response.error(res, "Error updating details for " + detail.id, err);
-        });
+            if (err) response.error(res, "Error updating details for " + detail.id, err);
+          });
 
         response.success(res, "Address added to user list");
       }
@@ -79,17 +81,17 @@ module.exports = function (server, db) {
     console.log("params", req.params);
 
     var itemPerList = req.params.itemPerList,
-        listNumber  = req.params.listNumber;
+      listNumber  = req.params.listNumber;
 
     db.user_detail.findOne({userKey: db.ObjectId(req.params.id)}, function (err, dbDetail) {
       if (err) response.error(res, "Error finding user_detail id - " + req.params.id, err);
       else if (!dbDetail) response.error(res, "Can't find id in user detail " + req.params.id, err);
       else {
         var addresses = dbDetail.address,
-            skip      = itemPerList * (listNumber - 1);
+          skip      = itemPerList * (listNumber - 1);
 
         var totalPosts = addresses.length,
-            totalPages = _.ceil(totalPosts / itemPerList);
+          totalPages = _.ceil(totalPosts / itemPerList);
 
         var addressList = addresses.slice(skip, skip + itemPerList);
 
@@ -100,6 +102,132 @@ module.exports = function (server, db) {
 
         response.sendJSON(res, json);
       }
+    });
+    return next();
+  });
+
+  /**
+   * Gets user information
+   *
+   * @param id
+   */
+  server.get('api/user/getInfo/:id', function (req, res, next) {
+    console.log("\n *** Getting user information *** \n");
+
+    var id = req.params.id;
+
+    db.user_detail.findOne({userKey: db.ObjectId(id)}, function (err, dbUser) {
+      if (err || !dbUser) response.error(res, "User ID not found - " + id, err);
+      else response.sendJSON(res, dbUser);
+    });
+    return next();
+  });
+
+  /**
+   * Updates User Name
+   *
+   * @param id
+   * @param fName
+   * @param lName
+   */
+  server.put('api/user/update/name', function (req, res, next) {
+    console.log("\n *** Updating users name *** \n");
+
+    var id    = req.params.id,
+        fName = req.params.fName,
+        lName = req.params.lName;
+
+    if (_.size(fName) == 0 || _.size(lName) == 0){
+      response.invalid(res, "Names not valid");
+      return next();
+    }
+
+    db.user_detail.findOne({userKey: db.ObjectId(id)}, function (err, dbUser) {
+      if (err || !dbUser) response.error(res, "User ID not found - " + id, err);
+      else {
+        db.user_detail.update({_id: db.ObjectId(dbUser._id)},
+          {$set: {fName: fName, lName: lName, modifiedDate: new Date()}},
+          function (err, data) {
+            if (err) response.error(res, "Error updating name");
+            else response.success(res, "Updated name");
+          });
+      }
+    });
+    return next();
+  });
+
+  /**
+   * Updates User Phone Number
+   *
+   * @param id
+   * @param phoneNum
+   */
+  server.put('api/user/update/phoneNum', function (req, res, next) {
+    console.log("\n *** Updating users phone number *** \n");
+
+    var id        = req.params.id,
+        phoneNum  = req.params.phoneNum;
+
+    if (_.size(phoneNum) == 0) {
+      response.invalid(res, "Phone number not valid");
+      return next();
+    }
+
+    db.user_detail.findOne({userKey: db.ObjectId(id)}, function (err, dbUser) {
+      if (err || !dbUser) response.error(res, "User ID not found - " + id, err);
+      else {
+        db.user_detail.update({_id: db.ObjectId(dbUser._id)},
+          {$set: {phoneNum: phoneNum, modifiedDate: new Date()}},
+          function (err, data) {
+            if (err) response.error(res, "Error updating phone number");
+            else response.success(res, "Updated phone number");
+          });
+      }
+    });
+    return next();
+  });
+
+  /**
+   * Updates User Password
+   *
+   * @param id
+   * @param oldPass
+   * @param newPass
+   */
+  server.put('api/user/update/password', function (req, res, next) {
+    console.log("\n *** Updating users password *** \n");
+
+    var id      = req.params.id,
+        oldPass = req.params.oldPass,
+        newPass = req.params.newPass;
+
+    if(_.size(oldPass) == 0 || _.size(newPass) == 0) {
+      response.invalid(res, "Invalid passwords");
+      return next();
+    }
+
+    db.users.findOne({_id: db.ObjectId(id)}, function (err, dbUser) {
+      pwdMgr.comparePassword(oldPass, dbUser.rawPassword, function (err, isMatch) {
+        if (err) response.error(res, "Error checking password", err);
+        else {
+          if (!isMatch) response.invalid(res, "Old password doesn't match");
+          else {
+            pwdMgr.cryptPassword(newPass, function (err, hash) {
+              if (err) response.error(res, "Error hashing password", err);
+              else {
+                db.users.findAndModify({
+                  query: { _id: db.ObjectId(dbUser._id) },
+                  update: { $set: { rawPassword: hash } },
+                  new: true
+                }, function (err) {
+                  if (err) response.error(res, "Error saving new password");
+                  else response.sendJSON(res, {saltPass: hash});
+                });
+              }
+            });
+          }
+        }
+      });
     });
     return next();
   });

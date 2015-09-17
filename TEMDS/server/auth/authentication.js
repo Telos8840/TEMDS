@@ -38,13 +38,8 @@ var sendConfirmationEmail = function (res, user) {
 
   smtpTransport.sendMail(mailOptions, function(error, response) {
     console.log("email response: ", response);
-
-    if (error) {
-      response.error(res, "Error sending email to " + user.email);
-    }
-    else {
-      response.success(res, 'Confirmation sent to ' + user.email);
-    }
+    if (error) console.log("Error sending email");
+    else console.log("Email sent successfully");
   });
   // TODO: Push confirmation number and email to db
 
@@ -74,11 +69,10 @@ module.exports = function (server, db) {
    * @param email
    */
   server.post('api/auth/emailConfirmation', function (req, res, next) {
-    console.log("\n *** User confirming number and email *** \n");
+    console.log("\n *** User submitting email to create account *** \n");
 
     var userEmail = req.params.email;
     db.users.findOne({email: userEmail}, function (err, userExists) {
-      console.log("Looking in users table");
 
       // Check if user already exists in main user table
       if (err) {
@@ -90,7 +84,6 @@ module.exports = function (server, db) {
         // User doesn't exist in main User table
         // Check if they're in pending table
         db.pending_users.findOne({email: userEmail}, function (err, penUser) {
-          console.log("Looking in pending users");
 
           if (err) {
 
@@ -188,7 +181,7 @@ module.exports = function (server, db) {
    * @param email
    * @param fName
    * @param lName
-   * @param birthday
+   * @param bDay
    * @param phoneNum
    * @param rawPassword
    */
@@ -270,4 +263,21 @@ module.exports = function (server, db) {
     });
     return next();
   });
-}
+
+  /**
+   * User login
+   *
+   * @param email
+   * @param rawPass
+   * @param saltPass
+   */
+  server.post('api/auth/login', function (req, res, next) {
+    console.log("\n *** User logging in *** \n");
+
+    var email     = req.params.email,
+        rawPass   = req.params.rawPass,
+        saltPass  = req.params.saltPass;
+
+
+  });
+};
