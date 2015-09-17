@@ -26,11 +26,11 @@
                     <div class="form-fields-outer list list-inset">
                         <!-- Password -->
                         <label class="item item-input" show-hide-container>
-                            <input type="password" placeholder="Password" name="password" ng-model="user.password" ng-minlength="6" required show-hide-input>
-                            <span class="error" ng-show="register_form.password.$error.minlength" style="padding:9px 50px 0 0">
+                            <input type="password" placeholder="Password" name="rawPass" ng-model="user.rawPass" ng-minlength="6" required show-hide-input>
+                            <span class="error" ng-show="register_form.rawPass.$error.minlength" style="padding:9px 50px 0 0">
                                 Must be at least 6 characters long!
                             </span>
-                            <span class="error" ng-show="register_form.password.$error.required" style="padding:9px 50px 0 0">
+                            <span class="error" ng-show="register_form.rawPass.$error.required" style="padding:9px 50px 0 0">
                                 Required!
                             </span>
                         </label>

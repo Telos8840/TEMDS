@@ -4,27 +4,90 @@
             <div class="item item-divider title">
                 Account
             </div>
-            <div class="item item-icon-left settings-option">
-                <i class="icon ion-ios-email-outline"></i> {{user.email}}
+            <!-- Change Email is currently unavailable -->
+            <div class="item settings-option">
+                <div class="item-icon-left">
+                    <i class="icon ion-ios-email-outline"></i>
+                </div>
+                {{user.email}}
+                <!-- Right arrow
+                <div class="item-icon-right">
+                    <i class="icon ion-ios-arrow-right"></i>
+                </div> -->
             </div>
-            <a class="item item-icon-left settings-option" ng-click="changePasswordPrompt()">
-                <i class="icon ion-ios-locked-outline"></i> Change Password
+
+            <!-- Change Password -->
+            <a class="item settings-option" ng-click="toggleShowChangePassword()">
+                <div class="item-icon-left">
+                    <i class="icon ion-ios-locked-outline"></i>
+                </div>
+                Change Password
+                <div class="item-icon-right">
+                    <i class="icon" ng-class="{'ion-ios-arrow-down':!showChangePassword,'ion-ios-arrow-up':showChangePassword}"></i>
+                </div>
             </a>
-            <div class="item item-icon-left settings-option">
-                <i class="icon ion-ios-person-outline"></i> {{user.fname}} {{user.lname}}
+            <div class="item-body" ng-show="showChangePassword">
+                <form name="change_password_form" novalidate>
+                    <div class="form-fields-outer list list-inset">
+                        <label class="item item-input" show-hide-container>
+                            <input type="password" placeholder="Current Password" name="oldPass" ng-model="change.oldPass" ng-minlength="6" show-hide-input required>
+                            <span class="error" ng-show="change_password_form.oldPass.$error.minlength || change_password_form.oldPass.$error.required">
+                                Required!
+                            </span>
+                        </label>
+                        <label class="item item-input" show-hide-container>
+                            <input type="password" placeholder="New Password" name="newPass" ng-model="change.newPass" ng-minlength="6" show-hide-input required>
+                            <span class="error" ng-show="change_password_form.newPass.$error.minlength || change_password_form.newPass.$error.required">
+                                Required!
+                            </span>
+                        </label>
+                        <button class="button button-full button-balanced" ng-click="changePassword()" ng-disabled="change_password_form.$invalid">
+                            Change Password
+                        </button>
+                    </div>
+                </form>
             </div>
-            <div class="item item-icon-left settings-option">
-                <i class="icon ion-iphone"></i> {{user.phoneNum}}
-            </div>
-            <a class="item item-icon-left settings-option" ng-click="addressBook()">
-                <i class="icon ion-ios-location-outline"></i> Address Book
+
+            <!-- Change User Name -->
+            <a class="item settings-option" ng-click="changeUserNameView()">
+                <div class="item-icon-left">
+                    <i class="icon ion-ios-person-outline"></i>
+                </div>
+                {{user.fName}} {{user.lName}}
+                <div class="item-icon-right">
+                    <i class="icon ion-ios-arrow-right"></i>
+                </div>
             </a>
+
+            <!-- Change User Phone Number -->
+            <a class="item settings-option" ng-click="changePhoneNumberView()">
+                <div class="item-icon-left">
+                    <i class="icon ion-iphone"></i>
+                </div>
+                {{user.phoneNum}}
+                <div class="item-icon-right">
+                    <i class="icon ion-ios-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Display Address Book -->
+            <a class="item settings-option" ng-click="addressBookView()">
+                <div class="item-icon-left">
+                    <i class="icon ion-ios-location-outline"></i>
+                </div>
+                Address Book
+                <div class="item-icon-right">
+                    <i class="icon ion-ios-arrow-right"></i>
+                </div>
+            </a>
+
             <div class="item item-divider title">
                 App Settings
             </div>
-            <a class="item item-icon-left settings-option" ui-sref="facebook-sign-in">
+            <a class="item item-icon-left settings-option" ng-click="signOut()">
                 <i class="icon ion-ios-close-outline"></i> Sign Out
             </a>
+            <!-- ui-sref="facebook-sign-in" -->
             <div class="item item-divider title">
                 More
             </div>

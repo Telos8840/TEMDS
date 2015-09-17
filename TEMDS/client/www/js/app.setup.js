@@ -210,6 +210,16 @@ angular.module('temds', [
         }
     })
 
+    .state('app.change-password', {
+        url: '/my-account/change-password',
+        views: {
+            menuContent: {
+                templateUrl: 'views/app/my-account/change-password.html',
+                controller: 'MyAccountCtrl'
+            }
+        }
+    })
+
 
 
     //AUTH ROUTES
@@ -265,8 +275,8 @@ angular.module('temds', [
     });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/splash-page');
-    //$urlRouterProvider.otherwise('/app/my-account');
+    //$urlRouterProvider.otherwise('/splash-page');
+    $urlRouterProvider.otherwise('/app/my-account');
     //$urlRouterProvider.otherwise('user/register-form');
 
     //$urlRouterProvider.otherwise('/app/feed');

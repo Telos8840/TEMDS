@@ -1,17 +1,40 @@
 angular.module('temds.app.controllers')
 
 
-.controller('MyAccountCtrl', function ($scope, $state, MyAccountService, $ionicPopup) {
-    $scope.user = {
-        fname: 'Tester',
-        lname: 'Temds',
-        email: 'tester@temds.com',
-        phoneNum: '000 - 000 - 0000',
-        password: 'redCherryShrimp'
-    };
-    if (!$scope.user.fname) $scope.user.fname = 'UNKNOWN'
+.controller('MyAccountCtrl', function ($scope, $state, $localstorage, MyAccountService, $ionicPopup) {
 
-    $scope.change_pass = {};
+    $scope.user = $localstorage.getObject('user'); // load user object
+
+    // Init Defaults
+    $scope.change = {};
+    $scope.showChangePassword = false;
+
+    /**
+     * Send put request to change password.
+     * On success, close the change password form.
+     */
+    $scope.changePassword = function () {
+        //TODO: save password
+        MyAccountService.changePassword($scope.user.id, $scope.change.oldPass, $scope.change.newPass)
+            .then(function (data) {
+                switch (data) {
+                case _SUCCESS_:
+                    $scope.showChangePassword = false;
+                    break;
+                case 403:
+                    $scope.showAlert("Error", "Password does not match!");
+                    break;
+                default:
+                    $scope.showAlert("Error", "Unable to change password!")
+                    $scope.showChangePassword = false;
+                    break;
+                }
+                $scope.change = {}; // clear password
+            });
+    }
+    $scope.toggleShowChangePassword = function () {
+        $scope.showChangePassword = !$scope.showChangePassword;
+    }
 
 
     $scope.changePasswordPrompt = function () {
@@ -69,7 +92,7 @@ angular.module('temds.app.controllers')
 
     }
 
-    $scope.addressBook = function () {
+    $scope.addressBookView = function () {
         $state.go('app.address-book');
     }
 

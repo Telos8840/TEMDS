@@ -1,58 +1,97 @@
-ion-nav-bar {
-    &.my-account-color {
-        ion-header-bar {
-            background-color: $my-account-bar-bg !important;
-            background: $my-account-bar-bg !important;
-            border: none !important;
-            background-size: 0px !important; // To remove bottom border on header
-        }
-        * {
-            color: $my-account-bar-color;
-            .buttons button::before {
+    ion-nav-bar {
+        &.my-account-color {
+            ion-header-bar {
+                background-color: $my-account-bar-bg !important;
+                background: $my-account-bar-bg !important;
+                border: none !important;
+                background-size: 0px !important; // To remove bottom border on header
+            }
+            * {
                 color: $my-account-bar-color;
+                .buttons button::before {
+                    color: $my-account-bar-color;
+                }
             }
         }
     }
-}
-
-.my-account-view {
-    background-color: $settings-background-color;
-    color: $settings-text-color;
-    .item-divider.title {
-        margin-top: 10px;
-        text-transform: uppercase;
-        color: lighten($settings-text-color, 20%);
-        padding-top: 5px;
-        padding-bottom: 5px;
-        font-size: 13px;
+    
+    .my-account-view {
+        background-color: $settings-background-color;
+        color: $settings-text-color;
+        .item-divider.title {
+            margin-top: 10px;
+            text-transform: uppercase;
+            color: lighten($settings-text-color, 20%);
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-size: 13px;
+        }
+        .settings-option {
+            font-size: 14px;
+            color: lighten($settings-text-color, 20%);
+            padding: 12px 50px;
+        }
+        .icon {
+            color: lighten($settings-text-color, 20%);
+            font-size: 22px;
+        }
+        .item-body {
+            @extend .animtype_easeout;
+            -webkit-transition: 0.5s;
+            transition: 0.5s;
+            height: 190px;
+            padding: 0;
+            -webkit-box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.15);
+            box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.15);
+            &.ng-enter {
+                //height: 0px;
+            }
+            &.ng-hide {
+                height: 0px;
+            }
+            .show-hide-input {
+                padding-right: 0px;
+                width: 90%;
+            }
+            .list-inset {
+                background-color: transparent;
+            }
+            *::-webkit-input-placeholder {
+                color: lighten($my-account-text-color, 40%);
+            }
+            *:-moz-placeholder {
+                color: lighten($my-account-text-color, 40%);
+            }
+            *:-ms-input-placeholder {
+                /* IE10+ */
+                color: lighten($my-account-text-color, 40%);
+            }
+            input {
+                float: left;
+                width: 80%;
+            }
+            .error {
+                font-size: 11px;
+                padding: 10px 10px 0 0;
+                float: right;
+                color: lightcoral;
+            }
+        }
+        .toggle-view-anchor {
+            position: absolute;
+            top: 6px;
+            right: 0px;
+            height: $line-height-computed + $font-size-base;
+            line-height: $line-height-computed + $font-size-base;
+            padding-right: 8px;
+            * {
+                color: darken($auth-bg, 20%) !important;
+                display: block;
+                font-size: 24px;
+                width: 45px;
+                text-align: center;
+                font-weight: 500;
+            }
+        }
     }
-    .settings-option {
-        font-size: 14px;
-        color: lighten($settings-text-color, 20%);
-        padding: 12px 50px;
-    }
-    .icon {
-        color: lighten($settings-text-color, 20%);
-        font-size: 22px;
-    }
-}
-
-.passInput {
-    padding-right: 0;
-}
-
-.change-password {
-    *::-webkit-input-placeholder {
-        color: lighten($my-account-text-color, 40%);
-    }
-    *:-moz-placeholder {
-        color: lighten($my-account-text-color, 40%);
-    }
-    *:-ms-input-placeholder {
-        /* IE10+ */
-        color: lighten($my-account-text-color, 40%);
-    }
-    .error {
-        
-    }
-}

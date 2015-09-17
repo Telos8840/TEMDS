@@ -1,20 +1,28 @@
 angular.module('temds.app.services')
 
 
-.service('MyAccountService', function ($http, $q) {
+.service('MyAccountService', function ($http, $q, $localstorage) {
 
-    this.changePassword = function (old_pass, new_pass) {
+    this.changePassword = function (id, oldPass, newPass) {
         var dfd = $q.defer();
-        dfd.resolve(true); //test:success
 
-        /*
-        $http.post(_API_HOST_ + '/api/user/change_password').success(function (res) {
-            dfd.resolve(true); //success
-        }).catch(function (res) {
-            dfd.resolve(false);
-            //if (res.statusCode == 111)
-        });
-        */
+        $http.put(_API_HOST_ + 'api/user/update/password', {
+                id: id,
+                oldPass: oldPass,
+                newPass: newPass
+            })
+            .success(function (response) {
+                dfd.resolve(_SUCCESS_);
+                console.log(response);
+
+                // save new saltPass
+                var user = $localstorage.getObject('user');
+                user.saltPass = response.saltPass;
+                $localstorage.setObject('user', user);
+            }).catch(function (response) {
+                console.log(response);
+                dfd.resolve(response.status);
+            });
 
         return dfd.promise;
     }
