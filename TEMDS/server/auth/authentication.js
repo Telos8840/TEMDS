@@ -190,7 +190,7 @@ module.exports = function (server, db) {
 
     var user = req.params;
 
-    pwdMgr.cryptPassword(user.rawPassword, function (err, hash) {
+    pwdMgr.cryptPassword(user.rawPass.trim(), function (err, hash) {
       user.rawPassword = hash;
 
       db.pending_users.findOne({email: user.email}, function (err, penUser) {
