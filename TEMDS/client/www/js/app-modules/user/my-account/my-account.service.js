@@ -3,6 +3,14 @@ angular.module('temds.app.services')
 
 .service('MyAccountService', function ($http, $q, $localstorage) {
 
+    /**
+     * Change user password.
+     * Update local storage with updated salt password.
+     * @param   {String} id      User ID
+     * @param   {String} oldPass Current raw password
+     * @param   {String} newPass New raw password
+     * @returns {Number} _SUCCESS_ on success, status code, otherwise
+     */
     this.changePassword = function (id, oldPass, newPass) {
         var dfd = $q.defer();
 
@@ -13,9 +21,7 @@ angular.module('temds.app.services')
             })
             .success(function (response) {
                 dfd.resolve(_SUCCESS_);
-                console.log(response);
-
-                // save new saltPass
+                // save new name
                 var user = $localstorage.getObject('user');
                 user.saltPass = response.saltPass;
                 $localstorage.setObject('user', user);
@@ -27,6 +33,40 @@ angular.module('temds.app.services')
         return dfd.promise;
     }
 
+    this.changeName = function (id, fName, lName) {
+        var dfd = $q.defer();
+
+        $http.put(_API_HOST_ + 'api/user/update/name', {
+                id: id,
+                fName: fName,
+                lName: lName
+            })
+            .success(function (response) {
+                dfd.resolve(_SUCCESS_);
+            }).catch(function (response) {
+                console.log(response);
+                dfd.resolve(response.status);
+            })
+
+        return dfd.promise;
+    }
+
+    this.changePhoneNum = function (id, phoneNum) {
+        var dfd = $q.defer();
+
+        $http.put(_API_HOST_ + 'api/user/update/phone', {
+                id: id,
+                phoneNum: phoneNum
+            })
+            .success(function (response) {
+                dfd.resolve(_SUCCESS_);
+            }).catch(function (response) {
+                console.log(response);
+                dfd.resolve(response.status);
+            })
+
+        return dfd.promise;
+    }
 
     /**
      * Add/Edit address.

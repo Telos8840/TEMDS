@@ -60,7 +60,7 @@ angular.module('temds.user.services')
         data.address.name = 'My Home';
         data.address.state = userData.address.state.abbr;
         data.address.primary = true;
-        data.phoneNum.replace(/[^0-9]/g, '')
+        data.phoneNum = data.phoneNum.replace(/[^0-9]/g, '')
             .replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2 - $3");
 
         $http.post(_API_HOST_ + 'api/auth/registerUser', data)

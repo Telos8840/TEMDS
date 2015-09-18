@@ -36,6 +36,9 @@
             font-size: 22px;
         }
         .item-body {
+            &.phone {
+                height: 145px;
+            }
             @extend .animtype_easeout;
             -webkit-transition: 0.5s;
             transition: 0.5s;
@@ -72,8 +75,11 @@
                 width: 80%;
             }
             .error {
+                &.pass {
+                    padding: 10px 12px 0 0;
+                }
                 font-size: 11px;
-                padding: 10px 10px 0 0;
+                padding-right: 14px;
                 float: right;
                 color: lightcoral;
             }

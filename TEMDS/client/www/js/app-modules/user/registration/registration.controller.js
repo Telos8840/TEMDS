@@ -40,6 +40,15 @@ angular.module('temds.user.controllers')
             }
         }, 1000);
 
+        // Phonenumber auto formatter
+        $scope.$watch('user.phoneNum',
+            function (newValue, oldValue) {
+                var p = PHONE_NUMBER_FORMATTER(newValue);
+                $scope.user.phoneNum = p.phoneNum;
+                $scope.phoneNumIsValid = p.valid;
+            }
+        );
+
         // Send email confirmation
         RegisterService.sendEmailConfirmation($scope.user.email)
             .then(function (data) {

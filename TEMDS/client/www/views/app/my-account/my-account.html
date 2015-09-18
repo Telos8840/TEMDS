@@ -17,27 +17,27 @@
             </div>
 
             <!-- Change Password -->
-            <a class="item settings-option" ng-click="toggleShowChangePassword()">
+            <a class="item settings-option" ng-click="toggleShowChange(0)">
                 <div class="item-icon-left">
                     <i class="icon ion-ios-locked-outline"></i>
                 </div>
                 Change Password
                 <div class="item-icon-right">
-                    <i class="icon" ng-class="{'ion-ios-arrow-down':!showChangePassword,'ion-ios-arrow-up':showChangePassword}"></i>
+                    <i class="icon" ng-class="{'ion-ios-arrow-down':!showChange[0],'ion-ios-arrow-up':showChange[0]}"></i>
                 </div>
             </a>
-            <div class="item-body" ng-show="showChangePassword">
+            <div class="item-body" ng-show="showChange[0]">
                 <form name="change_password_form" novalidate>
                     <div class="form-fields-outer list list-inset">
                         <label class="item item-input" show-hide-container>
                             <input type="password" placeholder="Current Password" name="oldPass" ng-model="change.oldPass" ng-minlength="6" show-hide-input required>
-                            <span class="error" ng-show="change_password_form.oldPass.$error.minlength || change_password_form.oldPass.$error.required">
+                            <span class="error pass" ng-show="change_password_form.oldPass.$error.minlength || change_password_form.oldPass.$error.required">
                                 Required!
                             </span>
                         </label>
                         <label class="item item-input" show-hide-container>
                             <input type="password" placeholder="New Password" name="newPass" ng-model="change.newPass" ng-minlength="6" show-hide-input required>
-                            <span class="error" ng-show="change_password_form.newPass.$error.minlength || change_password_form.newPass.$error.required">
+                            <span class="error pass" ng-show="change_password_form.newPass.$error.minlength || change_password_form.newPass.$error.required">
                                 Required!
                             </span>
                         </label>
@@ -49,26 +49,62 @@
             </div>
 
             <!-- Change User Name -->
-            <a class="item settings-option" ng-click="changeUserNameView()">
+            <a class="item settings-option" ng-click="change.fName = user.fName; change.lName = user.lName; toggleShowChange(1)">
                 <div class="item-icon-left">
                     <i class="icon ion-ios-person-outline"></i>
                 </div>
                 {{user.fName}} {{user.lName}}
                 <div class="item-icon-right">
-                    <i class="icon ion-ios-arrow-right"></i>
+                    <i class="icon" ng-class="{'ion-ios-arrow-down':!showChange[1],'ion-ios-arrow-up':showChange[1]}"></i>
                 </div>
             </a>
+            <div class="item-body" ng-show="showChange[1]">
+                <form name="change_name_form" novalidate>
+                    <div class="form-fields-outer list list-inset">
+                        <label class="item item-input">
+                            <input type="text" placeholder="First Name" name="fName" ng-model="change.fName" required>
+                            <span class="error" ng-show="change_name_form.fName.$error.required">
+                                Required!
+                            </span>
+                        </label>
+                        <label class="item item-input">
+                            <input type="text" placeholder="Last Name" name="lName" ng-model="change.lName" required>
+                            <span class="error" ng-show="change_name_form.lName.$error.required">
+                                Required!
+                            </span>
+                        </label>
+                        <button class="button button-full button-balanced" ng-click="changeName()" ng-disabled="change_name_form.$invalid || (change.fName == user.fName && change.lName == user.lName)">
+                            Change Name
+                        </button>
+                    </div>
+                </form>
+            </div>
 
             <!-- Change User Phone Number -->
-            <a class="item settings-option" ng-click="changePhoneNumberView()">
+            <a class="item settings-option" ng-click="toggleShowChange(2)">
                 <div class="item-icon-left">
                     <i class="icon ion-iphone"></i>
                 </div>
                 {{user.phoneNum}}
                 <div class="item-icon-right">
-                    <i class="icon ion-ios-arrow-right"></i>
+                    <i class="icon" ng-class="{'ion-ios-arrow-down':!showChange[2],'ion-ios-arrow-up':showChange[2]}"></i>
                 </div>
             </a>
+            <div class="item-body phone" ng-show="showChange[2]">
+                <form name="change_phone_form" novalidate>
+                    <div class="form-fields-outer list list-inset">
+                        <label class="item item-input">
+                            <input type="tel" placeholder="(000) 000 - 0000" name="phoneNum" ng-model="change.phoneNum" required>
+                            <span class="error" ng-show="change_phone_form.phoneNum.$error.required || !phoneNumbIsValid">
+                                Required!
+                            </span>
+                        </label>
+                        <button class="button button-full button-balanced" ng-click="changePhoneNum()" ng-disabled="change_phone_form.$invalid || change.phoneNum == user.phoneNum || !phoneNumIsValid">
+                            Change Phone Number
+                        </button>
+                    </div>
+                </form>
+            </div>
 
             <!-- Display Address Book -->
             <a class="item settings-option" ng-click="addressBookView()">

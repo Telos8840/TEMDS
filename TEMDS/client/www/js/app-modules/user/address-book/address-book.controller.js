@@ -1,13 +1,15 @@
 angular.module('temds.app.controllers')
 
 
-.controller('AddressBookCtrl', function ($scope, $state, AddressBookService) {
+.controller('AddressBookCtrl', function ($scope, $state, $localstorage, AddressBookService) {
+    $scope.user = $localstorage.getObject('user'); // load user object
+
     $scope.addressList = [];
     $scope.page = 1;
     $scope.totalPages = 1;
 
     $scope.refreshData = function () {
-        AddressBookService.getAddressList(1) // get 1st page
+        AddressBookService.getAddressList(1, $scope.user.id) // get 1st page
             .then(function (data) {
                 $scope.totalPages = data.totalPages;
                 $scope.addressList = data.addressList;
@@ -24,7 +26,7 @@ angular.module('temds.app.controllers')
     $scope.loadMoreData = function () {
         $scope.page += 1;
 
-        AddressBookService.getAddressList($scope.page)
+        AddressBookService.getAddressList($scope.page, $scope.user.id)
             .then(function (data) {
                 //We will update this value in every request because new posts can be created
                 $scope.totalPages = data.totalPages;

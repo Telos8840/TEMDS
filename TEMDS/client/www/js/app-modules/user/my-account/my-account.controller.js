@@ -2,16 +2,24 @@ angular.module('temds.app.controllers')
 
 
 .controller('MyAccountCtrl', function ($scope, $state, $localstorage, MyAccountService, $ionicPopup) {
-
-    $scope.user = $localstorage.getObject('user'); // load user object
-
     // Init Defaults
+    $scope.user = $localstorage.getObject('user'); // load user object
+    $scope.showChangePassword = $scope.showChangeName = false;
+    $scope.showChange = [false, false, false];
     $scope.change = {};
-    $scope.showChangePassword = false;
+
+    // Phonenumber auto formatter
+    $scope.$watch('change.phoneNum',
+        function (value) {
+            var p = PHONE_NUMBER_FORMATTER(value);
+            $scope.change.phoneNum = p.phoneNum;
+            $scope.phoneNumIsValid = p.valid;
+        }
+    );
 
     /**
      * Send put request to change password.
-     * On success, close the change password form.
+     * On success, close the password drawer and update localstorage.user
      */
     $scope.changePassword = function () {
         //TODO: save password
@@ -19,24 +27,102 @@ angular.module('temds.app.controllers')
             .then(function (data) {
                 switch (data) {
                 case _SUCCESS_:
-                    $scope.showChangePassword = false;
+                    $scope.showChange[0] = false;
                     break;
                 case 403:
                     $scope.showAlert("Error", "Password does not match!");
                     break;
                 default:
                     $scope.showAlert("Error", "Unable to change password!")
-                    $scope.showChangePassword = false;
+                    $scope.showChange[0] = false;
                     break;
                 }
                 $scope.change = {}; // clear password
             });
     }
-    $scope.toggleShowChangePassword = function () {
-        $scope.showChangePassword = !$scope.showChangePassword;
+
+    /**
+     * Send put request to change user's firstname and lastname.
+     * On success, close the name drawer and update localstorage.user
+     */
+    $scope.changeName = function () {
+        MyAccountService.changeName($scope.user.id, $scope.change.fName, $scope.change.lName)
+            .then(function (data) {
+                switch (data) {
+                case _SUCCESS_:
+                    $scope.user.fName = $scope.change.fName;
+                    $scope.user.lName = $scope.change.lName;
+                    $localstorage.setObject('user', $scope.user);
+                    break;
+                default:
+                    $scope.showAlert("Error", "Unable to change name! Please contact the administrator.");
+                    break;
+                }
+                $scope.showChange[1] = false;
+            });
+    }
+
+    /**
+     * Send put request to change user's phone number.
+     * On success, close the phone number drawer and update localstorage.user
+     */
+    $scope.changePhoneNum = function () {
+        MyAccountService.changePhoneNum($scope.user.id, $scope.change.phoneNum)
+            .then(function (data) {
+                switch (data) {
+                case _SUCCESS_:
+                    $scope.user.phoneNum = $scope.change.phoneNum;
+                    $localstorage.setObject('user', $scope.user);
+                    break;
+                default:
+                    showAlert("Error", "Unable to change phone number! Please contact the administrator.");
+                }
+                $scope.showChange[1] = false;
+            });
+    }
+
+    /**
+     * Toggle show flag for change drawers.
+     * If a case of open drawer, close the others.
+     * @param {Number} index Index of change drawer.
+     */
+    $scope.toggleShowChange = function (index) {
+        if (index < $scope.showChange.length) {
+            if (!$scope.showChange[index]) {
+                for (var i = 0; i < $scope.showChange.length; i++)
+                    $scope.showChange[i] = i === index;
+            } else $scope.showChange[index] = false;
+        }
+        if ($scope.showChange[index]) {
+            $scope.change = {
+                fName: $scope.user.fName,
+                lName: $scope.user.lName
+            }
+        }
+        return $scope.showChange[index];
     }
 
 
+    /**
+     * Redirect to Address Book View
+     */
+    $scope.addressBookView = function () {
+        $state.go('app.address-book');
+    }
+
+    /**
+     * Display Alert popup
+     * @param {String} title   Popup Title
+     * @param {String} message Message Content
+     */
+    $scope.showAlert = function (title, message) {
+        var alertPopup = $ionicPopup.alert({
+            title: title,
+            template: message
+        });
+    };
+
+    /* NOT USED
     $scope.changePasswordPrompt = function () {
         $scope.change_pass.pass_old = '';
         $scope.change_pass.pass_new = '';
@@ -90,16 +176,5 @@ angular.module('temds.app.controllers')
             }
         });
 
-    }
-
-    $scope.addressBookView = function () {
-        $state.go('app.address-book');
-    }
-
-    $scope.showAlert = function (title, message) {
-        var alertPopup = $ionicPopup.alert({
-            title: title,
-            template: message
-        });
-    };
+    }*/
 });
