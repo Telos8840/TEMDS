@@ -20,6 +20,15 @@ angular.module('temds.user.controllers')
         $scope.sendConfirmText = "Send Confirmation Email";
     }
 
+    // Phonenumber auto formatter
+    $scope.$watch('user.phoneNum',
+        function (value) {
+            var p = PHONE_NUMBER_FORMATTER(value);
+            $scope.user.phoneNum = p.phoneNum;
+            $scope.phoneNumIsValid = p.valid;
+        }
+    );
+
     /**
      * Send an email to user with confirmation number.
      * Confirmation number is used to validate user's email.
@@ -39,15 +48,6 @@ angular.module('temds.user.controllers')
                 $scope.sendConfirmText = "Please wait " + (--sendConfirmTime) + " seconds..."
             }
         }, 1000);
-
-        // Phonenumber auto formatter
-        $scope.$watch('user.phoneNum',
-            function (newValue, oldValue) {
-                var p = PHONE_NUMBER_FORMATTER(newValue);
-                $scope.user.phoneNum = p.phoneNum;
-                $scope.phoneNumIsValid = p.valid;
-            }
-        );
 
         // Send email confirmation
         RegisterService.sendEmailConfirmation($scope.user.email)

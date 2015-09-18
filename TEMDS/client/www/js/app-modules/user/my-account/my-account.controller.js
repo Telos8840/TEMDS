@@ -1,7 +1,7 @@
 angular.module('temds.app.controllers')
 
 
-.controller('MyAccountCtrl', function ($scope, $state, $localstorage, MyAccountService, $ionicPopup) {
+.controller('MyAccountCtrl', function ($scope, $state, $localstorage, MyAccountService, $ionicPopup, $ionicModal) {
     // Init Defaults
     $scope.user = $localstorage.getObject('user'); // load user object
     $scope.showChangePassword = $scope.showChangeName = false;
@@ -77,8 +77,16 @@ angular.module('temds.app.controllers')
                 default:
                     showAlert("Error", "Unable to change phone number! Please contact the administrator.");
                 }
-                $scope.showChange[1] = false;
+                $scope.showChange[2] = false;
             });
+    }
+
+    /**
+     * Delete local storage and go back to splash page.
+     */
+    $scope.signOut = function () {
+        $localstorage.set('user', '');
+        $state.go('splash-page');
     }
 
     /**
@@ -120,6 +128,30 @@ angular.module('temds.app.controllers')
             title: title,
             template: message
         });
+    };
+
+
+
+    $ionicModal.fromTemplateUrl('views/app/legal/terms-of-service.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.terms_of_service_modal = modal;
+    });
+
+    $ionicModal.fromTemplateUrl('views/app/legal/privacy-policy.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.privacy_policy_modal = modal;
+    });
+
+    $scope.showTerms = function () {
+        $scope.terms_of_service_modal.show();
+    };
+
+    $scope.showPrivacyPolicy = function () {
+        $scope.privacy_policy_modal.show();
     };
 
     /* NOT USED

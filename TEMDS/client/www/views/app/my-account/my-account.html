@@ -117,12 +117,12 @@
                 </div>
             </a>
 
-            <div class="item item-divider title">
+            <!--div class="item item-divider title">
                 App Settings
-            </div>
+            </div> 
             <a class="item item-icon-left settings-option" ng-click="signOut()">
                 <i class="icon ion-ios-close-outline"></i> Sign Out
-            </a>
+            </a-->
             <!-- ui-sref="facebook-sign-in" -->
             <div class="item item-divider title">
                 More
@@ -139,3 +139,12 @@
         </div>
     </ion-content>
 </ion-view>
+
+<div class="bar bar-footer bar-clear">
+    <button class="button button-assertive button-full" ng-click="signOut()">
+        <div class="item-icon-left">
+            <i class="icon ion-ios-close-outline"></i>
+        </div>
+        Sign Out
+    </button>
+</div>
