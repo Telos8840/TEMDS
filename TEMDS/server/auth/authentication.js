@@ -194,7 +194,7 @@ module.exports = function (server, db) {
       user.rawPassword = hash;
 
       db.pending_users.findOne({email: user.email}, function (err, penUser) {
-        if (!penUser) response.error(res, "User not found - " + user.email);
+        if (err || !penUser) response.error(res, "Error finding user - " + user.email, err);
 
         console.log("user found", penUser);
 
@@ -202,7 +202,7 @@ module.exports = function (server, db) {
 
           var userInsert = {
             email: user.email,
-            rawPassword: user.rawPassword,
+            saltPassword: user.rawPassword,
             insertDate: new Date(),
             modifiedDate: new Date()
           };
@@ -278,6 +278,27 @@ module.exports = function (server, db) {
         rawPass   = req.params.rawPass,
         saltPass  = req.params.saltPass;
 
+    if(_.size(email.trim()) == 0) {
+      response.error(res, "Invalid email");
+      return next();
+    }
 
+    db.users.findOne({email: email}, function (err, dbUser) {
+      if (err || !dbUser) response.error(res, "Error finding user - " + email, err);
+      else {
+        if(rawPass) {
+          pwdMgr.comparePassword(rawPass, dbUser.saltPassword, function (err, isMatch) {
+            if (err) response.error(res, "Error checking password", err);
+            else if(isMatch) response.sendJSON(res, {id: dbUser._id, saltPass: dbUser.saltPassword});
+            else response.invalid(res, "Password doesn't match");
+          });
+        } else if (saltPass) {
+          var match = _.isEqual(saltPass, dbUser.saltPassword);
+          if (match) response.sendJSON(res, {id: dbUser._id, saltPass: dbUser.saltPassword})
+          else response.invalid(res, "Password doesn't match");
+        }
+      }
+    });
+    return next();
   });
 };

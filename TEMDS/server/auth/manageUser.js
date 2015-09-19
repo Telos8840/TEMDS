@@ -115,7 +115,7 @@ module.exports = function (server, db) {
     }
 
     db.users.findOne({_id: db.ObjectId(id)}, function (err, dbUser) {
-      pwdMgr.comparePassword(oldPass, dbUser.rawPassword, function (err, isMatch) {
+      pwdMgr.comparePassword(oldPass, dbUser.saltPassword, function (err, isMatch) {
         if (err) response.error(res, "Error checking password", err);
         else {
           if (!isMatch) response.invalid(res, "Old password doesn't match");
@@ -125,7 +125,7 @@ module.exports = function (server, db) {
               else {
                 db.users.findAndModify({
                   query: { _id: db.ObjectId(dbUser._id) },
-                  update: { $set: { rawPassword: hash } },
+                  update: { $set: { saltPassword: hash } },
                   new: true
                 }, function (err) {
                   if (err) response.error(res, "Error saving new password");
