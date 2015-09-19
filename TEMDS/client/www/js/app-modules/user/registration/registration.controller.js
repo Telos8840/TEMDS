@@ -113,11 +113,7 @@ angular.module('temds.user.controllers')
         RegisterService.registerNewUser($scope.user)
             .then(function (data) {
                 if (data) {
-                    $ionicPopup.alert({
-                        title: 'Success',
-                        content: 'Worked!'
-                    });
-                    console.log(RegisterService.LocalStorageUser());
+                    $state.go('app.my-account');
                 } else {
                     $ionicPopup.alert({
                         title: 'Error',

@@ -10,6 +10,9 @@ angular.module('temds', [
     /* Utils */
     'temds.utils.controllers',
 
+    /* Welcome */
+    'temds.welcome.controllers',
+
   /* Main Application */ //NOTE: used for reference.
     'temds.app.controllers',
     'temds.app.services',
@@ -23,7 +26,8 @@ angular.module('temds', [
 
     'temds.views',
     'underscore',
-    'angularMoment'
+    'angularMoment',
+'ngAnimate'
 ])
 
 
@@ -33,6 +37,8 @@ angular.module('temds', [
     if (ionic.Platform.isAndroid()) {
         $ionicConfigProvider.scrolling.jsScrolling(false);
     }
+    // back button text always displays "Back"
+    $ionicConfigProvider.backButton.previousTitleText(false);
 })
 
 .run(function ($ionicPlatform, $rootScope, $ionicHistory) {
@@ -210,31 +216,19 @@ angular.module('temds', [
         }
     })
 
-    .state('app.change-password', {
-        url: '/my-account/change-password',
-        views: {
-            menuContent: {
-                templateUrl: 'views/app/my-account/change-password.html',
-                controller: 'MyAccountCtrl'
-            }
-        }
-    })
 
-
-
-    //AUTH ROUTES
+    // MAIN: Splash
     .state('splash-page', {
-        url: "/splash-page",
-        templateUrl: "views/auth/splash-page.html",
-        controller: 'WelcomeCtrl'
-    })
-
-    // TODO: THIS PAGE NEEDS TO BE BUILT
-    .state('sign-in', {
-        url: "/sign-in",
-        templateUrl: "views/auth/sign-in.html",
-        controller: 'WelcomeCtrl'
-    })
+            url: "/splash-page",
+            templateUrl: "views/welcome/splash-page.html",
+            controller: 'SplashCtrl'
+        })
+        // MAIN: Sign-In
+        .state('sign-in', {
+            url: "/sign-in",
+            templateUrl: "views/welcome/sign-in.html",
+            controller: 'SignInCtrl'
+        })
 
     .state('email-confirm', {
         url: "/user/register-email-confirm",
@@ -275,8 +269,9 @@ angular.module('temds', [
     });
 
     // if none of the above states are matched, use this as the fallback
-    //$urlRouterProvider.otherwise('/splash-page');
-    $urlRouterProvider.otherwise('/app/my-account');
+    $urlRouterProvider.otherwise('/splash-page');
+    //$urlRouterProvider.otherwise('/sign-in');
+    //$urlRouterProvider.otherwise('/app/my-account');
     //$urlRouterProvider.otherwise('user/register-form');
 
     //$urlRouterProvider.otherwise('/app/feed');

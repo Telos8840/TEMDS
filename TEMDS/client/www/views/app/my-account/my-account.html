@@ -26,7 +26,7 @@
                     <i class="icon" ng-class="{'ion-ios-arrow-down':!showChange[0],'ion-ios-arrow-up':showChange[0]}"></i>
                 </div>
             </a>
-            <div class="item-body" ng-show="showChange[0]">
+            <div ng-class="{'open':showChange[0]}" class="item-body">
                 <form name="change_password_form" novalidate>
                     <div class="form-fields-outer list list-inset">
                         <label class="item item-input" show-hide-container>
@@ -58,7 +58,7 @@
                     <i class="icon" ng-class="{'ion-ios-arrow-down':!showChange[1],'ion-ios-arrow-up':showChange[1]}"></i>
                 </div>
             </a>
-            <div class="item-body" ng-show="showChange[1]">
+            <div ng-class="{'open':showChange[1]}" class="item-body">
                 <form name="change_name_form" novalidate>
                     <div class="form-fields-outer list list-inset">
                         <label class="item item-input">
@@ -90,7 +90,7 @@
                     <i class="icon" ng-class="{'ion-ios-arrow-down':!showChange[2],'ion-ios-arrow-up':showChange[2]}"></i>
                 </div>
             </a>
-            <div class="item-body phone" ng-show="showChange[2]">
+            <div ng-class="{'open':showChange[2]}" class="item-body phone">
                 <form name="change_phone_form" novalidate>
                     <div class="form-fields-outer list list-inset">
                         <label class="item item-input">
