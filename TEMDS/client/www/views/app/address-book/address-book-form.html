@@ -1,0 +1,91 @@
+<ion-view class="auth-view feed-view address-book-view" view-title="{{edit.title}}">
+    <ion-content style="background-color:white;">
+        <div class="row form-heading" style="height:32px;">
+        </div>
+        <div class="row form-wrapper">
+            <div class="col ">
+                <form name="address_form" class="" novalidate>
+                    <div class="form-fields-outer list list-inset">
+
+
+                        <!-- Name -->
+                        <label class="item item-input">
+                            <input class="multi-input" type="text" placeholder="Address Name" name="name" ng-model="edit.address.name" style="height:47px;" required>
+                            <span class="error" ng-show="address_form.name.$error.required">
+                                Required!
+                            </span>
+                        </label>
+                        <!-- Primary Toggle -->
+                        <label class="item item-toggle" style="font-size:15px; color:#9a9a9a;">
+                            Primary Address
+                            <label class="toggle toggle-energized">
+                                <input type="checkbox" ng-checked="edit.address.primary">
+                                <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+                        </label>
+
+                        <hr class="separator-line" style="width:100%; margin: 24px 0 12px 0;" />
+
+
+                        <!-- Address -->
+                        <label class="item item-input">
+                            <input class="multi-input" type="text" placeholder="Address" name="addr1" ng-model="edit.address.addr1" required>
+                            <span class="error" ng-show="address_form.addr1.$error.required">
+                                Required!
+                            </span>
+                        </label>
+                        <label class="item item-input">
+                            <input class="multi-input" type="text" placeholder="Ste. / Apt. / Fl. " name="addr2" ng-model="edit.address.addr2">
+                        </label>
+                        <label class="item item-input">
+                            <input class="multi-input" type="text" placeholder="City" name="city" ng-model="edit.address.city" required>
+                            <span class="error" ng-show="address_form.city.$error.required">
+                                Required!
+                            </span>
+                        </label>
+                        <div class="row multi-inputs">
+                            <div class="col">
+                                <div class="item item-input item-select">
+                                    <div class="input-label" style="font-size:15px; color:#9a9a9a;">State </div>
+                                    <select ng-model="edit.address.state" ng-options="state.abbr for state in statelist track by state.abbr">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label class="item item-input">
+                                    <input class="multi-input" type="tel" ng-minlength="5" ng-maxlength="5" placeholder="Zipcode" name="zipcode" ng-model="edit.address.zipcode" required>
+                                    <span class="error" ng-show="address_form.zipcode.$error.required">
+                                        Required!
+                                    </span>
+                                    <span class="error" ng-show="address_form.zipcode.$error.number || address_form.zipcode.$error.minlength || address_form.zipcode.$error.maxlength">
+                                        Invalid zipcode!
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <hr class="separator-line" style="width:100%; margin: 24px 0 0 0;" />
+
+
+                        <div class="row multi-inputs">
+                            <div class="col">
+                                <button type="submit" class="sign-up button button-block" ng-click="goBack()">
+                                    Cancel
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button type="submit" class="sign-up button button-block" ng-click="setAddress()" ng-disabled="address_form.$invalid" ng-bind="edit.submit">
+
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

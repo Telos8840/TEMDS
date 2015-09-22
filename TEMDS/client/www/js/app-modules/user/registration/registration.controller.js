@@ -1,7 +1,7 @@
 angular.module('temds.user.controllers')
 
 /* Register Account Controller */
-.controller('RegisterAccountCtrl', function ($scope, $http, RegisterService, $state, $ionicPopup, $interval, $stateParams, $ionicHistory) {
+.controller('RegisterAccountCtrl', function ($scope, RegisterService, $state, $ionicPopup, $interval, $stateParams, $ionicHistory) {
     $scope.user = {};
 
     if ($stateParams.email)

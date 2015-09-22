@@ -13,7 +13,7 @@ angular.module('temds', [
     /* Welcome */
     'temds.welcome.controllers',
 
-  /* Main Application */ //NOTE: used for reference.
+    /* Main Application */ //NOTE: used for reference.
     'temds.app.controllers',
     'temds.app.services',
 
@@ -21,13 +21,13 @@ angular.module('temds', [
     'temds.user.controllers',
     'temds.user.services',
 
-  /* Authentication */
+    /* Authentication */
     'temds.auth.controllers',
 
     'temds.views',
     'underscore',
     'angularMoment',
-'ngAnimate'
+    'ngAnimate'
 ])
 
 
@@ -37,7 +37,7 @@ angular.module('temds', [
     if (ionic.Platform.isAndroid()) {
         $ionicConfigProvider.scrolling.jsScrolling(false);
     }
-    // back button text always displays "Back"
+    // back button text always displays 'Back'
     $ionicConfigProvider.backButton.previousTitleText(false);
 })
 
@@ -59,18 +59,18 @@ angular.module('temds', [
 
     //SIDE MENU ROUTES
         .state('app', {
-        url: "/app",
+        url: '/app',
         abstract: true,
-        templateUrl: "views/app/side-menu.html",
+        templateUrl: 'views/app/side-menu.html',
         controller: 'AppCtrl'
     })
 
     .state('app.feed', {
-        url: "/feed",
+        url: '/feed',
         views: {
             'menuContent': {
-                templateUrl: "views/app/feed.html",
-                controller: "FeedCtrl"
+                templateUrl: 'views/app/feed.html',
+                controller: 'FeedCtrl'
             }
         }
     })
@@ -80,7 +80,7 @@ angular.module('temds', [
         url: '/profile/:userId',
         views: {
             'menuContent': {
-                templateUrl: "views/app/profile/profile.html",
+                templateUrl: 'views/app/profile/profile.html',
                 controller: 'ProfileCtrl'
             }
         }
@@ -105,90 +105,90 @@ angular.module('temds', [
     })
 
     .state('app.shop', {
-        url: "/shop",
+        url: '/shop',
         abstract: true,
         views: {
             'menuContent': {
-                templateUrl: "views/app/shop/shop.html"
+                templateUrl: 'views/app/shop/shop.html'
             }
         }
     })
 
     .state('app.shop.home', {
-        url: "/",
+        url: '/',
         views: {
             'shop-home': {
-                templateUrl: "views/app/shop/shop-home.html",
+                templateUrl: 'views/app/shop/shop-home.html',
                 controller: 'ShopCtrl'
             }
         }
     })
 
     .state('app.shop.popular', {
-        url: "/popular",
+        url: '/popular',
         views: {
             'shop-popular': {
-                templateUrl: "views/app/shop/shop-popular.html",
+                templateUrl: 'views/app/shop/shop-popular.html',
                 controller: 'ShopCtrl'
             }
         }
     })
 
     .state('app.shop.sale', {
-        url: "/sale",
+        url: '/sale',
         views: {
             'shop-sale': {
-                templateUrl: "views/app/shop/shop-sale.html",
+                templateUrl: 'views/app/shop/shop-sale.html',
                 controller: 'ShopCtrl'
             }
         }
     })
 
     .state('app.cart', {
-        url: "/cart",
+        url: '/cart',
         views: {
             'menuContent': {
-                templateUrl: "views/app/shop/cart.html",
+                templateUrl: 'views/app/shop/cart.html',
                 controller: 'ShoppingCartCtrl'
             }
         }
     })
 
     .state('app.shipping-address', {
-        url: "/shipping-address",
+        url: '/shipping-address',
         views: {
             'menuContent': {
-                templateUrl: "views/app/shop/shipping-address.html",
-                controller: "CheckoutCtrl"
+                templateUrl: 'views/app/shop/shipping-address.html',
+                controller: 'CheckoutCtrl'
             }
         }
     })
 
     .state('app.checkout', {
-        url: "/checkout",
+        url: '/checkout',
         views: {
             'menuContent': {
-                templateUrl: "views/app/shop/checkout.html",
-                controller: "CheckoutCtrl"
+                templateUrl: 'views/app/shop/checkout.html',
+                controller: 'CheckoutCtrl'
             }
         }
     })
 
     .state('app.product-detail', {
-        url: "/product/:productId",
+        url: '/product/:productId',
         views: {
             'menuContent': {
-                templateUrl: "views/app/shop/product-detail.html",
+                templateUrl: 'views/app/shop/product-detail.html',
                 controller: 'ProductCtrl'
             }
         }
     })
 
     .state('app.settings', {
-        url: "/settings",
+        url: '/settings',
         views: {
             'menuContent': {
-                templateUrl: "views/app/profile/settings.html",
+                templateUrl: 'views/app/profile/settings.html',
                 controller: 'SettingsCtrl'
             }
         }
@@ -196,21 +196,34 @@ angular.module('temds', [
 
     /** Address Book **/
     .state('app.address-book', {
-        url: "/address-book",
-        views: {
-            'menuContent': {
-                templateUrl: "views/app/address-book/address-book.html",
-                controller: "AddressBookCtrl"
+            cache: false,
+            url: '/address-book',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/app/address-book/address-book.html',
+                    controller: 'AddressBookCtrl'
+                }
             }
-        }
-    })
+        })
+        .state('app.address-book-set', {
+            url: '/address-book-set',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/app/address-book/address-book-form.html',
+                    controller: 'AddressBookEditCtrl'
+                }
+            },
+            params: {
+                'address': null
+            }
+        })
 
     /** My Account **/
     .state('app.my-account', {
-        url: "/my-account",
+        url: '/my-account',
         views: {
             'menuContent': {
-                templateUrl: "views/app/my-account/my-account.html",
+                templateUrl: 'views/app/my-account/my-account.html',
                 controller: 'MyAccountCtrl'
             }
         }
@@ -219,59 +232,60 @@ angular.module('temds', [
 
     // MAIN: Splash
     .state('splash-page', {
-            url: "/splash-page",
-            templateUrl: "views/welcome/splash-page.html",
+            url: '/splash-page',
+            templateUrl: 'views/welcome/splash-page.html',
             controller: 'SplashCtrl'
         })
         // MAIN: Sign-In
         .state('sign-in', {
-            url: "/sign-in",
-            templateUrl: "views/welcome/sign-in.html",
+            url: '/sign-in',
+            templateUrl: 'views/welcome/sign-in.html',
             controller: 'SignInCtrl'
         })
 
     .state('email-confirm', {
-        url: "/user/register-email-confirm",
-        templateUrl: "views/auth/register-email-confirm.html",
+        url: '/user/register-email-confirm',
+        templateUrl: 'views/auth/register-email-confirm.html',
         controller: 'RegisterAccountCtrl'
     })
 
     .state('register-form', {
-            url: "/user/register-form",
-            templateUrl: "views/auth/register-form.html",
+            url: '/user/register-form',
+            templateUrl: 'views/auth/register-form.html',
             controller: 'RegisterAccountCtrl',
             params: {
                 'email': null
             }
         })
         .state('facebook-sign-in', {
-            url: "/facebook-sign-in",
-            templateUrl: "views/auth/facebook-sign-in.html",
+            url: '/facebook-sign-in',
+            templateUrl: 'views/auth/facebook-sign-in.html',
             controller: 'WelcomeCtrl'
         })
 
     .state('dont-have-facebook', {
-        url: "/dont-have-facebook",
-        templateUrl: "views/auth/dont-have-facebook.html",
+        url: '/dont-have-facebook',
+        templateUrl: 'views/auth/dont-have-facebook.html',
         controller: 'WelcomeCtrl'
     })
 
     .state('create-account', {
-        url: "/create-account",
-        templateUrl: "views/auth/create-account.html",
+        url: '/create-account',
+        templateUrl: 'views/auth/create-account.html',
         controller: 'CreateAccountCtrl'
     })
 
     .state('welcome-back', {
-        url: "/welcome-back",
-        templateUrl: "views/auth/welcome-back.html",
+        url: '/welcome-back',
+        templateUrl: 'views/auth/welcome-back.html',
         controller: 'WelcomeBackCtrl'
     });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/splash-page');
+    //$urlRouterProvider.otherwise('/splash-page');
     //$urlRouterProvider.otherwise('/sign-in');
     //$urlRouterProvider.otherwise('/app/my-account');
+    $urlRouterProvider.otherwise('/app/address-book-set');
     //$urlRouterProvider.otherwise('user/register-form');
 
     //$urlRouterProvider.otherwise('/app/feed');

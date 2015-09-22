@@ -44,12 +44,13 @@ angular.module('temds.app.controllers')
     $scope.refreshData();
 
     /**
-     * Go to address detail view.
+     * Go to address edit form to create new or edit existing address.
      * @param {Object?} address Address Object.
      */
-    $scope.addressDetail = function (address) {
-        address = address ? address : {};
-        console.log(address);
+    $scope.editAddress = function (address) {
+        $state.go('app.address-book-set', {
+            'address': (address ? address : {})
+        });
     }
 
     /**
@@ -64,5 +65,47 @@ angular.module('temds.app.controllers')
             }
         }
         // TODO: Send POST to update list
+    }
+})
+
+.controller('AddressBookEditCtrl', function ($scope, $state, $localstorage, $ionicHistory, $stateParams, AddressBookService) {
+    console.log($stateParams.address);
+    $scope.statelist = _US_STATES_;
+    $scope.edit = {
+        address: {
+            primary: false,
+            state: {
+                abbr: 'AL'
+            }
+        }
+    };
+
+    if ($stateParams.address) {
+        $scope.edit.address = angular.copy($stateParams.address);
+        $scope.edit.address.state = {
+            abbr: $scope.edit.address.state
+        };
+    }
+
+
+    if ($scope.edit.address && $scope.edit.address.id) {
+        $scope.edit.title = "Edit Address";
+        $scope.edit.submit = "Update";
+    } else {
+        $scope.edit.title = "New Address";
+        $scope.edit.submit = "Create";
+    }
+
+    $scope.setAddress = function () {
+        $stateParams.address = $scope.edit.address;
+        console.log($stateParams.address);
+        $stateParams.address.state = $scope.edit.address.state.abbr;
+        console.log($stateParams.address);
+
+        $ionicHistory.goBack(-1);
+    }
+
+    $scope.goBack = function () {
+        $ionicHistory.goBack(-1);
     }
 });
