@@ -1,7 +1,7 @@
 angular.module('temds.app.services')
 
 
-.service('AddressBookService', function ($http, $q) {
+.service('AddressBookService', function ($http, $q, $localstorage) {
 
 
     this.getAddressList = function (page, userid) {
@@ -27,5 +27,56 @@ angular.module('temds.app.services')
 
         return dfd.promise;
     };
+
+
+    this.updateAddress = function (address) {
+        var dfd = $q.defer();
+
+        $http.put(_API_HOST + 'api.user/address') // TODO: get correct uri
+            .success(function (response) {
+                // Update local
+                var user = $localstorage.getObject('user');
+                for (var i = 0; i < user.address.length; i++) {
+                    if (user.address[i].id === address.id) {
+                        user.address[i] = address;
+                    } else if (address.primary) {
+                        user.address[i].primary = false;
+                    }
+                }
+                $localstorage.setObject('user', user);
+                dfd.resolve(_SUCCESS_);
+            }).catch(function (response) {
+                console.log(response);
+                dfd.resolve(response.status);
+            });
+
+        return dfd.promise;
+    }
+
+    this.addAddress = function (address) {
+        var dfd = $q.defer();
+
+        $http.put(_API_HOST + 'api.user/address') // TODO: get correct uri
+            .success(function (response) {
+                var newAddressId = response.id;
+                // Update local
+                var user = $localstorage.getObject('user');
+                // update primary if needed
+                if (address.primary) {
+                    for (var i = 0; i < user.address.length; i++) {
+                        user.address[i].primary = false;
+                    }
+                }
+                address.id = newAddressId;
+                user.address.push(address);
+                $localstorage.setObject('user', user);
+                dfd.resolve(_SUCCESS_);
+            }).catch(function (response) {
+                console.log(response);
+                dfd.resolve(response.status);
+            });
+
+        return dfd.promise;
+    }
 
 });

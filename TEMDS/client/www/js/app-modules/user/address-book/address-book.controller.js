@@ -87,7 +87,6 @@ angular.module('temds.app.controllers')
         };
     }
 
-
     if ($scope.edit.address && $scope.edit.address.id) {
         $scope.edit.title = "Edit Address";
         $scope.edit.submit = "Update";
@@ -98,9 +97,12 @@ angular.module('temds.app.controllers')
 
     $scope.setAddress = function () {
         $stateParams.address = $scope.edit.address;
-        console.log($stateParams.address);
         $stateParams.address.state = $scope.edit.address.state.abbr;
-        console.log($stateParams.address);
+        if ($stateParams.address.id) {
+            AddressBookService.updateAddress($stateParams.address);
+        } else {
+            AddressBookService.addAddress($stateParams.address)
+        }
 
         $ionicHistory.goBack(-1);
     }
