@@ -269,16 +269,16 @@ module.exports = function (server, db) {
    *
    * @param email
    * @param rawPass
-   * @param saltPass
    */
-  server.post('api/auth/login', function (req, res, next) {
+  server.post('api/auth/signIn', function (req, res, next) {
     console.log("\n *** User logging in *** \n");
 
     var email     = req.params.email,
-        rawPass   = req.params.rawPass,
-        saltPass  = req.params.saltPass;
+        rawPass   = req.params.rawPass;
+    console.log(req.params);
 
-    if(_.size(email.trim()) == 0) {
+
+    if(_.size(email.trim()) == 0 || _.size(rawPass.trim()) == 0) {
       response.error(res, "Invalid email");
       return next();
     }
@@ -286,19 +286,60 @@ module.exports = function (server, db) {
     db.users.findOne({email: email}, function (err, dbUser) {
       if (err || !dbUser) response.error(res, "Error finding user - " + email, err);
       else {
-        if(rawPass) {
-          pwdMgr.comparePassword(rawPass, dbUser.saltPassword, function (err, isMatch) {
-            if (err) response.error(res, "Error checking password", err);
-            else if(isMatch) response.sendJSON(res, {id: dbUser._id, saltPass: dbUser.saltPassword});
-            else response.invalid(res, "Password doesn't match");
-          });
-        } else if (saltPass) {
-          var match = _.isEqual(saltPass, dbUser.saltPassword);
-          if (match) response.sendJSON(res, {id: dbUser._id, saltPass: dbUser.saltPassword})
+        pwdMgr.comparePassword(rawPass, dbUser.saltPassword, function (err, isMatch) {
+          if (err) response.error(res, "Error checking password", err);
+          else if(isMatch) {
+            db.user_detail.findOne({userKey: db.ObjectId(dbUser._id)}, function (err, dbDetail) {
+              if (err || !dbUser) response.error(res, "User ID not found - " + dbUser._id, err);
+              else {
+
+                var jsonRes = {
+                  id: dbUser._id,
+                  saltPass: dbUser.saltPassword,
+                  email: dbUser.email,
+                  fName: dbDetail.fName,
+                  lName: dbDetail.lName,
+                  phoneNum: dbDetail.phoneNum,
+                  address: dbDetail.address
+                };
+
+                response.sendJSON(res, jsonRes);
+              }
+            });
+          }
           else response.invalid(res, "Password doesn't match");
-        }
+        });
       }
     });
+    return next();
+  });
+
+  /**
+   * User re-authentication
+   *
+   * @param id
+   * @param saltPass
+   */
+  server.post('api/auth/reAuth', function (req, res, next) {
+    console.log("\n *** Re-authenticating user *** \n");
+
+    var id      = req.params.id,
+        saltPass = req.params.saltPass;
+
+    if(_.size(id.trim()) == 0 || _.size(saltPass.trim()) == 0) {
+      response.error(res, "Invalid id or password");
+      return next();
+    }
+
+    db.users.findOne({_id: db.ObjectId(id)}, function (err, dbUser) {
+      if (err || !dbUser) response.error(res, "Error finding user - " + id, err);
+      else {
+        var match = _.isEqual(saltPass, dbUser.saltPassword);
+        if (match) response.success(res, "User authenticated")
+        else response.invalid(res, "Password doesn't match");
+      }
+    });
+
     return next();
   });
 };

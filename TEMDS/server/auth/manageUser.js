@@ -212,6 +212,43 @@ module.exports = function (server, db) {
 
     var address = req.params;
 
+    db.user_detail.findOne({userKey: db.ObjectId(address.userId)}, function (err, dbDetail) {
+      if (err) response.error(res, "Error finding user_detail id - " + detail.id, err);
+      else if (!dbDetail) response.error(res, "Can't find id in user detail " + detail.id, err);
+      else {
+        if(address.primary == true) {
+          _.forEach(dbDetail.address, function (add) {
+            add.primary = false;
+          });
+        }
+
+        var isEdited = false;
+        var addToEdit = dbDetail.address;
+        _.forEach(addToEdit, function (add) {
+          if (add.id == address.addressId) {
+            add.name = address.name;
+            add.addr1 = address.addr1;
+            add.addr2 = address.addr2;
+            add.city = address.city;
+            add.state = address.state;
+            add.zipcode = address.zipcode;
+            add.primary = address.primary;
+
+            isEdited = true;
+          }
+        });
+
+        if (!isEdited) response.invalid(res, "Address Id not found");
+        else{
+          db.user_detail.update({_id: db.ObjectId(dbDetail._id)},
+            {$set: {address: addToEdit, modifiedDate: new Date()}},
+            function (err) {
+              if (err) response.error(res, "Error updating address", err);
+              else response.success(res, "Successfully updated address");
+            });
+        }
+      }
+    });
     return next();
   });
   /**
