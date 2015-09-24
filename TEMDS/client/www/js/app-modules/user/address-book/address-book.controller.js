@@ -9,10 +9,9 @@ angular.module('temds.app.controllers')
     $scope.totalPages = 1;
 
     $scope.refreshData = function () {
-        AddressBookService.getAddressList(1, $scope.user.id) // get 1st page
+        AddressBookService.getAddressList($scope.user.id) // get 1st page
             .then(function (data) {
-                $scope.totalPages = data.totalPages;
-                $scope.addressList = data.addressList;
+                $scope.addressList = data;
                 $scope.$broadcast('scroll.refreshComplete');
             });
     };
@@ -24,6 +23,9 @@ angular.module('temds.app.controllers')
 
 
     $scope.loadMoreData = function () {
+        $scope.addressList = AddressBookService.loadAddressList();
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+        /*
         $scope.page += 1;
 
         AddressBookService.getAddressList($scope.page, $scope.user.id)
@@ -34,6 +36,7 @@ angular.module('temds.app.controllers')
 
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             });
+            */
     };
 
 
@@ -68,8 +71,7 @@ angular.module('temds.app.controllers')
     }
 })
 
-.controller('AddressBookEditCtrl', function ($scope, $state, $localstorage, $ionicHistory, $stateParams, AddressBookService) {
-    console.log($stateParams.address);
+.controller('AddressBookEditCtrl', function ($scope, $state, $localstorage, $ionicHistory, $ionicPopup, $stateParams, AddressBookService) {
     $scope.statelist = _US_STATES_;
     $scope.edit = {
         address: {
@@ -87,24 +89,49 @@ angular.module('temds.app.controllers')
         };
     }
 
+    $scope.edit.allowEditPrimary = false;
     if ($scope.edit.address && $scope.edit.address.id) {
+        $scope.edit.allowEditPrimary = !$scope.edit.address.primary; // only if this address isn't primary
         $scope.edit.title = "Edit Address";
         $scope.edit.submit = "Update";
     } else {
+        $scope.edit.allowEditPrimary = true;
         $scope.edit.title = "New Address";
         $scope.edit.submit = "Create";
     }
 
+    /**
+     * Add or Modify address
+     */
     $scope.setAddress = function () {
         $stateParams.address = $scope.edit.address;
         $stateParams.address.state = $scope.edit.address.state.abbr;
         if ($stateParams.address.id) {
-            AddressBookService.updateAddress($stateParams.address);
+            AddressBookService.updateAddress($stateParams.address)
+                .then(function (data) {
+                    if (data === _SUCCESS_) {
+                        $ionicHistory.goBack(-1);
+                    } else {
+                        $ionicPopup.alert({
+                            title: 'Error',
+                            content: 'Unable to update address.'
+                        });
+                    }
+                });
         } else {
             AddressBookService.addAddress($stateParams.address)
+                .then(function (data) {
+                    if (data === _SUCCESS_) {
+                        $ionicHistory.goBack(-1);
+                    } else {
+                        $ionicPopup.alert({
+                            title: 'Error',
+                            content: 'Unable to add address.'
+                        });
+                    }
+                });
         }
 
-        $ionicHistory.goBack(-1);
     }
 
     $scope.goBack = function () {

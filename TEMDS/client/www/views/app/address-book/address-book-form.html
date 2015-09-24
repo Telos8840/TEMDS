@@ -7,7 +7,6 @@
                 <form name="address_form" class="" novalidate>
                     <div class="form-fields-outer list list-inset">
 
-
                         <!-- Name -->
                         <label class="item item-input">
                             <input class="multi-input" type="text" placeholder="Address Name" name="name" ng-model="edit.address.name" style="height:47px;" required>
@@ -16,18 +15,16 @@
                             </span>
                         </label>
                         <!-- Primary Toggle -->
-                        <label class="item item-toggle" style="font-size:15px; color:#9a9a9a;">
+                        <label class="item item-toggle" ng-show="edit.allowEditPrimary" style="font-size:15px; color:#9a9a9a;">
                             Primary Address
                             <label class="toggle toggle-energized">
-                                <input type="checkbox" ng-checked="edit.address.primary">
+                                <input type="checkbox" ng-checked="edit.address.primary" ng-model="edit.address.primary">
                                 <div class="track">
                                     <div class="handle"></div>
                                 </div>
                             </label>
                         </label>
-
                         <hr class="separator-line" style="width:100%; margin: 24px 0 12px 0;" />
-
 
                         <!-- Address -->
                         <label class="item item-input">
