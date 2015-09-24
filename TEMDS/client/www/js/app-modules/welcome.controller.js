@@ -1,19 +1,8 @@
 angular.module('temds.welcome.controllers')
 
-.controller('SplashCtrl', function ($scope, $state, $ionicModal, $localstorage, SignInService) {
-    $scope.user = $localstorage.getObject('user');
-
-    // ReAuthentication
-    if ($scope.user.saltPass && $scope.user.id) {
-        SignInService.ReAuth($scope.user.id, $scope.user.saltPass)
-            .then(function (data) {
-                if (data == _SUCCESS_)
-                    $state.go('app.my-account');
-            });
-    }
-
+.controller('IntroCtrl', function ($scope, $state, $ionicModal) {
     // $scope.bgs = ["http://lorempixel.com/640/1136"];
-    $scope.bgs = ["img/welcome-bg.jpeg"];
+    $scope.bgs = ["img/splash-bg.jpeg"];
 
     /// Sign In button is pressed
     /// Goto Sign In View
@@ -28,12 +17,6 @@ angular.module('temds.welcome.controllers')
         /// </summary>
         $state.go('email-confirm');
     }
-
-    /* keeping for reference use
-    $scope.facebookSignIn = function () {
-      console.log("doing facebbok sign in");
-      $state.go('app.feed');
-    }; */
 
     $ionicModal.fromTemplateUrl('views/app/legal/privacy-policy.html', {
         scope: $scope,
@@ -57,3 +40,23 @@ angular.module('temds.welcome.controllers')
         $scope.terms_of_service_modal.show();
     };
 })
+
+
+.controller('SplashCtrl', function ($scope, $state, $ionicModal, $localstorage, $ionicHistory, SignInService) {
+    var bgImgs = ["welcome-bg.jpeg", "welcome2-bg.jpeg", "welcome3-bg.jpeg"];
+    $scope.bgs = ["img/" + bgImgs[Math.floor(Math.random() * bgImgs.length)]];
+    $scope.user = $localstorage.getObject('user');
+
+    $ionicHistory.nextViewOptions({
+        disableBack: true
+    });
+
+    // ReAuthentication
+    if ($scope.user.saltPass && $scope.user.id) {
+        SignInService.ReAuth($scope.user.id, $scope.user.saltPass)
+            .then(function (data) {
+                if (data == _SUCCESS_) $state.go('app.my-account');
+                else $state.go('intro');
+            });
+    } else $state.go('intro');
+});

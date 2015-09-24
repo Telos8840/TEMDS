@@ -231,10 +231,15 @@ angular.module('temds', [
 
 
     // MAIN: Splash
-    .state('splash-page', {
-            url: '/splash-page',
-            templateUrl: 'views/welcome/splash-page.html',
+    .state('splash', {
+            url: '/splash',
+            templateUrl: 'views/welcome/splash.html',
             controller: 'SplashCtrl'
+        })
+        .state('intro', {
+            url: '/intro',
+            templateUrl: 'views/welcome/intro.html',
+            controller: 'IntroCtrl'
         })
         // MAIN: Sign-In
         .state('sign-in', {
@@ -284,8 +289,10 @@ angular.module('temds', [
     // if none of the above states are matched, use this as the fallback
     //$urlRouterProvider.otherwise('/splash-page');
     //$urlRouterProvider.otherwise('/sign-in');
+    $urlRouterProvider.otherwise('/splash');
     //$urlRouterProvider.otherwise('/app/my-account');
-    $urlRouterProvider.otherwise('/app/address-book-set');
+    //$urlRouterProvider.otherwise('/app/address-book-set');
+
     //$urlRouterProvider.otherwise('user/register-form');
 
     //$urlRouterProvider.otherwise('/app/feed');
