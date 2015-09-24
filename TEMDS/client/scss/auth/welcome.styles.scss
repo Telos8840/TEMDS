@@ -1,110 +1,83 @@
-.welcome-view
-{
-	background-color: $welcome-bg;
-
-	ion-content
-  {
-    top: 0px !important;
-  }
-
-	.multi-bg-outer
-	{
-		z-index: 0;
-	}
-  .bgVid
-  {
-  	position: absolute;
-  	height: 100%;
-  	top: 0px;
-  	right: 0px;
-  }
-  .top-content
-  {
-    height: 66%;
-    position:relative;
-
-		.app-copy
-		{
-			text-align: center;
-			padding-top: 20vh;
-		}
-
-		.app-logo
-		{
-			font-size: 50px;
-			font-weight: 600;
-			font-style: bold;
-			color: $welcome-color;
-		}
-
-		.app-tagline
-		{
-			font-size: 16px;
-			margin-top: 20px;
-			color: rgba(darken($welcome-color, 10%), 0.8);
-		}
-  }
-
-  .bottom-content
-  {
-    height: 34%;
-    margin: 0px;
-
-		.facebook-sign-in,
-		.create-account
-    {
-      border-radius: 4px;
-			margin: 10px 12vw;
-			font-size: 18px;
+.welcome-view {
+    background-color: $welcome-bg;
+    ion-content {
+        top: 0px !important;
     }
-
-		.facebook-sign-in,
-		.dont-have-facebook,
-    .create-account,
-		.have-account
-		{
-			margin-bottom: 20px;
-		}
-
-	.sign-in {
-		color: rgba($welcome-sign-in-color, .9);
-      	background-color: rgba($welcome-sign-in-bg, .2);
-      	border-color: rgba(darken($welcome-sign-in-bg, 1), .9);
-	}
-
-    .facebook-sign-in
-    {
-      color: rgba($welcome-facebook-sign-in-color, .9);
-      background-color: rgba($welcome-facebook-sign-in-bg, .98);
-      border-color: rgba(darken($welcome-facebook-sign-in-bg, 1), .9);
+    .logo {
+        width: 100%;
     }
-
-    .create-account
-    {
-      color: rgba($welcome-create-account-color, .9);
-      background-color: rgba($welcome-create-account-bg, .98);
-      border-color: rgba(darken($welcome-create-account-bg, 1), .9);
+    .multi-bg-outer {
+        z-index: 0;
     }
-
-		.dont-have-facebook,
-		.have-account
-		{
-			color: rgba(darken($welcome-color, 10%), 0.8);
-			font-size: 16px;
-		}
-
-		.legal-notice
-		{
-			color: $welcome-color;
-			margin: 10px 12vw;
-			text-align: center;
-
-			a
-			{
-				text-decoration: none;
-				font-weight: 600;
-				color: $welcome-color;
-			}
-		}
-  }
+    .bgVid {
+        position: absolute;
+        height: 100%;
+        top: 0px;
+        right: 0px;
+    }
+    .top-content {
+        height: 66%;
+        position: relative;
+        .app-copy {
+            text-align: center;
+            padding-top: 20vh;
+        }
+        .app-logo {
+            font-size: 50px;
+            font-weight: 600;
+            font-style: bold;
+            color: $welcome-color;
+        }
+        .app-tagline {
+            font-size: 16px;
+            margin-top: 20px;
+            color: rgba(darken($welcome-color, 10%), 0.8);
+        }
+    }
+    .bottom-content {
+        height: 34%;
+        margin: 0px;
+        .facebook-sign-in,
+        .create-account {
+            border-radius: 4px;
+            margin: 10px 12vw;
+            font-size: 18px;
+        }
+        .facebook-sign-in,
+        .dont-have-facebook,
+        .create-account,
+        .have-account {
+            margin-bottom: 20px;
+        }
+        .sign-in {
+            color: rgba($welcome-sign-in-color, .9);
+            background-color: rgba($welcome-sign-in-bg, .2);
+            border-color: rgba(darken($welcome-sign-in-bg, 1), .9);
+        }
+        .facebook-sign-in {
+            color: rgba($welcome-facebook-sign-in-color, .9);
+            background-color: rgba($welcome-facebook-sign-in-bg, .98);
+            border-color: rgba(darken($welcome-facebook-sign-in-bg, 1), .9);
+        }
+        .create-account {
+            color: rgba($welcome-create-account-color, .9);
+            background-color: rgba($welcome-create-account-bg, .98);
+            border-color: rgba(darken($welcome-create-account-bg, 1), .9);
+        }
+        .dont-have-facebook,
+        .have-account {
+            color: rgba(darken($welcome-color, 10%), 0.8);
+            font-size: 16px;
+        }
+        .legal-notice {
+            color: $welcome-color;
+            margin: 10px 12vw;
+            text-align: center;
+            a {
+                text-decoration: none;
+                font-weight: 600;
+                color: $welcome-color;
+            }
+        }
+    }
 }

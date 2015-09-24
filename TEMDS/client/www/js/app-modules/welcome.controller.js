@@ -55,7 +55,7 @@ angular.module('temds.welcome.controllers')
     if ($scope.user.saltPass && $scope.user.id) {
         SignInService.ReAuth($scope.user.id, $scope.user.saltPass)
             .then(function (data) {
-                if (data == _SUCCESS_) $state.go('app.my-account');
+                if (data == _SUCCESS_) $state.go('app.my-account'); //TODO: Change to go to main view
                 else $state.go('intro');
             });
     } else $state.go('intro');
