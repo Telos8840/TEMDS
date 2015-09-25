@@ -33,15 +33,29 @@ angular.module('temds', [
 
 // Enable native scrolls for Android platform only,
 // as you see, we're disabling jsScrolling to achieve this.
-.config(function ($ionicConfigProvider) {
+.config(function ($ionicConfigProvider, $httpProvider) {
     if (ionic.Platform.isAndroid()) {
         $ionicConfigProvider.scrolling.jsScrolling(false);
     }
     // back button text always displays 'Back'
     $ionicConfigProvider.backButton.previousTitleText(false);
+
+    // HTTP Interceptors    
+    $httpProvider.interceptors.push(function ($rootScope) {
+        return {
+            request: function (config) {
+                $rootScope.$broadcast('loading:show')
+                return config
+            },
+            response: function (response) {
+                $rootScope.$broadcast('loading:hide')
+                return response
+            }
+        }
+    });
 })
 
-.run(function ($ionicPlatform, $rootScope, $ionicHistory) {
+.run(function ($ionicPlatform, $rootScope, $ionicHistory, $ionicLoading) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -51,6 +65,17 @@ angular.module('temds', [
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
+    });
+
+    // HTTP Interceptors
+    $rootScope.$on('loading:show', function () {
+        $ionicLoading.show({
+            template: '<ion-spinner></ion-spinner>'
+        })
+    });
+
+    $rootScope.$on('loading:hide', function () {
+        $ionicLoading.hide()
     });
 })
 
