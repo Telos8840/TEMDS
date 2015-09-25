@@ -54,7 +54,7 @@ angular.module('temds.app.services')
             }).catch(function (response) {
                 console.log(response);
                 dfd.resolve(response.status);
-            })
+            });
 
         return dfd.promise;
     }
@@ -78,7 +78,28 @@ angular.module('temds.app.services')
             }).catch(function (response) {
                 console.log(response);
                 dfd.resolve(response.status);
-            })
+            });
+
+        return dfd.promise;
+    }
+
+    /**
+     * Send an email with auto-generated password.
+     * @param   {String} email User Email
+     * @returns {Number} _SUCCESS_ or status code
+     */
+    this.recoverPassword = function (email) {
+        var dfd = $q.defer();
+
+        console.log(email.trim());
+
+        $http.get(_API_HOST_ + 'api/auth/resetPassword/' + email.trim())
+            .success(function (response) {
+                dfd.resolve(_SUCCESS_);
+            }).catch(function (response) {
+                console.log(response);
+                dfd.resolve(response.message);
+            });
 
         return dfd.promise;
     }

@@ -247,14 +247,14 @@ angular.module('temds', [
             templateUrl: 'views/welcome/sign-in.html',
             controller: 'SignInCtrl'
         })
-
-    .state('email-confirm', {
-        url: '/user/register-email-confirm',
-        templateUrl: 'views/auth/register-email-confirm.html',
-        controller: 'RegisterAccountCtrl'
-    })
-
-    .state('register-form', {
+        // MAIN: Sign-Up (Step 1)
+        .state('email-confirm', {
+            url: '/user/register-email-confirm',
+            templateUrl: 'views/auth/register-email-confirm.html',
+            controller: 'RegisterAccountCtrl'
+        })
+        // MAIN: Sign-Up (Step 2)
+        .state('register-form', {
             url: '/user/register-form',
             templateUrl: 'views/auth/register-form.html',
             controller: 'RegisterAccountCtrl',
@@ -262,11 +262,15 @@ angular.module('temds', [
                 'email': null
             }
         })
-        .state('facebook-sign-in', {
-            url: '/facebook-sign-in',
-            templateUrl: 'views/auth/facebook-sign-in.html',
-            controller: 'WelcomeCtrl'
-        })
+
+
+
+
+    .state('facebook-sign-in', {
+        url: '/facebook-sign-in',
+        templateUrl: 'views/auth/facebook-sign-in.html',
+        controller: 'WelcomeCtrl'
+    })
 
     .state('dont-have-facebook', {
         url: '/dont-have-facebook',
@@ -288,8 +292,9 @@ angular.module('temds', [
 
     // if none of the above states are matched, use this as the fallback
     //$urlRouterProvider.otherwise('/splash-page');
-    //$urlRouterProvider.otherwise('/sign-in');
-    $urlRouterProvider.otherwise('/splash');
+    $urlRouterProvider.otherwise('/sign-in');
+    //$urlRouterProvider.otherwise('/splash');
+    //$urlRouterProvider.otherwise('/recover-password');
     //$urlRouterProvider.otherwise('/app/my-account');
     //$urlRouterProvider.otherwise('/app/address-book-set');
 

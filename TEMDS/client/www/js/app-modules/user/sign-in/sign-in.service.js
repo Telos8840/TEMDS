@@ -34,4 +34,5 @@ angular.module('temds.user.services')
 
         return dfd.promise;
     }
+
 });

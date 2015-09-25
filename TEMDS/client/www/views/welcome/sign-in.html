@@ -37,6 +37,9 @@
                         <button type="submit" class="sign-up button button-block" ng-click="SignIn()" ng-disabled="signup_form.$invalid">
                             Sign In
                         </button>
+                        <p class="text-center">
+                            <a id="recover-password" ng-click="showRecoverPassword()">Forgot password</a>
+                        </p>
                         <p ng-show="error" class="message error">{{error}}</p>
                     </div>
                 </form>
