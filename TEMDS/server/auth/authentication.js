@@ -9,6 +9,9 @@ var response    = require('../helpers/response');
 var pwdMgr      = require('./managePasswords');
 var nodeMailer  = require('nodemailer');				//http://blog.nodeknockout.com/post/34641712180/sending-email-from-nodejs
 var _           = require('lodash');
+var async       = require('async');
+var crypto      = require('crypto');
+var randomstring = require("randomstring");
 
 //TODO: Get SMTP authentication from businessowner
 var smtpTransport = nodeMailer.createTransport("SMTP",{
@@ -21,6 +24,7 @@ var smtpTransport = nodeMailer.createTransport("SMTP",{
 
 /**
  * Sends email to given user with confirmation number
+ *
  * @param res
  * @param email
  */
@@ -34,6 +38,32 @@ var sendConfirmationEmail = function (res, user) {
     to: "<"+user.email+">", // comma separated list of receivers
     subject: "TEMDS - Email Confirmation Number",
     text: "Confirmation Number: " + user.confirmationNumber
+  };
+
+  smtpTransport.sendMail(mailOptions, function(error, response) {
+    console.log("email response: ", response);
+    if (error) console.log("Error sending email");
+    else console.log("Email sent successfully");
+  });
+  // TODO: Push confirmation number and email to db
+
+};
+
+/**
+ * Sends email to given user with new password
+ *
+ * @param user
+ */
+var sendNewPasswordEmail = function (user) {
+  // Send confirmation email
+  // TODO: Make email body sexier!
+  console.log("Sending email to: ", user.email);
+
+  var mailOptions = {
+    from: "TEMDS Sender <donotreply@temds.com>", // sender address
+    to: "<"+user.email+">", // comma separated list of receivers
+    subject: "TEMDS - Password Reset",
+    text: "New Password: " + user.rawPassword
   };
 
   smtpTransport.sendMail(mailOptions, function(error, response) {
@@ -340,6 +370,54 @@ module.exports = function (server, db) {
       }
     });
 
+    return next();
+  });
+
+  /**
+   * Password reset that generates random token.
+   * User must reset password within 1 hour otherwise
+   * token will become invalid.
+   *
+   * @param email
+   */
+  server.get('api/auth/resetPassword/:email', function (req, res, next) {
+    console.log("\n *** Generating random password *** \n");
+
+    var email = req.params.email;
+    
+    if(_.size(email) == 0) {
+      response.error(res, "No email provided");
+      return next();
+    }
+
+    db.users.findOne({email: email}, function (err, dbUser) {
+      if (err || !dbUser) response.error(res, "Error finding user - " + email, err);
+      else {
+        var ranString = randomstring.generate(8);
+
+        pwdMgr.cryptPassword(ranString, function (err, hash) {
+          if(err) response.error(res, "Error hashing password", err);
+          else {
+            db.users.findAndModify({
+              query: { _id: db.ObjectId(dbUser._id) },
+              update: { $set: { saltPassword: hash } },
+              new: true
+            }, function (err) {
+              if (err) response.error(res, "Error saving new password");
+              else {
+                var user = {
+                  email: email,
+                  rawPassword: ranString
+                };
+
+                sendNewPasswordEmail(user);
+                response.success(res, "Password reset");
+              }
+            });
+          }
+        });
+      }
+    });
     return next();
   });
 };

@@ -109,7 +109,7 @@ module.exports = function (server, db) {
         oldPass = req.params.oldPass.trim(),
         newPass = req.params.newPass.trim();
 
-    if(_.size(oldPass) <= 6 || _.size(newPass) <= 6) {
+    if(_.size(oldPass) < 6 || _.size(newPass) < 6) {
       response.invalid(res, "Invalid passwords");
       return next();
     }
@@ -186,9 +186,8 @@ module.exports = function (server, db) {
         db.user_detail.update({userKey: db.ObjectId(detail.id)},
           {$set: {address: dbDetail.address, modifiedDate: new Date()}}, function (err, data) {
             if (err) response.error(res, "Error updating details for " + detail.id, err);
+            else response.sendJSON(res, {addressId: newAdd.id});
           });
-
-        response.success(res, "Address added to user list");
       }
     });
     return next();
@@ -258,32 +257,30 @@ module.exports = function (server, db) {
    * @param itemPerList
    * @param listNumber
    */
-  server.get('api/user/getAddresses/:id/:itemPerList/:listNumber', function (req, res, next) {
+  server.get('api/user/getAddresses/:id', function (req, res, next) {
     console.log("\n *** Getting addresses *** \n");
 
-    console.log("params", req.params);
-
-    var itemPerList = req.params.itemPerList,
-      listNumber  = req.params.listNumber;
+    //var itemPerList = req.params.itemPerList,
+    //  listNumber  = req.params.listNumber;
 
     db.user_detail.findOne({userKey: db.ObjectId(req.params.id)}, function (err, dbDetail) {
       if (err) response.error(res, "Error finding user_detail id - " + req.params.id, err);
       else if (!dbDetail) response.error(res, "Can't find id in user detail " + req.params.id, err);
       else {
-        var addresses = dbDetail.address,
-          skip      = itemPerList * (listNumber - 1);
+        var addresses = dbDetail.address;
+          //skip      = itemPerList * (listNumber - 1);
 
-        var totalPosts = addresses.length,
-          totalPages = _.ceil(totalPosts / itemPerList);
+        //var totalPosts = addresses.length,
+        //  totalPages = _.ceil(totalPosts / itemPerList);
+        //
+        //var addressList = addresses.slice(skip, skip + itemPerList);
+        //
+        //var json = {
+        //  addressList: addressList,
+        //  totalPages: totalPages
+        //};
 
-        var addressList = addresses.slice(skip, skip + itemPerList);
-
-        var json = {
-          addressList: addressList,
-          totalPages: totalPages
-        };
-
-        response.sendJSON(res, json);
+        response.sendJSON(res, addresses);
       }
     });
     return next();
