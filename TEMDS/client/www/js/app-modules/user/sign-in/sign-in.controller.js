@@ -49,7 +49,7 @@ angular.module('temds.user.controllers')
                     $ionicPopup.alert({
                         title: 'Success',
                         content: 'We have sent you a temporary password to "' +
-                            $scope.email + '".'
+                            $scope.recover.email + '".'
                     }).then(function () {
                         $scope.recoverPasswordModal.hide();
                     });

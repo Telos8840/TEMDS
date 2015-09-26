@@ -87,7 +87,7 @@ angular.module('temds', [
         url: '/app',
         abstract: true,
         templateUrl: 'views/app/side-menu.html',
-        controller: 'AppCtrl'
+        controller: 'SideMenuCtrl'
     })
 
     .state('app.feed', {
