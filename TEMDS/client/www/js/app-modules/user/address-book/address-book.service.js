@@ -1,7 +1,7 @@
 angular.module('temds.app.services')
 
 
-.service('AddressBookService', function ($http, $q, $localstorage) {
+.service('AddressBookService', function ($http, $q, $localstorage, $filter) {
 
 
     /**
@@ -10,9 +10,7 @@ angular.module('temds.app.services')
      */
     this.loadAddressList = function () {
         var addressList = $localstorage.getObject('user').address;
-        return _.sortBy(addressList, function (address) {
-            return address.name;
-        });
+        return $filter('orderBy')(addressList, '+name', false);
     }
 
     /**
@@ -28,6 +26,7 @@ angular.module('temds.app.services')
 
         $http.get(_API_HOST_ + 'api/user/getAddresses/' + userid)
             .success(function (response) {
+                response = $filter('orderBy')(response, '+name', false);
                 user.address = response;
                 $localstorage.setObject('user', user);
                 dfd.resolve(response);

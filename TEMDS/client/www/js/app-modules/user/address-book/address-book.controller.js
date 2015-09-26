@@ -22,7 +22,7 @@ angular.module('temds.app.controllers')
     };
 
 
-    $scope.loadMoreData = function () {
+    $scope.loadData = function () {
         $scope.addressList = AddressBookService.loadAddressList();
         $scope.$broadcast('scroll.infiniteScrollComplete');
         /*
@@ -44,7 +44,7 @@ angular.module('temds.app.controllers')
         return $scope.totalPages > $scope.page;
     };
 
-    $scope.refreshData();
+    $scope.loadData(); // init data
 
     /**
      * Go to address edit form to create new or edit existing address.

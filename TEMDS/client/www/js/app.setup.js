@@ -290,7 +290,6 @@ angular.module('temds', [
 
 
 
-
     .state('facebook-sign-in', {
         url: '/facebook-sign-in',
         templateUrl: 'views/auth/facebook-sign-in.html',
@@ -317,8 +316,8 @@ angular.module('temds', [
 
     // if none of the above states are matched, use this as the fallback
     //$urlRouterProvider.otherwise('/splash-page');
-    $urlRouterProvider.otherwise('/sign-in');
-    //$urlRouterProvider.otherwise('/splash');
+    //$urlRouterProvider.otherwise('/sign-in');
+    $urlRouterProvider.otherwise('/splash');
     //$urlRouterProvider.otherwise('/recover-password');
     //$urlRouterProvider.otherwise('/app/my-account');
     //$urlRouterProvider.otherwise('/app/address-book-set');
