@@ -1,0 +1,185 @@
+{
+    "addressList": [
+        {
+            "id": "000000000001",
+            "name": "Home",
+            "addr1": "777 Lucky Street",
+            "addr2": "Apt #7",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zipcode": 90007,
+            "primary": true
+        },
+        {
+            "id": "000000000002",
+            "name": "Work",
+            "addr1": "666 Devil Blvd",
+            "addr2": "Ste #6",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zipcode": 90006,
+            "primary": false
+        },
+        {
+            "id": "000000000003",
+            "name": "Bryant's Office",
+            "addr1": "4321 Wilshire Blvd.",
+            "addr2": "Ste 1320",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zipcode": 90004,
+            "primary": false
+        },
+        {
+            "id": "000000000004",
+            "name": "Jade's grandmother's apartment",
+            "addr1": "2610 West 3rd Street",
+            "addr2": "",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zipcode": 90057,
+            "primary": false
+        },
+        {
+            "id": "000000000005",
+            "name": "Mom",
+            "addr1": "931 Andover Dr",
+            "addr2": "Fl. 3",
+            "city": "Burbank",
+            "state": "CA",
+            "zipcode": 91504,
+            "primary": false
+        },
+        {
+            "id": "000000000006",
+            "name": "Work",
+            "addr1": "666 Devil Blvd",
+            "addr2": "Ste #6",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zipcode": 90006,
+            "primary": false
+        },
+        {
+            "id": "000000000007",
+            "name": "Bryant's Office",
+            "addr1": "4321 Wilshire Blvd.",
+            "addr2": "Ste 1320",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zipcode": 90004,
+            "primary": false
+        },
+        {
+            "id": "000000000008",
+            "name": "Jade's grandmother's apartment",
+            "addr1": "2610 West 3rd Street",
+            "addr2": "",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zipcode": 90057,
+            "primary": false
+        },
+        {
+            "id": "000000000009",
+            "name": "Mom",
+            "addr1": "931 Andover Dr",
+            "addr2": "Fl. 3",
+            "city": "Burbank",
+            "state": "CA",
+            "zipcode": 91504,
+            "primary": false
+        },
+        {
+            "id": "000000000010",
+            "name": "Work",
+            "addr1": "666 Devil Blvd",
+            "addr2": "Ste #6",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zipcode": 90006,
+            "primary": false
+        },
+        {
+            "id": "0000000000011",
+            "name": "Bryant's Office",
+            "addr1": "4321 Wilshire Blvd.",
+            "addr2": "Ste 1320",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zipcode": 90004,
+            "primary": false
+        },
+        {
+            "id": "0000000000012",
+            "name": "Jade's grandmother's apartment",
+            "addr1": "2610 West 3rd Street",
+            "addr2": "",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zipcode": 90057,
+            "primary": false
+        },
+        {
+            "id": "0000000000013",
+            "name": "Mom",
+            "addr1": "931 Andover Dr",
+            "addr2": "Fl. 3",
+            "city": "Burbank",
+            "state": "CA",
+            "zipcode": 91504,
+            "primary": false
+        },
+        {
+            "id": "0000000000014",
+            "name": "Work",
+            "addr1": "666 Devil Blvd",
+            "addr2": "Ste #6",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zipcode": 90006,
+            "primary": false
+        },
+        {
+            "id": "0000000000015",
+            "name": "Bryant's Office",
+            "addr1": "4321 Wilshire Blvd.",
+            "addr2": "Ste 1320",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zipcode": 90004,
+            "primary": false
+        },
+        {
+            "id": "0000000000016",
+            "name": "Jade's grandmother's apartment",
+            "addr1": "2610 West 3rd Street",
+            "addr2": "",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zipcode": 90057,
+            "primary": false
+        },
+        {
+            "id": "0000000000017",
+            "name": "Mom",
+            "addr1": "931 Andover Dr",
+            "addr2": "Fl. 3",
+            "city": "Burbank",
+            "state": "CA",
+            "zipcode": 91504,
+            "primary": false
+        },
+        {
+            "id": "0000000000018",
+            "name": "Uncle Bob",
+            "addr1": "13100 Prairie Ave",
+            "addr2": "",
+            "city": "Hawthorne",
+            "state": "CA",
+            "zipcode": 90250,
+            "primary": false
+        }
+
+    ]
+}

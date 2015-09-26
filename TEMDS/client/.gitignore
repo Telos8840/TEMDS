@@ -12,5 +12,7 @@ tmp/
 node_modules/
 www/img/orig
 www/js/tracking-config.js
+www/js/view.js
+www/css/
 
 .DS_Store

@@ -1,19 +1,16 @@
 // Include Sass mixins
 @import "scss/utils/mixins";
-
 // Include Theme variables
 @import "scss/common/theme.variables";
 // Include Ionic override variables
 @import "scss/utils/override_variables";
-
 // Include Bourbon
 @import "www/lib/bourbon/app/assets/stylesheets/_bourbon";
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
-
 // Include Ionic override styles
 @import "scss/utils/override_styles";
-
+@import "scss/utils/animate-ease-type";
 // Include project Sass variables
 @import "scss/common/common.variables";
 @import "scss/auth/auth.variables";
@@ -23,7 +20,8 @@
 @import "scss/profile/settings.variables";
 @import "scss/shop/shop.variables";
 @import "scss/feed/feed.variables";
-
+@import "scss/address-book/address-book.variables";
+@import "scss/my-account/my-account.variables";
 // Include custom styles
 @import "scss/common/common.styles";
 @import "scss/auth/welcome.styles";
@@ -42,3 +40,5 @@
 @import "scss/shop/product-details.styles";
 @import "scss/shop/shipping-address.styles";
 @import "scss/shop/checkout.styles";
+@import "scss/address-book/address-book.styles";
+@import "scss/my-account/my-account.styles";
