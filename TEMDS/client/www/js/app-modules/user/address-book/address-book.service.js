@@ -2,8 +2,6 @@ angular.module('temds.app.services')
 
 
 .service('AddressBookService', function ($http, $q, $localstorage, $filter) {
-
-
     /**
      * Get Address List for local storage
      * @returns {Array} Addresses
@@ -60,7 +58,11 @@ angular.module('temds.app.services')
         */
     };
 
-
+    /**
+     * Update address object
+     * @param   {Object}   address Address Object
+     * @returns {Number} _SUCCESS_ or status code
+     */
     this.updateAddress = function (address) {
         var dfd = $q.defer();
         var user = $localstorage.getObject('user');
@@ -98,6 +100,11 @@ angular.module('temds.app.services')
         return dfd.promise;
     }
 
+    /**
+     * Add new address to user
+     * @param   {Object}  address Address Object
+     * @returns {Number} _SUCCESS_ or status code
+     */
     this.addAddress = function (address) {
         var dfd = $q.defer();
         var user = $localstorage.getObject('user');
@@ -113,7 +120,6 @@ angular.module('temds.app.services')
                 primary: address.primary
             })
             .success(function (response) {
-                console.log(response); //debug use
                 // update primary if needed
                 if (address.primary) {
                     for (var i = 0; i < user.address.length; i++) {
