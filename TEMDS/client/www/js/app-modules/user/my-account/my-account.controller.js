@@ -75,7 +75,8 @@ angular.module('temds.app.controllers')
                     $localstorage.setObject('user', $scope.user);
                     break;
                 default:
-                    showAlert("Error", "Unable to change phone number! Please contact the administrator.");
+                    $scope.showAlert("Error", "Unable to change phone number! Please contact the administrator.");
+                    break;
                 }
                 $scope.showChange[2] = false;
             });
