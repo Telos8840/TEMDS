@@ -2,7 +2,7 @@ angular.module('temds.welcome.controllers')
 
 .controller('IntroCtrl', function ($scope, $state, $ionicModal) {
     // $scope.bgs = ["http://lorempixel.com/640/1136"];
-    $scope.bgs = ["img/splash-bg.jpeg"];
+    $scope.bgs = ["img/background/bg.png"];
 
     /// Sign In button is pressed
     /// Goto Sign In View
@@ -43,8 +43,7 @@ angular.module('temds.welcome.controllers')
 
 
 .controller('SplashCtrl', function ($scope, $state, $ionicModal, $localstorage, $ionicHistory, SignInService) {
-    var bgImgs = ["welcome-bg.jpeg", "welcome2-bg.jpeg", "welcome3-bg.jpeg"];
-    $scope.bgs = ["img/" + bgImgs[Math.floor(Math.random() * bgImgs.length)]];
+    $scope.bgs = ["img/background/bg.png"];
     $scope.user = $localstorage.getObject('user');
 
     $ionicHistory.nextViewOptions({
@@ -56,7 +55,17 @@ angular.module('temds.welcome.controllers')
         SignInService.ReAuth($scope.user.id, $scope.user.saltPass)
             .then(function (data) {
                 if (data == _SUCCESS_) $state.go('app.my-account'); //TODO: Change to go to main view
-                else $state.go('intro');
+                else {
+                    $ionicHistory.nextViewOptions({
+                        disableAnimate: true
+                    });
+                    $state.go('intro');
+                }
             });
-    } else $state.go('intro');
+    } else {
+        $ionicHistory.nextViewOptions({
+            disableAnimate: true
+        });
+        $state.go('intro');
+    }
 });

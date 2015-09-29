@@ -80,4 +80,120 @@
             }
         }
     }
+    // Background Animation
+    .bg_anim {
+        width: 100%;
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        animation-iteration-count: infinite;
+        z-index: -1;
+        opacity: 0;
+    }
+    .bg_water {
+        animation-name: waterFade;
+        animation-duration: 7s;
+        animation-timing-function: linear;
+        animation-direction: normal;
+    }
+    .bg_building1 {
+        animation-name: buildingFade;
+        animation-duration: 14s;
+        animation-delay: 3s;
+        animation-timing-function: ease-in-out;
+        animation-direction: alternate;
+    }
+    .bg_building2 {
+        animation-name: buildingFade;
+        animation-duration: 6.67s;
+        animation-delay: 7s;
+        animation-timing-function: ease-in-out;
+        animation-direction: alternate;
+    }
+    .bg_building3 {
+        animation-name: buildingFade;
+        animation-duration: 10s;
+        animation-delay: 13s;
+        animation-timing-function: ease-in-out;
+        animation-direction: alternate;
+    }
+    .bg_building4 {
+        animation-name: buildingFade;
+        animation-duration: 5s;
+        animation-delay: 5s;
+        animation-timing-function: ease-in-out;
+        animation-direction: alternate;
+    }
+    .bg_building5 {
+        animation-name: buildingFade;
+        animation-duration: 7s;
+        animation-delay: 9s;
+        animation-timing-function: ease-in-out;
+        animation-direction: alternate;
+    }
+    .bg_star1 {
+        animation-name: starFade;
+        animation-duration: 5s;
+        animation-delay: 4s;
+        animation-timing-function: ease-in-out;
+        animation-direction: alternate;
+        top: 0px;
+    }
+    .bg_star2 {
+        animation-name: starFade;
+        animation-duration: 8s;
+        animation-delay: 1.3s;
+        animation-timing-function: ease-in-out;
+        animation-direction: alternate;
+        top: 0px;
+    }
+    .bg_star3 {
+        animation-name: starFade;
+        animation-duration: 13s;
+        animation-delay: 3.5s;
+        animation-timing-function: ease-in-out;
+        animation-direction: alternate;
+        top: 0px;
+    }
+}
+
+
+/** Animation Keyframes **/
+
+@keyframes waterFade {
+    0% {
+        opacity: 0;
+        bottom: 0px;
+    }
+    10% {
+        opacity: 0.1;
+    }
+    90% {
+        opacity: 0.1;
+    }
+    100% {
+        opacity: 0;
+        bottom: -30px;
+    }
+}
+
+@keyframes buildingFade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0.667;
+    }
+}
+
+@keyframes starFade {
+    0% {
+        opacity: 0;
+    }
+    95% {
+        opacity: 0.45;
+    }
+    100% {
+        opacity: 0;
+    }
 }
