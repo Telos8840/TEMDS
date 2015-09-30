@@ -43,7 +43,7 @@ angular.module('temds.welcome.controllers')
 
 
 .controller('SplashCtrl', function ($scope, $state, $ionicModal, $localstorage, $ionicHistory, SignInService) {
-    $scope.bgs = ["img/background/bg.png"];
+    $scope.bgs = ["img/background/bgs.png"];
     $scope.user = $localstorage.getObject('user');
 
     $ionicHistory.nextViewOptions({
