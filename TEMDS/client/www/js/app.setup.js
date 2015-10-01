@@ -27,7 +27,10 @@ angular.module('temds', [
     'temds.views',
     'underscore',
     'angularMoment',
-    'ngAnimate'
+    'ngAnimate',
+
+    /* iOS 9 Patch (https://gist.github.com/IgorMinar/863acd413e3925bf282c) */
+    'ngIOS9UIWebViewPatch'
 ])
 
 
