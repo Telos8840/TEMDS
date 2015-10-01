@@ -41,15 +41,23 @@ angular.module('temds', [
     $ionicConfigProvider.backButton.previousTitleText(false);
 
     // HTTP Interceptors    
-    $httpProvider.interceptors.push(function ($rootScope) {
+    $httpProvider.interceptors.push(function ($q, $rootScope) {
         return {
             request: function (config) {
                 $rootScope.$broadcast('loading:show');
                 return config;
             },
+            requestError: function (rejection) {
+                $rootScope.$broadcast('loading:hide');
+                return $q.reject(rejection);
+            },
             response: function (response) {
                 $rootScope.$broadcast('loading:hide');
                 return response;
+            },
+            responseError: function (rejection) {
+                $rootScope.$broadcast('loading:hide');
+                return $q.reject(rejection);
             }
         };
     });
