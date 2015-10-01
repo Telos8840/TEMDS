@@ -88,11 +88,10 @@
         bottom: 0px;
         animation-iteration-count: infinite;
         opacity: 0;
-        z-index: 99999;
     }
     .bg_building1 {
         animation-name: buildingFade;
-        animation-duration: 14s;
+        animation-duration: 7s;
         animation-delay: 3s;
         animation-timing-function: ease-in-out;
         animation-direction: alternate;
@@ -136,8 +135,8 @@
     }
     .bg_star3 {
         animation-name: starFade;
-        animation-duration: 13s;
-        animation-delay: 3.5s;
+        animation-duration: 6s;
+        animation-delay: 2s;
         animation-timing-function: ease-in-out;
         animation-direction: alternate;
         top: 0px;
@@ -150,37 +149,29 @@
 @keyframes buildingFade {
     0% {
         opacity: 0;
-        -khtml-opacity: 0;
     }
     60% {
         opacity: 0.3;
-        -khtml-opacity: 0.3;
     }
     75% {
-        opacity: 0.25;
-        -khtml-opacity: 0.25;
+        opacity: 0.45;
     }
     88% {
-        opacity: 0.333;
-        -khtml-opacity: 0.333;
+        opacity: 0.35;
     }
     100% {
         opacity: 0.3;
-        -khtml-opacity: 0.3;
     }
 }
 
 @keyframes starFade {
     0% {
         opacity: 0;
-        -khtml-opacity:0;
     }
     95% {
-        opacity: 0.667;
-        -khtml-opacity:0.667;
+        opacity: 0.72;
     }
     100% {
         opacity: 0;
-        -khtml-opacity:0;
     }
 }
