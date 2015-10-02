@@ -11,9 +11,8 @@ var collections = ['users', 'pending_users', 'user_detail'];
 var restify           = require('restify'),
 	  restifyValidation = require('node-restify-validation'), //https://github.com/z0mt3c/node-restify-validation/blob/master/README.md
     mongojs           = require('mongojs'),
-    db                = mongojs(databaseUrl, collections),
+    db                = mongojs(databaseUrl, collections, { authMechanism : 'ScramSHA1' }),
 	  server            = restify.createServer();
-
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
