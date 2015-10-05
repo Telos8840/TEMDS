@@ -1,0 +1,59 @@
+{
+    "list": [
+        {
+            "id": "some_unique_id_goes_here",
+            "fullName": "A First Vendor",
+            "category": "Service",
+            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "fullName": "A Vendor Sorted By First Letter",
+            "category": "Service",
+            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "fullName": "Another Vendor",
+            "category": "Service",
+            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "fullName": "Best Restaurant",
+            "category": "Service",
+            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "fullName": "Book Store",
+            "category": "Service",
+            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "fullName": "Cat Store",
+            "category": "Service",
+            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "fullName": "Chef Lee",
+            "category": "Service",
+            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "fullName": "Cleaning Supplies",
+            "category": "Service",
+            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "fullName": "Cooking Supplies",
+            "category": "Service",
+            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+    }
+  ],
+    "last-edited-time": "1444024736740"
+}

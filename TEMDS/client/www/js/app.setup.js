@@ -230,6 +230,17 @@ angular.module('temds', [
         }
     })
 
+    /** Venue List **/
+    .state('app.venue-list', {
+        url: '/venue-list',
+        views: {
+            'menuContent': {
+                templateUrl: 'views/app/venue/venue-list.html',
+                controller: 'VenueListCtrl'
+            }
+        }
+    })
+
     /** Address Book **/
     .state('app.address-book', {
             cache: false,
@@ -328,7 +339,7 @@ angular.module('temds', [
     // if none of the above states are matched, use this as the fallback
     //$urlRouterProvider.otherwise('/splash-page');
     //$urlRouterProvider.otherwise('/sign-in');
-    $urlRouterProvider.otherwise('/splash');
+    $urlRouterProvider.otherwise('/app/venue-list');
     //$urlRouterProvider.otherwise('/recover-password');
     //$urlRouterProvider.otherwise('/app/my-account');
     //$urlRouterProvider.otherwise('/app/address-book-set');
