@@ -33,7 +33,7 @@
         {
             "id": "some_unique_id_goes_here",
             "name": "Cat Store",
-            "category": "Service",
+            "category": "Pet",
             "thumbnail": "http://data.temds.com/tn/temds.jpg"
     },
         {
@@ -52,6 +52,30 @@
             "id": "some_unique_id_goes_here",
             "name": "Cooking Supplies",
             "category": "Service",
+            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Door Store",
+            "category": "Home",
+            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Dog Hospital",
+            "category": "Pet",
+            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Pet Store",
+            "category": "Pet",
+            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Home Depot",
+            "category": "Home",
             "thumbnail": "http://data.temds.com/tn/temds.jpg"
     }
   ],
