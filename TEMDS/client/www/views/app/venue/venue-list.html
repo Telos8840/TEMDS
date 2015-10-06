@@ -4,8 +4,10 @@
         <ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshData()">
         </ion-refresher>
 
-        <div class="venue-list-repeat" ng-repeat="venue in venueList">
-            <section ng-include="'views/app/venue/venue-list-cell.html'" class="venue-list-cell"></section>
+        <div class="list">
+            <div class="item" ng-repeat="venue in venueList">
+                <section ng-include="'views/app/venue/venue-cell.html'" class="venue-cell"></section>
+            </div>
         </div>
 
         <!-- Infinit scroll 
@@ -16,11 +18,11 @@
 </ion-view>
 
 
-<div class="bar bar-footer bar-clear" style="padding:0;">
+<!--div class="bar bar-footer bar-clear" style="padding:0;">
     <button class="button button-balanced button-full" style="margin:0;" ng-click="editAddress({})">
         <div class="item-icon-left">
             <i class="icon ion-plus"></i>
         </div>
         Add Address
     </button>
-</div>
+</div-->

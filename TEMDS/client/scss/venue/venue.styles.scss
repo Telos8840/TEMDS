@@ -1,0 +1,60 @@
+.venue-list-view {
+    .list {
+        .item {
+            padding: 10px;
+            height: 70px;
+            // CELL ITEM
+            .content {
+                .thumb {
+                    float: left;
+                    width: 50px;
+                    height: 50px;
+                    background-color: #DBDBDB;
+                    border-radius: 5px;
+                    margin-right: 10px;
+                }
+                .body {
+                    float: left;
+                    height: 100%;
+                    float: left;
+                    .title {
+                        text-transform: uppercase;
+                        padding: 7px 0 0 0px;
+                        margin: 0px;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        font-size: 14px;
+                        color: lighten($address-book-cell-text-color, 25%);
+                        font-weight: 500;
+                    }
+                    .category {
+                        padding: 0;
+                        color: lighten($address-book-cell-text-color, 50%);
+                        line-height: 14px;
+                        margin: 0px;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        font-size: 12px;
+                        p {
+                            padding: 0;
+                            margin: 0;
+                        }
+                    }
+                }
+                .arrow {
+                    float: right;
+                    height: 100%;
+                    text-align: center;
+                    width: 20px;
+                    padding: 15px 0 0 0;
+                    i {
+                        font-size: 20px;
+                        font-weight: 800px;
+                    }
+                }
+            }
+        }
+    }
+}
