@@ -1,0 +1,23 @@
+<div id="signup" class="grid-block vertical medium-horizontal">
+  <div class="grid-content">
+    <h1>Signup</h1>
+  </div>
+  <div class="grid-content" id="content">
+    <form role="form">
+      <div>
+        <label for="username">Username</label>
+        <input type="text"  id="username" ng-model="user.username" placeholder="Username">
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password"  id="password" ng-model="user.password" placeholder="Password">
+      </div>
+      <div>
+        <label for="extra">E-Mail</label>
+        <input type="text"  id="email" ng-model="user.email" placeholder="E-Mailadress">
+      </div>
+      <button type="submit" class="button medium" ng-click="createUser(user)">Submit</button>
+    </form>
+    <a ui-sref="login()">Click here to Login</a>
+  </div>
+</div>

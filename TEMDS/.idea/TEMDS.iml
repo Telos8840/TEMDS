@@ -3,6 +3,8 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/client/node_modules/jshint/src/platforms" />
+      <excludeFolder url="file://$MODULE_DIR$/client/platforms" />
+      <excludeFolder url="file://$MODULE_DIR$/tools/node_modules/gulp-jshint/node_modules/jshint/src/platforms" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
