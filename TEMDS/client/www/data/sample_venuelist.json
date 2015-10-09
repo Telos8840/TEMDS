@@ -44,6 +44,12 @@
     },
         {
             "id": "some_unique_id_goes_here",
+            "name": "777 Casino Supply",
+            "category": "Store",
+            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+    },
+        {
+            "id": "some_unique_id_goes_here",
             "name": "Cleaning Supplies",
             "category": "Service",
             "thumbnail": "http://data.temds.com/tn/temds.jpg"

@@ -10,6 +10,7 @@ angular.module('temds.app.controllers')
         VenueService.loadVenueList()
             .then(function (data) {
                 $scope.venueList = $filter('orderBy')(data.list, '+name', false);
+                $scope.sortByName(); // default
                 $scope.$broadcast('scroll.refreshComplete');
             });
     };
@@ -19,12 +20,17 @@ angular.module('temds.app.controllers')
         VenueService.loadVenueList()
             .then(function (data) {
                 $scope.venueList = $filter('orderBy')(data.list, '+name', false);
+                $scope.sortByName(); // default
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             });
     };
     $scope.getList();
 
 
+    /**
+     * Sort the list by name.
+     * This should be the default sort method.
+     */
     $scope.sortByName = function () {
         var l = {};
 
@@ -34,7 +40,7 @@ angular.module('temds.app.controllers')
             if (!l[letter]) l[letter] = [];
             l[letter].push($scope.venueList[i]);
         }
-
+        console.log(l);
         $scope.sortedVenueList = l;
     };
 });
