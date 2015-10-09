@@ -48,5 +48,9 @@ angular.module('temds.app.controllers')
 
 .controller('VenueDetailCtrl', function ($scope, $state, $stateParams, VenueService) {
     var venueId = $stateParams.venueId;
-    console.log("VenueDetailCtrl: " + venueId);
+    VenueService.getVenueDetail(venueId)
+        .then(function (data) {
+            $scope.venue = data;
+            console.log($scope.venue);
+        })
 });
