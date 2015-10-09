@@ -21,10 +21,23 @@ angular.module('temds.app.services')
     }
 
     // TEMP DATA
+    // TODO: Load it from local storage if exists.
     this.loadVenueList = function () {
         var dfd = $q.defer();
 
         $http.get('data/sample_venuelist.json')
+            .success(function (response) {
+                dfd.resolve(response);
+            });
+
+        return dfd.promise;
+    }
+
+    // TODO: use api
+    this.getVenueDetail = function (venueId) {
+        var dfd = $q.defer();
+
+        $http.get('data/sample_venuedetail.json')
             .success(function (response) {
                 dfd.resolve(response);
             });
