@@ -5,9 +5,9 @@
         </ion-refresher>
 
         <div class="list">
-            <div ng-repeat="(key, venues) in sortedVenueList">
+            <div class="section" ng-repeat="(key, venues) in sortedVenueList">
                 <div class="item item-divider">{{key}}</div>
-                <div class="item cell" ng-repeat="venue in venues">
+                <div class="item cell" ng-repeat="venue in venues" ui-sref="app.venue-detail({venueId: venue.id})">
                     <section ng-include="'views/app/venue/venue-cell.html'" class="venue-cell"></section>
                 </div>
             </div>

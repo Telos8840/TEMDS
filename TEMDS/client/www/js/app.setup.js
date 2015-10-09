@@ -232,14 +232,23 @@ angular.module('temds', [
 
     /** Venue List **/
     .state('app.venue-list', {
-        url: '/venue-list',
-        views: {
-            'menuContent': {
-                templateUrl: 'views/app/venue/venue-list.html',
-                controller: 'VenueListCtrl'
+            url: '/venue-list',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/app/venue/venue-list.html',
+                    controller: 'VenueListCtrl'
+                }
             }
-        }
-    })
+        })
+        .state('app.venue-detail', {
+            url: '/venue/:venueId',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/app/venue/venue-detail.html',
+                    controller: 'VenueDetailCtrl'
+                }
+            }
+        })
 
     /** Address Book **/
     .state('app.address-book', {

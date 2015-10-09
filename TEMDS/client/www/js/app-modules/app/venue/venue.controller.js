@@ -1,7 +1,7 @@
 angular.module('temds.app.controllers')
 
 
-.controller('VenueListCtrl', function ($scope, $state, $filter, VenueService) {
+.controller('VenueListCtrl', function ($scope, $filter, VenueService) {
     $scope.sortedVenueList = {}; // this should be displayed
     $scope.venueList = []; // this is the raw list data from server
 
@@ -40,7 +40,13 @@ angular.module('temds.app.controllers')
             if (!l[letter]) l[letter] = [];
             l[letter].push($scope.venueList[i]);
         }
-        console.log(l);
+
         $scope.sortedVenueList = l;
     };
+})
+
+
+.controller('VenueDetailCtrl', function ($scope, $state, $stateParams, VenueService) {
+    var venueId = $stateParams.venueId;
+    console.log("VenueDetailCtrl: " + venueId);
 });

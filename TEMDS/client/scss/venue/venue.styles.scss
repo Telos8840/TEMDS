@@ -1,14 +1,4 @@
 .venue-list-view {
-    .cell.ng-enter {
-        -webkit-animation: fadeInLeft 1s;
-        animation: fadeInLeft 1s;
-    }
-    .cell.ng-enter-stagger {
-        -webkit-animation-delay: 120ms;
-        animation-delay: 120ms;
-        -webkit-animation-duration: 0;
-        animation-duration: 0;
-    }
     .list {
         .cell {
             padding: 10px;
@@ -22,6 +12,10 @@
                     background-color: #DBDBDB;
                     border-radius: 5px;
                     margin-right: 10px;
+                    &.ng-show {
+                        -webkit-animation: fadeIn 1s;
+                        animation: fadeIn 1s;
+                    }
                 }
                 .body {
                     float: left;
