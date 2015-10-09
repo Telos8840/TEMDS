@@ -1,0 +1,25 @@
+{
+    "id": "some_unique_id_goes_here",
+    "name": "The Extra Mile Delivery Service",
+    "category": "Service",
+    "tags": ["breakfast", "cheap", "fast"],
+    "img": "http://data.temds.com/img/temds.jpg",
+    "thumbnail": "http://data.temds.com/tn/temds.jpg",
+    "hours": {
+        "MON": "7am - 5pm",
+        "TUE": "10am - 8pm",
+        "WED": "7am - 5pm",
+        "THU": "10am - 8pm",
+        "FRI": "7am - 8pm",
+        "SAT": "CLOSED",
+        "SUN": "CLOSED"
+    },
+    "address": {
+        "addr1": "1234 StreetName Blvd",
+        "addr2": "Ste. A",
+        "city": "Los Angeles",
+        "state": "CA",
+        "zipcode": 90000
+    },
+    "description": "Delivery goods"
+}
