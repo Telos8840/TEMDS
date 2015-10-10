@@ -6,6 +6,7 @@ angular.module('underscore', [])
 angular.module('temds', [
     'ionic',
     'temds.common.directives',
+    'uiGmapgoogle-maps',
 
     /* Utils */
     'temds.utils.controllers',
