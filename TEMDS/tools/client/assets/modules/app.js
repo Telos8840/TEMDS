@@ -21,6 +21,8 @@
         'auth',
         'account',
         'usermanagement',
+        //temds
+        'venue',
         //foundation
         'foundation',
         'foundation.dynamicRouting',

@@ -1,17 +1,17 @@
-<div id="navigation" class=" grid-content menu-group">
+<div id="navigation" class="grid-content menu-group">
      <div class="menu-group-left">
           <ul class="menu-bar">
                <li>
-                    <a ui-sref="home"><strong>YETI-Stack</strong></a>
+                    <a ui-sref="home"><strong>TEMDS Tools</strong></a>
                </li>
           </ul>
      </div>
-     <div class="menu-group-right">
+     <div class="menu-group-right hide-for-small-only">
           <ul class="menu-bar icon-left">
-               <li>
-                    <a ui-sref="home">
+               <li data-ng-if="auth.checkRole('admin')">
+                    <a ui-sref="venues">
                          <span>
-                              <i class="fa fa-home fa-fw"></i>Home
+                              <i class="fa fa-home fa-fw"></i>Venues
                          </span>
                     </a>
                </li>
