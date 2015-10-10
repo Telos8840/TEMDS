@@ -2,7 +2,7 @@
     <meta name="format-detection" content="telephone=no">
 </head>
 <ion-view view-title="My Account" class="my-account-view">
-    <ion-content>
+    <ion-content class="has-footer">
         <div class="list">
             <div class="item item-divider title">
                 Account
@@ -135,12 +135,9 @@
             </a>
         </div>
     </ion-content>
-    <div class="bar bar-footer bar-clear" style="padding:0;">
-        <button class="button button-assertive button-full" style="margin:0;" ng-click="signOut()">
-            <div class="item-icon-left">
-                <i class="icon ion-ios-close-outline"></i>
-            </div>
+    <div class="bar bar-footer bar-assertive">
+        <div class="title" ng-click="signOut()">
             Sign Out
-        </button>
+        </div>
     </div>
 </ion-view>
