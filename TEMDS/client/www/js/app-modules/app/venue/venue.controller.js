@@ -52,5 +52,7 @@ angular.module('temds.app.controllers')
         .then(function (data) {
             $scope.venue = data;
             console.log($scope.venue);
-        })
+        });
+
+
 });

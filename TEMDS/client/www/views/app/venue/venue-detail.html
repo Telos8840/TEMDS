@@ -1,7 +1,58 @@
-<ion-view class="feed-view venue-list-view" view-title="Venue">
-    <ion-content>
+<ion-view class="feed-view venue-detail-view" view-title="">
+    <div class="header">
+        <div class="overlay"></div>
+        <div class="name">
+            <h1>{{venue.name}}</h1>
+        </div>
+        <img class="venueImg" src="{{venue.img}}" />
+    </div>
+    <ion-content class="has-footer">
 
 
+        <div class="list card">
+            <div class="item item-divider">Detail</div>
+
+            <div class="item row">
+                <div class="col col-33">
+                    <p>Category:</p>
+                </div>
+                <div class="col col-67">
+                    <p>{{venue.category}}</p>
+                </div>
+            </div>
+            <div class="item row">
+                <div class="col col-33">
+                    <p>Tags:</p>
+                </div>
+                <div class="col col-67">
+                    <p style="white-space:normal;">{{venue.tags.join(', ')}}</p>
+                </div>
+            </div>
+            <div class="item row">
+                <div class="col col-33">
+                    <p>Description:</p>
+                </div>
+                <div class="col col-67">
+                    <p style="white-space:normal;">{{venue.description}}</p>
+                </div>
+            </div>
+
+            <div class="item item-divider">Store Hour</div>
+            <div class="item row" ng-repeat="(key, hour) in venue.hours">
+                <div class="col col-33">
+                    <p>{{key}}:</p>
+                </div>
+                <div class="col col-67">
+                    <p style="white-space:normal;">{{hour}}</p>
+                </div>
+            </div>
+
+        </div>
 
     </ion-content>
+    <div class="bar bar-footer bar-balanced">
+        <div class="title">
+            Create Order
+        </div>
+    </div>
 </ion-view>

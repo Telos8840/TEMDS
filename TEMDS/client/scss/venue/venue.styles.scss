@@ -62,3 +62,38 @@
         }
     }
 }
+
+.venue-detail-view {
+    ion-content {
+        background-color: white;
+        top: 200px;
+        z-index: -1;
+    }
+    .header {
+        width: 100%;
+        height: 200px;
+        .name {
+            width: 100%;
+            height: 200px;
+            position: absolute;
+            h1 {
+                position: absolute;
+                color: white;
+                padding-left: 10px;
+                bottom: 0px;
+            }
+        }
+        .overlay {
+            width: 100%;
+            height: 200px;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .venueImg {
+            width: 100%;
+            height: 200px;
+            background-image: url('/img/img_375x200.jpg');
+            border: 0px;
+        }
+    }
+}
