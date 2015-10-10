@@ -1,6 +1,3 @@
-<script src='//maps.googleapis.com/maps/api/js?sensor=false'>
-</script>
-
 <ion-view class="feed-view venue-detail-view" view-title="">
     <div class="header">
         <div class="overlay"></div>
@@ -9,10 +6,12 @@
         </div>
         <img class="venueImg" src="{{venue.img}}" />
     </div>
-    <ion-content class="has-footer">
+    <ion-content class="has-footer" data-tap-disabled="true">
         <div class="list card">
+            <div class="item map">
+                <ui-gmap-google-map center='map.center' options='map.options' zoom='map.zoom'></ui-gmap-google-map>
+            </div>
             <div class="item item-divider">Detail</div>
-
             <div class="item row">
                 <div class="col col-33">
                     <p>Category:</p>

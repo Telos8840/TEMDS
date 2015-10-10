@@ -46,7 +46,7 @@ angular.module('temds.app.controllers')
 })
 
 
-.controller('VenueDetailCtrl', function ($scope, $state, $stateParams, VenueService) {
+.controller('VenueDetailCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, VenueService) {
     var venueId = $stateParams.venueId;
     VenueService.getVenueDetail(venueId)
         .then(function (data) {
@@ -54,5 +54,31 @@ angular.module('temds.app.controllers')
             console.log($scope.venue);
         });
 
+    $scope.map = {
+        center: {
+            latitude: 45,
+            longitude: -73
+        },
+        zoom: 8,
+        options: {
+            scrollwheel: false,
+            zoomControl: false,
+            navigationControl: false,
+            mapTypeControl: false,
+            scaleControl: false,
+            draggable: true,
+            disableDoubleClickZoom: true,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            panControl: true,
+            streetViewControl: false,
+            overviewMapControl: false,
+            rotateControl: false,
+        }
+    };
 
+
+    uiGmapGoogleMapApi.then(function (maps) {
+
+        $scope.options = {};
+    });
 });
