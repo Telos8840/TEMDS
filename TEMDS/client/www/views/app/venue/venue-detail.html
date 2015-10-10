@@ -37,7 +37,14 @@
                 </div>
             </div>
 
-            <div class="item item-divider">Store Hour</div>
+            <div class="item item-divider">Location</div>
+            <div class="item">
+                <p>{{venue.address.addr1}}</p>
+                <p>{{venue.address.addr2}}</p>
+                <p>{{venue.address.city}}, {{venue.address.state}} {{venue.address.zipcode}}</p>
+            </div>
+
+            <div class="item item-divider">Hours</div>
             <div class="item row" ng-repeat="(key, hour) in venue.hours">
                 <div class="col col-33">
                     <p>{{key}}:</p>

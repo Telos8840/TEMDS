@@ -96,4 +96,12 @@
             border: 0px;
         }
     }
+    .row {
+        border-bottom-width: 0px;
+        border-top-width: 0px;
+    }
+    .item-divider {
+        border-bottom-width: 1px;
+        border-top-width: 1px;
+    }
 }
