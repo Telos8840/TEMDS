@@ -2,33 +2,33 @@
     <h1 class="grid-content shrink text-center">Venues</h1>
 
     <div class="grid-block large-up-3 align-center shrink">
-        <div class="grid-content">
-            <form>
+        <div class="grid-content" id="addVenueForm">
+            <form role="form">
                 <label>
                     Name
-                    <input type="text" placeholder="Name">
+                    <input type="text" id="name" ng-model="venue.name" placeholder="Name">
                 </label>
 
                 <label>
                     Address
-                    <input type="text" placeholder="Address">
+                    <input type="text" id="address1" ng-model="venue.address.address1" placeholder="Address">
                 </label>
 
                 <label>
                     Address 2
-                    <input type="text" placeholder="Address 2">
+                    <input type="text" id="address2" ng-model="venue.address.address2" placeholder="Address 2">
                 </label>
 
                 <div class="grid-block">
                     <div class="small-12 medium-6 grid-content">
                         <label>
                             City
-                            <input type="text" placeholder="Text field">
+                            <input type="text" id="city" ng-model="venue.address.city" placeholder="City">
                         </label>
                     </div>
                     <div class="small-12 medium-3 grid-content">
                         <label>State</label>
-                        <select name="" id="">
+                        <select id="state" ng-model="venue.address.state">
                             <option value="">Breakfast</option>
                             <option value="">Bacon Pancakes</option>
                             <option value="">Mountain Dew</option>
@@ -37,19 +37,19 @@
                     <div class="small-12 medium-3 grid-content">
                         <label>
                             Zip Code
-                            <input type="text" placeholder="Zip Code">
+                            <input type="text" id="zip" ng-model="venue.address.zipcode" placeholder="Zip Code">
                         </label>
                     </div>
                 </div>
 
                 <label>Description
-                    <textarea placeholder="Description"></textarea>
+                    <textarea id="description" ng-model="venue.description" placeholder="Description"></textarea>
                 </label>
 
                 <div class="grid-block">
                     <div class="small-12 medium-5 grid-content">
                         <label>Category</label>
-                        <select name="" id="">
+                        <select id="category" ng-model="venue.category">
                             <option value="">Breakfast</option>
                             <option value="">Bacon Pancakes</option>
                             <option value="">Mountain Dew</option>
@@ -68,68 +68,35 @@
                 <div class="grid-block">
                     <div class="small-12 medium-12 grid-content">
                         <label>Days</label>
-
-                        <div class="grid-block">
-                            <div class="small-12 medium-4 grid-content" style="padding-top: 10px">
-                                <input id="checkbox1" type="checkbox"><label for="checkbox1">Monday</label>
+                        <div class="grid-block" data-ng-repeat="day in days">
+                            <div class="small-12 medium-3 grid-content" style="padding-top: 10px">
+                                <input id="{{day}}" ng-model="venue.hours[day]" ng-checked="true" type="checkbox"><label for="checkbox1">{{day}}</label>
                             </div>
 
-                            <div class="small-12 medium-8 grid-content">
+                            <div class="small-12 medium-9 grid-content">
                                 <div class="grid-block">
                                     <div class="small-12 medium-3 grid-content">
-                                        <select name="" id="">
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                            <option value="">3</option>
-                                            <option value="">4</option>
-                                            <option value="">5</option>
-                                            <option value="">6</option>
-                                            <option value="">7</option>
-                                            <option value="">8</option>
-                                            <option value="">9</option>
-                                            <option value="">10</option>
-                                            <option value="">11</option>
-                                            <option value="">12</option>
-                                            <option value="">Closed</option>
-                                        </select>
+                                        <select id="openTime" ng-model="venue.openTime[day]" ng-options="t for t in times"></select>
                                     </div>
                                     <div class="small-12 medium-3 grid-content">
-                                        <select name="" id="">
-                                            <option value="">am</option>
-                                            <option value="">pm</option>
-                                        </select>
+                                        <select id="openAP" ng-model="venue.openAP[day]" ng-options="x for x in ['am', 'pm']"></select>
                                     </div>
 
                                     <div class="small-12 medium-3 grid-content">
-                                        <select name="" id="">
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                            <option value="">3</option>
-                                            <option value="">4</option>
-                                            <option value="">5</option>
-                                            <option value="">6</option>
-                                            <option value="">7</option>
-                                            <option value="">8</option>
-                                            <option value="">9</option>
-                                            <option value="">10</option>
-                                            <option value="">11</option>
-                                            <option value="">12</option>
-                                        </select>
+                                        <select id="closeTime" ng-model="venue.closeTime[day]" ng-options="t for t in times"></select>
                                     </div>
                                     <div class="small-12 medium-3 grid-content">
-                                        <select name="" id="">
-                                            <option value="">am</option>
-                                            <option value="">pm</option>
-                                        </select>
+                                        <select id="closeAP" ng-model="venue.closeAP[day]" ng-options="x for x in ['am', 'pm']"></select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <a href="#" class="expand success button">
                     <span>
-                        <i class="fa fa-save fa-fw"></i>Save
+                        <i class="fa fa-save fa-fw"></i> Save
                     </span>
                 </a>
             </form>

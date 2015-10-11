@@ -6,5 +6,14 @@
  */
 'use strict';
 angular.module('venue')
-  .controller('VenueController', function LoginController() {
+  .controller('VenueController', function ($scope, VenueFactory) {
+    $scope.venue = {
+      address: {},
+      hours: {}
+    };
+    $scope.times = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+    $scope.days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+    $scope.addVenue = function (venue) {
+      VenueFactory.addVenue(venue);
+    };
   });

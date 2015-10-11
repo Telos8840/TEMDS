@@ -19,4 +19,4 @@ angular.module('venue', ['ui.router'])
         leave: 'slideOutRight'
       }
     });
-  });
+  }).run(function () {});

@@ -29,6 +29,14 @@
                          </span>
                     </a>
                </li>
+
+              <li data-ng-if="auth.checkRole('admin')">
+                  <a ui-sref="usermanagement">
+                         <span>
+                              <i class="fa fa-home fa-fw"></i>Users
+                         </span>
+                  </a>
+              </li>
                <li data-ng-if="!auth.user">
                     <a ui-sref="login">
                          <span>

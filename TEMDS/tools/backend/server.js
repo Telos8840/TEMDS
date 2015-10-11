@@ -66,5 +66,5 @@ http.createServer(app)
         if (err) {
             console.log(err);
         }
-        console.log('YETI-STACK launched on PORT ' + port);
+        console.log('TEMDS Tools launched on PORT ' + port);
     });
