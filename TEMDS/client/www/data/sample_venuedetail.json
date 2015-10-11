@@ -3,7 +3,7 @@
     "name": "ScoreBig Inc.",
     "category": "eCommerce",
     "tags": ["breakfast", "cheap", "fast"],
-    "img": "http://data.temds.com/img/temds.jpg",
+    "img": "http://lorempixel.com/375/160/abstract/TEMDS",
     "thumbnail": "http://data.temds.com/tn/temds.jpg",
     "hours": {
         "MON": "7am - 5pm",

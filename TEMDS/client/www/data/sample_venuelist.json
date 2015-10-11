@@ -4,85 +4,85 @@
             "id": "some_unique_id_goes_here",
             "name": "A First Vendor",
             "category": "Service",
-            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-0"
     },
         {
             "id": "some_unique_id_goes_here",
             "name": "A Vendor Sorted By First Letter",
             "category": "Service",
-            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-1"
     },
         {
             "id": "some_unique_id_goes_here",
             "name": "Another Vendor",
             "category": "Service",
-            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-2"
     },
         {
             "id": "some_unique_id_goes_here",
             "name": "Best Restaurant",
             "category": "Service",
-            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-3"
     },
         {
             "id": "some_unique_id_goes_here",
             "name": "Book Store",
             "category": "Service",
-            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-4"
     },
         {
             "id": "some_unique_id_goes_here",
             "name": "Cat Store",
             "category": "Pet",
-            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-5"
     },
         {
             "id": "some_unique_id_goes_here",
             "name": "Chef Lee",
             "category": "Service",
-            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-6"
     },
         {
             "id": "some_unique_id_goes_here",
             "name": "777 Casino Supply",
             "category": "Store",
-            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-7"
     },
         {
             "id": "some_unique_id_goes_here",
             "name": "Cleaning Supplies",
             "category": "Service",
-            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-8"
     },
         {
             "id": "some_unique_id_goes_here",
             "name": "Cooking Supplies",
             "category": "Service",
-            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-9"
     },
         {
             "id": "some_unique_id_goes_here",
             "name": "Door Store",
             "category": "Home",
-            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-10"
     },
         {
             "id": "some_unique_id_goes_here",
             "name": "Dog Hospital",
             "category": "Pet",
-            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-11"
     },
         {
             "id": "some_unique_id_goes_here",
             "name": "Pet Store",
             "category": "Pet",
-            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-1"
     },
         {
             "id": "some_unique_id_goes_here",
             "name": "Home Depot",
             "category": "Home",
-            "thumbnail": "http://data.temds.com/tn/temds.jpg"
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-1"
     }
   ],
     "last-edited-time": "1444024736740"
