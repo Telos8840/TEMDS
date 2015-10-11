@@ -45,5 +45,4 @@ function PHONE_NUMBER_FORMATTER(phoneNum) {
         phoneNum: phoneNum,
         valid: digit >= 10
     };
-
 }
