@@ -231,6 +231,17 @@ angular.module('temds', [
         }
     })
 
+    /** Main Feed **/
+    .state('app.main-feed', {
+        url: '/main-feed',
+        views: {
+            'menuContent': {
+                templateUrl: 'views/app/main-feed/main-feed.html',
+                controller: 'MainFeedCtrl'
+            }
+        }
+    })
+
     /** Venue **/
     .state('app.venue-list', {
             url: '/venue-list',
@@ -322,7 +333,6 @@ angular.module('temds', [
         })
 
 
-
     .state('facebook-sign-in', {
         url: '/facebook-sign-in',
         templateUrl: 'views/auth/facebook-sign-in.html',
@@ -348,9 +358,10 @@ angular.module('temds', [
     });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/splash');
+    //$urlRouterProvider.otherwise('/splash');
     //$urlRouterProvider.otherwise('/sign-in');
     //$urlRouterProvider.otherwise('/app/venue-list');
+    $urlRouterProvider.otherwise('/app/main-feed');
     //$urlRouterProvider.otherwise('/recover-password');
     //$urlRouterProvider.otherwise('/app/my-account');
     //$urlRouterProvider.otherwise('/app/address-book-set');
