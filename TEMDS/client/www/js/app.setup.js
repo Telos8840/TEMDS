@@ -256,7 +256,7 @@ angular.module('temds', [
             url: '/order/confirm/:venueId',
             views: {
                 'menuContent': {
-                    templateUrl: 'views/app/order/create-order.html',
+                    templateUrl: 'views/app/order/confirm-order.html',
                     controller: 'ConfirmOrderCtrl'
                 }
             }
@@ -265,7 +265,7 @@ angular.module('temds', [
             url: '/order/history/',
             views: {
                 'menuContent': {
-                    templateUrl: 'views/app/order/create-order.html',
+                    templateUrl: 'views/app/order/order-history.html',
                     controller: 'OrderHistoryCtrl'
                 }
             }
@@ -390,7 +390,7 @@ angular.module('temds', [
     //$urlRouterProvider.otherwise('/splash');
     //$urlRouterProvider.otherwise('/sign-in');
     //$urlRouterProvider.otherwise('/app/venue-list');
-    $urlRouterProvider.otherwise('/app/main-feed');
+    $urlRouterProvider.otherwise('/app/order/new/1234534');
     //$urlRouterProvider.otherwise('/recover-password');
     //$urlRouterProvider.otherwise('/app/my-account');
     //$urlRouterProvider.otherwise('/app/address-book-set');
