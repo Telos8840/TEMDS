@@ -28,10 +28,8 @@
                     </div>
                     <div class="small-12 medium-3 grid-content">
                         <label>State</label>
-                        <select id="state" ng-model="venue.address.state">
-                            <option value="">Breakfast</option>
-                            <option value="">Bacon Pancakes</option>
-                            <option value="">Mountain Dew</option>
+                        <select id="state" ng-model="venue.address.state" ng-init="venue.address.state = 'Ca'">
+                            <option selected="selected" value="Ca">Ca</option>
                         </select>
                     </div>
                     <div class="small-12 medium-3 grid-content">
@@ -49,19 +47,14 @@
                 <div class="grid-block">
                     <div class="small-12 medium-5 grid-content">
                         <label>Category</label>
-                        <select id="category" ng-model="venue.category">
-                            <option value="">Breakfast</option>
-                            <option value="">Bacon Pancakes</option>
-                            <option value="">Mountain Dew</option>
+                        <select id="category" ng-model="venue.category" ng-options="c for c in categories">
                         </select>
                     </div>
                     <div class="small-12 medium-7 grid-content">
-                        <label>Tags</label>
-                        <input id="checkbox1" type="checkbox"><label for="checkbox1">Checkbox 1</label>
-                        <input id="checkbox2" type="checkbox"><label for="checkbox2">Checkbox 2</label>
-
-                        <input id="checkbox1" type="checkbox"><label for="checkbox1">Checkbox 1</label>
-                        <input id="checkbox2" type="checkbox"><label for="checkbox2">Checkbox 2</label>
+                        <label>
+                            Tags (Comma Separated)
+                            <input type="text" id="tags" ng-model="venue.tags" placeholder="Tags">
+                        </label>
                     </div>
                 </div>
 
@@ -70,7 +63,7 @@
                         <label>Days</label>
                         <div class="grid-block" data-ng-repeat="day in days">
                             <div class="small-12 medium-3 grid-content" style="padding-top: 10px">
-                                <input id="{{day}}" ng-model="venue.hours[day]" ng-checked="true" type="checkbox"><label for="checkbox1">{{day}}</label>
+                                <input id="{{day}}" ng-model="venue.hours[day]" ng-checked="true" type="checkbox"><label for="{{day}}">{{day}}</label>
                             </div>
 
                             <div class="small-12 medium-9 grid-content">
@@ -94,11 +87,11 @@
                     </div>
                 </div>
 
-                <a href="#" class="expand success button">
+                <button class="expand success button" ng-click="addVenue(venue)">
                     <span>
                         <i class="fa fa-save fa-fw"></i> Save
                     </span>
-                </a>
+                </button>
             </form>
         </div>
 
