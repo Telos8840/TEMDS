@@ -242,6 +242,35 @@ angular.module('temds', [
         }
     })
 
+    /** Order **/
+    .state('app.new-order', {
+            url: '/order/new/:venueId',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/app/order/create-order.html',
+                    controller: 'CreateOrderCtrl'
+                }
+            }
+        })
+        .state('app.confirm-order', {
+            url: '/order/confirm/:venueId',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/app/order/create-order.html',
+                    controller: 'ConfirmOrderCtrl'
+                }
+            }
+        })
+        .state('app.order-history', {
+            url: '/order/history/',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/app/order/create-order.html',
+                    controller: 'OrderHistoryCtrl'
+                }
+            }
+        })
+
     /** Venue **/
     .state('app.venue-list', {
             url: '/venue-list',
