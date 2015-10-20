@@ -13,4 +13,9 @@ angular.module('temds.app.controllers')
 
 .controller('OrderHistoryCtrl', function ($scope, $filter, OrderService) {
 
+})
+
+
+.controller('OrderDetailCtrl', function ($scope, $filter, OrderService) {
+
 });

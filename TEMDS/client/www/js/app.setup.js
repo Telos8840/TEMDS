@@ -270,6 +270,15 @@ angular.module('temds', [
                 }
             }
         })
+        .state('app.order-detail', {
+            url: '/order/:orderId',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/app/order/order-detail.html',
+                    controller: 'OrderDetailCtrl'
+                }
+            }
+        })
 
     /** Venue **/
     .state('app.venue-list', {
