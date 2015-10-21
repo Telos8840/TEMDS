@@ -6,20 +6,28 @@
  */
 'use strict';
 angular.module('venue')
-  .factory('VenueFactory', function (API_URL, store, $http, NotificationFactory, jwtHelper, _) {
+  .factory('VenueFactory', function (API_URL, $http, NotificationFactory, _) {
     var venue = {},
-      token = store.get('token'),
       venueNotes = new NotificationFactory({
-        id: 'authNotes',
+        id: 'venueNotes',
         position: 'top-middle'
       });
-    if (token) {
-      venue.user = jwtHelper.decodeToken(token);
-    }
-
     
     venue.addVenue = function (venue) {
-
+      return $http.post(API_URL + '/auth/signup', venue)
+        .then(function success(response) {
+          venueNotes.addNotification({
+            title: venue.name + ' added!',
+            content: response.data,
+            autoclose: 5000
+          });
+        }, function error(err) {
+          venueNotes.addNotification({
+            title: 'Something went wrong!',
+            content: err.data,
+            autoclose: 5000
+          });
+        });
     };
 
     return venue;

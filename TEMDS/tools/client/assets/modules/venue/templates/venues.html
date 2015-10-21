@@ -11,12 +11,12 @@
 
                 <label>
                     Address
-                    <input type="text" id="address1" ng-model="venue.address.address1" placeholder="Address">
+                    <input type="text" id="address1" ng-model="venue.address.addr1" placeholder="Address">
                 </label>
 
                 <label>
                     Address 2
-                    <input type="text" id="address2" ng-model="venue.address.address2" placeholder="Address 2">
+                    <input type="text" id="address2" ng-model="venue.address.addr2" placeholder="Address 2">
                 </label>
 
                 <div class="grid-block">
@@ -63,23 +63,23 @@
                         <label>Days</label>
                         <div class="grid-block" data-ng-repeat="day in days">
                             <div class="small-12 medium-3 grid-content" style="padding-top: 10px">
-                                <input id="{{day}}" ng-model="venue.hours[day]" ng-checked="true" type="checkbox"><label for="{{day}}">{{day}}</label>
+                                <input id="{{day}}" ng-model="venue.hours[day]" type="checkbox"><label for="{{day}}">{{day}}</label>
                             </div>
 
                             <div class="small-12 medium-9 grid-content">
                                 <div class="grid-block">
                                     <div class="small-12 medium-3 grid-content">
-                                        <select id="openTime" ng-model="venue.openTime[day]" ng-options="t for t in times"></select>
+                                        <select id="openTime" ng-model="venue.openTime[day]" ng-options="t for t in times" ng-disabled="!venue.hours[day]"></select>
                                     </div>
                                     <div class="small-12 medium-3 grid-content">
-                                        <select id="openAP" ng-model="venue.openAP[day]" ng-options="x for x in ['am', 'pm']"></select>
+                                        <select id="openAP" ng-model="venue.openAP[day]" ng-options="x for x in ['am', 'pm']" ng-disabled="!venue.hours[day]"></select>
                                     </div>
 
                                     <div class="small-12 medium-3 grid-content">
-                                        <select id="closeTime" ng-model="venue.closeTime[day]" ng-options="t for t in times"></select>
+                                        <select id="closeTime" ng-model="venue.closeTime[day]" ng-options="t for t in times" ng-disabled="!venue.hours[day]"></select>
                                     </div>
                                     <div class="small-12 medium-3 grid-content">
-                                        <select id="closeAP" ng-model="venue.closeAP[day]" ng-options="x for x in ['am', 'pm']"></select>
+                                        <select id="closeAP" ng-model="venue.closeAP[day]" ng-options="x for x in ['am', 'pm']" ng-disabled="!venue.hours[day]"></select>
                                     </div>
                                 </div>
                             </div>
