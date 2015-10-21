@@ -51,9 +51,9 @@ angular.module('temds.app.controllers')
     VenueService.getVenueDetail(venueId)
         .then(function (data) {
             $scope.venue = data;
-            console.log($scope.venue);
         });
 
+    // Default map object
     $scope.map = {
         center: {
             latitude: 34.05, // los angeles
@@ -74,6 +74,16 @@ angular.module('temds.app.controllers')
             overviewMapControl: false,
             rotateControl: false,
         }
+    }
+
+    /**
+     * Redirect to new order view.
+     * Send venue information to order from.
+     */
+    $scope.createOrder = function () {
+        $state.go('app.new-order', {
+            'venue': $scope.venue
+        });
     }
 
     /* Find location by address and mark it on the map */

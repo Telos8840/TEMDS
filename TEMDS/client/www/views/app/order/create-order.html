@@ -4,7 +4,38 @@
 
     <ion-content class="has-footer has-header" data-tap-disabled="true">
         <div class="list card">
+            <div class="item item-divider">Selected Venue</div>
+            <div class="item item-avatar">
+                <img id="thumbnail" src="{{venue.thumbnail}}">
+                <h2>{{venue.name}}</h2>
+                <h3>{{venue.category}}</h3>
+            </div>
         </div>
+
+        <div class="list card">
+            <div class="item item-divider item-icon-right">
+                {{orders.length > 1 ? "Order Items" : "Order Item"}}
+            </div>
+            <ion-list show-delete="showDelete">
+                <ion-item class="item item-input" ng-repeat="order in orders track by $index">
+                    <input type="text" placeholder="Item #{{$index+1}}" ng-model="orders[$index]" />
+
+                    <ion-delete-button class="ion-minus-circled" ng-click="orders.splice($index, 1)">
+                    </ion-delete-button>
+                </ion-item>
+            </ion-list>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" href="#" ng-click="orders.push(''); showDelete=false;">
+                    <i class="icon ion-plus-circled"></i> Add
+                </a>
+                <a class="tab-item" href="#">
+                </a>
+                <a class="tab-item" href="#" ng-click="showDelete = !showDelete;">
+                    <i class="icon ion-minus-circled"></i> Delete
+                </a>
+            </div>
+        </div>
+
     </ion-content>
 
     <div class="bar bar-footer bar-balanced" ui-sref="app.confirm-order({venueId: venue.id})">

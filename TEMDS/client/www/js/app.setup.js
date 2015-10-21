@@ -244,12 +244,15 @@ angular.module('temds', [
 
     /** Order **/
     .state('app.new-order', {
-            url: '/order/new/:venueId',
+            url: '/order/new',
             views: {
                 'menuContent': {
                     templateUrl: 'views/app/order/create-order.html',
                     controller: 'CreateOrderCtrl'
                 }
+            },
+            params: {
+                'venue': null
             }
         })
         .state('app.confirm-order', {
@@ -399,7 +402,7 @@ angular.module('temds', [
     //$urlRouterProvider.otherwise('/splash');
     //$urlRouterProvider.otherwise('/sign-in');
     //$urlRouterProvider.otherwise('/app/venue-list');
-    $urlRouterProvider.otherwise('/app/order/new/1234534');
+    $urlRouterProvider.otherwise('/app/order/new');
     //$urlRouterProvider.otherwise('/recover-password');
     //$urlRouterProvider.otherwise('/app/my-account');
     //$urlRouterProvider.otherwise('/app/address-book-set');

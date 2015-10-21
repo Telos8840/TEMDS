@@ -1,0 +1,49 @@
+/*
+#orderItem.ng-enter {
+    -webkit-animation: fadeInLeft 1s;
+    animation: fadeInLeft 1s;
+}
+
+#orderItem.ng-enter-stagger {
+    -webkit-animation-delay: 120ms;
+    animation-delay: 120ms;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+}*/
+
+.create-order-view {
+    ion-content {
+        .item.item-input {
+            //height: 46px;
+            //transition: all 1s 0s;
+            &.ng-enter,
+            &.ng-leave.ng-leave-active {
+                height: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+                transition: all 0.25s 0s;
+            }
+            &.ng-leave,
+            &.ng-enter.ng-enter-active {
+                height: 46px;
+                padding-top: 0;
+                padding-bottom: 0;
+                transition: all 0.5s 0s;
+            }
+        }
+        //.item.item-input.ng-enter {
+        //    animation: fadeInLeft 1s;
+        //}
+        background-color: white;
+        #thumbnail {
+            border-radius: 5px;
+        }
+        .item-content {
+            padding: 0;
+            width: 100%;
+        }
+    }
+    ::-webkit-input-placeholder {
+        color: #CDCDCD;
+    }
+}
