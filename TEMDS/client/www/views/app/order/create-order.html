@@ -14,18 +14,16 @@
 
         <div class="list card">
             <div class="item item-divider item-icon-right">
-                {{orders.length > 1 ? "Order Items" : "Order Item"}}
+                {{items.length > 1 ? "Order Items" : "Order Item"}}
             </div>
             <ion-list show-delete="showDelete">
-                <ion-item class="item item-input" ng-repeat="order in orders track by $index">
-                    <input type="text" placeholder="Item #{{$index+1}}" ng-model="orders[$index]" />
-
-                    <ion-delete-button class="ion-minus-circled" ng-click="orders.splice($index, 1)">
-                    </ion-delete-button>
+                <ion-item class="item item-input" ng-repeat="item in items track by $index">
+                    <input type="text" placeholder="Item #{{$index+1}}" ng-model="items[$index]" />
+                    <ion-delete-button class="ion-minus-circled" ng-click="items.splice($index, 1)"></ion-delete-button>
                 </ion-item>
             </ion-list>
             <div class="item tabs tabs-secondary tabs-icon-left">
-                <a class="tab-item" href="#" ng-click="orders.push(''); showDelete=false;">
+                <a class="tab-item" href="#" ng-click="items.push(''); showDelete=false;">
                     <i class="icon ion-plus-circled"></i> Add
                 </a>
                 <a class="tab-item" href="#">
@@ -38,7 +36,7 @@
 
     </ion-content>
 
-    <div class="bar bar-footer bar-balanced" ui-sref="app.confirm-order({venueId: venue.id})">
+    <div class="bar bar-footer bar-balanced" ng-click="confirmOrder()">
         <div class="title">Confirm Order</div>
     </div>
 </ion-view>

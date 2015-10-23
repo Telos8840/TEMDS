@@ -1,5 +1,14 @@
 /* Global Enum */
-var _SUCCESS_ = 777;
+var _SUCCESS_ = 777,
+    _ORDER_STATUS_CREATED_ = 0,
+    _ORDER_STATUS_PENDING_ = 1,
+    _ORDER_STATUS_RECEIVED_ = 2,
+    _ORDER_STATUS_PROCESSING_ = 3,
+    _ORDER_STATUS_DELIVERY_IN_PROGRESS_ = 4,
+    _ORDER_STATUS_DELIVERED_ = 5,
+    _ORDER_STATUS_DENIED_ = 6,
+    _ORDER_STATUS_CANCELLED_ = 7;
+
 
 /* Global Variables */
 var _API_HOST_ = 'http://temds.herokuapp.com/';

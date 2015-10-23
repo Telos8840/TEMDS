@@ -262,6 +262,9 @@ angular.module('temds', [
                     templateUrl: 'views/app/order/confirm-order.html',
                     controller: 'ConfirmOrderCtrl'
                 }
+            },
+            params: {
+                'order': null
             }
         })
         .state('app.order-history', {
