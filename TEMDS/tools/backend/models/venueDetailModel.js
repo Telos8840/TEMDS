@@ -30,11 +30,13 @@ var VenueDetailSchema = new Schema({
   },
   insertDate: {
     type: Date,
-    default: Date.now
+    default: Date.now,
+    requiried: false
   },
   modifiedDate: {
     type: Date,
-    default: Date.now
+    default: Date.now,
+    required: false
   }
 });
 module.exports = mongoose.model('venue_detail', VenueDetailSchema);

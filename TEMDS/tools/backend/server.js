@@ -52,6 +52,8 @@ app.use(function (err, req, res, next) {
 //Routes
 app.use('/api/auth', rq('authRoutes'));
 app.use('/api/usermanagement', rq('usermanagementRoutes'));
+app.use('/api/venue', rq('venueRoutes'));
+
 //Enable HTML5-Mode
 app.all('/*', function (req, res) {
     // Just send the index.html for other files to support HTML5Mode

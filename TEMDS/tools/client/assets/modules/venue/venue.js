@@ -14,6 +14,11 @@ angular.module('venue', ['ui.router'])
       data: {
         requiresLogin: true
       },
+      resolve: {
+        venueNames: function (VenueFactory) {
+          return VenueFactory.getNames();
+        }
+      },
       animation: {
         enter: 'slideInRight',
         leave: 'slideOutRight'

@@ -6,19 +6,20 @@
  */
 'use strict';
 angular.module('venue')
-  .controller('VenueController', function ($scope, VenueFactory, _) {
+  .controller('VenueController', function ($scope, VenueFactory, venueNames, _) {
     var freshVenue = {
-      name: "",
+      name: '',
       address: {
-        addr1: "",
-        addr2: "",
-        city: "",
-        state: "",
-        zipcode: ""
+        addr1: '',
+        addr2: '',
+        city: '',
+        state: '',
+        zipcode: ''
       },
-      description: "",
-      category: "",
-      tags: "",
+      description: '',
+      category: '',
+      tags: '',
+      img: '',
       hours: {
         MON: false,
         TUE: false,
@@ -29,54 +30,55 @@ angular.module('venue')
         SUN: false
       },
       openTime: {
-        MON: "",
-        TUE: "",
-        WED: "",
-        THU: "",
-        FRI: "",
-        SAT: "",
-        SUN: ""
+        MON: '',
+        TUE: '',
+        WED: '',
+        THU: '',
+        FRI: '',
+        SAT: '',
+        SUN: ''
       },
       openAP: {
-        MON: "",
-        TUE: "",
-        WED: "",
-        THU: "",
-        FRI: "",
-        SAT: "",
-        SUN: ""
+        MON: '',
+        TUE: '',
+        WED: '',
+        THU: '',
+        FRI: '',
+        SAT: '',
+        SUN: ''
       },
       closeTime: {
-        MON: "",
-        TUE: "",
-        WED: "",
-        THU: "",
-        FRI: "",
-        SAT: "",
-        SUN: ""
+        MON: '',
+        TUE: '',
+        WED: '',
+        THU: '',
+        FRI: '',
+        SAT: '',
+        SUN: ''
       },
       closeAP: {
-        MON: "",
-        TUE: "",
-        WED: "",
-        THU: "",
-        FRI: "",
-        SAT: "",
-        SUN: ""
+        MON: '',
+        TUE: '',
+        WED: '',
+        THU: '',
+        FRI: '',
+        SAT: '',
+        SUN: ''
       }
     };
     $scope.venue = {
-      name: "",
+      name: '',
       address: {
-        addr1: "",
-        addr2: "",
-        city: "",
-        state: "",
-        zipcode: ""
+        addr1: '',
+        addr2: '',
+        city: '',
+        state: '',
+        zipcode: ''
       },
-      description: "",
-      category: "",
-      tags: "",
+      description: '',
+      category: '',
+      tags: '',
+      img: '',
       hours: {
         MON: false,
         TUE: false,
@@ -87,66 +89,78 @@ angular.module('venue')
         SUN: false
       },
       openTime: {
-        MON: "",
-        TUE: "",
-        WED: "",
-        THU: "",
-        FRI: "",
-        SAT: "",
-        SUN: ""
+        MON: '',
+        TUE: '',
+        WED: '',
+        THU: '',
+        FRI: '',
+        SAT: '',
+        SUN: ''
       },
       openAP: {
-        MON: "",
-        TUE: "",
-        WED: "",
-        THU: "",
-        FRI: "",
-        SAT: "",
-        SUN: ""
+        MON: '',
+        TUE: '',
+        WED: '',
+        THU: '',
+        FRI: '',
+        SAT: '',
+        SUN: ''
       },
       closeTime: {
-        MON: "",
-        TUE: "",
-        WED: "",
-        THU: "",
-        FRI: "",
-        SAT: "",
-        SUN: ""
+        MON: '',
+        TUE: '',
+        WED: '',
+        THU: '',
+        FRI: '',
+        SAT: '',
+        SUN: ''
       },
       closeAP: {
-        MON: "",
-        TUE: "",
-        WED: "",
-        THU: "",
-        FRI: "",
-        SAT: "",
-        SUN: ""
+        MON: '',
+        TUE: '',
+        WED: '',
+        THU: '',
+        FRI: '',
+        SAT: '',
+        SUN: ''
       }
     };
-    $scope.times = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
-    $scope.days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
-    $scope.categories = ["Accessories", "Alcohol", "Appliances", "Arts / Crafts", "Automotive", "Beauty", "Books", "Clothing", "Electronics", "Garden", "Grocery", "Health", "Hardware", "Jewelry", "Office", "Other", "Personal Products", "Pet", "Sports", "Toys"];
-    $scope.tags = ["breakfast", "lunch", "dinner"];
+    $scope.times = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+    $scope.days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+    $scope.categories = ['Accessories', 'Alcohol', 'Appliances', 'Arts / Crafts', 'Automotive', 'Beauty', 'Books', 'Clothing', 'Electronics', 'Garden', 'Grocery', 'Health', 'Hardware', 'Jewelry', 'Office', 'Other', 'Personal Products', 'Pet', 'Sports', 'Toys'];
+    $scope.venueNames = venueNames;
+    console.log('names', $scope.venueNames);
+
     $scope.addVenue = function (venue) {
-
       var temp = venue.tags.split(/[\s,]+/).join();
-      venue.tags = temp.split(",");
+      venue.tags = temp.split(',');
 
+      // Formats all the hours properly
       _($scope.days).forEach(function(n) {
-        if(venue.hours[n] == true) {
-          venue.hours[n] = venue.openTime[n] + venue.openAP[n] + " - " + venue.closeTime[n] + venue.closeAP[n];
+        if(venue.hours[n] === true) {
+          venue.hours[n] = venue.openTime[n] + venue.openAP[n] + ' - ' + venue.closeTime[n] + venue.closeAP[n];
         } else {
-          venue.hours[n] = "Closed";
+          venue.hours[n] = 'Closed';
         }
       }).value();
 
-      venue = _.omit(venue, ['openTime', 'openAP', 'closeTime', 'closeAP']);
-      console.log("edited", venue);
+      var detail = _.pick(venue, ['address', 'description', 'tags', 'hours']);
 
-      VenueFactory.addVenue(venue);
+      // Cleans up unneeded properties
+      venue = _.omit(venue, ['address', 'description', 'tags', 'hours', 'openTime', 'openAP', 'closeTime', 'closeAP']);
+
+      var venueObj = { venue: venue, detail: detail };
+      VenueFactory.addVenue(venueObj);
 
       $scope.venue = freshVenue;
-
+      VenueFactory.getNames().then(function (newVenues) {
+        $scope.venueNames = newVenues;
+      });
     };
+
+    $scope.getVenue = function (v) {
+      console.log('venue', v);
+
+    }
   });
 

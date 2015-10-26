@@ -44,6 +44,11 @@
                     <textarea id="description" ng-model="venue.description" placeholder="Description"></textarea>
                 </label>
 
+                <label>
+                    Image URL
+                    <input type="text" id="img" ng-model="venue.img" placeholder="Image URL">
+                </label>
+
                 <div class="grid-block">
                     <div class="small-12 medium-5 grid-content">
                         <label>Category</label>
@@ -99,31 +104,8 @@
 
         <div class="grid-content">
             <section class="block-list">
-                <header>List title</header>
                 <ul>
-
-                    <li class="with-chevron"><a href="#">List item 1</a></li>
-                    <li class="with-chevron"><a href="#">List item 2</a></li>
-                    <li><a href="#">List item 3</a></li>
-                    <li class="with-chevron"><a href="#">List item 1</a></li>
-                    <li class="with-chevron"><a href="#">List item 2</a></li>
-                    <li><a href="#">List item 3</a></li><li class="with-chevron"><a href="#">List item 1</a></li>
-                    <li class="with-chevron"><a href="#">List item 2</a></li>
-                    <li><a href="#">List item 3</a></li>
-                    <li class="with-chevron"><a href="#">List item 1</a></li>
-                    <li class="with-chevron"><a href="#">List item 2</a></li>
-                    <li><a href="#">List item 3</a></li>
-                    <li class="with-chevron"><a href="#">List item 1</a></li>
-                    <li class="with-chevron"><a href="#">List item 2</a></li>
-                    <li><a href="#">List item 3</a></li>
-                    <li class="with-chevron"><a href="#">List item 1</a></li>
-                    <li class="with-chevron"><a href="#">List item 2</a></li>
-                    <li><a href="#">List item 3</a></li>
-                    <li class="with-chevron"><a href="#">List item 1</a></li>
-                    <li class="with-chevron"><a href="#">List item 2</a></li>
-                    <li><a href="#">List item 3</a></li>
-
-
+                    <li class="with-chevron" data-ng-repeat="venue in venueNames | orderBy:'name'"><a href="#">{{venue.name}}</a></li>
                 </ul>
             </section>
         </div>
