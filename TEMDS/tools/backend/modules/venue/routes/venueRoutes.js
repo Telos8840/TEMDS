@@ -17,3 +17,5 @@ var app = module.exports = express.Router();
 app.use('/', jwtCheck, rolesCheck(['admin']));
 app.post('/addvenue', venueController.addVenue);
 app.get('/getnames', venueController.getNames);
+app.get('/getvenue/:id', venueController.getVenue);
+app.put('/editvenue/', venueController.editVenue);

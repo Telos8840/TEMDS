@@ -13,4 +13,10 @@
   .scroll-section {
     overflow-y: scroll;
   }
+  li a:hover {
+    background: #44657E;
+  }
+  li.with-chevron::after {
+    color: #ffffff;
+  }
 }

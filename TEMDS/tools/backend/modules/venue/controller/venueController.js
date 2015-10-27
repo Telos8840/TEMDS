@@ -51,3 +51,30 @@ module.exports.getNames = function (req, res) {
     }
   });
 };
+
+module.exports.getVenue = function (req, res) {
+  Venue.findById(req.params.id, function (err, venue) {
+    if(err) {
+      return res.status(400)
+        .send("Can't find venue");
+    } else {
+      VenueDetail.find({venueId: req.params.id}).exec(function (err, detail) {
+        if(err) {
+          return res.status(400)
+            .send("Can't find venue details");
+        } else {
+          var obj = {venue: venue, detail: detail[0]};
+          res.json(obj);
+        }
+      });
+    }
+  });
+};
+
+module.exports.editVenue = function (req, res) {
+  if (!req.body.venue || !req.body.detail) {
+    return res.status(400).send("Somethings broken! Better Call Saul!")
+  } else {
+    
+  }
+};

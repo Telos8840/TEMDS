@@ -1,8 +1,13 @@
 <div id="venue" class="grid-block vertical">
-    <h1 class="grid-content shrink text-center">Venues</h1>
+    <div class="grid-block large-up-3 align-center shrink">
+        <div class="grid-content"><h2 class="text-center">New Venue</h2></div>
+        <div class="grid-content"><h2 class="text-center">Venues</h2></div>
+        <div class="grid-content"><h2 class="text-center">Edit Venues</h2></div>
+    </div>
 
     <div class="grid-block large-up-3 align-center shrink">
         <div class="grid-content" id="addVenueForm">
+
             <form role="form">
                 <label>
                     Name
@@ -100,20 +105,112 @@
             </form>
         </div>
 
-
-
         <div class="grid-content">
             <section class="block-list">
                 <ul>
-                    <li class="with-chevron" data-ng-repeat="venue in venueNames | orderBy:'name'"><a href="#">{{venue.name}}</a></li>
+                    <li class="with-chevron" data-ng-repeat="venue in venueNames | orderBy:'name'">
+                        <a ng-click="getVenue(venue)">{{venue.name}}</a>
+                    </li>
                 </ul>
             </section>
         </div>
 
+        <div class="grid-content" id="editVenueForm">
+            <form role="form">
+                <label>
+                    Name
+                    <input type="text" id="editName" ng-model="editVenue.name" placeholder="Name">
+                </label>
 
+                <label>
+                    Address
+                    <input type="text" id="editAddress1" ng-model="editVenue.address.addr1" placeholder="Address">
+                </label>
 
-        <div class="grid-content">
+                <label>
+                    Address 2
+                    <input type="text" id="editAddress2" ng-model="editVenue.address.addr2" placeholder="Address 2">
+                </label>
 
+                <div class="grid-block">
+                    <div class="small-12 medium-6 grid-content">
+                        <label>
+                            City
+                            <input type="text" id="editCity" ng-model="editVenue.address.city" placeholder="City">
+                        </label>
+                    </div>
+                    <div class="small-12 medium-3 grid-content">
+                        <label>State</label>
+                        <select id="editState" ng-model="editVenue.address.state" ng-init="editVenue.address.state = 'Ca'">
+                            <option selected="selected" value="Ca">Ca</option>
+                        </select>
+                    </div>
+                    <div class="small-12 medium-3 grid-content">
+                        <label>
+                            Zip Code
+                            <input type="text" id="editZip" ng-model="editVenue.address.zipcode" placeholder="Zip Code">
+                        </label>
+                    </div>
+                </div>
+
+                <label>Description
+                    <textarea id="editDescription" ng-model="editVenue.description" placeholder="Description"></textarea>
+                </label>
+
+                <label>
+                    Image URL
+                    <input type="text" id="editImg" ng-model="editVenue.img" placeholder="Image URL">
+                </label>
+
+                <div class="grid-block">
+                    <div class="small-12 medium-5 grid-content">
+                        <label>Category</label>
+                        <select id="editCategory" ng-model="editVenue.category" ng-options="c for c in categories">
+                        </select>
+                    </div>
+                    <div class="small-12 medium-7 grid-content">
+                        <label>
+                            Tags (Comma Separated)
+                            <input type="text" id="editTags" ng-model="editVenue.tags" placeholder="Tags">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="grid-block">
+                    <div class="small-12 medium-12 grid-content">
+                        <label>Days</label>
+                        <div class="grid-block" data-ng-repeat="day in days">
+                            <div class="small-12 medium-3 grid-content" style="padding-top: 10px">
+                                <input id="edit{{day}}" ng-model="editVenue.hours[day]" type="checkbox"><label for="{{day}}">{{day}}</label>
+                            </div>
+
+                            <div class="small-12 medium-9 grid-content">
+                                <div class="grid-block">
+                                    <div class="small-12 medium-3 grid-content">
+                                        <select id="editOpenTime" ng-model="editVenue.openTime[day]" ng-options="t for t in times" ng-disabled="!editVenue.hours[day]"></select>
+                                    </div>
+                                    <div class="small-12 medium-3 grid-content">
+                                        <select id="editOpenAP" ng-model="editVenue.openAP[day]" ng-options="x for x in ['am', 'pm']" ng-disabled="!editVenue.hours[day]"></select>
+                                    </div>
+
+                                    <div class="small-12 medium-3 grid-content">
+                                        <select id="editCloseTime" ng-model="editVenue.closeTime[day]" ng-options="t for t in times" ng-disabled="!editVenue.hours[day]"></select>
+                                    </div>
+                                    <div class="small-12 medium-3 grid-content">
+                                        <select id="editCloseAP" ng-model="editVenue.closeAP[day]" ng-options="x for x in ['am', 'pm']" ng-disabled="!editVenue.hours[day]"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="expand success button" ng-click="editVenue(venue)">
+                    <span>
+                        <i class="fa fa-save fa-fw"></i> Save
+                    </span>
+                </button>
+            </form>
         </div>
     </div>
 </div>

@@ -43,5 +43,35 @@ angular.module('venue')
       return deferred.promise;
     };
 
+    venue.getVenue = function (venue) {
+      var deferred = $q.defer();
+      $http.get(API_URL + '/venue/getvenue/' + venue._id)
+        .then(function success(response) {
+          deferred.resolve(response.data);
+        }, function error() {
+          deferred.reject({
+            message: 'unable to resolve venue'
+          });
+        });
+      return deferred.promise;
+    };
+
+    venue.editVenue = function (venue) {
+      return $http.put(API_URL + '/venue/editvenue', venue)
+        .then(function success(response) {
+          venueNotes.addNotification({
+            title: response.data,
+            content: 'Database has been updated',
+            autoclose: 5000
+          });
+        }, function error(err) {
+          venueNotes.addNotification({
+            title: 'Something went wrong!',
+            content: err.data,
+            autoclose: 5000
+          });
+        });
+    };
+
     return venue;
   });
