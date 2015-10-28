@@ -1,10 +1,20 @@
 angular.module('temds.app.controllers')
 
 
-.controller('CreateOrderCtrl', function ($scope, $state, $stateParams, $localstorage, OrderService, VenueService) {
+.controller('CreateOrderCtrl', function ($scope, $state, $stateParams, $localstorage, $ionicModal, OrderService, VenueService) {
     var user = $localstorage.getObject('user');
+    $scope.addressbook = user.address;
     $scope.items = [''];
     $scope.showDelete = false;
+    $scope.selectedAddress = {};
+
+    // find primary/default address
+    for (var i in $scope.addressbook) {
+        if ($scope.addressbook[i].primary) {
+            $scope.selectedAddress = $scope.addressbook[i];
+            break;
+        }
+    }
 
     //temp
     VenueService.getVenueDetail('venueId')
@@ -18,7 +28,7 @@ angular.module('temds.app.controllers')
     $scope.deleteItemAt = function (i) {
         console.log(i);
         $scope.orders.splice(i, 1);
-    }
+    };
 
     /**
      * Go to order confirm view.
@@ -43,7 +53,22 @@ angular.module('temds.app.controllers')
         };
 
         console.log(order);
-    }
+    };
+
+
+    /** Addressbook Picker Modal **/
+    $ionicModal.fromTemplateUrl('views/app/order/create-order-addressbook-picker.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.addressbook_picker = modal;
+    });
+
+    $scope.showAddressPicker = function () {
+        $scope.addressbook_picker.show();
+    };
+
+
 })
 
 

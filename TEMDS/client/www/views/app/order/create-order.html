@@ -13,6 +13,15 @@
         </div>
 
         <div class="list card">
+            <div class="item item-divider">Delivery Address</div>
+            <div class="item" ng-click="showAddressPicker()">
+                <h2>{{selectedAddress.name}}</h2>
+                <p>{{selectedAddress.addr1}} {{selectedAddress.addr2}}</p>
+                <p>{{selectedAddress.city}}, {{selectedAddress.state}} {{selectedAddress.zipcode}}</p>
+            </div>
+        </div>
+
+        <div class="list card">
             <div class="item item-divider item-icon-right">
                 {{items.length > 1 ? "Order Items" : "Order Item"}}
             </div>
