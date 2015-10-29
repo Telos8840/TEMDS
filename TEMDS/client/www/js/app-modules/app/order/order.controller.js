@@ -7,6 +7,7 @@ angular.module('temds.app.controllers')
     $scope.items = [''];
     $scope.showDelete = false;
     $scope.selectedAddress = {};
+    $scope.comment = '';
 
     // find primary/default address
     for (var i in $scope.addressbook) {
@@ -35,23 +36,30 @@ angular.module('temds.app.controllers')
      * Create order object here.
      */
     $scope.confirmOrder = function () {
+        // prepare order items
         var orderItems = [];
-
         for (var i in $scope.items) {
-            orderItems.push({
-                description: $scope.items[i]
-            });
+            if ($scope.items[i].trim() != '') {
+                orderItems.push({
+                    description: $scope.items[i]
+                });
+            }
         }
-        // TODO: Finish this
+        // prepare delivery address
+        var address = angular.copy($scope.selectedAddress);
+        delete address["id"];
+        delete address["name"];
+        delete address["primary"];
+        // prepare order object
         var order = {
             uId: user.id,
             vId: $scope.venue.id,
-            aId: 'Address Id Goes Here!',
+            address: address,
             status: _ORDER_STATUS_CREATED_,
             items: orderItems,
-            comment: 'Comment goes here!'
+            comment: $scope.comment
         };
-
+        // send to confirmation
         console.log(order);
     };
 })

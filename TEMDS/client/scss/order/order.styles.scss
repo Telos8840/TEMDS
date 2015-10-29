@@ -46,6 +46,10 @@
             padding-top: 0px;
             padding-bottom: 12px;
         }
+        textarea {
+            height: auto;
+            min-height: 128px;
+        }
         background-color: white;
         #thumbnail {
             border-radius: 5px;
