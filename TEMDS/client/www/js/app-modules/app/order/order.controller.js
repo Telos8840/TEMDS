@@ -6,13 +6,13 @@ angular.module('temds.app.controllers')
     $scope.addressbook = user.address;
     $scope.items = [''];
     $scope.showDelete = false;
-    $scope.selectedAddress = {};
+    $scope.selected = {};
     $scope.comment = {};
 
     // find primary/default address
     for (var i in $scope.addressbook) {
         if ($scope.addressbook[i].primary) {
-            $scope.selectedAddress = $scope.addressbook[i];
+            $scope.selected.address = $scope.addressbook[i];
             break;
         }
     }
@@ -36,6 +36,7 @@ angular.module('temds.app.controllers')
      * Create order object here.
      */
     $scope.confirmOrder = function () {
+        console.log($scope.selected.address.name);
         // prepare order items
         var orderItems = [];
         for (var i in $scope.items) {
@@ -51,16 +52,11 @@ angular.module('temds.app.controllers')
                 content: 'There is no item in this order. Please add at least one item to create an order.'
             });
         } else {
-            // prepare delivery address
-            var address = angular.copy($scope.selectedAddress);
-            delete address["id"];
-            delete address["name"];
-            delete address["primary"];
             // prepare order object
             var order = {
                 uId: user.id,
                 venue: $scope.venue,
-                address: $scope.selectedAddress,
+                address: $scope.selected.address,
                 status: _ORDER_STATUS_CREATED_,
                 items: orderItems,
                 comment: $scope.comment.txt
@@ -76,7 +72,20 @@ angular.module('temds.app.controllers')
 
 .controller('ConfirmOrderCtrl', function ($scope, $stateParams, $localstorage, OrderService) {
     $scope.order = $stateParams.order;
-    //console.log($scope.order);
+
+    $scope.createOrder = function () {
+        // prepare delivery address
+        var order = angular.copy($scope.order);
+
+        order.vId = $scope.order.venue.id;
+
+        delete order["venue"]
+        delete order.address["id"];
+        delete order.address["name"];
+        delete order.address["primary"];
+
+        console.log(order);
+    }
 })
 
 

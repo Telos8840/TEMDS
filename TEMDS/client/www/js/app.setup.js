@@ -256,7 +256,7 @@ angular.module('temds', [
             }
         })
         .state('app.confirm-order', {
-            url: '/order/confirm/:venueId',
+            url: '/order/confirm',
             views: {
                 'menuContent': {
                     templateUrl: 'views/app/order/confirm-order.html',

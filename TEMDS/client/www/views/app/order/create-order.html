@@ -15,13 +15,11 @@
         <div class="list card">
             <div class="item item-divider">Delivery Address</div>
             <div class="item item-select item-input" id="address">
-                <select ng-options="address.name for address in addressbook" ng-model="selectedAddress" ng-selected="selectedAddress">
-
-                </select>
+                <select ng-options="address.name for address in addressbook" ng-model="selected.address"></select>
             </div>
             <div class="item" id="address-body">
-                <p>{{selectedAddress.addr1}} {{selectedAddress.addr2}}</p>
-                <p>{{selectedAddress.city}}, {{selectedAddress.state}} {{selectedAddress.zipcode}}</p>
+                <p>{{selected.address.addr1}} {{selected.address.addr2}}</p>
+                <p>{{selected.address.city}}, {{selected.address.state}} {{selected.address.zipcode}}</p>
             </div>
         </div>
 
