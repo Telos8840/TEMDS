@@ -14,8 +14,12 @@
 
         <div class="list card">
             <div class="item item-divider">Delivery Address</div>
-            <div class="item" ng-click="showAddressPicker()">
-                <h2>{{selectedAddress.name}}</h2>
+            <div class="item item-select item-input" id="address">
+                <select ng-options="address.name for address in addressbook" ng-model="selectedAddress" ng-selected="selectedAddress">
+
+                </select>
+            </div>
+            <div class="item" id="address-body">
                 <p>{{selectedAddress.addr1}} {{selectedAddress.addr2}}</p>
                 <p>{{selectedAddress.city}}, {{selectedAddress.state}} {{selectedAddress.zipcode}}</p>
             </div>

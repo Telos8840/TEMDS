@@ -1,7 +1,7 @@
 angular.module('temds.app.controllers')
 
 
-.controller('CreateOrderCtrl', function ($scope, $state, $stateParams, $localstorage, $ionicModal, OrderService, VenueService) {
+.controller('CreateOrderCtrl', function ($scope, $state, $stateParams, $localstorage, OrderService, VenueService) {
     var user = $localstorage.getObject('user');
     $scope.addressbook = user.address;
     $scope.items = [''];
@@ -54,21 +54,6 @@ angular.module('temds.app.controllers')
 
         console.log(order);
     };
-
-
-    /** Addressbook Picker Modal **/
-    $ionicModal.fromTemplateUrl('views/app/order/create-order-addressbook-picker.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function (modal) {
-        $scope.addressbook_picker = modal;
-    });
-
-    $scope.showAddressPicker = function () {
-        $scope.addressbook_picker.show();
-    };
-
-
 })
 
 
