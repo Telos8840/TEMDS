@@ -220,10 +220,11 @@ angular.module('venue')
       VenueFactory.getVenue(v).then(function (venueObj) {
         var venue = venueObj.venue,
           detail = venueObj.detail;
+        console.log(venueObj);
 
         // Reconstruct bindings
         _($scope.days).forEach(function (n) {
-          if(detail.hours[n] == 'Closed') {
+          if(detail.hours[n] === 'Closed') {
             $scope.editVenue.hours[n] = false;
             $scope.editVenue.openTime[n] = '';
             $scope.editVenue.openAP[n] = '';
@@ -244,11 +245,12 @@ angular.module('venue')
         $scope.editVenue = _.extend($scope.editVenue, venue);
         $scope.editVenue = _.extend($scope.editVenue, detail);
       });
-    }
+    };
 
     $scope.editVenue = function (venue) {
       var temp = venue.tags.split(/[\s,]+/).join();
       venue.tags = temp.split(',');
+      console.log('venue', venue);
 
       // Formats all the hours properly
       _($scope.days).forEach(function(n) {

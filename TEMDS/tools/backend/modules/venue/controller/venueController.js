@@ -75,6 +75,6 @@ module.exports.editVenue = function (req, res) {
   if (!req.body.venue || !req.body.detail) {
     return res.status(400).send("Somethings broken! Better Call Saul!")
   } else {
-    
+    //Venue.findById(req.params.Id);
   }
 };

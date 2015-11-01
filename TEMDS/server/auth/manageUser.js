@@ -250,6 +250,7 @@ module.exports = function (server, db) {
     });
     return next();
   });
+
   /**
    * Gets list of address for given user
    *
