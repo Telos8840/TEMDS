@@ -22,7 +22,7 @@ module.exports.success = function (res, message) {
 module.exports.error = function (res, message, err) {
   message = !message ? "Error" : message;
 
-  console.log("HTTP Status 400:", message);
+  console.log("HTTP Status 400:", message, err);
 
   res.writeHead(400, {
     'Content-Type': 'application/json; charset=utf-8'
