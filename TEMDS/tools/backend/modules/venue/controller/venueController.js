@@ -19,7 +19,7 @@ module.exports.addVenue = function (req, res) {
     venue.save(function (err) {
       if(err) {
         console.log(err);
-        return res.status(500)
+        return res.status(400)
           .send('Something went wrong adding venue');
       } else {
         var detail = new VenueDetail();
@@ -29,10 +29,10 @@ module.exports.addVenue = function (req, res) {
         detail.save(function (err) {
           if(err) {
             console.log(err);
-            return res.status(500)
+            return res.status(400)
               .send('Something went wrong adding venue details');
           } else {
-            return res.status(201)
+            return res.status(200)
               .send(venue.name + ' added successfully');
           }
         });
@@ -75,6 +75,41 @@ module.exports.editVenue = function (req, res) {
   if (!req.body.venue || !req.body.detail) {
     return res.status(400).send("Somethings broken! Better Call Saul!")
   } else {
-    //Venue.findById(req.params.Id);
+    Venue.findById(req.body.venue.venueId._id, function (err, venue) {
+      if(err) {
+        return res.status(400)
+          .send("Couldn't update the venue");
+      } else {
+        req.body.venue = _.omit(req.body.venue, 'venueId');
+        venue = _.extend(venue, req.body.venue);
+        console.log('found venue', venue);
+
+        venue.save(function (err) {
+          if(err) {
+            console.log(err);
+            return res.status(400)
+              .send('Something went wrong updating venue');
+          } else {
+            VenueDetail.findById(req.body.detail.detailId._id, function (err, detail) {
+              if(err) {
+                return res.status(400).send("Couldn't update the venue");
+              } else {
+                req.body.detail = _.omit(req.body.detail, 'detailId');
+                detail = _.extend(detail, req.body.detail);
+
+                detail.save(function (err) {
+                  if(err) {
+                    console.log(err);
+                    return res.status(400).send("Something went wrong updating the venue");
+                  } else {
+
+                  }
+                })
+              }
+            });
+          }
+        });
+      }
+    });
   }
 };

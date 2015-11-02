@@ -220,7 +220,6 @@ angular.module('venue')
       VenueFactory.getVenue(v).then(function (venueObj) {
         var venue = venueObj.venue,
           detail = venueObj.detail;
-        console.log(venueObj);
 
         // Reconstruct bindings
         _($scope.days).forEach(function (n) {
@@ -240,17 +239,24 @@ angular.module('venue')
           }
         }).value();
 
-        detail = _.omit(detail, 'hours'); // Needs to be pulled out so it doesn't affect binding
+        detail.tags = detail.tags.join(', ');
+        $scope.editVenue.venueId = _.pick(venue, '_id');
+        $scope.editVenue.detailId = _.pick(detail, '_id');
+
+        detail = _.omit(detail, ['_id', 'venueId', 'hours']); // Needs to be pulled out so it doesn't affect binding
+        venue = _.omit(venue, '_id');
+
         // Overwrites matching properties
         $scope.editVenue = _.extend($scope.editVenue, venue);
         $scope.editVenue = _.extend($scope.editVenue, detail);
       });
     };
 
-    $scope.editVenue = function (venue) {
+    $scope.modifyVenue = function (venue) {
+      console.log('mod', venue);
+
       var temp = venue.tags.split(/[\s,]+/).join();
       venue.tags = temp.split(',');
-      console.log('venue', venue);
 
       // Formats all the hours properly
       _($scope.days).forEach(function(n) {
@@ -261,14 +267,17 @@ angular.module('venue')
         }
       }).value();
 
-      var detail = _.pick(venue, ['address', 'description', 'tags', 'hours']);
+      var detail = _.pick(venue, ['detailId', 'address', 'description', 'tags', 'hours']);
 
       // Cleans up unneeded properties
-      venue = _.omit(venue, ['address', 'description', 'tags', 'hours', 'openTime', 'openAP', 'closeTime', 'closeAP']);
+      venue = _.omit(venue, ['detailId', 'address', 'description', 'tags', 'hours', 'openTime', 'openAP', 'closeTime', 'closeAP']);
 
       var venueObj = { venue: venue, detail: detail };
+      console.log('final mod', venueObj);
+
       VenueFactory.editVenue(venueObj);
 
+      $scope.editVenue = freshVenue;
       VenueFactory.getNames().then(function (newVenues) {
         $scope.venueNames = newVenues;
       });
