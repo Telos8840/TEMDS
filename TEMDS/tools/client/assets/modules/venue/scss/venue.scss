@@ -1,5 +1,5 @@
 #venue{
-  background: url('/assets/images/yetistack-default-background.jpg');
+  background: url('/assets/images/city-bg-1.jpg');
   background-size:cover;
   color:$smoke;
 
@@ -14,7 +14,7 @@
     overflow-y: scroll;
   }
   li a:hover {
-    background: #44657E;
+    background: #746D67;
   }
   li.with-chevron::after {
     color: #ffffff;

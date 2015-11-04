@@ -253,8 +253,6 @@ angular.module('venue')
     };
 
     $scope.modifyVenue = function (venue) {
-      console.log('mod', venue);
-
       var temp = venue.tags.split(/[\s,]+/).join();
       venue.tags = temp.split(',');
 
@@ -268,13 +266,10 @@ angular.module('venue')
       }).value();
 
       var detail = _.pick(venue, ['detailId', 'address', 'description', 'tags', 'hours']);
-
       // Cleans up unneeded properties
       venue = _.omit(venue, ['detailId', 'address', 'description', 'tags', 'hours', 'openTime', 'openAP', 'closeTime', 'closeAP']);
 
       var venueObj = { venue: venue, detail: detail };
-      console.log('final mod', venueObj);
-
       VenueFactory.editVenue(venueObj);
 
       $scope.editVenue = freshVenue;

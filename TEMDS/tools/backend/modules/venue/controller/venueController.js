@@ -102,7 +102,8 @@ module.exports.editVenue = function (req, res) {
                     console.log(err);
                     return res.status(400).send("Something went wrong updating the venue");
                   } else {
-
+                    return res.status(200)
+                      .send(venue.name + ' updated successfully');
                   }
                 })
               }
