@@ -250,6 +250,15 @@ angular.module('temds', [
                     templateUrl: 'views/app/order/create-order.html',
                     controller: 'CreateOrderCtrl'
                 }
+            }
+        })
+        .state('app.add-order', {
+            url: '/order/add',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/app/order/add-order.html',
+                    controller: 'AddOrderCtrl'
+                }
             },
             params: {
                 'venue': null
