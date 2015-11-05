@@ -4,6 +4,7 @@
  * Date: 10/7/15
  * Time: 10:38 PM
  */
+
 'use strict';
 angular.module('venue', ['ui.router'])
   .config(function ($stateProvider) {

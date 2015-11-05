@@ -49,5 +49,11 @@ and replace username password and email with your account Details.
 ##Example
 [yeti-stack.webnugget.de](https://yeti-stack.webnugget.de)
 
+##Git
+https://git.heroku.com/temds-tools.git
+git add .
+git commit -m "TEXT"
+git push heroku-tools master
+
 
 
