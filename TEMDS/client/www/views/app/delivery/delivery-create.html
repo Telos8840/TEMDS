@@ -1,4 +1,4 @@
-<ion-view class="feed-view create-order-view" view-title="Create Order">
+<ion-view class="feed-view delivery-create-view" view-title="Create Delivery">
     <div class="header">
     </div>
 
@@ -8,11 +8,11 @@
         <div class="list card">
             <div class="item item-divider">Delivery Address</div>
             <div class="item item-select item-input" id="address">
-                <select ng-options="address.name for address in addressbook" ng-model="cart.deliveryAddress"></select>
+                <select ng-options="address.name for address in addressbook" ng-model="delivery.deliveryAddress"></select>
             </div>
             <div class="item" id="address-body">
-                <p>{{cart.deliveryAddress.addr1}} {{cart.deliveryAddress.addr2}}</p>
-                <p>{{cart.deliveryAddress.city}}, {{cart.deliveryAddress.state}} {{cart.deliveryAddress.zipcode}}</p>
+                <p>{{delivery.deliveryAddress.addr1}} {{delivery.deliveryAddress.addr2}}</p>
+                <p>{{delivery.deliveryAddress.city}}, {{delivery.deliveryAddress.state}} {{delivery.deliveryAddress.zipcode}}</p>
             </div>
         </div>
 
@@ -42,6 +42,6 @@
     </ion-content>
 
     <div class="bar bar-footer bar-balanced" ng-click="confirmOrder()">
-        <div class="title">Confirm Order</div>
+        <div class="title">Confirm Delivery</div>
     </div>
 </ion-view>

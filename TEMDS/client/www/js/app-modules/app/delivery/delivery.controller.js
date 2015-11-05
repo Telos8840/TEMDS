@@ -1,46 +1,40 @@
 angular.module('temds.app.controllers')
 
-.controller('DeliveryCreateCtrl', function ($scope, $state, $stateParams, $localstorage, $ionicPopup) {
+.controller('DeliveryCreateCtrl', function ($scope, $state, $stateParams, $localstorage, $ionicPopup, $ionicViewService) {
     var user = $localstorage.getObject('user');
     $scope.addressbook = user.address;
 
-    // retrieve cart obj if available
-    $scope.cart = $stateParams.cart;
-    if (!$scope.cart) {
-        // empty cart obj
-        $scope.cart = {
+    // retrieve delivery obj if available
+    $scope.delivery = $stateParams.delivery;
+    if (!$scope.delivery) {
+        // empty delivery obj
+        $scope.delivery = {
             orders: [],
             deliveryAddress: {}
         };
         // default selected delivery address
         for (var i in $scope.addressbook) {
             if ($scope.addressbook[i].primary) {
-                $scope.cart.deliveryAddress = $scope.addressbook[i];
+                $scope.delivery.deliveryAddress = $scope.addressbook[i];
                 break;
             }
         }
     }
 
-
-
-    /*
-        $scope.orders = $localstorage.getObject('orders');
-        $scope.selected = $localstorage.getObject('selectedAddress');
-
-        // find primary/default address if there was no selected address
-        if (!$scope.selected || Object.keys($scope.selected).length <= 0) {}
-    */
     $scope.addOrder = function () {
-
-        // send to confirmation
-        $state.go('app.confirm-order', {
-            'order': {}
+        $state.go('app.order-create', {
+            order: $scope.delivery,
+            index: -1
         });
     };
 
     $scope.editOrder = function (index) {
-        $state.go('app.add-order')
-    }
+        // send to confirmation
+        $state.go('app.order-create', {
+            order: $scope.delivery,
+            index: index
+        });
+    };
 
     $scope.confirmOrder = function () {
         // TODO: create order
@@ -48,7 +42,9 @@ angular.module('temds.app.controllers')
         $state.go('app.confirm-order', {
             'order': order
         });
-    }
+    };
+
+    $ionicViewService.clearHistory();
 })
 
 .controller('DeliveryConfirmCtrl', function ($scope, $stateParams, $localstorage, OrderService) {

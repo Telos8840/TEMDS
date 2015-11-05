@@ -243,7 +243,7 @@ angular.module('temds', [
     })
 
     /** Delivery **/
-    .state('app.new-delivery', {
+    .state('app.delivery-create', {
             url: '/delivery/new',
             views: {
                 'menuContent': {
@@ -252,7 +252,7 @@ angular.module('temds', [
                 }
             },
             params: {
-                cart: null
+                delivery: null
             }
         })
         .state('app.confirm-order', {
@@ -264,7 +264,8 @@ angular.module('temds', [
                 }
             },
             params: {
-                'order': null
+                delivery: null,
+                index: -1
             }
         })
         .state('app.order-history', {
@@ -287,7 +288,7 @@ angular.module('temds', [
         })
 
     /** Order **/
-    .state('app.add-order', {
+    .state('app.order-create', {
         url: '/order/new',
         views: {
             'menuContent': {

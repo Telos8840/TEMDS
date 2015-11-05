@@ -1,0 +1,34 @@
+/*
+#orderItem.ng-enter {
+    -webkit-animation: fadeInLeft 1s;
+    animation: fadeInLeft 1s;
+}
+
+#orderItem.ng-enter-stagger {
+    -webkit-animation-delay: 120ms;
+    animation-delay: 120ms;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+}*/
+
+.delivery-create-view {
+    ion-content {
+        background-color: white;
+        
+        #address {
+            height: 40px;
+            width: 100%;
+            select {
+                font-size: 15px;
+                padding: 4px 40px 4px 16px;
+                width: 100%;
+                max-width: 100%;
+                height: 100%;
+                direction: ltr;
+            }
+        }
+    }
+    ::-webkit-input-placeholder {
+        color: #CDCDCD;
+    }
+}
