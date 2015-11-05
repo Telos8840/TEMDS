@@ -242,34 +242,25 @@ angular.module('temds', [
         }
     })
 
-    /** Order **/
-    .state('app.new-order', {
-            url: '/order/new',
+    /** Delivery **/
+    .state('app.new-delivery', {
+            url: '/delivery/new',
             views: {
                 'menuContent': {
-                    templateUrl: 'views/app/order/create-order.html',
-                    controller: 'CreateOrderCtrl'
-                }
-            }
-        })
-        .state('app.add-order', {
-            url: '/order/add',
-            views: {
-                'menuContent': {
-                    templateUrl: 'views/app/order/add-order.html',
-                    controller: 'AddOrderCtrl'
+                    templateUrl: 'views/app/delivery/delivery-create.html',
+                    controller: 'DeliveryCreateCtrl'
                 }
             },
             params: {
-                'venue': null
+                cart: null
             }
         })
         .state('app.confirm-order', {
-            url: '/order/confirm',
+            url: '/delivery/confirm',
             views: {
                 'menuContent': {
-                    templateUrl: 'views/app/order/confirm-order.html',
-                    controller: 'ConfirmOrderCtrl'
+                    templateUrl: 'views/app/delivery/delivery-confirm.html',
+                    controller: 'DeliveryConfrimCtrl'
                 }
             },
             params: {
@@ -277,23 +268,37 @@ angular.module('temds', [
             }
         })
         .state('app.order-history', {
-            url: '/order/history/',
+            url: '/delivery/history/',
             views: {
                 'menuContent': {
-                    templateUrl: 'views/app/order/order-history.html',
-                    controller: 'OrderHistoryCtrl'
+                    templateUrl: 'views/app/delivery/delivery-history.html',
+                    controller: 'DeliveryHistoryCtrl'
                 }
             }
         })
         .state('app.order-detail', {
-            url: '/order/:orderId',
+            url: '/delivery/:orderId',
             views: {
                 'menuContent': {
-                    templateUrl: 'views/app/order/order-detail.html',
-                    controller: 'OrderDetailCtrl'
+                    templateUrl: 'views/app/delivery/delivery-detail.html',
+                    controller: 'DeliveryDetailCtrl'
                 }
             }
         })
+
+    /** Order **/
+    .state('app.add-order', {
+        url: '/order/new',
+        views: {
+            'menuContent': {
+                templateUrl: 'views/app/delivery/order/order-create.html',
+                controller: 'OrderCreateCtrl'
+            }
+        },
+        params: {
+            'venue': null
+        }
+    })
 
     /** Venue **/
     .state('app.venue-list', {
@@ -414,7 +419,7 @@ angular.module('temds', [
     //$urlRouterProvider.otherwise('/splash');
     //$urlRouterProvider.otherwise('/sign-in');
     //$urlRouterProvider.otherwise('/app/venue-list');
-    $urlRouterProvider.otherwise('/app/order/new');
+    $urlRouterProvider.otherwise('/app/delivery/new');
     //$urlRouterProvider.otherwise('/recover-password');
     //$urlRouterProvider.otherwise('/app/my-account');
     //$urlRouterProvider.otherwise('/app/address-book-set');

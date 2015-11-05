@@ -2,22 +2,48 @@ angular.module('temds.app.controllers')
 
 .controller('CreateOrderCtrl', function ($scope, $state, $stateParams, $localstorage, $ionicPopup, OrderService, VenueService) {
     var user = $localstorage.getObject('user');
-    $scope.orders = $localstorage.getObject('orders');
     $scope.addressbook = user.address;
-    $scope.selected = $localstorage.getObject('selectedAddress');
 
-    // find primary/default address if there was no selected address
-    if (!$scope.selected || Object.keys($scope.selected).length <= 0) {
+    // retrieve cart obj if available
+    $scope.cart = $stateParams.cart;
+    if (!$scope.cart) {
+        // empty cart obj
+        $scope.cart = {
+            orders: [],
+            deliveryAddress: {}
+        };
+        // default selected delivery address
         for (var i in $scope.addressbook) {
             if ($scope.addressbook[i].primary) {
-                $scope.selected.address = $scope.addressbook[i];
+                $scope.cart.deliveryAddress = $scope.addressbook[i];
                 break;
             }
         }
     }
 
+
+
+    /*
+        $scope.orders = $localstorage.getObject('orders');
+        $scope.selected = $localstorage.getObject('selectedAddress');
+
+        // find primary/default address if there was no selected address
+        if (!$scope.selected || Object.keys($scope.selected).length <= 0) {}
+    */
     $scope.addOrder = function () {
-        //$state.getO
+
+        // send to confirmation
+        $state.go('app.confirm-order', {
+            'order': {}
+        });
+    };
+
+    $scope.confirmOrder = function () {
+        // TODO: create order
+        // send to confirmation
+        $state.go('app.confirm-order', {
+            'order': order
+        });
     }
 })
 

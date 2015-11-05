@@ -8,11 +8,11 @@
         <div class="list card">
             <div class="item item-divider">Delivery Address</div>
             <div class="item item-select item-input" id="address">
-                <select ng-options="address.name for address in addressbook" ng-model="selected.address"></select>
+                <select ng-options="address.name for address in addressbook" ng-model="cart.deliveryAddress"></select>
             </div>
             <div class="item" id="address-body">
-                <p>{{selected.address.addr1}} {{selected.address.addr2}}</p>
-                <p>{{selected.address.city}}, {{selected.address.state}} {{selected.address.zipcode}}</p>
+                <p>{{cart.deliveryAddress.addr1}} {{cart.deliveryAddress.addr2}}</p>
+                <p>{{cart.deliveryAddress.city}}, {{cart.deliveryAddress.state}} {{cart.deliveryAddress.zipcode}}</p>
             </div>
         </div>
 
