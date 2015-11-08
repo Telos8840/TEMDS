@@ -20,6 +20,7 @@ angular.module('venue')
       category: '',
       tags: '',
       img: '',
+      thumbnail: '',
       hours: {
         MON: false,
         TUE: false,
@@ -79,6 +80,7 @@ angular.module('venue')
       category: '',
       tags: '',
       img: '',
+      thumbnail: '',
       hours: {
         MON: false,
         TUE: false,
@@ -138,6 +140,7 @@ angular.module('venue')
       category: '',
       tags: '',
       img: '',
+      thumbnail: '',
       hours: {
         MON: false,
         TUE: false,

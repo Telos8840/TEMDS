@@ -82,7 +82,6 @@ module.exports.editVenue = function (req, res) {
       } else {
         req.body.venue = _.omit(req.body.venue, 'venueId');
         venue = _.extend(venue, req.body.venue);
-        console.log('found venue', venue);
 
         venue.save(function (err) {
           if(err) {

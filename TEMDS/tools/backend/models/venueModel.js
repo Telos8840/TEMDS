@@ -20,6 +20,10 @@ var VenueSchema = new Schema({
     type: String,
     required: true
   },
+  thumbnail: {
+    type: String,
+    required: true
+  },
   insertDate: {
     type: Date,
     default: Date.now,
