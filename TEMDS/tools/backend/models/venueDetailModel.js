@@ -12,6 +12,10 @@ var VenueDetailSchema = new Schema({
     type: Schema.Types.ObjectId,
     required: true
   },
+  img: {
+    type: String,
+    required: true
+  },
   address: {
     type: Schema.Types.Mixed,
     required: true

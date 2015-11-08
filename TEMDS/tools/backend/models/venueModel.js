@@ -16,10 +16,6 @@ var VenueSchema = new Schema({
     type: String,
     required: true
   },
-  img: {
-    type: String,
-    required: true
-  },
   thumbnail: {
     type: String,
     required: true

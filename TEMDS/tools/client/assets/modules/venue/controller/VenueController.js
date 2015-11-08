@@ -205,10 +205,10 @@ angular.module('venue')
         }
       }).value();
 
-      var detail = _.pick(venue, ['address', 'description', 'tags', 'hours']);
+      var detail = _.pick(venue, ['address', 'description', 'tags', 'hours', 'img']);
 
       // Cleans up unneeded properties
-      venue = _.omit(venue, ['address', 'description', 'tags', 'hours', 'openTime', 'openAP', 'closeTime', 'closeAP']);
+      venue = _.omit(venue, ['address', 'description', 'tags', 'hours', 'img', 'openTime', 'openAP', 'closeTime', 'closeAP']);
 
       var venueObj = { venue: venue, detail: detail };
       VenueFactory.addVenue(venueObj);
@@ -268,9 +268,9 @@ angular.module('venue')
         }
       }).value();
 
-      var detail = _.pick(venue, ['detailId', 'address', 'description', 'tags', 'hours']);
+      var detail = _.pick(venue, ['detailId', 'address', 'description', 'tags', 'hours', 'img']);
       // Cleans up unneeded properties
-      venue = _.omit(venue, ['detailId', 'address', 'description', 'tags', 'hours', 'openTime', 'openAP', 'closeTime', 'closeAP']);
+      venue = _.omit(venue, ['detailId', 'address', 'description', 'tags', 'hours', 'img', 'openTime', 'openAP', 'closeTime', 'closeAP']);
 
       var venueObj = { venue: venue, detail: detail };
       VenueFactory.editVenue(venueObj);
