@@ -41,7 +41,7 @@ module.exports = function (server, db) {
               _id: true,
               name: true,
               category: true,
-              img: true
+              thumbnail: true
             },
             function (err, venues) {
             if (err) response.error(res, "Error finding venues", err);
