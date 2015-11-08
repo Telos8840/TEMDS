@@ -18,19 +18,23 @@
 
         <!-- ORDER LIST -->
         <div class="list card">
-            <div class="item item-divider item-icon-right">
-                Orders
+            <div class="item item-divider"> Orders
             </div>
 
             <ion-list show-delete="showDelete" can-swipe="true">
-                <ion-item class="item orderItem" ng-repeat="item in orders track by $index">
-                    <h2>{{$index}}. {{item.title}}</h2>
-                    <ion-option-button class="button-positive" ng-click="share(item)">
+                <ion-item ng-repeat="order in delivery.orders" item="order" class="item-avatar item-remove-animate">
+                    <img id="thumbnail" src="{{order.venue.thumbnail}}">
+                    <h2>{{order.venue.name}}</h2>
+                    <h3>{{order.items.length}} {{order.items.length>1?'items':'item'}}</h3>
+
+                    <ion-option-button class="button-positive" ng-click="editOrder($index)">
                         Edit
                     </ion-option-button>
-                    <ion-option-button class="button-assertive" ng-click="edit(item)">
+                    <ion-option-button class="button-assertive" ng-click="deleteOrder(order)">
                         Delete
                     </ion-option-button>
+                    <ion-delete-button class="ion-minus-circled" ng-click="delivery.orders.splice($index, 1)">
+                    </ion-delete-button>
                 </ion-item>
             </ion-list>
 
@@ -41,7 +45,7 @@
 
     </ion-content>
 
-    <div class="bar bar-footer bar-balanced" ng-click="confirmOrder()">
+    <div class="bar bar-footer bar-balanced" ng-click="confirmDelivery()">
         <div class="title">Confirm Delivery</div>
     </div>
 </ion-view>

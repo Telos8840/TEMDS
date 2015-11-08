@@ -1,40 +1,36 @@
-<ion-view class="feed-view create-order-view" view-title="Create Order">
-    <div class="header">
-    </div>
+<ion-view class="feed-view order-create-view" view-title="Create Order">
+    <!--<ion-nav-bar>
+        <ion-nav-back-button class="button-clear" ng-click="myGoBack()">
+            <i class="ion-arrow-left-c"></i> Back
+        </ion-nav-back-button>
+    </ion-nav-bar>-->
 
     <ion-content class="has-footer has-header" data-tap-disabled="true">
-        <div class="list card">
+        <div class="list card" ng-click="venuePicker()">
             <div class="item item-divider">Selected Venue</div>
-            <div class="item item-avatar">
-                <img id="thumbnail" src="{{venue.thumbnail}}">
-                <h2>{{venue.name}}</h2>
-                <h3>{{venue.category}}</h3>
+            <div class="item item-avatar" ng-show="order.venue">
+                <img id="thumbnail" src="{{order.venue.thumbnail}}">
+                <h2>{{order.venue.name}}</h2>
+                <h3>{{order.venue.category}}</h3>
             </div>
-        </div>
-
-        <div class="list card">
-            <div class="item item-divider">Delivery Address</div>
-            <div class="item item-select item-input" id="address">
-                <select ng-options="address.name for address in addressbook" ng-model="selected.address"></select>
-            </div>
-            <div class="item" id="address-body">
-                <p>{{selected.address.addr1}} {{selected.address.addr2}}</p>
-                <p>{{selected.address.city}}, {{selected.address.state}} {{selected.address.zipcode}}</p>
+            <div class="item center" ng-show="!order.venue">
+                <center>Select Venue</center>
             </div>
         </div>
 
         <div class="list card">
             <div class="item item-divider item-icon-right">
-                {{items.length > 1 ? "Order Items" : "Order Item"}}
+                {{order.items.length > 1 ? "Order Items" : "Order Item"}}
             </div>
             <ion-list show-delete="showDelete">
-                <ion-item class="item item-input" ng-repeat="item in items track by $index">
-                    <input type="text" placeholder="Item #{{$index+1}}" ng-model="items[$index]" />
-                    <ion-delete-button class="ion-minus-circled" ng-click="items.splice($index, 1)"></ion-delete-button>
+                <ion-item class="item item-input" item="item" ng-repeat="item in order.items">
+                    <input type="text" placeholder="Item #{{$index+1}}" ng-model="order.items[$index].description" />
+                    <ion-delete-button class="ion-minus-circled" ng-click="deleteItemAt($index)">
+                    </ion-delete-button>
                 </ion-item>
             </ion-list>
             <div class="item tabs tabs-secondary tabs-icon-left">
-                <a class="tab-item" href="#" ng-click="items.push(''); showDelete=false;">
+                <a class="tab-item" href="#" ng-click="addItem(); showDelete=false;">
                     <i class="icon ion-plus-circled"></i> Add
                 </a>
                 <a class="tab-item" href="#">
@@ -44,7 +40,7 @@
                 </a>
             </div>
             <label class="item item-input">
-                <textarea placeholder="Comments" ng-model="comment.txt"></textarea>
+                <textarea placeholder="Comments" ng-model="order.comment"></textarea>
             </label>
 
         </div>
@@ -52,6 +48,6 @@
     </ion-content>
 
     <div class="bar bar-footer bar-balanced" ng-click="confirmOrder()">
-        <div class="title">Confirm Order</div>
+        <div class="title">{{index==-1?'Add Order':'Edit Order'}}</div>
     </div>
 </ion-view>

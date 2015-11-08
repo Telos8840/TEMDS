@@ -252,15 +252,16 @@ angular.module('temds', [
                 }
             },
             params: {
-                delivery: null
+                order: null,
+                index: -1
             }
         })
-        .state('app.confirm-order', {
+        .state('app.delivery-confirm', {
             url: '/delivery/confirm',
             views: {
                 'menuContent': {
                     templateUrl: 'views/app/delivery/delivery-confirm.html',
-                    controller: 'DeliveryConfrimCtrl'
+                    controller: 'DeliveryConfirmCtrl'
                 }
             },
             params: {
@@ -297,7 +298,8 @@ angular.module('temds', [
             }
         },
         params: {
-            'venue': null
+            order: null,
+            index: -1
         }
     })
 
@@ -313,12 +315,15 @@ angular.module('temds', [
         })
         .state('app.venue-detail', {
             cache: false,
-            url: '/venue/:venueId',
+            url: '/venue',
             views: {
                 'menuContent': {
                     templateUrl: 'views/app/venue/venue-detail.html',
                     controller: 'VenueDetailCtrl'
                 }
+            },
+            params: {
+                venue: {}
             }
         })
 

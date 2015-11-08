@@ -13,8 +13,10 @@
 
 .delivery-create-view {
     ion-content {
-        background-color: white;
-        
+        background-color: #FFF;
+        ion-list .list {
+            transition: height 0.5s 0s;
+        }
         #address {
             height: 40px;
             width: 100%;
@@ -26,6 +28,21 @@
                 height: 100%;
                 direction: ltr;
             }
+        }
+        #thumbnail {
+            border-radius: 5px;
+        }
+        #address-body {
+            border-top: 0px none;
+            padding-top: 0px;
+            padding-bottom: 12px;
+        }
+        #addOrderBtn {
+            margin-top: 0;
+        }
+        #deleteBtn {
+            font-size: 28px;
+            color: #CCC;
         }
     }
     ::-webkit-input-placeholder {

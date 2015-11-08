@@ -1,146 +1,116 @@
 angular.module('temds.app.controllers')
 
-.controller('CreateOrderCtrl', function ($scope, $state, $stateParams, $localstorage, $ionicPopup, OrderService, VenueService) {
-    var user = $localstorage.getObject('user');
-    $scope.addressbook = user.address;
+.controller('OrderCreateCtrl', function ($scope, $rootScope, $state, $ionicViewSwitcher, $stateParams, $localstorage, $ionicPopup, $ionicHistory, OrderService, VenueService) {
+    $scope.showDelete = false;
 
-    // retrieve cart obj if available
-    $scope.cart = $stateParams.cart;
-    if (!$scope.cart) {
-        // empty cart obj
-        $scope.cart = {
-            orders: [],
-            deliveryAddress: {}
-        };
-        // default selected delivery address
-        for (var i in $scope.addressbook) {
-            if ($scope.addressbook[i].primary) {
-                $scope.cart.deliveryAddress = $scope.addressbook[i];
-                break;
+    // Retrieve selcted venue if coming from venue detail
+    $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        if (toState.name === 'app.order-create') {
+            if (fromState.name === 'app.venue-detail') {
+                $scope.index = toParams.index;
+                if (!$scope.order) {
+                    $scope.order = {
+                        venue: null,
+                        items: [
+                            {
+                                description: ''
+                                }
+                        ],
+                        comment: ''
+                    };
+                }
+                $scope.order.venue = fromParams.venue;
+            } else if (fromState.name === 'app.delivery-create') {
+                $scope.order = toParams.order;
+                $scope.index = toParams.index;
+                // Retrieve or create order object to edit/create
+                if (!$scope.order) {
+                    $scope.order = {
+                        venue: null,
+                        items: [
+                            {
+                                description: ''
+                                }
+                        ],
+                        comment: ''
+                    };
+                }
             }
         }
-    }
+    });
 
-
-
-    /*
-        $scope.orders = $localstorage.getObject('orders');
-        $scope.selected = $localstorage.getObject('selectedAddress');
-
-        // find primary/default address if there was no selected address
-        if (!$scope.selected || Object.keys($scope.selected).length <= 0) {}
-    */
-    $scope.addOrder = function () {
-
-        // send to confirmation
-        $state.go('app.confirm-order', {
-            'order': {}
+    $rootScope.$ionicGoBack = function () {
+        // send order to delivery create view
+        $ionicHistory.nextViewOptions({
+            historyRoot: true
         });
-    };
-
-    $scope.confirmOrder = function () {
-        // TODO: create order
-        // send to confirmation
-        $state.go('app.confirm-order', {
-            'order': order
+        $ionicViewSwitcher.nextDirection('back');
+        $state.go('app.delivery-create', {
+            order: null,
+            index: -1
         });
     }
-})
 
-
-.controller('AddOrderCtrl', function ($scope, $state, $stateParams, $localstorage, $ionicPopup, OrderService, VenueService) {
-    var user = $localstorage.getObject('user');
-    $scope.addressbook = user.address;
-    $scope.items = [''];
-    $scope.showDelete = false;
-    $scope.selected = {};
-    $scope.comment = {};
-
-    // find primary/default address
-    for (var i in $scope.addressbook) {
-        if ($scope.addressbook[i].primary) {
-            $scope.selected.address = $scope.addressbook[i];
-            break;
-        }
+    /**
+     * Display Venue list and allow user to select.
+     * Order object is passed to assign venue and must
+     * come back to this controller when venue is selected.
+     */
+    $scope.venuePicker = function () {
+        $state.go('app.venue-list', {
+            order: $scope.order
+        });
     }
 
-    //temp
-    VenueService.getVenueDetail('venueId')
-        .then(function (data) {
-            $scope.venue = data;
-            console.log($scope.venue);
-        });
-
-    console.log($stateParams.venue);
-
+    /**
+     * Delete Item at %i%
+     * @param {Number} i index of item 
+     */
     $scope.deleteItemAt = function (i) {
-        console.log(i);
-        $scope.orders.splice(i, 1);
+        $scope.order.items.splice(i, 1);
     };
+
+    /**
+     * Add new item at the end of the list
+     */
+    $scope.addItem = function () {
+        $scope.order.items.push({
+            description: ''
+        });
+    }
 
     /**
      * Go to order confirm view.
      * Create order object here.
      */
     $scope.confirmOrder = function () {
-        console.log($scope.selected.address.name);
         // prepare order items
-        var orderItems = [];
-        for (var i in $scope.items) {
-            if ($scope.items[i].trim() != '') {
-                orderItems.push({
-                    description: $scope.items[i]
-                });
+        for (var i = $scope.order.items.length - 1; i >= 0; i--) {
+            if ($scope.order.items[i].description.trim() == '') {
+                $scope.order.items.splice(i, 1);
             }
         }
-        if (orderItems.length <= 0) {
+        // Invalid order alert
+        if (!$scope.order.venue) {
+            $ionicPopup.alert({
+                title: 'Venue Missing',
+                content: 'You must select a venue to create order from. Please tap on venue card to proceed.'
+            });
+        } else if ($scope.order.items.length <= 0) {
             $ionicPopup.alert({
                 title: 'Item Missing',
                 content: 'There is no item in this order. Please add at least one item to create an order.'
             });
         } else {
-            // prepare order object
-            var order = {
-                uId: user.id,
-                venue: $scope.venue,
-                address: $scope.selected.address,
-                status: _ORDER_STATUS_CREATED_,
-                items: orderItems,
-                comment: $scope.comment.txt
-            };
-            // send to confirmation
-            $state.go('app.confirm-order', {
-                'order': order
+            // send order to delivery create view
+            $ionicViewSwitcher.nextDirection('back');
+            $ionicHistory.nextViewOptions({
+                historyRoot: true
+            });
+            $state.go('app.delivery-create', {
+                index: $scope.index,
+                order: $scope.order
             });
         }
     };
-})
-
-
-.controller('ConfirmOrderCtrl', function ($scope, $stateParams, $localstorage, OrderService) {
-    $scope.order = $stateParams.order;
-
-    $scope.createOrder = function () {
-        // prepare delivery address
-        var order = angular.copy($scope.order);
-
-        order.vId = $scope.order.venue.id;
-
-        delete order["venue"]
-        delete order.address["id"];
-        delete order.address["name"];
-        delete order.address["primary"];
-
-        console.log(order);
-    }
-})
-
-
-.controller('OrderHistoryCtrl', function ($scope, $filter, OrderService) {
-
-})
-
-
-.controller('OrderDetailCtrl', function ($scope, $filter, OrderService) {
-
 });

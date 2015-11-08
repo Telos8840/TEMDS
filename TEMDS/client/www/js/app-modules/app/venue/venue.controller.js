@@ -1,7 +1,7 @@
 angular.module('temds.app.controllers')
 
 
-.controller('VenueListCtrl', function ($scope, $filter, VenueService) {
+.controller('VenueListCtrl', function ($scope, $state, $filter, $stateParams, VenueService) {
     $scope.sortedVenueList = {}; // this should be displayed
     $scope.venueList = []; // this is the raw list data from server
 
@@ -43,11 +43,22 @@ angular.module('temds.app.controllers')
 
         $scope.sortedVenueList = l;
     };
+
+    $scope.showVenueDetail = function (venue) {
+        $state.go('app.venue-detail', {
+            venue: venue
+        })
+    }
 })
 
 
-.controller('VenueDetailCtrl', function ($scope, $state, $stateParams, uiGmapIsReady, VenueService) {
-    var venueId = $stateParams.venueId;
+.controller('VenueDetailCtrl', function ($scope, $state, $stateParams, uiGmapIsReady, $ionicHistory, VenueService) {
+    // isFromVenueList is true if user is creating a new order from browsing venues.
+    // It is false if user was already creating a delivery and is picking venue.
+    var isFromVenueList = $ionicHistory.viewHistory().histories.ion1.stack.length == 2;
+    $scope.submitBtnText = isFromVenueList ? 'Create Order' : 'Select Venue';
+
+    var venueId = $stateParams.venue.id;
     VenueService.getVenueDetail(venueId)
         .then(function (data) {
             $scope.venue = data;
@@ -74,17 +85,24 @@ angular.module('temds.app.controllers')
             overviewMapControl: false,
             rotateControl: false,
         }
-    }
+    };
 
     /**
      * Redirect to new order view.
      * Send venue information to order from.
      */
     $scope.createOrder = function () {
-        $state.go('app.new-order', {
-            'venue': $scope.venue
-        });
-    }
+        if (isFromVenueList) {
+            $ionicHistory.nextViewOptions({
+                historyRoot: true
+            });
+            $state.go('app.order-create', {
+                index: -1
+            });
+        } else {
+            $ionicHistory.goBack(-2);
+        }
+    };
 
     /* Find location by address and mark it on the map */
     uiGmapIsReady.promise() // this gets all (ready) map instances - defaults to 1 for the first map
