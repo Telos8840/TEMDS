@@ -8,6 +8,7 @@
 var _ = rq('lodash');
 var Venue = rq('venueModel');
 var VenueDetail = rq('venueDetailModel');
+var Collections = rq('collectionsModel');
 
 module.exports.addVenue = function (req, res) {
   if (!req.body.venue || !req.body.detail) {
@@ -32,6 +33,11 @@ module.exports.addVenue = function (req, res) {
             return res.status(400)
               .send('Something went wrong adding venue details');
           } else {
+            Collections.find({}).exec(function (err, collection) {
+              collection[0].venues = new Date();
+              collection[0].venue_details = new Date();
+              collection[0].save();
+            });
             return res.status(200)
               .send(venue.name + ' added successfully');
           }
@@ -101,6 +107,11 @@ module.exports.editVenue = function (req, res) {
                     console.log(err);
                     return res.status(400).send("Something went wrong updating the venue");
                   } else {
+                    Collections.find({}).exec(function (err, collection) {
+                      collection[0].venues = new Date();
+                      collection[0].venue_details = new Date();
+                      collection[0].save();
+                    });
                     return res.status(200)
                       .send(venue.name + ' updated successfully');
                   }
