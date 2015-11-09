@@ -22,10 +22,6 @@ module.exports = function (server, db) {
     console.log("\n *** Getting venue list *** \n");
 
     var timeStamp = req.params.timestamp;
-    //{modifiedDate:
-    //{
-    //  $gte: new Date(timeStamp)
-    //}}
 
     db.collections_updated.find({}, function (err, updated) {
       if (err) response.error(res, "Error getting updates", err);
