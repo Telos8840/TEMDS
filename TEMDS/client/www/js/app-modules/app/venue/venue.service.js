@@ -1,33 +1,24 @@
 angular.module('temds.app.services')
 
 
-.service('VenueService', function ($http, $q) {
+.service('VenueService', function ($http, $q, $localstorage) {
 
     // TODO: Implement this with backend api
     this.getVenueList = function () {
         var dfd = $q.defer();
+        var venues = $localstorage.getObject('venues');
 
-        $http.get(_API_HOST_ + 'api/venue/')
+        $http.get(_API_HOST_ + 'api/venue/list/' + (venues ? venues.timestamp : ''))
             .success(function (response) {
-
-                dfd.resolve(response);
+                if (response) {
+                    $localstorage.setObject('venues', response);
+                    dfd.resolve(response);
+                } else {
+                    dfd.resolve(venues);
+                }
             }).catch(function (response) {
                 console.log(response);
-
-                dfd.resolve([]);
-            });
-
-        return dfd.promise;
-    }
-
-    // TEMP DATA
-    // TODO: Load it from local storage if exists.
-    this.loadVenueList = function () {
-        var dfd = $q.defer();
-
-        $http.get('data/sample_venuelist.json')
-            .success(function (response) {
-                dfd.resolve(response);
+                dfd.resolve(venues);
             });
 
         return dfd.promise;

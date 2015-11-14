@@ -7,7 +7,7 @@ angular.module('temds.app.controllers')
 
 
     $scope.refreshData = function () {
-        VenueService.loadVenueList()
+        VenueService.getVenueList()
             .then(function (data) {
                 $scope.venueList = $filter('orderBy')(data.list, '+name', false);
                 $scope.sortByName(); // default
@@ -17,7 +17,7 @@ angular.module('temds.app.controllers')
 
 
     $scope.getList = function () {
-        VenueService.loadVenueList()
+        VenueService.getVenueList()
             .then(function (data) {
                 $scope.venueList = $filter('orderBy')(data.list, '+name', false);
                 $scope.sortByName(); // default
