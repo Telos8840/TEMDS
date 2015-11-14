@@ -5,9 +5,6 @@ var _US_STATES_ = [{
     "name": "Alaska",
     "abbr": "AK"
 }, {
-    "name": "American Samoa",
-    "abbr": "AS"
-}, {
     "name": "Arizona",
     "abbr": "AZ"
 }, {
@@ -26,20 +23,11 @@ var _US_STATES_ = [{
     "name": "Delaware",
     "abbr": "DE"
 }, {
-    "name": "District Of Columbia",
-    "abbr": "DC"
-}, {
-    "name": "Federated States Of Micronesia",
-    "abbr": "FM"
-}, {
     "name": "Florida",
     "abbr": "FL"
 }, {
     "name": "Georgia",
     "abbr": "GA"
-}, {
-    "name": "Guam",
-    "abbr": "GU"
 }, {
     "name": "Hawaii",
     "abbr": "HI"
@@ -67,10 +55,7 @@ var _US_STATES_ = [{
 }, {
     "name": "Maine",
     "abbr": "ME"
-}, {
-    "name": "Marshall Islands",
-    "abbr": "MH"
-}, {
+},{
     "name": "Maryland",
     "abbr": "MD"
 }, {
@@ -116,9 +101,6 @@ var _US_STATES_ = [{
     "name": "North Dakota",
     "abbr": "ND"
 }, {
-    "name": "Northern Mariana Islands",
-    "abbr": "MP"
-}, {
     "name": "Ohio",
     "abbr": "OH"
 }, {
@@ -128,14 +110,8 @@ var _US_STATES_ = [{
     "name": "Oregon",
     "abbr": "OR"
 }, {
-    "name": "Palau",
-    "abbr": "PW"
-}, {
     "name": "Pennsylvania",
     "abbr": "PA"
-}, {
-    "name": "Puerto Rico",
-    "abbr": "PR"
 }, {
     "name": "Rhode Island",
     "abbr": "RI"
@@ -158,9 +134,6 @@ var _US_STATES_ = [{
     "name": "Vermont",
     "abbr": "VT"
 }, {
-    "name": "Virgin Islands",
-    "abbr": "VI"
-}, {
     "name": "Virginia",
     "abbr": "VA"
 }, {
@@ -175,4 +148,4 @@ var _US_STATES_ = [{
 }, {
     "name": "Wyoming",
     "abbr": "WY"
-}]
+}];

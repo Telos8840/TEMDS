@@ -1,0 +1,226 @@
+<div id="venue" class="grid-block vertical">
+    <div class="grid-block large-up-3 align-center shrink">
+        <div class="grid-content"><h2 class="text-center">New Venue</h2></div>
+        <div class="grid-content"><h2 class="text-center">Venues</h2></div>
+        <div class="grid-content"><h2 class="text-center">Edit Venues</h2></div>
+    </div>
+
+    <div class="grid-block large-up-3 align-center shrink">
+        <div class="grid-content" id="addVenueForm">
+
+            <form role="form">
+                <label>
+                    Name
+                    <input type="text" id="name" ng-model="venue.name" placeholder="Name">
+                </label>
+
+                <label>
+                    Address
+                    <input type="text" id="address1" ng-model="venue.address.addr1" placeholder="Address">
+                </label>
+
+                <label>
+                    Address 2
+                    <input type="text" id="address2" ng-model="venue.address.addr2" placeholder="Address 2">
+                </label>
+
+                <div class="grid-block">
+                    <div class="small-12 medium-6 grid-content">
+                        <label>
+                            City
+                            <input type="text" id="city" ng-model="venue.address.city" placeholder="City">
+                        </label>
+                    </div>
+                    <div class="small-12 medium-3 grid-content">
+                        <label>State</label>
+                        <select id="state" ng-model="venue.address.state" ng-init="venue.address.state = 'Ca'">
+                            <option selected="selected" value="Ca">Ca</option>
+                        </select>
+                    </div>
+                    <div class="small-12 medium-3 grid-content">
+                        <label>
+                            Zip Code
+                            <input type="text" id="zip" ng-model="venue.address.zipcode" placeholder="Zip Code">
+                        </label>
+                    </div>
+                </div>
+
+                <label>Description
+                    <textarea id="description" ng-model="venue.description" placeholder="Description"></textarea>
+                </label>
+
+                <label>
+                    Thumbnail URL
+                    <input type="text" id="thumbnail" ng-model="venue.thumbnail" placeholder="Image URL">
+                </label>
+
+                <label>
+                    Image URL
+                    <input type="text" id="img" ng-model="venue.img" placeholder="Image URL">
+                </label>
+
+                <div class="grid-block">
+                    <div class="small-12 medium-5 grid-content">
+                        <label>Category</label>
+                        <select id="category" ng-model="venue.category" ng-options="c for c in categories">
+                        </select>
+                    </div>
+                    <div class="small-12 medium-7 grid-content">
+                        <label>
+                            Tags (Comma Separated)
+                            <input type="text" id="tags" ng-model="venue.tags" placeholder="Tags">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="grid-block">
+                    <div class="small-12 medium-12 grid-content">
+                        <label>Days</label>
+                        <div class="grid-block" data-ng-repeat="day in days">
+                            <div class="small-12 medium-3 grid-content" style="padding-top: 10px">
+                                <input id="{{day}}" ng-model="venue.hours[day]" type="checkbox"><label for="{{day}}">{{day}}</label>
+                            </div>
+
+                            <div class="small-12 medium-9 grid-content">
+                                <div class="grid-block">
+                                    <div class="small-12 medium-3 grid-content">
+                                        <select id="openTime" ng-model="venue.openTime[day]" ng-options="t for t in times" ng-disabled="!venue.hours[day]"></select>
+                                    </div>
+                                    <div class="small-12 medium-3 grid-content">
+                                        <select id="openAP" ng-model="venue.openAP[day]" ng-options="x for x in ['am', 'pm']" ng-disabled="!venue.hours[day]"></select>
+                                    </div>
+
+                                    <div class="small-12 medium-3 grid-content">
+                                        <select id="closeTime" ng-model="venue.closeTime[day]" ng-options="t for t in times" ng-disabled="!venue.hours[day]"></select>
+                                    </div>
+                                    <div class="small-12 medium-3 grid-content">
+                                        <select id="closeAP" ng-model="venue.closeAP[day]" ng-options="x for x in ['am', 'pm']" ng-disabled="!venue.hours[day]"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="expand success button" ng-click="addVenue(venue)">
+                    <span>
+                        <i class="fa fa-save fa-fw"></i> Save
+                    </span>
+                </button>
+            </form>
+        </div>
+
+        <div class="grid-content">
+            <section class="block-list">
+                <ul>
+                    <li class="with-chevron" data-ng-repeat="venue in venueNames | orderBy:'name'">
+                        <a ng-click="getVenue(venue)">{{venue.name}}</a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+
+        <div class="grid-content" id="editVenueForm">
+            <form role="form">
+                <label>
+                    Name
+                    <input type="text" id="editName" ng-model="editVenue.name" placeholder="Name">
+                </label>
+
+                <label>
+                    Address
+                    <input type="text" id="editAddress1" ng-model="editVenue.address.addr1" placeholder="Address">
+                </label>
+
+                <label>
+                    Address 2
+                    <input type="text" id="editAddress2" ng-model="editVenue.address.addr2" placeholder="Address 2">
+                </label>
+
+                <div class="grid-block">
+                    <div class="small-12 medium-6 grid-content">
+                        <label>
+                            City
+                            <input type="text" id="editCity" ng-model="editVenue.address.city" placeholder="City">
+                        </label>
+                    </div>
+                    <div class="small-12 medium-3 grid-content">
+                        <label>State</label>
+                        <select id="editState" ng-model="editVenue.address.state" ng-init="editVenue.address.state = 'Ca'">
+                            <option selected="selected" value="Ca">Ca</option>
+                        </select>
+                    </div>
+                    <div class="small-12 medium-3 grid-content">
+                        <label>
+                            Zip Code
+                            <input type="text" id="editZip" ng-model="editVenue.address.zipcode" placeholder="Zip Code">
+                        </label>
+                    </div>
+                </div>
+
+                <label>Description
+                    <textarea id="editDescription" ng-model="editVenue.description" placeholder="Description"></textarea>
+                </label>
+
+                <label>
+                    Thumbnail URL
+                    <input type="text" id="editThumbnail" ng-model="editVenue.thumbnail" placeholder="Image URL">
+                </label>
+
+                <label>
+                    Image URL
+                    <input type="text" id="editImg" ng-model="editVenue.img" placeholder="Image URL">
+                </label>
+
+                <div class="grid-block">
+                    <div class="small-12 medium-5 grid-content">
+                        <label>Category</label>
+                        <select id="editCategory" ng-model="editVenue.category" ng-options="c for c in categories">
+                        </select>
+                    </div>
+                    <div class="small-12 medium-7 grid-content">
+                        <label>
+                            Tags (Comma Separated)
+                            <input type="text" id="editTags" ng-model="editVenue.tags" placeholder="Tags">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="grid-block">
+                    <div class="small-12 medium-12 grid-content">
+                        <label>Days</label>
+                        <div class="grid-block" data-ng-repeat="day in days">
+                            <div class="small-12 medium-3 grid-content" style="padding-top: 10px">
+                                <input id="edit{{day}}" ng-model="editVenue.hours[day]" type="checkbox"><label for="{{day}}">{{day}}</label>
+                            </div>
+
+                            <div class="small-12 medium-9 grid-content">
+                                <div class="grid-block">
+                                    <div class="small-12 medium-3 grid-content">
+                                        <select id="editOpenTime" ng-model="editVenue.openTime[day]" ng-options="t for t in times" ng-disabled="!editVenue.hours[day]"></select>
+                                    </div>
+                                    <div class="small-12 medium-3 grid-content">
+                                        <select id="editOpenAP" ng-model="editVenue.openAP[day]" ng-options="x for x in ['am', 'pm']" ng-disabled="!editVenue.hours[day]"></select>
+                                    </div>
+
+                                    <div class="small-12 medium-3 grid-content">
+                                        <select id="editCloseTime" ng-model="editVenue.closeTime[day]" ng-options="t for t in times" ng-disabled="!editVenue.hours[day]"></select>
+                                    </div>
+                                    <div class="small-12 medium-3 grid-content">
+                                        <select id="editCloseAP" ng-model="editVenue.closeAP[day]" ng-options="x for x in ['am', 'pm']" ng-disabled="!editVenue.hours[day]"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="expand success button" ng-click="modifyVenue(editVenue)">
+                    <span>
+                        <i class="fa fa-save fa-fw"></i> Save
+                    </span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

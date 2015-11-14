@@ -1,0 +1,49 @@
+#login,#signup,#reset-password,#forgot-password{
+	background: url('/assets/images/city-bg-2.jpg');
+	background-size:cover;
+	color:$smoke;
+
+	h1,h2,h3,h4,h5,h6,a,small,label{
+		color: $smoke;
+	}
+	#content{
+		background-color: rgba(0, 0, 0, 0.4);
+		padding: 2rem 1rem;
+	}
+}
+
+#login-modal{
+	
+		animation-name: showLoginModal;
+		-webkit-animation-name: showLoginModal;	
+
+		animation-duration: 0.5s;	
+		-webkit-animation-duration: 0.5s;
+
+		animation-timing-function: ease;	
+		-webkit-animation-timing-function: ease;	
+
+		visibility: visible !important;						
+	
+	
+}
+
+@keyframes showLoginModal {
+	0% {
+		opacity: 0.0;		
+	}
+
+	100% {
+		opacity: 1;	
+	}		
+}
+
+@-webkit-keyframes showLoginModal {
+	0% {
+		opacity: 0.0;		
+	}
+
+	100% {
+		opacity: 1;	
+	}		
+}
