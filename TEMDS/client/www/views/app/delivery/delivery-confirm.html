@@ -1,0 +1,41 @@
+<ion-view class="feed-view create-order-view" view-title="Create Order">
+    <div class="header">
+    </div>
+
+    <ion-content class="has-footer has-header" data-tap-disabled="true">
+        <div class="list card">
+            <div class="item item-divider">Selected Venue</div>
+            <div class="item item-avatar">
+                <img id="thumbnail" src="{{order.venue.thumbnail}}">
+                <h2>{{order.venue.name}}</h2>
+                <h3>{{order.venue.category}}</h3>
+            </div>
+        </div>
+
+        <div class="list card">
+            <div class="item item-divider">Delivery Address</div>
+            <div class="item">
+                <h3>{{order.address.name}}</h3>
+                <p>{{order.address.addr1}} {{order.address.addr2}}</p>
+                <p>{{order.address.city}}, {{order.address.state}} {{order.address.zipcode}}</p>
+            </div>
+        </div>
+
+        <div class="list card">
+            <div class="item item-divider item-icon-right">
+                {{order.items.length > 1 ? "Order Items" : "Order Item"}}
+            </div>
+            <div class="item order" ng-repeat="item in order.items">
+                <p>{{item.description}}</p>
+            </div>
+            <div class="item item-divider">Delivery Directions</div>
+            <label class="item item-input order">
+                <p>{{order.comment}}</p>
+            </label>
+        </div>
+    </ion-content>
+
+    <div class="bar bar-footer bar-balanced" ng-click="createOrder()">
+        <div class="title">Create Order</div>
+    </div>
+</ion-view>

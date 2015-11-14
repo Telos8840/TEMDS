@@ -1,0 +1,53 @@
+<ion-view class="feed-view order-create-view" view-title="Create Order">
+    <!--<ion-nav-bar>
+        <ion-nav-back-button class="button-clear" ng-click="myGoBack()">
+            <i class="ion-arrow-left-c"></i> Back
+        </ion-nav-back-button>
+    </ion-nav-bar>-->
+
+    <ion-content class="has-footer has-header" data-tap-disabled="true">
+        <div class="list card" ng-click="venuePicker()">
+            <div class="item item-divider">Selected Venue</div>
+            <div class="item item-avatar" ng-show="order.venue">
+                <img id="thumbnail" src="{{order.venue.thumbnail}}">
+                <h2>{{order.venue.name}}</h2>
+                <h3>{{order.venue.category}}</h3>
+            </div>
+            <div class="item center" ng-show="!order.venue">
+                <center>Select Venue</center>
+            </div>
+        </div>
+
+        <div class="list card">
+            <div class="item item-divider item-icon-right">
+                {{order.items.length > 1 ? "Order Items" : "Order Item"}}
+            </div>
+            <ion-list show-delete="showDelete">
+                <ion-item class="item item-input" item="item" ng-repeat="item in order.items">
+                    <input type="text" placeholder="Item #{{$index+1}}" ng-model="order.items[$index].description" />
+                    <ion-delete-button class="ion-minus-circled" ng-click="deleteItemAt($index)">
+                    </ion-delete-button>
+                </ion-item>
+            </ion-list>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" href="#" ng-click="addItem(); showDelete=false;">
+                    <i class="icon ion-plus-circled"></i> Add
+                </a>
+                <a class="tab-item" href="#">
+                </a>
+                <a class="tab-item" href="#" ng-click="showDelete = !showDelete;">
+                    <i class="icon ion-minus-circled"></i> Delete
+                </a>
+            </div>
+            <label class="item item-input">
+                <textarea placeholder="Comments" ng-model="order.comment"></textarea>
+            </label>
+
+        </div>
+
+    </ion-content>
+
+    <div class="bar bar-footer bar-balanced" ng-click="confirmOrder()">
+        <div class="title">{{index==-1?'Add Order':'Edit Order'}}</div>
+    </div>
+</ion-view>

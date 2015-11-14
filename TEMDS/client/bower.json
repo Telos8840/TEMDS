@@ -9,5 +9,11 @@
     "underscore": "~1.8.3",
     "moment": "~2.10.3",
     "angular-moment": "~0.10.1"
-  }
+  },
+  "install" : {
+    "path": {
+      "js" : "www/lib",
+      "css" : "www/css"
+    }
+  }  
 }

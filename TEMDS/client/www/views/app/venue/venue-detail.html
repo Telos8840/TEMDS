@@ -1,0 +1,64 @@
+<ion-view class="feed-view venue-detail-view" view-title="">
+    <div class="header">
+        <div class="placeholder"></div>
+        <img class="venueImg" src="{{venue.img}}" fade-in-on-load/>
+        <div class="overlay"></div>
+        <div class="name">
+            <h1>{{venue.name}}</h1>
+        </div>
+    </div>
+    <ion-content class="has-footer has-header" data-tap-disabled="true">
+        <div class="list card">
+            <div class="item map">
+                <ui-gmap-google-map id="venueMap" center='map.center' options='map.options' zoom='map.zoom'></ui-gmap-google-map>
+            </div>
+            <div class="item item-divider">Detail</div>
+            <div class="item row">
+                <div class="col col-33">
+                    <p>Category:</p>
+                </div>
+                <div class="col col-67">
+                    <p>{{venue.category}}</p>
+                </div>
+            </div>
+            <div class="item row">
+                <div class="col col-33">
+                    <p>Tags:</p>
+                </div>
+                <div class="col col-67">
+                    <p style="white-space:normal;">{{venue.tags.join(', ')}}</p>
+                </div>
+            </div>
+            <div class="item row">
+                <div class="col col-33">
+                    <p>Description:</p>
+                </div>
+                <div class="col col-67">
+                    <p style="white-space:normal;">{{venue.description}}</p>
+                </div>
+            </div>
+
+            <div class="item item-divider">Location</div>
+            <div class="item">
+                <p>{{venue.address.addr1}}</p>
+                <p>{{venue.address.addr2}}</p>
+                <p>{{venue.address.city}}, {{venue.address.state}} {{venue.address.zipcode}}</p>
+            </div>
+
+            <div class="item item-divider">Hours</div>
+            <div class="item row" ng-repeat="(key, hour) in venue.hours">
+                <div class="col col-33">
+                    <p>{{key}}:</p>
+                </div>
+                <div class="col col-67">
+                    <p style="white-space:normal;">{{hour}}</p>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer bar-balanced" ng-click="createOrder()">
+        <div class="title">
+            {{submitBtnText}}
+        </div>
+    </div>
+</ion-view>

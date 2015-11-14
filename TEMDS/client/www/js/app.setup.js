@@ -6,6 +6,7 @@ angular.module('underscore', [])
 angular.module('temds', [
     'ionic',
     'temds.common.directives',
+    'uiGmapgoogle-maps',
 
     /* Utils */
     'temds.utils.controllers',
@@ -230,6 +231,102 @@ angular.module('temds', [
         }
     })
 
+    /** Main Feed **/
+    .state('app.main-feed', {
+        url: '/main-feed',
+        views: {
+            'menuContent': {
+                templateUrl: 'views/app/main-feed/main-feed.html',
+                controller: 'MainFeedCtrl'
+            }
+        }
+    })
+
+    /** Delivery **/
+    .state('app.delivery-create', {
+            url: '/delivery/new',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/app/delivery/delivery-create.html',
+                    controller: 'DeliveryCreateCtrl'
+                }
+            },
+            params: {
+                order: null,
+                index: -1
+            }
+        })
+        .state('app.delivery-confirm', {
+            url: '/delivery/confirm',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/app/delivery/delivery-confirm.html',
+                    controller: 'DeliveryConfirmCtrl'
+                }
+            },
+            params: {
+                delivery: null,
+                index: -1
+            }
+        })
+        .state('app.order-history', {
+            url: '/delivery/history/',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/app/delivery/delivery-history.html',
+                    controller: 'DeliveryHistoryCtrl'
+                }
+            }
+        })
+        .state('app.order-detail', {
+            url: '/delivery/:orderId',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/app/delivery/delivery-detail.html',
+                    controller: 'DeliveryDetailCtrl'
+                }
+            }
+        })
+
+    /** Order **/
+    .state('app.order-create', {
+        url: '/order/new',
+        views: {
+            'menuContent': {
+                templateUrl: 'views/app/delivery/order/order-create.html',
+                controller: 'OrderCreateCtrl'
+            }
+        },
+        params: {
+            order: null,
+            index: -1
+        }
+    })
+
+    /** Venue **/
+    .state('app.venue-list', {
+            url: '/venue-list',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/app/venue/venue-list.html',
+                    controller: 'VenueListCtrl'
+                }
+            }
+        })
+        .state('app.venue-detail', {
+            cache: false,
+            url: '/venue',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/app/venue/venue-detail.html',
+                    controller: 'VenueDetailCtrl'
+                }
+            },
+            params: {
+                venue: {}
+            }
+        })
+
     /** Address Book **/
     .state('app.address-book', {
             cache: false,
@@ -300,7 +397,6 @@ angular.module('temds', [
         })
 
 
-
     .state('facebook-sign-in', {
         url: '/facebook-sign-in',
         templateUrl: 'views/auth/facebook-sign-in.html',
@@ -326,9 +422,10 @@ angular.module('temds', [
     });
 
     // if none of the above states are matched, use this as the fallback
-    //$urlRouterProvider.otherwise('/splash-page');
+    //$urlRouterProvider.otherwise('/splash');
     //$urlRouterProvider.otherwise('/sign-in');
-    $urlRouterProvider.otherwise('/splash');
+    //$urlRouterProvider.otherwise('/app/venue-list');
+    $urlRouterProvider.otherwise('/app/delivery/new');
     //$urlRouterProvider.otherwise('/recover-password');
     //$urlRouterProvider.otherwise('/app/my-account');
     //$urlRouterProvider.otherwise('/app/address-book-set');

@@ -1,0 +1,287 @@
+{
+    "list": [
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "A First Vendor",
+            "category": "Service",
+            "thumbnail": "http://lorempixel.com/50/50/fashion/TEMDS-0"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "A Vendor Sorted By First Letter",
+            "category": "Service",
+            "thumbnail": "http://lorempixel.com/50/50/nature/TEMDS-12"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Another Vendor",
+            "category": "Service",
+            "thumbnail": "http://lorempixel.com/50/50/nature/TEMDS-2"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Best Restaurant",
+            "category": "Service",
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-3"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Book Store",
+            "category": "Service",
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-4"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Cat Store",
+            "category": "Pet",
+            "thumbnail": "http://lorempixel.com/50/50/sports/TEMDS-5"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Chef Lee",
+            "category": "Service",
+            "thumbnail": "http://lorempixel.com/50/50/sports/TEMDS-6"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "777 Casino Supply",
+            "category": "Store",
+            "thumbnail": "http://lorempixel.com/50/50/sports/TEMDS-7"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Cleaning Supplies",
+            "category": "Service",
+            "thumbnail": "http://lorempixel.com/50/50/sports/TEMDS-8"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Cooking Supplies",
+            "category": "Service",
+            "thumbnail": "http://lorempixel.com/50/50/city/TEMDS-9"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Door Store",
+            "category": "Home",
+            "thumbnail": "http://lorempixel.com/50/50/city/TEMDS-10"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Dog Hospital",
+            "category": "Pet",
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-11"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Pet Store",
+            "category": "Pet",
+            "thumbnail": "http://lorempixel.com/50/50/city/TEMDS-13"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Home Depot",
+            "category": "Home",
+            "thumbnail": "http://lorempixel.com/50/50/food/TEMDS-14"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "McDonalds",
+            "category": "Restaurant",
+            "thumbnail": "http://lorempixel.com/50/50/food/TEMDS-15"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "King Taco",
+            "category": "Restaurant",
+            "thumbnail": "http://lorempixel.com/50/50/business/TEMDS-16"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Burger King",
+            "category": "Restaurant",
+            "thumbnail": "http://lorempixel.com/50/50/food/TEMDS-17"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Facebook",
+            "category": "Service",
+            "thumbnail": "http://lorempixel.com/50/50/food/TEMDS-18"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Google",
+            "category": "Service",
+            "thumbnail": "http://lorempixel.com/50/50/food/TEMDS-19"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Youtube",
+            "category": "Service",
+            "thumbnail": "http://lorempixel.com/50/50/food/TEMDS-20"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Microsoft",
+            "category": "Service",
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-21"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Express",
+            "category": "Clothing",
+            "thumbnail": "http://lorempixel.com/50/50/city/TEMDS-22"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Target",
+            "category": "Store",
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-23"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Abercrombie & Fitch",
+            "category": "Clothing",
+            "thumbnail": "http://lorempixel.com/50/50/city/TEMDS-24"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Staples",
+            "category": "Store",
+            "thumbnail": "http://lorempixel.com/50/50/transport/TEMDS-25"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Rite Aid",
+            "category": "Store",
+            "thumbnail": "http://lorempixel.com/50/50/cats/TEMDS-26"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Seven Eleven",
+            "category": "Store",
+            "thumbnail": "http://lorempixel.com/50/50/cats/TEMDS-27"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Food 4 Less",
+            "category": "Grocery",
+            "thumbnail": "http://lorempixel.com/50/50/cats/TEMDS-28"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Verizon",
+            "category": "Service",
+            "thumbnail": "http://lorempixel.com/50/50/cats/TEMDS-29"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Sprint",
+            "category": "Service",
+            "thumbnail": "http://lorempixel.com/50/50/city/TEMDS-30"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Comcast",
+            "category": "Service",
+            "thumbnail": "http://lorempixel.com/50/50/transport/TEMDS-31"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Ralphs",
+            "category": "Grocery",
+            "thumbnail": "http://lorempixel.com/50/50/business/TEMDS-32"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "CVS",
+            "category": "Store",
+            "thumbnail": "http://lorempixel.com/50/50/business/TEMDS-33"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "KBBQ",
+            "category": "Restaurant",
+            "thumbnail": "http://lorempixel.com/50/50/business/TEMDS-34"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Toys R Us",
+            "category": "Toys",
+            "thumbnail": "http://lorempixel.com/50/50/business/TEMDS-35"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Babies R Us",
+            "category": "Store",
+            "thumbnail": "http://lorempixel.com/50/50/business/TEMDS-36"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Costco",
+            "category": "Store",
+            "thumbnail": "http://lorempixel.com/50/50/city/TEMDS-37"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "333 East",
+            "category": "Restaurant",
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-38"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "77 Hardware",
+            "category": "Store",
+            "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-39"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Gaam",
+            "category": "Restaurant",
+            "thumbnail": "http://lorempixel.com/50/50/city/TEMDS-40"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Soon Tofu",
+            "category": "Restaurant",
+            "thumbnail": "http://lorempixel.com/50/50/city/TEMDS-41"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "BCD Tofu House",
+            "category": "Restaurant",
+            "thumbnail": "http://lorempixel.com/50/50/business/TEMDS-42"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Hauss",
+            "category": "Restaurant",
+            "thumbnail": "http://lorempixel.com/50/50/fashion/TEMDS-43"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Line",
+            "category": "Store",
+            "thumbnail": "http://lorempixel.com/50/50/fashion/TEMDS-44"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Toe Bang",
+            "category": "Restaurant",
+            "thumbnail": "http://lorempixel.com/50/50/fashion/TEMDS-45"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Wako",
+            "category": "Restaurant",
+            "thumbnail": "http://lorempixel.com/50/50/fashion/TEMDS-46"
+    },
+        {
+            "id": "some_unique_id_goes_here",
+            "name": "Buzz Beer",
+            "category": "Store",
+            "thumbnail": "http://lorempixel.com/50/50/fashion/TEMDS-47"
+    }
+  ],
+    "last-edited-time": "1444024736740"
+}

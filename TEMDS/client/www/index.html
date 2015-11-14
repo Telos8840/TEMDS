@@ -14,6 +14,10 @@
     <script src="lib/moment/moment.js"></script>
     <script src="lib/angular-moment/angular-moment.js"></script>
     <script src="lib/angular-animate/angular-animate.js"></script>
+    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+    <script src="lib/angular-simple-logger/dist/angular-simple-logger.js"></script>
+    <script src="lib/angular-google-maps/dist/angular-google-maps.min.js"></script>
+    <script src="lib/lodash/lodash.min.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
@@ -30,7 +34,11 @@
     <script src="js/app-modules/user/address-book/address-book.controller.js"></script>
     <script src="js/app-modules/user/my-account/my-account.controller.js"></script>
     <script src="js/app-modules/user/registration/registration.controller.js"></script>
+    <script src="js/app-modules/app/main-feed/main-feed.controller.js"></script>
     <script src="js/app-modules/app/side-menu.controller.js"></script>
+    <script src="js/app-modules/app/venue/venue.controller.js"></script>
+    <script src="js/app-modules/app/delivery/delivery.controller.js"></script>
+    <script src="js/app-modules/app/delivery/order/order.controller.js"></script>
 
 
     <!-- SERVICES -->
@@ -39,6 +47,9 @@
     <script src="js/app-modules/user/address-book/address-book.service.js"></script>
     <script src="js/app-modules/user/my-account/my-account.service.js"></script>
     <script src="js/app-modules/user/registration/registration.service.js"></script>
+    <script src="js/app-modules/app/main-feed/main-feed.service.js"></script>
+    <script src="js/app-modules/app/venue/venue.service.js"></script>
+    <script src="js/app-modules/app/delivery/order/order.service.js"></script>
 
     <!-- MAIN APP -->
     <script src="js/app.setup.js"></script>
@@ -51,6 +62,7 @@
     <script src="js/common/common.directives.js"></script>
 
     <script src="js/views.js"></script>
+
 </head>
 
 <body ng-app="temds">

@@ -1,5 +1,5 @@
 <ion-view class="feed-view address-book-view" view-title="Address Book">
-    <ion-content>
+    <ion-content class="has-footer">
         <!-- Refresh to get the new posts -->
         <ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshData()">
         </ion-refresher>
@@ -8,19 +8,16 @@
             <section ng-include="'views/app/address-book/address-book-cell.html'" class="address-book-cell"></section>
         </div>
 
-        <!-- Infinit scroll -->
+        <!-- Infinit scroll 
         <ion-infinite-scroll ng-if="hasMoreData()" on-infinite="loadMoreData()" distance="2%">
-        </ion-infinite-scroll>
+        </ion-infinite-scroll>-->
 
     </ion-content>
-</ion-view>
 
 
-<div class="bar bar-footer bar-clear" style="padding:0;">
-    <button class="button button-balanced button-full" style="margin:0;" ng-click="editAddress({})">
-        <div class="item-icon-left">
-            <i class="icon ion-plus"></i>
+    <div class="bar bar-footer bar-balanced">
+        <div class="title" ng-click="editAddress({})">
+            Add Address
         </div>
-        Add Address
-    </button>
-</div>
+    </div>
+</ion-view>

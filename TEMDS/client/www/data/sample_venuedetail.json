@@ -1,0 +1,25 @@
+{
+    "id": "some_unique_id_goes_here",
+    "name": "ScoreBig Inc.",
+    "category": "eCommerce",
+    "tags": ["breakfast", "cheap", "fast"],
+    "img": "http://lorempixel.com/375/160/abstract/TEMDS",
+    "thumbnail": "http://lorempixel.com/50/50/abstract/TEMDS-00",
+    "hours": {
+        "MON": "7am - 5pm",
+        "TUE": "10am - 8pm",
+        "WED": "7am - 5pm",
+        "THU": "10am - 8pm",
+        "FRI": "7am - 8pm",
+        "SAT": "CLOSED",
+        "SUN": "CLOSED"
+    },
+    "address": {
+        "addr1": "1800 Highland Blvd",
+        "addr2": "Ste. 110",
+        "city": "Los Angeles",
+        "state": "CA",
+        "zipcode": 90028
+    },
+    "description": "Delivery goods"
+}
