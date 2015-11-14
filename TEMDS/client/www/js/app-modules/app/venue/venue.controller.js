@@ -57,8 +57,8 @@ angular.module('temds.app.controllers')
     // It is false if user was already creating a delivery and is picking venue.
     var isFromVenueList = $ionicHistory.viewHistory().histories.ion1.stack.length == 2;
     $scope.submitBtnText = isFromVenueList ? 'Create Order' : 'Select Venue';
+    var venueId = $stateParams.venue._id;
 
-    var venueId = $stateParams.venue.id;
     VenueService.getVenueDetail(venueId)
         .then(function (data) {
             $scope.venue = data;
