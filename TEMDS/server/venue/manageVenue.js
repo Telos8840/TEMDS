@@ -28,8 +28,8 @@ module.exports = function (server, db) {
       else {
         var venueDate = new Date(updated[0].venues);
         timeStamp = new Date(timeStamp);
-
-        if(timeStamp > venueDate) {
+        
+        if(timeStamp.getTime() >= venueDate.getTime()) {
           response.noUpdates(res, "No new venues");
         } else {
           db.venues.find({},
