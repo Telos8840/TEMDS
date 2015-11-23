@@ -173,3 +173,11 @@ gulp.task('default', function () {
     // Watch gulpfile.js
     gulp.watch(['./gulpfile.js'], ['build']);
 });
+
+gulp.task('serveprod', function() {
+  connect.server({
+    root: './www',
+    port: process.env.PORT || 3000, // localhost:5000
+    livereload: false
+  });
+});
