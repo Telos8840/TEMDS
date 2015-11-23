@@ -6,7 +6,7 @@
     </div>
 
     <div class="grid-block large-up-3 align-center shrink">
-        <div class="grid-content" id="addVenueForm">
+        <div class="grid-content scroll-section" id="addVenueForm">
 
             <form role="form">
                 <label>
@@ -110,7 +110,7 @@
             </form>
         </div>
 
-        <div class="grid-content">
+        <div class="grid-content scroll-section" id="venueList">
             <section class="block-list">
                 <ul>
                     <li class="with-chevron" data-ng-repeat="venue in venueNames | orderBy:'name'">
@@ -120,7 +120,7 @@
             </section>
         </div>
 
-        <div class="grid-content" id="editVenueForm">
+        <div class="grid-content scroll-section" id="editVenueForm">
             <form role="form">
                 <label>
                     Name
