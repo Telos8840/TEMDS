@@ -86,20 +86,22 @@ angular.module('temds.app.controllers')
 })
 
 .controller('DeliveryConfirmCtrl', function ($scope, $stateParams, $localstorage, OrderService) {
-    $scope.order = $stateParams.order;
+    var user = $localstorage.getObject('user');
+    $scope.delivery = $stateParams.delivery;
 
     $scope.createOrder = function () {
-        // prepare delivery address
-        var order = angular.copy($scope.order);
+        // prepare delivery data
+        var delivery = angular.copy($scope.delivery);
+        delivery.uId = user.id;
 
-        order.vId = $scope.order.venue.id;
+        for (var i in delivery.order) {
+            delivery.order[i].vId = delivery.order[i].venue.id;
+            delete delivery.order[i]["venue"];
+        }
 
-        delete order["venue"]
-        delete order.address["id"];
-        delete order.address["name"];
-        delete order.address["primary"];
-
-        console.log(order);
+        delete delivery.deliveryAddress["primary"];
+        console.log(JSON.stringify(delivery));
+        //TODO: Create Post service
     }
 })
 

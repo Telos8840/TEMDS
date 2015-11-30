@@ -17,6 +17,23 @@
         ion-list .list {
             transition: height 0.5s 0s;
         }
+        .order {
+            ul {
+                color: #878787;
+                list-style: disc;
+                padding-left: 2em;
+                font-size: 14px;
+            }
+            .comment {
+                margin-top: 0.5em;
+                padding-top: 0.25em;
+                border-top: 1px dashed #CDCDCD;
+                word-wrap: break-word;
+                word-break: normal;
+                font-size: 14px;
+                color: #727272;
+            }
+        }
         #address {
             height: 40px;
             width: 100%;
@@ -36,6 +53,9 @@
             border-top: 0px none;
             padding-top: 0px;
             padding-bottom: 12px;
+            h2 {
+                padding: 12px 0 0 0;
+            }
         }
         #addOrderBtn {
             margin-top: 0;
