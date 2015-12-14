@@ -14,7 +14,7 @@ var VenueDetailSchema = new Schema({
   },
   img: {
     type: String,
-    required: true
+    required: false
   },
   address: {
     type: Schema.Types.Mixed,

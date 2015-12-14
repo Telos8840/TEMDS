@@ -10,12 +10,12 @@
 
             <form role="form">
                 <label>
-                    Name
+                    Name (required)
                     <input type="text" id="name" ng-model="venue.name" placeholder="Name">
                 </label>
 
                 <label>
-                    Address
+                    Address (required)
                     <input type="text" id="address1" ng-model="venue.address.addr1" placeholder="Address">
                 </label>
 
@@ -27,47 +27,48 @@
                 <div class="grid-block">
                     <div class="small-12 medium-6 grid-content">
                         <label>
-                            City
+                            City (required)
                             <input type="text" id="city" ng-model="venue.address.city" placeholder="City">
                         </label>
                     </div>
                     <div class="small-12 medium-3 grid-content">
-                        <label>State</label>
+                        <label>State (required)</label>
                         <select id="state" ng-model="venue.address.state" ng-init="venue.address.state = 'Ca'">
                             <option selected="selected" value="Ca">Ca</option>
                         </select>
                     </div>
                     <div class="small-12 medium-3 grid-content">
                         <label>
-                            Zip Code
+                            Zip Code (required)
                             <input type="text" id="zip" ng-model="venue.address.zipcode" placeholder="Zip Code">
                         </label>
                     </div>
                 </div>
 
-                <label>Description
+                <label>
+                    Description (required)
                     <textarea id="description" ng-model="venue.description" placeholder="Description"></textarea>
                 </label>
 
                 <label>
-                    Thumbnail URL
+                    Thumbnail URL (50px x 50px)
                     <input type="text" id="thumbnail" ng-model="venue.thumbnail" placeholder="Image URL">
                 </label>
 
                 <label>
-                    Image URL
+                    Image URL (at least 375px x 200px)
                     <input type="text" id="img" ng-model="venue.img" placeholder="Image URL">
                 </label>
 
                 <div class="grid-block">
                     <div class="small-12 medium-5 grid-content">
-                        <label>Category</label>
+                        <label>Category (required)</label>
                         <select id="category" ng-model="venue.category" ng-options="c for c in categories">
                         </select>
                     </div>
                     <div class="small-12 medium-7 grid-content">
                         <label>
-                            Tags (Comma Separated)
+                            Tags (Comma Separated - required)
                             <input type="text" id="tags" ng-model="venue.tags" placeholder="Tags">
                         </label>
                     </div>
@@ -123,12 +124,12 @@
         <div class="grid-content scroll-section" id="editVenueForm">
             <form role="form">
                 <label>
-                    Name
+                    Name (required)
                     <input type="text" id="editName" ng-model="editVenue.name" placeholder="Name">
                 </label>
 
                 <label>
-                    Address
+                    Address (required)
                     <input type="text" id="editAddress1" ng-model="editVenue.address.addr1" placeholder="Address">
                 </label>
 
@@ -140,47 +141,48 @@
                 <div class="grid-block">
                     <div class="small-12 medium-6 grid-content">
                         <label>
-                            City
+                            City (required)
                             <input type="text" id="editCity" ng-model="editVenue.address.city" placeholder="City">
                         </label>
                     </div>
                     <div class="small-12 medium-3 grid-content">
-                        <label>State</label>
+                        <label>State (required)</label>
                         <select id="editState" ng-model="editVenue.address.state" ng-init="editVenue.address.state = 'Ca'">
                             <option selected="selected" value="Ca">Ca</option>
                         </select>
                     </div>
                     <div class="small-12 medium-3 grid-content">
                         <label>
-                            Zip Code
+                            Zip Code (required)
                             <input type="text" id="editZip" ng-model="editVenue.address.zipcode" placeholder="Zip Code">
                         </label>
                     </div>
                 </div>
 
-                <label>Description
+                <label>
+                    Description (required)
                     <textarea id="editDescription" ng-model="editVenue.description" placeholder="Description"></textarea>
                 </label>
 
                 <label>
-                    Thumbnail URL
+                    Thumbnail URL (50px x 50px)
                     <input type="text" id="editThumbnail" ng-model="editVenue.thumbnail" placeholder="Image URL">
                 </label>
 
                 <label>
-                    Image URL
+                    Image URL (at least 375px x 200px)
                     <input type="text" id="editImg" ng-model="editVenue.img" placeholder="Image URL">
                 </label>
 
                 <div class="grid-block">
                     <div class="small-12 medium-5 grid-content">
-                        <label>Category</label>
+                        <label>Category (required)</label>
                         <select id="editCategory" ng-model="editVenue.category" ng-options="c for c in categories">
                         </select>
                     </div>
                     <div class="small-12 medium-7 grid-content">
                         <label>
-                            Tags (Comma Separated)
+                            Tags (Comma Separated - required)
                             <input type="text" id="editTags" ng-model="editVenue.tags" placeholder="Tags">
                         </label>
                     </div>

@@ -21,7 +21,7 @@ module.exports.addVenue = function (req, res) {
       if(err) {
         console.log(err);
         return res.status(400)
-          .send('Something went wrong adding venue');
+          .send('Something went wrong adding venue \n' + err);
       } else {
         var detail = new VenueDetail();
         req.body.detail.venueId = venue._id;
@@ -30,8 +30,9 @@ module.exports.addVenue = function (req, res) {
         detail.save(function (err) {
           if(err) {
             console.log(err);
+            Venue.remove({_id: venue._id}).exec(); // delete venue to avoid conflicts
             return res.status(400)
-              .send('Something went wrong adding venue details');
+              .send('Something went wrong adding venue details \n' + err);
           } else {
             Collections.find({}).exec(function (err, collection) {
               collection[0].venues = new Date();
@@ -51,7 +52,7 @@ module.exports.getNames = function (req, res) {
   Venue.find({}).select('name').exec(function (err, venue) {
     if(err) {
       return res.status(400)
-        .send("Can't load venue data");
+        .send("Can't load venue data \n" + err);
     } else {
       res.json(venue);
     }
@@ -62,12 +63,12 @@ module.exports.getVenue = function (req, res) {
   Venue.findById(req.params.id, function (err, venue) {
     if(err) {
       return res.status(400)
-        .send("Can't find venue");
+        .send("Can't find venue \n" + err);
     } else {
       VenueDetail.find({venueId: req.params.id}).exec(function (err, detail) {
         if(err) {
           return res.status(400)
-            .send("Can't find venue details");
+            .send("Can't find venue details \n" + err);
         } else {
           var obj = {venue: venue, detail: detail[0]};
           res.json(obj);
@@ -84,7 +85,7 @@ module.exports.editVenue = function (req, res) {
     Venue.findById(req.body.venue.venueId._id, function (err, venue) {
       if(err) {
         return res.status(400)
-          .send("Couldn't update the venue");
+          .send("Couldn't update the venue \n" + err);
       } else {
         req.body.venue = _.omit(req.body.venue, 'venueId');
         venue = _.extend(venue, req.body.venue);
@@ -93,11 +94,11 @@ module.exports.editVenue = function (req, res) {
           if(err) {
             console.log(err);
             return res.status(400)
-              .send('Something went wrong updating venue');
+              .send('Something went wrong updating venue \n' + err);
           } else {
             VenueDetail.findById(req.body.detail.detailId._id, function (err, detail) {
               if(err) {
-                return res.status(400).send("Couldn't update the venue");
+                return res.status(400).send("Couldn't update the venue \n" + err);
               } else {
                 req.body.detail = _.omit(req.body.detail, 'detailId');
                 detail = _.extend(detail, req.body.detail);
@@ -105,7 +106,7 @@ module.exports.editVenue = function (req, res) {
                 detail.save(function (err) {
                   if(err) {
                     console.log(err);
-                    return res.status(400).send("Something went wrong updating the venue");
+                    return res.status(400).send("Something went wrong updating the venue \n" + err);
                   } else {
                     Collections.find({}).exec(function (err, collection) {
                       collection[0].venues = new Date();

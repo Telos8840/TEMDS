@@ -207,8 +207,19 @@ angular.module('venue')
 
       var detail = _.pick(venue, ['address', 'description', 'tags', 'hours', 'img']);
 
+      var ranNum = 0;
+      if(detail.img.trim() === '') {
+        ranNum = Math.floor(Math.random() * 10) + 1;
+        detail.img = 'http://lorempixel.com/375/200/abstract/' + ranNum;
+      }
+
       // Cleans up unneeded properties
       venue = _.omit(venue, ['address', 'description', 'tags', 'hours', 'img', 'openTime', 'openAP', 'closeTime', 'closeAP']);
+
+      if(venue.thumbnail.trim() === '') {
+        ranNum = Math.floor(Math.random() * 10) + 1;
+        venue.thumbnail = 'http://lorempixel.com/50/50/abstract/' + ranNum;
+      }
 
       var venueObj = { venue: venue, detail: detail };
       VenueFactory.addVenue(venueObj);

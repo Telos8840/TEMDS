@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "description": "Tools site for TEMDS",
   "scripts": {
-    "start": "gulp"
+    "start": "gulp",
+    "postinstall": "bash ./post_install.sh"
   },
   "engines": {
     "node": "0.12.x"
