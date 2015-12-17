@@ -1,0 +1,10 @@
+{
+  "created": 0,
+  "pending": 1,
+  "accepted": 2,
+  "processing": 3,
+  "inRoute": 4,
+  "delivered": 5,
+  "denied": 6,
+  "canceled": 7
+}
