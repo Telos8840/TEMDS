@@ -30,11 +30,11 @@
                     <ion-option-button class="button-positive" ng-click="editOrder($index)">
                         Edit
                     </ion-option-button>
-                    <ion-option-button class="button-assertive" ng-click="deleteOrder(order)">
+                    <ion-option-button class="button-assertive" ng-click="deleteOrder($index)">
                         Delete
                     </ion-option-button>
-                    <ion-delete-button class="ion-minus-circled" ng-click="delivery.orders.splice($index, 1)">
-                    </ion-delete-button>
+                    <!--ion-delete-button class="ion-minus-circled" ng-click="delivery.orders.splice($index, 1)">
+                    </ion-delete-button-->
                 </ion-item>
             </ion-list>
 

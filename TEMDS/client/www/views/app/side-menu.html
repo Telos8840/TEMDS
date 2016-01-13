@@ -21,6 +21,7 @@
                                 <i class="menu-icon icon ion-bag"></i>
                                 <h2 class="menu-text">Create Order</h2>
                             </ion-item>
+
                             <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.venue-list">
                                 <i class="menu-icon icon ion-ios-list"></i>
                                 <h2 class="menu-text">Venues</h2>
@@ -31,6 +32,13 @@
                                 <h2 class="menu-text">My Account</h2>
                             </ion-item>
 
+                            <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.cart">
+                                <i class="menu-icon icon ion-ios-cart"></i>
+                                <h2 class="menu-text">Order History</h2>
+                            </ion-item>
+
+                            <!-- TODO: Remove -->
+                            <!--
                             <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.feed">
                                 <i class="menu-icon icon ion-ios-world"></i>
                                 <h2 class="menu-text">Feed</h2>
@@ -39,21 +47,23 @@
                                 <i class="menu-icon icon ion-ios-cart"></i>
                                 <h2 class="menu-text">Shopping cart</h2>
                             </ion-item>
+                            -->
                         </ion-list>
                     </div>
                 </div>
                 <div class="row menu-bottom-options">
                     <div class="col col-bottom">
                         <ion-list>
-                            <ion-item class="user-item" menu-close ui-sref="app.my-account">
+                            <ion-item class="user-item item-icon-left" menu-close ui-sref="app.my-account">
                                 <!-- We need a wrapper with width set for the preload image directive -->
-                                <div class="user-image-outer">
+                                <!--div class="user-image-outer">
                                     <pre-img ratio="_1_1" helper-class="rounded-image">
-                                        <!--img class="user-image" ng-src="{{loggedUser.picture}}" spinner-on-load-->
+                                        <!--img class="user-image" ng-src="{{loggedUser.picture}}" spinner-on-load- ->
 
                                     </pre-img>
-                                </div>
-                                <h2 class="menu-text">{{user.fName}} {{user.lName}}</h2>
+                                </div-->
+                                <i class="menu-icon icon ion-ios-person"></i>
+                                <h2 class="menu-text" style="padding-left: 20px;">{{user.fName}} {{user.lName}}</h2>
                                 <!--
                                 <div class="user-inbox">
                                     <i class="menu-icon icon ion-ios-filing"></i>

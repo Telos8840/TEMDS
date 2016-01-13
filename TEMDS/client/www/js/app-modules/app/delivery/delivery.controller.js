@@ -61,8 +61,8 @@ angular.module('temds.app.controllers')
         });
     };
 
-    $scope.deleteOrder = function (item) {
-        $scope.delivery.orders.splice($scope.delivery.orders.indexOf(item), 1);
+    $scope.deleteOrder = function (index) {
+        $scope.delivery.orders.splice(index, 1);
         $localstorage.setObject('delivery', $scope.delivery);
     };
 
@@ -85,7 +85,7 @@ angular.module('temds.app.controllers')
     $ionicHistory.clearCache();
 })
 
-.controller('DeliveryConfirmCtrl', function ($scope, $stateParams, $localstorage, OrderService) {
+.controller('DeliveryConfirmCtrl', function ($scope, $stateParams, $localstorage, DeliveryService) {
     var user = $localstorage.getObject('user');
     $scope.delivery = $stateParams.delivery;
 
@@ -93,24 +93,68 @@ angular.module('temds.app.controllers')
         // prepare delivery data
         var delivery = angular.copy($scope.delivery);
         delivery.uId = user.id;
+        delivery.status = _ORDER_STATUS_CREATED_;
 
-        for (var i in delivery.order) {
-            delivery.order[i].vId = delivery.order[i].venue.id;
-            delete delivery.order[i]["venue"];
+        for (var i in delivery.orders) {
+            delivery.orders[i].vId = delivery.orders[i].venue._id;
+            delete delivery.orders[i]["venue"];
         }
 
         delete delivery.deliveryAddress["primary"];
+
+        DeliveryService.createDelivery(delivery)
+            .then(function(response) {
+                console.log(response);
+            });
+
         console.log(JSON.stringify(delivery));
         //TODO: Create Post service
     }
 })
 
 
-.controller('DeliveryHistoryCtrl', function ($scope, $filter, OrderService) {
+.controller('DeliveryHistoryCtrl', function ($scope, $filter, $localstorage, DeliveryService) {
+    $scope.deliveries = [];
+    $scope.page = 1;
+    $scope.totalPages = 1;
 
+    /**
+     * Refresh data
+     */
+    $scope.refreshList = function () {
+        DeliveryService.getDeliveryHistoryList(1)
+            .then(function (data) {
+                $scope.totalPages = data.totalPages;
+                $scope.deliveries = data.deliveries;
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+    };
+
+    /**
+     * Attach more data when user scrolls down for more
+     */
+    $scope.loadMoreData = function () {
+        DeliveryService.getDeliveryHistoryList(++$scope.page)
+            .then(function (data) {
+                $scope.totalPages = data.totalPages;
+                $scope.deliveries = $scope.deliveries.concat(data.deliveries);
+                $scope.$broadcast('scorll.infiniteScrollComplete');
+            });
+    };
+
+    /**
+     * See if more data can be pulled
+     * @returns {Boolean} true if more items can be loaded
+     */
+    $scope.hasMoreData = function () {
+        return $scope.totalPages > $scope.page;
+    };
+
+    // Refresh
+    $scope.refreshList();
 })
 
 
-.controller('DeliveryDetailCtrl', function ($scope, $filter, OrderService) {
+.controller('DeliveryDetailCtrl', function ($scope, $filter, DeliveryService) {
 
 });
