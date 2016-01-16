@@ -7,6 +7,7 @@
         <div class="list card">
             <div class="item item-divider">Delivery Address</div>
             <div class="item" id="address-body">
+                <h2>{{delivery.recipient}}</h2> <!-- TODO: Make it look better -->
                 <h2>{{delivery.deliveryAddress.name}}</h2>
                 <p>{{delivery.deliveryAddress.addr1}} {{delivery.deliveryAddress.addr2}}</p>
                 <p>{{delivery.deliveryAddress.city}}, {{delivery.deliveryAddress.state}} {{delivery.deliveryAddress.zipcode}}</p>

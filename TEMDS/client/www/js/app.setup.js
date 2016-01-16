@@ -279,7 +279,7 @@ angular.module('temds', [
             }
         })
         .state('app.order-detail', {
-            url: '/delivery/:orderId',
+            url: '/delivery/:deliveryId',
             views: {
                 'menuContent': {
                     templateUrl: 'views/app/delivery/delivery-detail.html',
@@ -425,7 +425,8 @@ angular.module('temds', [
     //$urlRouterProvider.otherwise('/splash');
     //$urlRouterProvider.otherwise('/sign-in');
     //$urlRouterProvider.otherwise('/app/venue-list');
-    $urlRouterProvider.otherwise('/app/delivery/new');
+    //$urlRouterProvider.otherwise('/app/delivery/new');
+    $urlRouterProvider.otherwise('/app/delivery/test');
     //$urlRouterProvider.otherwise('/recover-password');
     //$urlRouterProvider.otherwise('/app/my-account');
     //$urlRouterProvider.otherwise('/app/address-book-set');

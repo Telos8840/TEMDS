@@ -67,6 +67,7 @@ angular.module('temds.app.services')
                 }).catch(function(response) {
                     console.log(response);
                     $temdsError.errorWithStatusCode(response.status, 'Unable to get delivery detail');
+                    dfd.resolve({});
                 });
 
             return dfd.promise;
