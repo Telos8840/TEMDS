@@ -1,5 +1,35 @@
-<ul class="list">
-    <li class="item" ng-repeat="address in addressbook">
-        <p>address.name</p>
-    </li>
-</ul>
+<ion-view class="feed-view delivery-create-view delivery-view" view-title="Delivery {{orderNumber}}">
+    <div class="header">
+    </div>
+
+    <ion-content class="has-footer has-header" data-tap-disabled="true">
+
+        <div class="list card">
+            <div class="item item-divider">Delivery Address</div>
+            <div class="item" id="address-body">
+                <h2>{{delivery.deliveryAddress.name}}</h2>
+                <p>{{delivery.deliveryAddress.addr1}} {{delivery.deliveryAddress.addr2}}</p>
+                <p>{{delivery.deliveryAddress.city}}, {{delivery.deliveryAddress.state}} {{delivery.deliveryAddress.zipcode}}</p>
+            </div>
+        </div>
+
+        <div class="list card">
+            <div class="item item-divider item-icon-right">
+                Orders
+            </div>
+            <div class="item order" ng-repeat="order in delivery.orders">
+                <p>{{order.venue.name}}</p>
+                <ul>
+                    <li class="item-text-wrap" ng-repeat="item in order.items">{{item.description}}</li>
+                </ul>
+                <div class="comment item-text-wrap" ng-show="order.comment.trim()!=''">
+                    {{order.comment}}
+                </div>
+            </div>
+        </div>
+    </ion-content>
+
+    <div class="bar bar-footer bar-balanced" ng-click="createOrder()">
+        <div class="title">Submit Delivery</div>
+    </div>
+</ion-view>

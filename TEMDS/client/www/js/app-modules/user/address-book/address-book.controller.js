@@ -71,7 +71,7 @@ angular.module('temds.app.controllers')
     }
 })
 
-.controller('AddressBookEditCtrl', function ($scope, $state, $localstorage, $ionicHistory, $ionicPopup, $stateParams, AddressBookService) {
+.controller('AddressBookEditCtrl', function ($scope, $state, $localstorage, $ionicHistory, $stateParams, AddressBookService) {
     $scope.statelist = _US_STATES_;
     $scope.edit = {
         address: {
@@ -111,11 +111,6 @@ angular.module('temds.app.controllers')
                 .then(function (data) {
                     if (data === _SUCCESS_) {
                         $ionicHistory.goBack(-1);
-                    } else {
-                        $ionicPopup.alert({
-                            title: 'Error',
-                            content: 'Unable to update address.'
-                        });
                     }
                 });
         } else {
@@ -123,11 +118,6 @@ angular.module('temds.app.controllers')
                 .then(function (data) {
                     if (data === _SUCCESS_) {
                         $ionicHistory.goBack(-1);
-                    } else {
-                        $ionicPopup.alert({
-                            title: 'Error',
-                            content: 'Unable to add address.'
-                        });
                     }
                 });
         }

@@ -131,6 +131,6 @@ angular.module('temds.user.controllers')
             disableBack: true
         });
 
-        $state.go('splash-page');
+        $state.go('splash');
     }
 })

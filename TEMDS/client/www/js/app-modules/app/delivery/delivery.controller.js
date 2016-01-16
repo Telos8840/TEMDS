@@ -10,13 +10,6 @@ angular.module('temds.app.controllers')
         // empty delivery obj
         $scope.delivery = {
             orders: [
-                /* TEMP DATA */
-                {
-                    venue: {
-                        name: 'Hello World',
-                        thumbnail: 'http://lorempixel.com/50/50/fashion/TEMDS-0'
-                    }
-                }
             ],
             deliveryAddress: {}
         };
@@ -85,7 +78,7 @@ angular.module('temds.app.controllers')
     $ionicHistory.clearCache();
 })
 
-.controller('DeliveryConfirmCtrl', function ($scope, $stateParams, $localstorage, DeliveryService) {
+.controller('DeliveryConfirmCtrl', function ($scope, $stateParams, $localstorage, $ionicPopup, DeliveryService) {
     var user = $localstorage.getObject('user');
     $scope.delivery = $stateParams.delivery;
 
@@ -104,11 +97,16 @@ angular.module('temds.app.controllers')
 
         DeliveryService.createDelivery(delivery)
             .then(function(response) {
-                console.log(response);
+                $ionicPopup.alert({
+                    title: 'Delivery Created',
+                    template: 'Order was successfully created!\n'+
+                        'Confirmation #'+response.confirmationNumber
+                }).then(function() {
+                    // TODO: We may want to send them a confirmation email
+                    console.log('goto delivery detail view!\nid: '+delivery.id+'\n#'+response.confirmationNumber);
+                });
             });
 
-        console.log(JSON.stringify(delivery));
-        //TODO: Create Post service
     }
 })
 

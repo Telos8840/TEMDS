@@ -1,7 +1,7 @@
 angular.module('temds.app.services')
 
 
-.service('AddressBookService', function ($http, $q, $localstorage, $filter) {
+.service('AddressBookService', function ($http, $q, $localstorage, $filter, $temdsError) {
     /**
      * Get Address List for local storage
      * @returns {Array} Addresses
@@ -30,6 +30,7 @@ angular.module('temds.app.services')
                 dfd.resolve(response);
             }).catch(function (response) {
                 console.log(response);
+                $temdsError.errorWithStatusCode(response.status, 'Unable to get address list');
                 user.address = [];
                 $localstorage.setObject('user', user);
                 dfd.resolve([]);
@@ -94,6 +95,7 @@ angular.module('temds.app.services')
                 dfd.resolve(_SUCCESS_);
             }).catch(function (response) {
                 console.log(response);
+                $temdsError.errorWithStatusCode(response.status, 'Unable to update address');
                 dfd.resolve(response.status);
             });
 
@@ -133,7 +135,8 @@ angular.module('temds.app.services')
                 dfd.resolve(_SUCCESS_);
             }).catch(function (response) {
                 console.log(response);
-                dfd.resolve(response.status);
+                $temdsError.errorWithStatusCode(response.status, 'Unable to add address');
+                dfd.resolve();
             });
 
         return dfd.promise;

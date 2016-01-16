@@ -11,12 +11,21 @@
     animation-duration: 1s;
 }*/
 
-.delivery-create-view {
+.delivery-view {
     ion-content {
         background-color: #FFF;
         ion-list .list {
             transition: height 0.5s 0s;
         }
+    }
+
+    ::-webkit-input-placeholder {
+        color: #CDCDCD;
+    }
+}
+
+.delivery-create-view {
+    ion-content {
         .order {
             ul {
                 color: #878787;
@@ -64,8 +73,5 @@
             font-size: 28px;
             color: #CCC;
         }
-    }
-    ::-webkit-input-placeholder {
-        color: #CDCDCD;
     }
 }
