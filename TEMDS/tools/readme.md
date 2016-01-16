@@ -54,6 +54,3 @@ https://git.heroku.com/temds-tools.git
 git add .
 git commit -m "TEXT"
 git push heroku-tools master
-
-
-
