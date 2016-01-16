@@ -17,22 +17,30 @@ angular.module('temds.user.services')
         });
 
         return dfd.promise;
-    }
+    };
 
-    this.ReAuth = function (id, saltPass) {
+    this.ReAuth = function () {
         var dfd = $q.defer();
+        var user = $localstorage.getObject('user');
 
-        $http.post(_API_HOST_ + 'api/auth/reAuth', {
-            id: id,
-            saltPass: saltPass
-        }).success(function (response) {
-            dfd.resolve(_SUCCESS_);
-        }).catch(function (response) {
-            console.log(response);
-            dfd.resolve(response.status);
-        });
+        if (user.saltPass && user.id) {
+            $http.post(_API_HOST_ + 'api/auth/reAuth', {
+                id: user.id,
+                saltPass: user.saltPass
+            }).success(function (response) {
+                // update token
+                user.token = response.token;
+                $localstorage.setObject('user', user);
+                dfd.resolve(_SUCCESS_);
+            }).catch(function (response) {
+                console.log(response);
+                dfd.resolve(response.status);
+            });
+        } else {
+            dfd.resolve(_FAIL_);
+        }
 
         return dfd.promise;
-    }
+    };
 
 });
