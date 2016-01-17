@@ -19,6 +19,16 @@ module.exports.success = function (res, message) {
   }));
 };
 
+module.exports.sendJSON = function (res, json) {
+  console.log("HTTP Status 200: Sending JSON");
+
+  res.writeHead(200, {
+    'Content-Type': 'application/json; charset=utf-8'
+  });
+
+  res.end(JSON.stringify(json));
+};
+
 module.exports.noUpdates = function (res, message) {
   message = !message ? "Success" : message;
 
@@ -48,6 +58,20 @@ module.exports.error = function (res, message, err) {
   }));
 };
 
+module.exports.unauthorized = function (res, message) {
+  message = !message ? "Unauthorized access" : message;
+
+  console.log("HTTP Status 401:", message);
+
+  res.writeHead(401, {
+    'Content-Type': 'application/json; charset=utf-8'
+  });
+
+  res.end(JSON.stringify({
+    message: message
+  }));
+};
+
 module.exports.invalid = function (res, message) {
   message = !message ? "Invalid" : message;
 
@@ -60,14 +84,4 @@ module.exports.invalid = function (res, message) {
   res.end(JSON.stringify({
     message: message
   }));
-};
-
-module.exports.sendJSON = function (res, json) {
-  console.log("HTTP Status 200: Sending JSON");
-
-  res.writeHead(200, {
-    'Content-Type': 'application/json; charset=utf-8'
-  });
-
-  res.end(JSON.stringify(json));
 };

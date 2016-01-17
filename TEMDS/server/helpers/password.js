@@ -8,7 +8,7 @@
 //https://www.npmjs.com/package/bcrypt-nodejs
 var bcrypt = require('bcrypt-nodejs');
 
-module.exports.cryptPassword = function (password, callback) {
+module.exports.encrypt = function (password, callback) {
   bcrypt.genSalt(10, function (err, salt) {
     if (err)
       return callback(err);
@@ -20,7 +20,7 @@ module.exports.cryptPassword = function (password, callback) {
   });
 };
 
-module.exports.comparePassword = function (password, userPassword, callback) {
+module.exports.compare = function (password, userPassword, callback) {
   bcrypt.compare(password, userPassword, function (err, isPasswordMatch) {
     if (err)
       return callback(err);

@@ -5,14 +5,12 @@
 * Time: 9:02 PM
 */
 
-var databaseUrl = 'mongodb://admin:T3m284D107$@ds035663.mongolab.com:35663/temds';
-var collections = ['users', 'pending_users', 'user_detail', 'venues', 'venue_details', 'collections_updated'];
-
 var restify           = require('restify'),
-	  restifyValidation = require('node-restify-validation'), //https://github.com/z0mt3c/node-restify-validation/blob/master/README.md
+    restifyValidation = require('node-restify-validation'), //https://github.com/z0mt3c/node-restify-validation/blob/master/README.md
     mongojs           = require('mongojs'),
-    db                = mongojs(databaseUrl, collections, { authMechanism : 'ScramSHA1' }),
-	  server            = restify.createServer();
+    config            = require('./config'),
+    db                = mongojs(config.database, config.collections, { authMechanism : 'ScramSHA1' }),
+	server            = restify.createServer();
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
@@ -29,6 +27,10 @@ server.use(function(req, res, next) {
 	next();
 });
 
+// Allow custom token header
+server.pre(restify.CORS());
+restify.CORS.ALLOW_HEADERS.push('temdstoken');
+
 server.listen(process.env.PORT || 9804, function () {
 	console.log("Server started @ ", process.env.PORT || 9804)
 });
@@ -36,3 +38,4 @@ server.listen(process.env.PORT || 9804, function () {
 var authentication  = require('./auth/authentication')(server, db);
 var manageUsers     = require('./auth/manageUser')(server, db);
 var manageVenues    = require('./venue/manageVenue')(server, db);
+var manageDeliveries    = require('./delivery/manageDeliveries')(server, db);
