@@ -189,7 +189,7 @@ module.exports = function (server, db) {
         itemsPerPage  = req.params.itemsPerPage,
         skip          = itemsPerPage * (pageNumber - 1);
 
-      db.deliveries.find({ uId: uId }, {_id: true, status: true, insertDate: true},
+      db.deliveries.find({ uId: uId }, {_id: true, confirmationNumber: true, status: true, insertDate: true},
         function (err, dbOrders) {
           if (err) response.error(res, "Error getting deliveries for user id - " + uId);
           else if (!dbOrders) response.error(res, "Can't find deliveries for user id - " + uId);
