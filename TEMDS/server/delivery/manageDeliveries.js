@@ -8,6 +8,7 @@
 var status      = require('../helpers/orderStatus');
 var response    = require('../helpers/response');
 var token       = require('../helpers/token');
+var utility     = require('../helpers/utility');
 var _           = require('lodash');
 
 /*****************************
@@ -26,6 +27,7 @@ module.exports = function (server, db) {
     console.log("\n *** Adding new delivery *** \n");
 
     token.validate(req, res, function () {
+      req.params = utility.addTimestamp(req.params);
       req.params.confirmationNumber = "";
 
       db.deliveries.insert(req.params, function (err, dbOrder) {
@@ -127,7 +129,7 @@ module.exports = function (server, db) {
       db.deliveries.findAndModify(
         {
           query: { _id: db.ObjectId(id) },
-          update: { $set: { status: status } }
+          update: { $set: { status: status, modifiedDate: new Date() } }
         }, function (err) {
           if (err) response.error(res, "Error updating delivery status");
           else response.success(res, "Successfully updated delivery status");
@@ -152,21 +154,21 @@ module.exports = function (server, db) {
         itemsPerPage  = req.params.itemsPerPage,
         skip          = itemsPerPage * (pageNumber - 1);
 
-      db.deliveries.find({ uId: uId }, function (err, dbOrders) {
-        if (err) response.error(res, "Error getting deliveries for user id - " + uId);
-        else if (!dbOrders) response.error(res, "Can't find deliveries for user id - " + uId);
-        else {
-          var totalOrders = _.size(dbOrders),
-            totalPages  = _.ceil(totalOrders/itemsPerPage),
-            orderList   = dbOrders.slice(skip, skip + itemsPerPage),
-            json        = {
-              orderList: orderList,
-              totalPages: totalPages
-            };
-
-          response.sendJSON(res, json);
-        }
-      });
+      db.deliveries.find({ uId: uId }, {_id: true, status: true, insertDate: true},
+        function (err, dbOrders) {
+          if (err) response.error(res, "Error getting deliveries for user id - " + uId);
+          else if (!dbOrders) response.error(res, "Can't find deliveries for user id - " + uId);
+          else {
+            var totalOrders = _.size(dbOrders),
+              totalPages  = _.ceil(totalOrders/itemsPerPage),
+              orderList   = dbOrders.slice(skip, skip + itemsPerPage),
+              json        = {
+                items: orderList,
+                totalPages: totalPages
+              };
+            response.sendJSON(res, json);
+          }
+        });
     });
     return next();
   });
