@@ -74,7 +74,7 @@ UserSchema.pre('save', function(next) {
         return next();
     }
 });
-UserSchema.methods.comparePassword = function(passw, cb) {
+UserSchema.methods.compare = function(passw, cb) {
     bcrypt.compare(passw, this.password, function(err, isMatch) {
         if (err) {
             return cb(err);

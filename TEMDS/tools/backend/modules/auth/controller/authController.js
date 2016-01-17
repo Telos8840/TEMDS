@@ -29,7 +29,7 @@ module.exports.login = function (req, res) {
                     return res.status(401)
                         .send("The username or password don't match");
                 }
-                user.comparePassword(req.body.password, function (err, isMatch) {
+                user.compare(req.body.password, function (err, isMatch) {
                     if (isMatch && !err) {
                         res.status(201)
                             .send({

@@ -6,7 +6,8 @@
  */
 
 var response    = require('../helpers/response');
-var pwdMgr      = require('./managePasswords');
+var token       = require('../helpers/token');
+var password    = require('../helpers/password');
 var nodeMailer  = require('nodemailer');				//http://blog.nodeknockout.com/post/34641712180/sending-email-from-nodejs
 var _           = require('lodash');
 var async       = require('async');
@@ -220,7 +221,7 @@ module.exports = function (server, db) {
 
     var user = req.params;
 
-    pwdMgr.cryptPassword(user.rawPass.trim(), function (err, hash) {
+    password.encrypt(user.rawPass.trim(), function (err, hash) {
       user.rawPassword = hash;
 
       db.pending_users.findOne({email: user.email}, function (err, penUser) {
@@ -305,8 +306,6 @@ module.exports = function (server, db) {
 
     var email     = req.params.email,
         rawPass   = req.params.rawPass;
-    console.log(req.params);
-
 
     if(_.size(email.trim()) == 0 || _.size(rawPass.trim()) == 0) {
       response.error(res, "Invalid email");
@@ -316,13 +315,14 @@ module.exports = function (server, db) {
     db.users.findOne({email: email}, function (err, dbUser) {
       if (err || !dbUser) response.error(res, "Error finding user - " + email, err);
       else {
-        pwdMgr.comparePassword(rawPass, dbUser.saltPassword, function (err, isMatch) {
+        password.compare(rawPass, dbUser.saltPassword, function (err, isMatch) {
           if (err) response.error(res, "Error checking password", err);
           else if(isMatch) {
             db.user_detail.findOne({userKey: db.ObjectId(dbUser._id)}, function (err, dbDetail) {
               if (err || !dbUser) response.error(res, "User ID not found - " + dbUser._id, err);
               else {
 
+                var userToken = token.create(dbUser);
                 var jsonRes = {
                   id: dbUser._id,
                   saltPass: dbUser.saltPassword,
@@ -330,7 +330,8 @@ module.exports = function (server, db) {
                   fName: dbDetail.fName,
                   lName: dbDetail.lName,
                   phoneNum: dbDetail.phoneNum,
-                  address: dbDetail.address
+                  address: dbDetail.address,
+                  token: userToken
                 };
 
                 response.sendJSON(res, jsonRes);
@@ -365,7 +366,10 @@ module.exports = function (server, db) {
       if (err || !dbUser) response.error(res, "Error finding user - " + id, err);
       else {
         var match = _.isEqual(saltPass, dbUser.saltPassword);
-        if (match) response.success(res, "User authenticated")
+        if (match) {
+          var userToken = token.create(dbUser);
+          response.sendJSON(res, { token: userToken });
+        }
         else response.invalid(res, "Password doesn't match");
       }
     });
@@ -395,7 +399,7 @@ module.exports = function (server, db) {
       else {
         var ranString = randomstring.generate(8);
 
-        pwdMgr.cryptPassword(ranString, function (err, hash) {
+        password.encrypt(ranString, function (err, hash) {
           if(err) response.error(res, "Error hashing password", err);
           else {
             db.users.findAndModify({
