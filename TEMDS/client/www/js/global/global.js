@@ -1,5 +1,6 @@
 /* Global Enum */
 var _SUCCESS_ = 777,
+    _FAIL_ = 666,
     _ORDER_STATUS_CREATED_ = 0,
     _ORDER_STATUS_PENDING_ = 1,
     _ORDER_STATUS_RECEIVED_ = 2,

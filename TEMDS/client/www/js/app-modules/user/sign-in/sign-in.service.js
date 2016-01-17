@@ -10,6 +10,7 @@ angular.module('temds.user.services')
             rawPass: rawPass
         }).success(function (response) {
             $localstorage.setObject('user', response);
+            $localstorage.set('temdstoken', response.token);
             dfd.resolve(_SUCCESS_);
         }).catch(function (response) {
             console.log(response);
@@ -29,11 +30,12 @@ angular.module('temds.user.services')
                 saltPass: user.saltPass
             }).success(function (response) {
                 // update token
-                user.token = response.token;
-                $localstorage.setObject('user', user);
+                $localstorage.set('temdstoken', response.token);
                 dfd.resolve(_SUCCESS_);
             }).catch(function (response) {
                 console.log(response);
+                $localstorage.set('temdstoken', '');
+                $localstorage.setObject('user', '');
                 dfd.resolve(response.status);
             });
         } else {
