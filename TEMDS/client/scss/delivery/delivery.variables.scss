@@ -1,0 +1,20 @@
+$status-active-color: #2672ff;
+$status-bar-active-color: #00cc00;
+$status-deactive-color: #DDD;
+$status-message-canceled-bg: #CD0000;
+$status-message-declined-bg: #777;
+$status-message-warning-bg: #BEBE00;
+
+$status-size: 30;
+$status-padding: 8;
+$status-point-border-size-raw: 4;
+$status-point-anim-diff: $status-point-border-size-raw;
+$status-height: $status-size+($status-padding*2)+$status-point-border-size-raw;
+
+$status-bar-height: #{($status-size + $status-point-border-size-raw)}px;
+$status-bar-radius: $status-bar-height;
+$status-point-size-raw: $status-size + ($status-point-border-size-raw * 2);
+$status-point-size: #{$status-point-size-raw}px;
+$status-point-size-anim: #{($status-point-size-raw - ($status-point-anim-diff/pi()))}px;
+$status-point-border-size: #{$status-point-border-size-raw}px;
+$status-point-border-size-anim: #{$status-point-border-size-raw + $status-point-anim-diff}px;

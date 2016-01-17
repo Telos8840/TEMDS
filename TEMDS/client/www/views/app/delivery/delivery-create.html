@@ -2,11 +2,15 @@
     <div class="header">
     </div>
 
-    <ion-content class="has-footer has-header" data-tap-disabled="true">
+    <ion-content ng-class="{'has-footer' : isValidDeliveryOrder()}" class="has-header" data-tap-disabled="true">
 
         <!-- DELIVERY ADDRESS PICKER -->
         <div class="list card">
             <div class="item item-divider">Delivery Address</div>
+
+            <label class="item item-input">
+                <input type="text" placeholder="Recipient Name" name="oldPass" ng-model="delivery.recipient">
+            </label>
             <div class="item item-select item-input" id="address">
                 <select ng-options="address.name for address in addressbook" ng-model="delivery.deliveryAddress"></select>
             </div>
@@ -18,8 +22,7 @@
 
         <!-- ORDER LIST -->
         <div class="list card">
-            <div class="item item-divider"> Orders
-            </div>
+            <div class="item item-divider"> Orders</div>
 
             <ion-list show-delete="showDelete" can-swipe="true">
                 <ion-item ng-repeat="order in delivery.orders" item="order" class="item-avatar item-remove-animate">
@@ -45,7 +48,7 @@
 
     </ion-content>
 
-    <div class="bar bar-footer bar-balanced" ng-click="confirmDelivery()">
+    <div class="bar bar-footer bar-balanced botBtn" ng-click="confirmDelivery()" ng-show="isValidDeliveryOrder()">
         <div class="title">Confirm Delivery</div>
     </div>
-</ion-view>
+</ion-view>a

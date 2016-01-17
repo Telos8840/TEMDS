@@ -1,14 +1,20 @@
-<ion-view class="feed-view delivery-view" view-title="Create Delivery">
+<ion-view class="feed-view delivery-list-view delivery-view" view-title="Delivery Order History">
     <ion-content data-tap-disabled="true">
 
         <!-- Refresh to get the new posts -->
         <ion-refresher pulling-text="Pull to refresh..." on-refresh="getNewData()">
         </ion-refresher>
 
+        <ion-list>
+            <ion-item ng-repeat="delivery in deliveries" ng-click="deliveryDetail(delivery._id)">
+                <h2>#{{delivery.confirmationNumber}}</h2>
+                <p>created on {{createdDate(delivery.insertDate)}}</p>
+                <span class="statusBadge badge badge-assertive" ng-style="{'background-color': getStatus(delivery.status).bgColor}">
+                    {{getStatus(delivery.status).text}}
+                </span>
+            </ion-item>
+        </ion-list>
 
-        <div ng-repeat="delivery in deliveries">
-
-        </div>s
 
 
         <!-- Infinit scroll -->

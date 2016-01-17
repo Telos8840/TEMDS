@@ -87,6 +87,7 @@ angular.module('temds.app.controllers')
      */
     $scope.signOut = function () {
         $localstorage.set('user', '');
+        $localstorage.set('temdstoken', '');
         $state.go('splash');
     }
 

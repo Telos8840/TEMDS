@@ -1,21 +1,46 @@
-<ion-view class="feed-view delivery-create-view delivery-view" view-title="Delivery {{orderNumber}}">
+<ion-view class="feed-view delivery-detail-view delivery-view" view-title="Order Detail">
     <div class="header">
     </div>
 
-    <ion-content class="has-footer has-header" data-tap-disabled="true">
+    <ion-content class="has-header" ng-class="{'has-footer' : status.canCancel}" data-tap-disabled="true">
 
         <div class="list card">
             <div class="item item-divider">Delivery Address</div>
             <div class="item" id="address-body">
+                <h2 id="recipient">{{delivery.recipient}}</h2>
                 <h2>{{delivery.deliveryAddress.name}}</h2>
                 <p>{{delivery.deliveryAddress.addr1}} {{delivery.deliveryAddress.addr2}}</p>
                 <p>{{delivery.deliveryAddress.city}}, {{delivery.deliveryAddress.state}} {{delivery.deliveryAddress.zipcode}}</p>
             </div>
         </div>
 
+        <div class="list card status">
+            <div class="status-wrapper">
+                <div class="status-block-wrapper">
+                    <div class="status-block" ng-style="{'width': status.statusBar + '%'}"></div>
+                </div>
+                <div class="status-point-wrapper">
+                    <div class="status-point" ng-class="{'activated' : isActivated(0), 'active' : isActivate(0)}"></div>
+                    <div class="status-point" ng-class="{'activated' : isActivated(1), 'active' : isActivate(1)}"></div>
+                    <div class="status-point" ng-class="{'activated' : isActivated(2), 'active' : isActivate(2)}"></div>
+                    <div class="status-point" ng-class="{'activated' : isActivated(2)}"></div>
+                </div>
+                <div class="status-message" ng-class="status.alertBG" ng-style="{width: (status.setAlert*100) + '%', opacity: status.setAlert*100}",>
+                    <span>{{status.alertMessage}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="delivery-status-text text-center">
+            <span>{{status.statusMessage}}</span>
+        </div>
+
         <div class="list card">
-            <div class="item item-divider item-icon-right">
-                Orders
+            <div class="item item-divider row order-title">
+                <div class="col"><h2>Order</h2></div>
+                <div class="col text-right"><span>#{{delivery.confirmationNumber}}</span>
+                    <p>created: {{delivery.createdDate}}</p></div>
+
             </div>
             <div class="item order" ng-repeat="order in delivery.orders">
                 <p>{{order.venue.name}}</p>
@@ -29,7 +54,7 @@
         </div>
     </ion-content>
 
-    <div class="bar bar-footer bar-balanced" ng-click="createOrder()">
-        <div class="title">Submit Delivery</div>
+    <div class="bar bar-footer bar-assertive" ng-click="cancelDelivery()" ng-show="status.canCancel">
+        <div class="title">Cancel Order</div>
     </div>
 </ion-view>
