@@ -180,7 +180,7 @@ module.exports = function (server, db) {
    * @param pageNumber
    * @param itemsPerPage
    */
-  server.get('api/delivery/getDeliveryHistory', function (req, res, next) {
+  server.get('api/delivery/getDeliveryHistory/:uId/:pageNumber/:itemsPerPage', function (req, res, next) {
     console.log("\n *** Getting delivery history for user " + req.params.uId + "*** \n");
 
     token.validate(req, res, function () {
