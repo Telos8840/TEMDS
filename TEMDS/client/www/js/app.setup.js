@@ -48,7 +48,10 @@ angular.module('temds', [
             return {
                 request: function (config) {
                     //console.log(config);
-                    $rootScope.$broadcast('loading:show');
+                    // spinner filter
+                    if (config.url.indexOf('api/delivery/getStatus') == -1) {
+                        $rootScope.$broadcast('loading:show');
+                    }
                     config.headers['temdstoken'] = $localstorage.get('temdstoken');
                     return config;
                 },

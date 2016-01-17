@@ -89,4 +89,17 @@ angular.module('temds.app.services')
 
             return dfd.promise;
         }
+
+        this.getDeliveryStatus = function (deliveryId) {
+            var dfd = $q.defer();
+
+            $http.get(_API_HOST_ + 'api/delivery/getStatus/'+ deliveryId)
+                .success(function (response) {
+                    dfd.resolve(response);
+                }).catch(function(response) {
+                    //return $temdsError.errorWithStatusCode(response.status, 'Unable to get delivery detail');
+                });
+
+            return dfd.promise;
+        }
     });

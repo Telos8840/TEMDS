@@ -226,6 +226,7 @@ angular.module('temds.app.controllers')
 
 
     .controller('DeliveryDetailCtrl', function ($scope, $filter, $stateParams, $ionicPopup, DeliveryService) {
+        var updateTime = 30000;
         var deliveryId = $stateParams.deliveryId;
         $scope.delivery = {};
         $scope.status = {
@@ -237,6 +238,17 @@ angular.module('temds.app.controllers')
             alertMessage: '',
             alertBG: '',
             canCancel: false
+        };
+
+        //clearTimeout(timeoutVariable);
+
+
+        function updateStatus() {
+            DeliveryService.getDeliveryStatus(deliveryId)
+                .then(function(data) {
+                    setStatus(data);
+                    setTimeout(updateStatus, updateTime);
+                })
         }
 
         DeliveryService.getDeliveryDetail(deliveryId)
@@ -244,6 +256,7 @@ angular.module('temds.app.controllers')
                 $scope.delivery = data;
                 $scope.delivery.createdDate = moment($scope.delivery.insertDate).format('MM/DD/YYYY');
                 setStatus($scope.delivery.status);
+                updateStatus();
             });
 
         function setStatus(statusCode) {
