@@ -6,6 +6,7 @@
  */
 
 var response    = require('../helpers/response');
+var token       = require('../helpers/token');
 var _           = require('lodash');
 
 /*****************************
@@ -73,7 +74,6 @@ module.exports = function (server, db) {
               detail.category = venue.category;
               response.sendJSON(res, detail);
             });
-
         }
       });
     });

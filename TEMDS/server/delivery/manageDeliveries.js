@@ -7,6 +7,7 @@
 
 var status      = require('../helpers/orderStatus');
 var response    = require('../helpers/response');
+var token       = require('../helpers/token');
 var _           = require('lodash');
 
 /*****************************
@@ -14,7 +15,7 @@ var _           = require('lodash');
  *****************************/
 module.exports = function (server, db) {
   /**
-   * Adds new order
+   * Adds new delivery
    *
    * @param uId
    * @param deliveryAddress
@@ -22,13 +23,13 @@ module.exports = function (server, db) {
    * @param status
    */
   server.post('api/delivery/addDelivery', function (req, res, next) {
-    console.log("\n *** Adding new order *** \n");
+    console.log("\n *** Adding new delivery *** \n");
 
     token.validate(req, res, function () {
       req.params.confirmationNumber = "";
 
       db.deliveries.insert(req.params, function (err, dbOrder) {
-        if (err) response.error(res, "Error inserting order", err);
+        if (err) response.error(res, "Error inserting delivery", err);
         else {
           var conNum = Date.now().toString(16).toUpperCase();
 
@@ -37,7 +38,7 @@ module.exports = function (server, db) {
             {$set: {confirmationNumber: conNum}},
             function (err) {
               if (err) response.error(res, "Error adding delivery", err);
-              else response.sendJSON(res, {confirmationNumber: conNum});
+              else response.sendJSON(res, { id: dbOrder._id, confirmationNumber: conNum });
             });
         }
       });
@@ -46,19 +47,62 @@ module.exports = function (server, db) {
   });
 
   /**
-   * Gets order status
+   * Gets delivery detail
    *
    * @param id
    */
-  server.get('api/delivery/getStatus', function (req, res, next) {
-    console.log("\n *** Getting order status *** \n");
+  server.get('api/delivery/deliveryDetail/:id', function (req, res, next) {
+    console.log("\n *** Getting delivery detail *** \n");
+
+    token.validate(req, res, function () {
+      var id = req.params.id;
+
+      db.deliveries.findOne({ _id: db.ObjectId(id) }, function (err, dbOrder) {
+        if (err) response.error(res, "Error finding delivery by id - " + id, err);
+        else if (!dbOrder) response.error(res, "Can't find delivery " + id);
+        else {
+          var venueIds = _.map(dbOrder.orders, function (o) {
+            return db.ObjectId(o.vId);
+          });
+
+          db.venues.find({ _id: { $in: venueIds } }, function (err, dbVenues) {
+            if (err) response.error(res, "Error finding venues", err);
+            else {
+              var orders = [];
+              _.forEach(dbOrder.orders, function (value) {
+                var venue = _.find(dbVenues, function (v) {
+                  return v._id = value.vId;
+                });
+
+                value = _.omit(value, 'vId');
+                value.venue = venue;
+                orders.push(value);
+              });
+
+              dbOrder.orders = orders;
+              response.sendJSON(res, dbOrder);
+            }
+          });
+        }
+      });
+    });
+    return next();
+  });
+
+  /**
+   * Gets delivery status
+   *
+   * @param id
+   */
+  server.get('api/delivery/getStatus/:id', function (req, res, next) {
+    console.log("\n *** Getting delivery status *** \n");
 
     token.validate(req, res, function () {
       var id = req.params.id;
 
       db.deliveries.findOne({_id: db.ObjectId(id)}, function (err, dbOrder) {
-        if (err) response.error(res, "Error finding order by id - " + id, err);
-        else if (!dbOrder) response.error(res, "Can't find order " + id, err);
+        if (err) response.error(res, "Error finding delivery by id - " + id, err);
+        else if (!dbOrder) response.error(res, "Can't find delivery " + id, err);
         else {
           response.sendJSON(res, dbOrder.status);
         }
@@ -68,13 +112,13 @@ module.exports = function (server, db) {
   });
 
   /**
-   * Update order status
+   * Update delivery status
    *
    * @param id
    * @param status
    */
   server.put('api/delivery/updateStatus', function (req, res, next) {
-    console.log("\n *** Updating status for order " + req.params.id + " *** \n");
+    console.log("\n *** Updating status for delivery " + req.params.id + " *** \n");
 
     token.validate(req, res, function () {
       var id    = req.params.id,
@@ -85,22 +129,22 @@ module.exports = function (server, db) {
           query: { _id: db.ObjectId(id) },
           update: { $set: { status: status } }
         }, function (err) {
-          if (err) response.error(res, "Error updating order status");
-          else response.success(res, "Successfully updated order status");
+          if (err) response.error(res, "Error updating delivery status");
+          else response.success(res, "Successfully updated delivery status");
         });
     });
     return next();
   });
 
   /**
-   * Update order status
+   * Gets delivery history
    *
    * @param uId
    * @param pageNumber
    * @param itemsPerPage
    */
   server.get('api/delivery/getDeliveryHistory', function (req, res, next) {
-    console.log("\n *** Getting order history for user " + req.params.uId + "*** \n");
+    console.log("\n *** Getting delivery history for user " + req.params.uId + "*** \n");
 
     token.validate(req, res, function () {
       var uId         = req.params.uId,
@@ -109,8 +153,8 @@ module.exports = function (server, db) {
         skip          = itemsPerPage * (pageNumber - 1);
 
       db.deliveries.find({ uId: uId }, function (err, dbOrders) {
-        if (err) response.error(res, "Error getting orders for user id - " + uId);
-        else if (!dbOrders) response.error(res, "Can't find orders for user id - " + uId);
+        if (err) response.error(res, "Error getting deliveries for user id - " + uId);
+        else if (!dbOrders) response.error(res, "Can't find deliveries for user id - " + uId);
         else {
           var totalOrders = _.size(dbOrders),
             totalPages  = _.ceil(totalOrders/itemsPerPage),
