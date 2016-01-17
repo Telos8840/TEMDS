@@ -22,7 +22,7 @@ module.exports.validate = function (req, res, callback) {
   else if(config.prod && req.headers.temdstoken) { // decoded returns back object that was initially signed with token
     jwt.verify(req.headers.temdstoken, config.secret, function(err, decoded) {
       if (err) response.unauthorized(res);
-      else callback();
+      else callback(decoded);
     });
   } else {
     response.invalid(res, "No token provided");

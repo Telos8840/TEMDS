@@ -85,3 +85,18 @@ module.exports.invalid = function (res, message) {
     message: message
   }));
 };
+
+module.exports.conflict = function (res, message, err) {
+  message = !message ? "Conflict" : message;
+
+  console.log("HTTP Status 409:", message);
+
+  res.writeHead(409, {
+    'Content-Type': 'application/json; charset=utf-8'
+  });
+
+  res.end(JSON.stringify({
+    error: err,
+    message: message
+  }));
+};

@@ -5,7 +5,6 @@
  * Time: 4:21 PM
  */
 
-var status      = require('../helpers/orderStatus');
 var response    = require('../helpers/response');
 var token       = require('../helpers/token');
 var utility     = require('../helpers/utility');
@@ -107,6 +106,42 @@ module.exports = function (server, db) {
         else if (!dbOrder) response.error(res, "Can't find delivery " + id, err);
         else {
           response.sendJSON(res, dbOrder.status);
+        }
+      });
+    });
+    return next();
+  });
+
+  /**
+   * Cancels delivery
+   *
+   * @param id
+   */
+  server.put('api/delivery/cancelDelivery', function (req, res, next) {
+    console.log("\n *** Canceling delivery *** \n");
+
+    token.validate(req, res, function (decoded) {
+      db.deliveries.findOne({ _id: db.ObjectId(req.params.id) }, function (err, dbOrder) {
+        console.log("order", dbOrder);
+
+        if (err) response.error(res, "Error getting deliveries");
+        else if (dbOrder.uId != decoded._id) response.unauthorized(res, "Unauthorized user trying to cancel someone elses order");
+        else {
+          switch (parseInt(dbOrder.status)) {
+            case utility.orderStatus.created:
+            case utility.orderStatus.processing:
+              db.deliveries.findAndModify({
+                query: { _id: db.ObjectId(req.params.id) },
+                update: { $set: { status: utility.orderStatus.canceled, modifiedDate: new Date() } }
+              }, function (err) {
+                if (err) response.error(res, "Error canceling delivery status");
+                else response.success(res, "Successfully canceled delivery status");
+              });
+              break;
+            default:
+              response.conflict(res, "", "No longer able to cancel order");
+              break;
+          }
         }
       });
     });
