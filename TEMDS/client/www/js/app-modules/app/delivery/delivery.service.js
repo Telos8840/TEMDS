@@ -12,9 +12,9 @@ angular.module('temds.app.services')
             var dfd = $q.defer();
             var uId = $localstorage.getObject('user').id;
 
-            $http.get(_API_HOST_ + 'api_goes_here/' + uId + '/' + pageNumber)
+            $http.get(_API_HOST_ + 'api/delivery/getDeliveryHistory/'+uId+'/'+pageNumber+'/10')
                 .success(function (response) {
-
+                    dfd.resolve(response);
                 }).catch(function (response) {
                     console.log(response);
                     $temdsError.errorWithStatusCode(response.status, 'Unable to get delivery history');
@@ -61,13 +61,30 @@ angular.module('temds.app.services')
         this.getDeliveryDetail = function (deliveryId) {
             var dfd = $q.defer();
 
-            $http.get('data/sample_delivery.json')
+            $http.get(_API_HOST_ + 'api/delivery/deliveryDetail/'+deliveryId)
                 .success(function (response) {
                     dfd.resolve(response);
                 }).catch(function(response) {
                     console.log(response);
                     $temdsError.errorWithStatusCode(response.status, 'Unable to get delivery detail');
                     dfd.resolve({});
+                });
+
+            return dfd.promise;
+        }
+
+        this.cancelDelivery = function (deliveryId) {
+            var dfd = $q.defer();
+
+            $http.put(_API_HOST_ + 'api/delivery/cancelDelivery', {id: deliveryId})
+                .success(function (response) {
+                    dfd.resolve(_SUCCESS_);
+                }).catch(function(response) {
+                    if(response.status == 409) {
+                        dfd.resolve(_FAIL_);
+                    } else {
+                        return $temdsError.errorWithStatusCode(response.status, 'Unable to get delivery detail');
+                    }
                 });
 
             return dfd.promise;

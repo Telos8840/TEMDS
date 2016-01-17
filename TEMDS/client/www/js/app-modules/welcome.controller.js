@@ -7,7 +7,6 @@ angular.module('temds.welcome.controllers')
         /// Sign In button is pressed
         /// Goto Sign In View
         $scope.signIn = function () {
-            console.log("display sign-in form");
             $state.go('sign-in');
         }
 

@@ -1,6 +1,6 @@
 {
   "name": "temds",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "description": "The Extra Mile Delivery Service Mobile App",
   "main": "server.js",
   "author": "Saul Guardado <seguardado88@gmail.com>",

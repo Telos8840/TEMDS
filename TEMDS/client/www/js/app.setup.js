@@ -44,7 +44,7 @@ angular.module('temds', [
         $ionicConfigProvider.backButton.previousTitleText(false);
 
         // HTTP Interceptors
-        $httpProvider.interceptors.push(function ($q, $rootScope, $localstorage) {
+        $httpProvider.interceptors.push(function ($q, $rootScope, $localstorage, $injector) {
             return {
                 request: function (config) {
                     //console.log(config);
@@ -65,7 +65,20 @@ angular.module('temds', [
 
                     if (rejection.status == 401) {
                         // Token Expired Handler
-                        return SignInService.ReAuth();
+                        var signInService = $injector.get('SignInService');
+                        return signInService.ReAuth()
+                            .then(function(data) {
+                            if(data == _SUCCESS_) {
+                                var $http = $injector.get('$http');
+                                return $http(rejection.config);
+                            } else {
+                                $ionicHistory.nextViewOptions({
+                                    disableAnimate: true
+                                });
+
+                                $state.go('intro');
+                            }
+                        });
                     }
 
                     return $q.reject(rejection);
@@ -403,7 +416,6 @@ angular.module('temds', [
                 }
             })
 
-
             .state('facebook-sign-in', {
                 url: '/facebook-sign-in',
                 templateUrl: 'views/auth/facebook-sign-in.html',
@@ -433,7 +445,8 @@ angular.module('temds', [
         //$urlRouterProvider.otherwise('/sign-in');
         //$urlRouterProvider.otherwise('/app/venue-list');
         //$urlRouterProvider.otherwise('/app/delivery/new');
-        //$urlRouterProvider.otherwise('/app/delivery/test');
+        //$urlRouterProvider.otherwise('/app/delivery/history/');
+        //$urlRouterProvider.otherwise('/app/delivery/569b1ad00f8c6f0e00210d39');
         //$urlRouterProvider.otherwise('/recover-password');
         //$urlRouterProvider.otherwise('/app/my-account');
         //$urlRouterProvider.otherwise('/app/address-book-set');

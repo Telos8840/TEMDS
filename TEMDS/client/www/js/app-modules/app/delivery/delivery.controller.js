@@ -73,8 +73,8 @@ angular.module('temds.app.controllers')
          */
         $scope.isValidDeliveryOrder = function() {
             return  $scope.delivery &&
-            $scope.delivery.orders &&
-            $scope.delivery.orders.length > 0;
+                $scope.delivery.orders &&
+                $scope.delivery.orders.length > 0;
         }
 
         /**
@@ -101,7 +101,7 @@ angular.module('temds.app.controllers')
         $ionicHistory.clearCache();
     })
 
-    .controller('DeliveryConfirmCtrl', function ($scope, $stateParams, $localstorage, $ionicPopup, DeliveryService) {
+    .controller('DeliveryConfirmCtrl', function ($scope, $state, $stateParams, $localstorage, $ionicPopup, $ionicHistory, DeliveryService) {
         var user = $localstorage.getObject('user');
         $scope.delivery = $stateParams.delivery;
 
@@ -120,20 +120,26 @@ angular.module('temds.app.controllers')
 
             DeliveryService.createDelivery(delivery)
                 .then(function(response) {
+                    // TODO: Instead of POPUP, direct to detail with a flag to show 'SUCCESS Banner'
                     $ionicPopup.alert({
                         title: 'Delivery Created',
                         template: 'Order was successfully created!\n'+
                         'Confirmation #'+response.confirmationNumber
                     }).then(function() {
-                        // TODO: We may want to send them a confirmation email
-                        console.log('goto delivery detail view!\nid: '+delivery.id+'\n#'+response.confirmationNumber);
+                        $ionicHistory.nextViewOptions({
+                            historyRoot: true
+                        });
+                        $state.go('app.order-detail', {
+                            deliveryId: response.id
+                        });
+                        //console.log('goto delivery detail view!\nid: '+response.id+'\n#'+response.confirmationNumber);
                     });
                 });
         }
     })
 
 
-    .controller('DeliveryHistoryCtrl', function ($scope, $filter, $localstorage, DeliveryService) {
+    .controller('DeliveryHistoryCtrl', function ($scope, $state, $filter, $localstorage, DeliveryService) {
         $scope.deliveries = [];
         $scope.page = 1;
         $scope.totalPages = 1;
@@ -145,7 +151,7 @@ angular.module('temds.app.controllers')
             DeliveryService.getDeliveryHistoryList(1)
                 .then(function (data) {
                     $scope.totalPages = data.totalPages;
-                    $scope.deliveries = data.deliveries;
+                    $scope.deliveries = data.items;
                     $scope.$broadcast('scroll.refreshComplete');
                 });
         };
@@ -157,7 +163,7 @@ angular.module('temds.app.controllers')
             DeliveryService.getDeliveryHistoryList(++$scope.page)
                 .then(function (data) {
                     $scope.totalPages = data.totalPages;
-                    $scope.deliveries = $scope.deliveries.concat(data.deliveries);
+                    $scope.deliveries = $scope.deliveries.concat(data.items);
                     $scope.$broadcast('scorll.infiniteScrollComplete');
                 });
         };
@@ -170,16 +176,158 @@ angular.module('temds.app.controllers')
             return $scope.totalPages > $scope.page;
         };
 
+        $scope.createdDate = function(datestring) {
+            return moment(datestring).format('MM/DD/YYYY');
+        }
+
+        $scope.deliveryDetail = function(dId) {
+            $state.go('app.order-detail', {
+                deliveryId: dId
+            });
+        };
+
+        $scope.getStatus = function(statusCode) {
+            var status = {};
+            switch(parseInt(statusCode)) {
+                case _ORDER_STATUS_CREATED_:
+                    status.text = 'Processing';
+                    status.bgColor = '#36506C';
+                    break;
+                case _ORDER_STATUS_PROCESSING_:
+                    status.text = 'Processing';
+                    status.bgColor = '#3F6C49';
+                    break;
+                case _ORDER_STATUS_DELIVERY_IN_PROGRESS_:
+                    status.text = 'Out for delivery';
+                    status.bgColor = '#AACCFF';
+                    break;
+                case _ORDER_STATUS_DELIVERED_:
+                    status.text = "Delivered";
+                    status.bgColor = '#00CC00';
+                    break;
+                case _ORDER_STATUS_DENIED_:
+                    status.text = "Declined";
+                    status.bgColor = '#777777';
+                    break;
+                case _ORDER_STATUS_CANCELLED_:
+                    status.text = "Canceled";
+                    status.bgColor = '#CD0000';
+                    break;
+                case _ORDER_STATUS_ON_HOLD:
+                    status.text = "On hold";
+                    status.bgColor = '#BEBE00';
+                    break;
+            }
+            return status;
+        }
         // Refresh
         $scope.refreshList();
     })
 
 
-    .controller('DeliveryDetailCtrl', function ($scope, $filter, $stateParams, DeliveryService) {
+    .controller('DeliveryDetailCtrl', function ($scope, $filter, $stateParams, $ionicPopup, DeliveryService) {
         var deliveryId = $stateParams.deliveryId;
+        $scope.delivery = {};
+        $scope.status = {
+            statusMessage: '',
+            statusAlertBarWidth: 0,
+            statusPos: -1,
+            statusBar: 0,
+            setAlert: false,
+            alertMessage: '',
+            alertBG: '',
+            canCancel: false
+        }
 
         DeliveryService.getDeliveryDetail(deliveryId)
             .then(function(data) {
                 $scope.delivery = data;
+                $scope.delivery.createdDate = moment($scope.delivery.insertDate).format('MM/DD/YYYY');
+                setStatus($scope.delivery.status);
             });
+
+        function setStatus(statusCode) {
+            $scope.status.canCancel = false;
+
+            switch(parseInt(statusCode)) {
+                case _ORDER_STATUS_CREATED_:
+                    $scope.status.statusMessage = "Order created";
+                    $scope.status.statusBar = 0;
+                    $scope.status.statusPos = 0;
+                    $scope.status.setAlert = false;
+                    $scope.status.canCancel = true;
+                    break;
+                case _ORDER_STATUS_PROCESSING_:
+                    $scope.status.statusMessage = "Order is being processed";
+                    $scope.status.statusBar = 100.0*(1/3);
+                    $scope.status.statusPos = 1;
+                    $scope.status.setAlert = false;
+                    $scope.status.canCancel = true;
+                    break;
+                case _ORDER_STATUS_DELIVERY_IN_PROGRESS_:
+                    $scope.status.statusMessage = "Order is being delivered";
+                    $scope.status.statusBar = 100.0*(2/3);
+                    $scope.status.statusPos = 2;
+                    $scope.status.setAlert = false;
+                    break;
+                case _ORDER_STATUS_DELIVERED_:
+                    $scope.status.statusMessage = "Order is delivered";
+                    $scope.status.statusBar = 100;
+                    $scope.status.statusPos = 3;
+                    $scope.status.setAlert = false;
+                    break;
+                case _ORDER_STATUS_DENIED_:
+                    $scope.status.statusMessage = "Order was declined";
+                    $scope.status.alertMessage = 'DECLINED';
+                    $scope.status.setAlert = true;
+                    $scope.status.alertBG = 'declined';
+                    break;
+                case _ORDER_STATUS_CANCELLED_:
+                    $scope.status.statusMessage = "Order was canceled";
+                    $scope.status.setAlert = true;
+                    $scope.status.alertMessage = 'CANCELED';
+                    $scope.status.alertBG = 'canceled';
+                    break;
+                case _ORDER_STATUS_ON_HOLD:
+                    $scope.status.statusMessage = "Order needs a follow up";
+                    $scope.status.alertMessage = 'NEES FOLLOW UP';
+                    $scope.status.setAlert = true;
+                    $scope.status.alertBG = 'warning';
+                    break;
+            }
+        }
+
+
+        $scope.isActivated = function(index) {
+            return $scope.status.statusPos > index;
+        }
+        $scope.isActivate = function(index) {
+            return $scope.status.statusPos == index && !$scope.status.setAlert;
+        }
+
+        $scope.cancelDelivery = function() {
+            $ionicPopup.confirm({
+                title: 'Cancel Delivery Order',
+                template: 'Do you wish to cancel Order #'+$scope.delivery.confirmationNumber+'?'
+            }).then(function(res) {
+                if (res) {
+                    DeliveryService.cancelDelivery($scope.delivery._id)
+                        .then(function(data) {
+                            if (data == _SUCCESS_) {
+                                $ionicPopup.alert({
+                                    title: 'Delivery Order Canceled',
+                                    template: 'Your order has been canceled successfully.'
+                                });
+                                setStatus(_ORDER_STATUS_CANCELLED_);
+                            } else {
+                                $ionicPopup.alert({
+                                    title: 'Request Failed',
+                                    template: 'Your order cannot be canceled.'
+                                });
+                                //TODO: udpate status
+                            }
+                        });
+                }
+            })
+        };
     });
