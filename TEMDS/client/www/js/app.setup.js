@@ -292,7 +292,7 @@ angular.module('temds', [
                     index: -1
                 }
             })
-            .state('app.order-history', {
+            .state('app.delivery-history', {
                 url: '/delivery/history/',
                 views: {
                     'menuContent': {
@@ -301,8 +301,8 @@ angular.module('temds', [
                     }
                 }
             })
-            .state('app.order-detail', {
-                url: '/delivery/:deliveryId',
+            .state('app.delivery-detail', {
+                url: '/delivery/detail/:deliveryId',
                 views: {
                     'menuContent': {
                         templateUrl: 'views/app/delivery/delivery-detail.html',

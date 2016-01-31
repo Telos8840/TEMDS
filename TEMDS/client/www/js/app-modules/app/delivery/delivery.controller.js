@@ -1,6 +1,6 @@
 angular.module('temds.app.controllers')
 
-    .controller('DeliveryCreateCtrl', function ($scope, $state, $stateParams, $localstorage, $ionicPopup, $ionicHistory) {
+    .controller('DeliveryCreateCtrl', function ($scope, $state, $localstorage, $ionicPopup, $ionicHistory) {
         var user = $localstorage.getObject('user');
         $scope.addressbook = user.address;
         $scope.showDelete = false;
@@ -75,7 +75,7 @@ angular.module('temds.app.controllers')
             return  $scope.delivery &&
                 $scope.delivery.orders &&
                 $scope.delivery.orders.length > 0;
-        }
+        };
 
         /**
          * Go to confirm delivery order view
@@ -127,9 +127,9 @@ angular.module('temds.app.controllers')
                         'Confirmation #'+response.confirmationNumber
                     }).then(function() {
                         $ionicHistory.nextViewOptions({
-                            historyRoot: true
+                            disableBack: true
                         });
-                        $state.go('app.order-detail', {
+                        $state.go('app.delivery-detail', {
                             deliveryId: response.id
                         });
                         //console.log('goto delivery detail view!\nid: '+response.id+'\n#'+response.confirmationNumber);
@@ -139,7 +139,7 @@ angular.module('temds.app.controllers')
     })
 
 
-    .controller('DeliveryHistoryCtrl', function ($scope, $state, $filter, $localstorage, DeliveryService) {
+    .controller('DeliveryHistoryCtrl', function ($scope, $state, $ionicHistory, DeliveryService) {
         $scope.deliveries = [];
         $scope.page = 1;
         $scope.totalPages = 1;
@@ -164,7 +164,7 @@ angular.module('temds.app.controllers')
                 .then(function (data) {
                     $scope.totalPages = data.totalPages;
                     $scope.deliveries = $scope.deliveries.concat(data.items);
-                    $scope.$broadcast('scorll.infiniteScrollComplete');
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
                 });
         };
 
@@ -178,12 +178,6 @@ angular.module('temds.app.controllers')
 
         $scope.createdDate = function(datestring) {
             return moment(datestring).format('MM/DD/YYYY');
-        }
-
-        $scope.deliveryDetail = function(dId) {
-            $state.go('app.order-detail', {
-                deliveryId: dId
-            });
         };
 
         $scope.getStatus = function(statusCode) {
@@ -219,13 +213,14 @@ angular.module('temds.app.controllers')
                     break;
             }
             return status;
-        }
+        };
+
         // Refresh
         $scope.refreshList();
     })
 
 
-    .controller('DeliveryDetailCtrl', function ($scope, $filter, $stateParams, $ionicPopup, DeliveryService) {
+    .controller('DeliveryDetailCtrl', function ($scope, $stateParams, $ionicPopup, DeliveryService) {
         var updateTime = 30000;
         var deliveryId = $stateParams.deliveryId;
         $scope.delivery = {};
@@ -248,7 +243,7 @@ angular.module('temds.app.controllers')
                 .then(function(data) {
                     setStatus(data);
                     setTimeout(updateStatus, updateTime);
-                })
+                });
         }
 
         DeliveryService.getDeliveryDetail(deliveryId)
@@ -310,13 +305,12 @@ angular.module('temds.app.controllers')
             }
         }
 
-
         $scope.isActivated = function(index) {
             return $scope.status.statusPos > index;
-        }
+        };
         $scope.isActivate = function(index) {
             return $scope.status.statusPos == index && !$scope.status.setAlert;
-        }
+        };
 
         $scope.cancelDelivery = function() {
             $ionicPopup.confirm({

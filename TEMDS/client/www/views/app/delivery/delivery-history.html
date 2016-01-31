@@ -6,7 +6,7 @@
         </ion-refresher>
 
         <ion-list>
-            <ion-item ng-repeat="delivery in deliveries" ng-click="deliveryDetail(delivery._id)">
+            <ion-item ng-repeat="delivery in deliveries" ui-sref="app.delivery-detail({deliveryId: delivery._id})">
                 <h2>#{{delivery.confirmationNumber}}</h2>
                 <p>created on {{createdDate(delivery.insertDate)}}</p>
                 <span class="statusBadge badge badge-assertive" ng-style="{'background-color': getStatus(delivery.status).bgColor}">
