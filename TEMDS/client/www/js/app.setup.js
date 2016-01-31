@@ -52,7 +52,7 @@ angular.module('temds', [
                     if (config.url.indexOf('api/delivery/getStatus') == -1) {
                         $rootScope.$broadcast('loading:show');
                     }
-                    config.headers['temdstoken'] = $localstorage.get('temdstoken');
+                    config.headers.temdstoken = $localstorage.get('temdstoken');
                     return config;
                 },
                 requestError: function (rejection) {
