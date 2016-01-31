@@ -27,6 +27,7 @@ angular.module('temds.app.services')
     // TODO: use api
     this.getVenueDetail = function (venueId) {
         var dfd = $q.defer();
+        console.log(_API_HOST_ + 'api/venue/detail/' + venueId);
 
         $http.get(_API_HOST_ + 'api/venue/detail/' + venueId)
             .success(function (response) {
