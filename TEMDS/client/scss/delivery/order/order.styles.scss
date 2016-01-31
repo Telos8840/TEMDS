@@ -10,10 +10,10 @@
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
 }*/
-
 .order-create-view {
     ion-content {
         background-color: white;
+        overflow: hidden !important;
         .item.item-input {
             &.ng-enter,
             &.ng-leave.ng-leave-active {

@@ -7,13 +7,13 @@
             <h1>{{venueName}}</h1>
         </div>
     </div>
-    <ion-content class="has-footer has-header" data-tap-disabled="true">
+    <ion-content class="has-footer has-header">
         <div class="list card">
             <div class="item item-divider">Location</div>
             <div class="item map">
                 <!--ui-gmap-google-map id="venueMap" center='map.center' options='map.options' zoom='map.zoom'></ui-gmap-google-map-->
 
-                <ui-gmap-google-map center="map.center" draggable="true" zoom="map.zoom" options="map.options" events="map.events">
+                <ui-gmap-google-map center="map.center" draggable="true" zoom="map.zoom" options="map.options" events="map.events" data-tap-disabled="true">
                     <ui-gmap-markers models="map.markers"
                                      doCluster="true"
                                      coords="'self'"
