@@ -20,6 +20,7 @@ if (typeof String.prototype.startsWith != 'function') {
         return this.indexOf(str) === 0;
     };
 }
+var _MAP_STYLE_ = [];
 
 /**
  * Phone number auto formatter.

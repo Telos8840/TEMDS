@@ -9,8 +9,26 @@
     </div>
     <ion-content class="has-footer has-header" data-tap-disabled="true">
         <div class="list card">
+            <div class="item item-divider">Location</div>
             <div class="item map">
-                <ui-gmap-google-map id="venueMap" center='map.center' options='map.options' zoom='map.zoom'></ui-gmap-google-map>
+                <!--ui-gmap-google-map id="venueMap" center='map.center' options='map.options' zoom='map.zoom'></ui-gmap-google-map-->
+
+                <ui-gmap-google-map center="map.center" draggable="true" zoom="map.zoom" options="map.options" events="map.events">
+                    <ui-gmap-markers models="map.markers"
+                                     doCluster="true"
+                                     coords="'self'"
+                                     icon="'icon'"
+                                     options="'options'"
+                                     idkey='id'
+                                     clusterOptions='map.clusterOptions'
+                                     control='markerControl.getChildMarkers().get(id)'>
+                    </ui-gmap-markers>
+                </ui-gmap-google-map>
+            </div>
+            <div class="item">
+                <p>{{venue.address.addr1}}</p>
+                <p>{{venue.address.addr2}}</p>
+                <p>{{venue.address.city}}, {{venue.address.state}} {{venue.address.zipcode}}</p>
             </div>
             <div class="item item-divider">Detail</div>
             <div class="item row">
@@ -38,12 +56,6 @@
                 </div>
             </div>
 
-            <div class="item item-divider">Location</div>
-            <div class="item">
-                <p>{{venue.address.addr1}}</p>
-                <p>{{venue.address.addr2}}</p>
-                <p>{{venue.address.city}}, {{venue.address.state}} {{venue.address.zipcode}}</p>
-            </div>
 
             <div class="item item-divider">Hours</div>
             <div class="item row" ng-repeat="(key, hour) in venue.hours">

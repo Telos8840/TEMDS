@@ -50,9 +50,7 @@ angular.module('temds.app.controllers')
             })
         }
     })
-
-
-    .controller('VenueDetailCtrl', function ($scope, $state, $stateParams, uiGmapIsReady, $ionicHistory, VenueService) {
+    .controller('VenueDetailCtrl', function ($scope, $state, $stateParams, $ionicHistory, VenueService, uiGmapGoogleMapApi) {
         // isFromVenueList is true if user is creating a new order from browsing venues.
         // It is false if user was already creating a delivery and is picking venue.
         var isFromVenueList = false;
@@ -66,35 +64,64 @@ angular.module('temds.app.controllers')
 
         $scope.submitBtnText = isFromVenueList ? 'Create Order' : 'Select Venue';
         var venueId = $stateParams.venue._id;
-        $scope.venueName = $stateParams.venue.name;
+        $scope.venueName = $stateParams.venue.name; // TODO: Change
 
-        VenueService.getVenueDetail(venueId)
-            .then(function (data) {
-                $scope.venue = data;
-            });
+        uiGmapGoogleMapApi.then(function(maps) {
+            VenueService.getVenueDetail(venueId)
+                .then(function (data) {
+                    $scope.venue = data;
+                    // Get Location
+                    var geocoder = new google.maps.Geocoder();
+                    if (geocoder) {
+                        geocoder.geocode({
+                            'address': $scope.venue.address.addr1 + ', ' +
+                            $scope.venue.address.city + ', ' +
+                            $scope.venue.address.state + ' ' +
+                            $scope.venue.address.zipcode
+                        }, function (results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+                                    var lat = results[0].geometry.location.lat();
+                                    var lng = results[0].geometry.location.lng();
+                                    $scope.map = {
+                                        "center": {
+                                            latitude: lat,
+                                            longitude: lng
+                                        },
+                                        "options": {
+                                            "zoomControl": false,
+                                            "minZoom": 12,
+                                            "maxZoom": 20,
+                                            "mapTypeControl": false,
+                                            "streetViewControl": false,
+                                            "draggable": true,
+                                            "panControl": false,
+                                            "optimized": true,
+                                            "mapTypeId": "roadmap",
+                                            "styles": _MAP_STYLE_
+                                        },
+                                        "zoom": 13
+                                    };
 
-        // Default map object
-        $scope.map = {
-            center: {
-                latitude: 34.05, // los angeles
-                longitude: -118.25
-            },
-            zoom: 12,
-            options: {
-                scrollwheel: true,
-                zoomControl: false,
-                navigationControl: false,
-                mapTypeControl: false,
-                scaleControl: false,
-                draggable: true,
-                disableDoubleClickZoom: true,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                panControl: true,
-                streetViewControl: false,
-                overviewMapControl: false,
-                rotateControl: false,
-            }
-        };
+                                    $scope.map.markers = [{
+                                        "id": "50651",
+                                        "latitude": lat,
+                                        "longitude": lng,
+                                        "options": {
+                                            "animation": 1
+                                        }
+                                    }];
+                                } else {
+                                    cosnole.log("No results found");
+                                }
+                            } else {
+                                console.log("Geocode was not successful for the following reason: " + status);
+                            }
+                        });
+                    } else {console.log("WTF IS GEOCODE? I NO HAVE!");}
+                });
+        });
+
 
         /**
          * Redirect to new order view.
@@ -112,36 +139,4 @@ angular.module('temds.app.controllers')
                 $ionicHistory.goBack(-2);
             }
         };
-
-        /* Find location by address and mark it on the map */
-        uiGmapIsReady.promise() // this gets all (ready) map instances - defaults to 1 for the first map
-            .then(function (instances) { // instances is an array object
-                var venueMap = instances[0].map; // if only 1 map it's found at index 0 of array
-
-                var geocoder = new google.maps.Geocoder();
-                if (geocoder) {
-                    geocoder.geocode({
-                        'address': $scope.venue.address.addr1 + ', ' +
-                        $scope.venue.address.city + ', ' +
-                        $scope.venue.address.state + ' ' +
-                        $scope.venue.address.zipcode
-                    }, function (results, status) {
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
-                                venueMap.panTo(results[0].geometry.location);
-                                var marker = new google.maps.Marker({
-                                    position: results[0].geometry.location,
-                                    map: venueMap,
-                                    title: 'Hello World!'
-                                });
-                            } else {
-                                cosnole.log("No results found");
-                            }
-                        } else {
-                            console.log("Geocode was not successful for the following reason: " + status);
-                        }
-                    });
-                }
-            });
-
-    });
+    })
