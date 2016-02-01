@@ -1,3 +1,10 @@
+.address-book-view {
+    ion-content {
+        background-color: white;
+        overflow: hidden !important;
+    }
+
+}
 .address-book-repeat.ng-enter {
     -webkit-animation: fadeInLeft 0.5s;
     animation: fadeInLeft 0.5s;
