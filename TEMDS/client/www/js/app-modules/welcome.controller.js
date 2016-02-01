@@ -54,7 +54,7 @@ angular.module('temds.welcome.controllers')
             .then(function (data) {
                 if (data == _SUCCESS_) {
                     // TODO: If we ever create a main view, let's go there.
-                    $state.go('app.my-account');
+                    $state.go('app.venue-list');
                 } else {
                     $ionicHistory.nextViewOptions({
                         disableAnimate: true

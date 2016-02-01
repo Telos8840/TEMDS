@@ -27,7 +27,7 @@ angular.module('temds.user.controllers')
             .then(function (data) {
                 switch (data) {
                 case _SUCCESS_:
-                    $state.go('app.my-account');
+                    $state.go('app.venue-list');
                     break;
                 default:
                     $ionicPopup.alert({
