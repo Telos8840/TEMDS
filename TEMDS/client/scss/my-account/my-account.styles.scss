@@ -39,12 +39,9 @@
             overflow: hidden;
             height: 0px;
             padding: 0;
-            -webkit-box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.15);
-            -moz-box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.15);
             box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.15);
             // ANIMATION
             @extend .animtype_easeout;
-            -webkit-transition: 0.5s;
             transition: 0.5s;
             &.open {
                 height: 190px;
@@ -66,10 +63,6 @@
                 color: lighten($my-account-text-color, 40%);
             }
             *:-moz-placeholder {
-                color: lighten($my-account-text-color, 40%);
-            }
-            *:-ms-input-placeholder {
-                /* IE10+ */
                 color: lighten($my-account-text-color, 40%);
             }
             input {
@@ -97,7 +90,7 @@
                 color: darken($auth-bg, 20%) !important;
                 display: block;
                 font-size: 24px;
-                width: 45px;
+                width: 40px;
                 text-align: center;
                 font-weight: 500;
             }

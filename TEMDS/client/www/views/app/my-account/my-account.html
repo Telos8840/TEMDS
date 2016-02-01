@@ -34,15 +34,9 @@
                     <div class="form-fields-outer list list-inset">
                         <label class="item item-input" show-hide-container>
                             <input type="password" placeholder="Current Password" name="oldPass" ng-model="change.oldPass" ng-minlength="6" show-hide-input required>
-                            <span class="error pass" ng-show="change_password_form.oldPass.$error.minlength || change_password_form.oldPass.$error.required">
-                                Required!
-                            </span>
                         </label>
                         <label class="item item-input" show-hide-container>
                             <input type="password" placeholder="New Password" name="newPass" ng-model="change.newPass" ng-minlength="6" show-hide-input required>
-                            <span class="error pass" ng-show="change_password_form.newPass.$error.minlength || change_password_form.newPass.$error.required">
-                                Required!
-                            </span>
                         </label>
                         <button class="button button-full button-balanced" ng-click="changePassword()" ng-disabled="change_password_form.$invalid">
                             Change Password
