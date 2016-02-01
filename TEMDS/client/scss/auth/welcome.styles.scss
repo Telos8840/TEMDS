@@ -85,9 +85,11 @@
         width: 100%;
         position: absolute;
         left: 0px;
-        bottom: 0px;
+        top: 0px;
         animation-iteration-count: infinite;
         opacity: 0;
+    }
+    .bg_building {
     }
     .bg_building1 {
         animation-name: buildingFade;
@@ -95,6 +97,7 @@
         animation-delay: 3s;
         animation-timing-function: ease-in-out;
         animation-direction: alternate;
+
     }
     .bg_building2 {
         animation-name: buildingFade;
