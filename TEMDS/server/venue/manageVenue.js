@@ -72,6 +72,7 @@ module.exports = function (server, db) {
             function (err, venue) {
               if (err) response.error(res, "Error finding venue_detail by venueId - " + req.params.venueid, err);
               detail.category = venue.category;
+              detail.name = venue.name;
               response.sendJSON(res, detail);
             });
         }

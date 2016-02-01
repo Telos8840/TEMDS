@@ -196,8 +196,13 @@ module.exports = function (server, db) {
           else {
             var totalOrders = _.size(dbOrders),
               totalPages  = _.ceil(totalOrders/itemsPerPage),
-              orderList   = dbOrders.slice(skip, skip + itemsPerPage),
-              json        = {
+              orderList   = dbOrders.slice(skip, skip + itemsPerPage);
+
+	          orderList = _.sortBy(orderList, function (o) {
+		         return new Date(o.insertDate);
+	          });
+	          
+              var json = {
                 items: orderList,
                 totalPages: totalPages
               };
