@@ -268,6 +268,7 @@ angular.module('temds', [
 
         /** Delivery **/
             .state('app.delivery-create', {
+                cache: false,
                 url: '/delivery/new',
                 views: {
                     'menuContent': {

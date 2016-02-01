@@ -126,6 +126,9 @@ angular.module('temds.app.controllers')
                         template: 'Order was successfully created!\n'+
                         'Confirmation #'+response.confirmationNumber
                     }).then(function() {
+                        $scope.delivery = {};
+                        $stateParams.delivery = {};
+                        $localstorage.setObject('delivery', {});
                         $ionicHistory.nextViewOptions({
                             disableBack: true
                         });
