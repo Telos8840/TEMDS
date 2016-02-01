@@ -55,7 +55,7 @@ angular.module('temds.app.controllers')
         var isFromVenueList = false;
         var histories = $ionicHistory.viewHistory().histories;
         $scope.days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
-        
+
         for (var k in histories) {
             if (k.startsWith('ion') &&k.length >= 4 && parseInt(k.substr(3)) >= 0) {
                 isFromVenueList = histories[k].stack.length == 2;
