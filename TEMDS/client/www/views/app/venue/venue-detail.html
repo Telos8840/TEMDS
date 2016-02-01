@@ -58,12 +58,11 @@
 
 
             <div class="item item-divider">Hours</div>
-            <div class="item row" ng-repeat="(key, hour) in venue.hours">
-                <div class="col col-33">
-                    <p>{{key}}:</p>
+            <div class="item row" ng-repeat="d in days">
+                <div class="col col-33"><p>{{d}}:</p>
                 </div>
                 <div class="col col-67">
-                    <p style="white-space:normal;">{{hour}}</p>
+                    <p style="white-space:normal;">{{venue.hours[d]}}</p>
                 </div>
             </div>
         </div>

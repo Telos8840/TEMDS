@@ -5,7 +5,6 @@ angular.module('temds.app.controllers')
         $scope.sortedVenueList = {}; // this should be displayed
         $scope.venueList = []; // this is the raw list data from server
 
-
         $scope.refreshData = function () {
             VenueService.getVenueList()
                 .then(function (data) {
@@ -55,6 +54,8 @@ angular.module('temds.app.controllers')
         // It is false if user was already creating a delivery and is picking venue.
         var isFromVenueList = false;
         var histories = $ionicHistory.viewHistory().histories;
+        $scope.days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+        
         for (var k in histories) {
             if (k.startsWith('ion') &&k.length >= 4 && parseInt(k.substr(3)) >= 0) {
                 isFromVenueList = histories[k].stack.length == 2;
@@ -121,7 +122,6 @@ angular.module('temds.app.controllers')
                     } else {console.log("WTF IS GEOCODE? I NO HAVE!");}
                 });
         });
-
 
         /**
          * Redirect to new order view.
