@@ -1,3 +1,4 @@
+<script src="js/directives.js"></script>
 <div id="venue" class="grid-block vertical">
     <div class="grid-block large-up-3 align-center shrink">
         <div class="grid-content"><h2 class="text-center">New Venue</h2></div>
@@ -52,12 +53,18 @@
 
                 <label>
                     Thumbnail URL (50px x 50px)
-                    <input type="text" id="thumbnail" ng-model="venue.thumbnail" placeholder="Image URL">
+                    <span class="inline-label">
+                        <input type="file" id="thumbnail" accept='image/*' onchange="angular.element(this).scope().onChange(this.files)">
+                        <a href="#" class="button" ng-click="uploadImage('thumb')">Upload</a>
+                    </span>
                 </label>
 
                 <label>
                     Image URL (at least 375px x 200px)
-                    <input type="text" id="img" ng-model="venue.img" placeholder="Image URL">
+                    <span class="inline-label">
+                        <input type="file" id="img">
+                        <a href="#" class="button" ng-click="uploadImage('img')">Upload</a>
+                    </span>
                 </label>
 
                 <div class="grid-block">

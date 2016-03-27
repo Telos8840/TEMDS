@@ -7,22 +7,22 @@
 
 'use strict';
 angular.module('venue', ['ui.router'])
-  .config(function ($stateProvider) {
-    $stateProvider.state('venues', {
-      url: '/venues',
-      templateUrl: 'templates/venue/venues.html',
-      controller: 'VenueController',
-      data: {
-        requiresLogin: true
-      },
-      resolve: {
-        venueNames: function (VenueFactory) {
-          return VenueFactory.getNames();
+    .config(function ($stateProvider) {
+      $stateProvider.state('venues', {
+        url: '/venues',
+        templateUrl: 'templates/venue/venues.html',
+        controller: 'VenueController',
+        data: {
+          requiresLogin: true
+        },
+        resolve: {
+          venueNames: function (VenueFactory) {
+            return VenueFactory.getNames();
+          }
+        },
+        animation: {
+          enter: 'slideInRight',
+          leave: 'slideOutRight'
         }
-      },
-      animation: {
-        enter: 'slideInRight',
-        leave: 'slideOutRight'
-      }
-    });
-  }).run(function () {});
+      });
+    }).run(function () {});
