@@ -6,7 +6,7 @@
 const NOTIFICATION_AUTO_CLOSE_TIMEOUT = 5000;
 
 angular.module('order')
-    .factory('OrderFactory', function (API_URL, $http, NotificationFactory, $q, helper) {
+    .factory('OrderFactory', function (API_URL, $http, NotificationFactory, $q, helper, path) {
         var order = {},
             notification = new NotificationFactory({
                 id: 'orderNotification',
@@ -16,12 +16,9 @@ angular.module('order')
         order.GetOrderList = function(pageNum, itemsPerPage, query) {
             var deferred = $q.defer();
 
-            //var api = path.join(API_URL, '/order/li/', pageNum, itemsPerPage);
-            var api = '';
+            var api = path.join(API_URL, '/order/li/', String(pageNum), String(itemsPerPage));
             var q = helper.toQueryString(query);
             if (q) api += '?' + q;
-
-            console.log(api);
 
             $http.get(api)
                 .then(function success(response) {
@@ -39,7 +36,6 @@ angular.module('order')
 
             return deferred.promise;
         };
-
 
         return order;
     });

@@ -30,7 +30,6 @@ angular.module('auth')
                 .then(function success(response) {
                     store.set('token', response.data.token);
                     auth.user = jwtHelper.decodeToken(response.data.token);
-                    console.log('new token set');
                     return response;
                 }, function error(err) {
                     return err;
@@ -68,7 +67,6 @@ angular.module('auth')
                 .then(function success(response) {
                     store.set('token', response.data.token);
                     auth.user = jwtHelper.decodeToken(response.data.token);
-                    console.log('new token set');
                     return {
                         data: 'password changed...'
                     };

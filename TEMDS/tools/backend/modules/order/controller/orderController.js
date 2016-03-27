@@ -15,6 +15,8 @@ var Collections = rq('collectionsModel');
  * @constructor
  */
 module.exports.GetOrderList = function (req, res) {
+    console.log('I AM HERE!!!!!!!!!');
+
     // Page number
     var pageNum = parseInt(req.params.pageNum);
     if (pageNum < 0) pageNum = 0;
@@ -29,9 +31,16 @@ module.exports.GetOrderList = function (req, res) {
     if (!sortBy) sortBy = 'insertDate';
 
     // Optional filter <Status>: listed item will be filtered out from the list
-    var filters = req.query.filters;
+    _(req.query.filters.split(',')).forEach(function(value) {
+        console.log(value);
+    });
+    var filters = 1;
 
-    console.log(pageNum, itemsPerPage, sortByAsc, sortBy, filters);
+
+    console.log('pageNum> \n',pageNum,'itemsPerPage>\n', itemsPerPage, 'sortByAsc>\n',sortByAsc, 'filters>\n',filters);
+
+    // Query
+    var q = {};
 
     //TODO: add pageNum/pageCount/filter/sort to the query
     Orders.find({}).exec(function (err, result) {

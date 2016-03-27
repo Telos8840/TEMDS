@@ -4,5 +4,5 @@
 'use strict';
 angular.module('utils')
     .factory('path', function() {
-        return window.path;
+        return window.path; // assumes path has already been loaded on the page
     });

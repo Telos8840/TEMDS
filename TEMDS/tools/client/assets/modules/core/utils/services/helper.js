@@ -14,9 +14,12 @@ angular.module('utils')
                     return null;
                 }
 
+                if (typeof obj === 'string')
+                    return encodeURIComponent(key);
+
                 // obj is an object/array
                 if (typeof obj === 'object') {
-                    return Object.keys(obj).map(function(key){
+                    return Object.keys(obj).map(function(key) {
                         return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
                     }).join('&');
                 }

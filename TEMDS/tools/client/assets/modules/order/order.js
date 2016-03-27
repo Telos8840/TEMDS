@@ -12,12 +12,7 @@ angular.module('order', ['ui.router'])
             data: {
                 requiresLogin: true
             },
-            resolve: {
-                /*
-                orderList: function (OrderFactory) {
-                    return OrderFactory.GetOrderList();
-                }*/
-            },
+            resolve: { },
             animation: {
                 enter: 'slideInRight',
                 leave: 'slideOutRight'
