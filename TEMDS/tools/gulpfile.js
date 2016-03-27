@@ -17,31 +17,32 @@ var buildFolder = 'www';
 var paths = {
     // Sass will check these folders for files when you use @import.
     sass: [
-    'client/assets/scss_global',
-    'bower_components/foundation-apps/scss'
+        'client/assets/scss_global',
+        'bower_components/foundation-apps/scss'
     ],
     // all JS dependencies
     vendorJS: [
-    'bower_components/fastclick/lib/fastclick.js',
-    'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
-    'bower_components/tether/tether.js',
-    'bower_components/lodash/lodash.min.js',
-    'bower_components/angular/angular.min.js',
-    'bower_components/angular-xeditable/dist/js/xeditable.min.js',
-    'bower_components/angular-modal-service/dst/angular-modal-service.min.js',
-    'bower_components/a0-angular-storage/dist/angular-storage.min.js',
-    'bower_components/angular-jwt/dist/angular-jwt.min.js',
-    'bower_components/angular-animate/angular-animate.min.js',
-    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-    'bower_components/hammerjs/hammer.min.js',
-    'bower_components/foundation-apps/js/vendor/**/*.js',
-    'bower_components/foundation-apps/js/angular/**/*.js',
-    '!bower_components/foundation-apps/js/angular/app.js'
+        'bower_components/fastclick/lib/fastclick.js',
+        'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
+        'bower_components/tether/tether.js',
+        'bower_components/lodash/lodash.min.js',
+        'bower_components/path/path.min.js',
+        'bower_components/angular/angular.min.js',
+        'bower_components/angular-xeditable/dist/js/xeditable.min.js',
+        'bower_components/angular-modal-service/dst/angular-modal-service.min.js',
+        'bower_components/a0-angular-storage/dist/angular-storage.min.js',
+        'bower_components/angular-jwt/dist/angular-jwt.min.js',
+        'bower_components/angular-animate/angular-animate.min.js',
+        'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+        'bower_components/hammerjs/hammer.min.js',
+        'bower_components/foundation-apps/js/vendor/**/*.js',
+        'bower_components/foundation-apps/js/angular/**/*.js',
+        '!bower_components/foundation-apps/js/angular/app.js'
     ],
     // These files are for your app's JavaScript
     appJS: [
-    'client/assets/modules/app.js',
-    'client/assets/modules/**/*.js'
+        'client/assets/modules/app.js',
+        'client/assets/modules/**/*.js'
     ]
 };
 // 3. TASKS
@@ -92,9 +93,9 @@ gulp.task('uglify', function () {
     // Foundation JavaScript
     gulp.src(paths.vendorJS)
         .pipe($.uglify({
-                beautify: true,
-                mangle: false
-            })
+            beautify: true,
+            mangle: false
+        })
             .on('error', function (e) {
                 console.log(e);
             }))
@@ -110,9 +111,9 @@ gulp.task('uglify', function () {
         .pipe($.jshint())
         .pipe($.jshint.reporter('default'))
         .pipe($.uglify({
-                beautify: true,
-                mangle: false
-            })
+            beautify: true,
+            mangle: false
+        })
             .on('error', function (e) {
                 console.log(e);
             }))
@@ -175,9 +176,9 @@ gulp.task('default', function () {
 });
 
 gulp.task('serveprod', function() {
-  connect.server({
-    root: './www',
-    port: process.env.PORT || 3000, // localhost:5000
-    livereload: false
-  });
+    connect.server({
+        root: './www',
+        port: process.env.PORT || 3000, // localhost:5000
+        livereload: false
+    });
 });

@@ -31,4 +31,4 @@ var VenueSchema = new Schema({
     required: false
   }
 });
-module.exports = mongoose.model('venue', VenueSchema);
+module.exports = mongoose.model('venues', VenueSchema);

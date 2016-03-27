@@ -40,7 +40,14 @@
               <li data-ng-if="auth.checkRole('admin')">
                   <a ui-sref="venues">
                          <span>
-                              <i class="fa fa-home fa-fw"></i>Venues
+                              <i class="fa fa-building-o fa-fw"></i>Venues
+                         </span>
+                  </a>
+              </li>
+              <li data-ng-if="auth.checkRole('admin')">
+                  <a ui-sref="orders">
+                         <span>
+                              <i class="fa fa-truck fa-fw"></i>Orders
                          </span>
                   </a>
               </li>
