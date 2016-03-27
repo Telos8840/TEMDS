@@ -12,6 +12,7 @@
     function run() {
         FastClick.attach(document.body);
     }
+
     angular.module('application', [
         'ui.router',
         'ngAnimate',
@@ -22,6 +23,7 @@
         'account',
         'usermanagement',
         //temds
+        'order',
         'venue',
         //foundation
         'foundation',
