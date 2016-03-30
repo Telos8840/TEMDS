@@ -4,7 +4,7 @@ const _ORDER_STATUS_CREATED_ = 0,
     _ORDER_STATUS_DELIVERED_ = 3,
     _ORDER_STATUS_DENIED_ = 4,
     _ORDER_STATUS_CANCELLED_ = 5,
-    _ORDER_STATUS_ON_HOLD = 6;
+    _ORDER_STATUS_ON_HOLD = 6; //TODO: move to .env or another file
 
 (function () {
     'use strict';

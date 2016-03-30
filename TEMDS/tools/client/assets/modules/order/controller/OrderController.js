@@ -22,7 +22,7 @@ angular.module('order')
             $scope.listOptions = {
                 sortByAsc: false,
                 sortBy: 'insertDate',
-                filters: [_ORDER_STATUS_CREATED_, _ORDER_STATUS_PROCESSING_, _ORDER_STATUS_CANCELLED_]
+                filters: [_ORDER_STATUS_CREATED_]
             };
 
             console.log($scope.listOptions.filters);
