@@ -31,17 +31,12 @@ module.exports.GetOrderList = function (req, res) {
     // Optional filter <Status>: listed item will be filtered out from the list
     var statusFilter = [];
     _(req.query.filters.split(',')).forEach(function(value) {
-        console.log(value);
-        statusFilter.push({status: parseInt(value)});
+        if (value && value != '')
+            statusFilter.push({status: parseInt(value)});
     });
-    if (statusFilter.length > 0) {
-        query['$or'] = statusFilter;
-    }
 
     // Build Query
-    var query = {
-        $or: statusFilter
-    };
+    var query = statusFilter.length > 0 ? { $or: statusFilter } : {};
 
     // Get list's item count
     var totalCount = -1;
@@ -60,8 +55,13 @@ module.exports.GetOrderList = function (req, res) {
             });
         }
 
+        // Build sort
+        var sort  = {};
+        sort[sortBy] = sortByAsc ? 'asc' : 'desc';
+
         // Return paginated result
         Orders.find(query)
+            .sort(sort)
             .skip(pageNum * itemsPerPage)
             .limit(itemsPerPage)
             .exec(function(err, result) {

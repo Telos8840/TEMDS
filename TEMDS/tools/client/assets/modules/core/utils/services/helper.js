@@ -15,7 +15,7 @@ angular.module('utils')
                 }
 
                 if (typeof obj === 'string')
-                    return encodeURIComponent(key);
+                    return encodeURIComponent(obj);
 
                 // obj is an object/array
                 if (typeof obj === 'object') {
