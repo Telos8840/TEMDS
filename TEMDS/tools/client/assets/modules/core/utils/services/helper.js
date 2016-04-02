@@ -25,6 +25,26 @@ angular.module('utils')
                 }
 
                 return null;
+            },
+
+            /**
+             * Convert camel case string to normal string.
+             * Ex) helloWorldGoodbyeWorld -> Hello World Goodbye World
+             * @param camelString
+             * @param setUpperCaseFirstLetter each first letter is set to upper case
+             * @returns {*}
+             */
+            camelToNormalString: function(camelString, setUpperCaseFirstLetter) {
+                if (!camelString) return '';
+
+                // insert a space before all caps
+                camelString = camelString.replace(/([A-Z])/g, ' $1');
+
+                // uppercase the first character
+                if (setUpperCaseFirstLetter)
+                    camelString.replace(/^./, function(str){ return str.toUpperCase(); });
+
+                return camelString;
             }
         };
 

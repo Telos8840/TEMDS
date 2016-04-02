@@ -8,10 +8,15 @@
   }
   #content{
     background-color: rgba(0, 0, 0, 0.4);
-    padding: 2rem 1rem;
+    margin: 0 2em 2em 2em;
+  }
+  .header {
+    margin: 0 2em;
+    h1 {
+      font-variant: small-caps;
+    }
   }
   .scroll-section {
-    height:1100px;
     overflow-y: scroll;
   }
   li a:hover {
@@ -19,5 +24,8 @@
   }
   li.with-chevron::after {
     color: #ffffff;
+  }
+  #toolbox {
+    background-color: #333;
   }
 }
