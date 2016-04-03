@@ -72,7 +72,8 @@ module.exports.GetOrderList = function (req, res) {
 
             return res.status(200).json({
                 list: result,
-                total: count
+                total: count,
+                page: pageNum
             });
         });
     });

@@ -4,45 +4,92 @@
     </div>
     <div id="content" class="grid-block vertical">
 
-        <div id="toolbox" class="contain-to-grid sticky">
-            <nav class="top-bar" data-topbar role="navigation">
-                <ul class="title-area">
-                    <li class="name">
-                        <h1><a href="#">My Site</a></h1>
-                    </li>
-                    <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-                    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-                </ul>
-
-                <section class="top-bar-section">
-                    <!-- Right Nav Section -->
-                    <ul class="right">
-                        <li class="active"><a href="#">Right Button Active</a></li>
-                        <li class="has-dropdown">
-                            <a href="#">Right Button Dropdown</a>
-                            <ul class="dropdown">
-                                <li><a href="#">First link in dropdown</a></li>
-                                <li class="active"><a href="#">Active link in dropdown</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                    <!-- Left Nav Section -->
-                    <ul class="left">
-                        <li><a href="#">Left Nav Button</a></li>
-                    </ul>
-                </section>
-            </nav>
+        <div id="toolbox" class="contain-to-grid vertical">
+            <div class="grid-block">
+                <div class="grid-block" id="search">
+                    <span class="inline-label">
+                        <input type="search" ng-model="search" placeholder="Confirmation #">
+                        <a class="button" ng-click="searchOrder()">Search</a>
+                    </span>
+                </div>
+                <div class="shrink grid-block">
+                    <span class="inline-label">
+                        <span class="form-label">Display</span>
+                        <select ng-model="itemsPerPage" ng-change="refreshPage()">
+                            <option ng-repeat="qty in itemsPerPageOptions" value="{{qty}}">{{qty}}</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+            <div id="filter" class="grid-block">
+                <span class="inline-label">
+                    <span class="form-label">Filter by status:</span>
+                    <a class="button"
+                        ng-repeat="s in status"
+                        ng-class="s.addFilter ? 'info' : 'dark'"
+                        ng-click="setFilter($index)">{{s.status}}</a>
+                </span>
+            </div>
         </div>
 
         <div class="grid-content scroll-section" id="orderList">
             <section class="block-list">
+                <!-- TODO: <header>
+                    <div class="row">
+                        <div class="h_confirmation">
+                            Confirmation Number
+                        </div>
+                        <div class="h_status">
+                            Order Status
+                        </div>
+                    </div>
+                </header> -->
                 <ul>
-                    <li class="with-chevron" data-ng-repeat="order in orderList">
-                        <a>{{order.confirmationNumber}}</a>
+                    <li class="order-item with-chevron" data-ng-repeat="order in orderList">
+                        <div class="row">
+                            <div class="confirmation">
+                                #{{order.confirmationNumber}}
+                            </div>
+                            <div class="status {{getStatusColorClassByCode(order.status)}}">
+                                {{getStatusDescription(order.status)}}
+                            </div>
+                        </div>
+                        <!--span class="inline-label">
+                            <span class="confirmation"></span>
+                            <!--a>
+                            {{order.status}}
+                            {{order.insertDate}}
+                            {{order.modifiedDate}}</a-->
                     </li>
                 </ul>
             </section>
+        </div>
+
+        <div id="pagination" class="grid-block shrink">
+            <div class="grid-block">
+                <a class="button"
+                   ng-class="{'selected': 0 == pageNumber}"
+                   ng-click="goToPage(0)">1</a>
+                <a class="button empty"
+                   ng-show="hasPrevious"
+                   ng-click="skipPages(false)">...</a>
+                <a class="button"
+                   ng-class="{'selected': p == pageNumber}"
+                   ng-repeat="p in pagination"
+                   ng-click="goToPage(p)">
+                    {{p + 1}}
+                </a>
+                <a class="button empty"
+                   ng-show="hasNext"
+                   ng-click="skipPages(true)">...</a>
+                <a class="button"
+                   ng-class="{'selected': totalPages == pageNumber}"
+                   ng-click="goToPage(totalPages)"
+                   ng-show="0 != totalPages">{{totalPages + 1}}</a>
+            </div>
+            <div class="shrink grid-block">
+                <span class="form-label" id="totalItems">Total {{totalItems}} orders</span>
+            </div>
         </div>
 
     </div>

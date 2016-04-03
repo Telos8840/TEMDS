@@ -9,7 +9,52 @@
   #content{
     background-color: rgba(0, 0, 0, 0.4);
     margin: 0 2em 2em 2em;
+    .order-item {
+      width: 100%;
+      height: 42px;
+      // Animation
+      &.ng-enter{
+        -webkit-transition:0.1s ease-in-out transform;
+        transition:0.1s ease-in-out transform;
+      }
+      &.ng-enter,
+      &.ng-leave.ng-leave-active {
+        transform: scaleY(0);
+      }
+      &.ng-leave,
+      &.ng-enter.ng-enter-active {
+        transform: scaleY(1);
+      }
+      &.ng-enter-stagger {
+        -webkit-transition-delay: 0.075s;
+        transition-delay: 0.075s;
+        -webkit-transition-duration: 0s;
+        transition-duration: 0s;
+      }
+      span{margin-bottom: 0;}
+      .confirmation {
+        height: 40px;
+        width: 180px;
+        padding-left: 1em;
+        line-height: 40px;
+        color: white;
+        font-size: large;
+        font-weight: bold;
+        float: left;
+      }
+      .status {
+        height: 30px;
+        line-height: 30px;
+        margin: 5px 5px;
+        border-radius: 15px;
+        width: 150px;
+        text-align: center;
+        float: left;
+        border: 1px solid;
+      }
+    }
   }
+
   .header {
     margin: 0 2em;
     h1 {
@@ -25,7 +70,52 @@
   li.with-chevron::after {
     color: #ffffff;
   }
-  #toolbox {
+  #toolbox{
+    #filter {
+      background-color: rgb(35,35,35);
+    }
     background-color: #333;
+
+    span {
+      margin-bottom: 0;
+    }
+  }
+  #pagination {
+    height: 37px;
+    background-color: #333;
+
+    a {
+      line-height: 37px;
+      height:37px;
+      margin-bottom: 0;
+      margin-right: 1px;
+      padding: 0;
+      display: block;
+      width:37px;
+      -webkit-transition:0.333s ease-in-out width;
+      transition: 0.333s ease-in-out width;
+
+
+      &.ng-hide {
+        width:0px;
+      }
+      &.ng-enter,
+      &.ng-leave {
+        -webkit-transition:0.333s ease-in-out width;
+        transition:0.333s ease-in-out width;
+      }
+      &.ng-enter,
+      &.ng-leave.ng-leave-active {
+        width:0;
+      }
+      &.ng-leave,
+      &.ng-enter.ng-enter-active {
+        width:37px;
+      }
+
+      &.selected { background-color: #4798ff;}
+      &.empty {background-color: rgba(0,0,0,0);}
+    }
+    #totalItems{line-height: 37px; padding-right: 8px;}
   }
 }
