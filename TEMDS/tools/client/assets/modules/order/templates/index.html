@@ -53,6 +53,12 @@
                             <div class="status {{getStatusColorClassByCode(order.status)}}">
                                 {{getStatusDescription(order.status)}}
                             </div>
+                            <div class="date">
+                                {{formatDate(order.insertDate)}}
+                            </div>
+                            <div class="date">
+                                {{formatDate(order.modifiedDate)}}
+                            </div>
                         </div>
                         <!--span class="inline-label">
                             <span class="confirmation"></span>

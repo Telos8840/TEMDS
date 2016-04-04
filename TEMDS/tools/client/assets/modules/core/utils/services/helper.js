@@ -1,6 +1,6 @@
 'use strict';
 angular.module('utils')
-    .factory('helper', function () {
+    .factory('helper', function (moment) {
         return {
 
             /**
@@ -45,6 +45,11 @@ angular.module('utils')
                     camelString.replace(/^./, function(str){ return str.toUpperCase(); });
 
                 return camelString;
+            },
+
+            formatTimestamp: function(timestamp, format) {
+                if (!format) format = 'h:m A MM/DD/YYYY';
+                return moment(timestamp).format(format);
             }
         };
 

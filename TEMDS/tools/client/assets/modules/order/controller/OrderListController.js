@@ -178,7 +178,6 @@ angular.module('order')
 
         /**
          * Search order by confirmation number
-         * @param confirmationNumber
          */
         $scope.searchOrder = function() {
             var confirmationNumber = $scope.search;
@@ -206,11 +205,19 @@ angular.module('order')
             return "Unknown";
         };
 
-
+        /**
+         * Order status colors are defined in _colors.scss
+         * @param code
+         * @returns {string}
+         */
         $scope.getStatusColorClassByCode = function(code) {
             var status = this.getStatusDescription(code)
                 .toLowerCase().replace(/\s/g,'_',true);
             return 'color_order_status_' + status;
         };
+
+        $scope.formatDate = function(date) {
+            return helper.formatTimestamp(date);
+        }
 
     });
