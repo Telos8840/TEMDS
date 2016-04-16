@@ -183,6 +183,7 @@ angular.module('temds.app.controllers')
             return moment(datestring).format('MM/DD/YYYY');
         };
 
+        // TODO: Use order.scss colors
         $scope.getStatus = function(statusCode) {
             var status = {};
             switch(parseInt(statusCode)) {

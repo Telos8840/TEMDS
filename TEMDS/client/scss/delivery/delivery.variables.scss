@@ -1,3 +1,4 @@
+// NOTE: Make sure to synchronize these color with tools/client/assets/modules/order/scss/order.scss
 $status-active-color: #2672ff;
 $status-bar-active-color: #00cc00;
 $status-deactive-color: #DDD;
@@ -18,3 +19,40 @@ $status-point-size: #{$status-point-size-raw}px;
 $status-point-size-anim: #{($status-point-size-raw - ($status-point-anim-diff/pi()))}px;
 $status-point-border-size: #{$status-point-border-size-raw}px;
 $status-point-border-size-anim: #{$status-point-border-size-raw + $status-point-anim-diff}px;
+
+
+$order_status_created     : #36506C;
+$order_status_processing  : #3F6C49;
+$order_status_in_progress : #AACCFF;
+$order_status_delivered   : #00CC00;
+$order_status_declined    : #777777;
+$order_status_cancelled   : #CD0000;
+$order_status_on_hold     : #BEBE00;
+
+.color_order_status_created    {
+  background-color: $order_status_created;
+}
+
+.color_order_status_processing {
+  background-color: $order_status_processing;
+}
+
+.color_order_status_in_progress{
+  background-color: $order_status_in_progress;
+}
+
+.color_order_status_delivered  {
+  background-color: $order_status_delivered;
+}
+
+.color_order_status_declined   {
+  background-color: $order_status_declined;
+}
+
+.color_order_status_cancelled  {
+  background-color: $order_status_cancelled;
+}
+
+.color_order_status_on_hold    {
+  background-color: $order_status_on_hold;
+}

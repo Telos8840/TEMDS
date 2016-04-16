@@ -12,16 +12,20 @@
     function run() {
         FastClick.attach(document.body);
     }
+
     angular.module('application', [
         'ui.router',
         'ngAnimate',
         'xeditable',
+        //app constants
+        'const',
         //app modules
         'core',
         'auth',
         'account',
         'usermanagement',
         //temds
+        'order',
         'venue',
         //foundation
         'foundation',
