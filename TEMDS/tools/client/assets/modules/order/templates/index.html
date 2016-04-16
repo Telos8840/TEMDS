@@ -25,26 +25,40 @@
                 <span class="inline-label">
                     <span class="form-label">Filter by status:</span>
                     <a class="button"
-                        ng-repeat="s in status"
-                        ng-class="s.addFilter ? 'info' : 'dark'"
-                        ng-click="setFilter($index)">{{s.status}}</a>
+                       ng-repeat="s in status"
+                       ng-class="s.addFilter ? 'info' : 'dark'"
+                       ng-click="setFilter($index)">{{s.status}}</a>
                 </span>
             </div>
         </div>
 
         <div class="grid-content scroll-section" id="orderList">
             <section class="block-list">
-                <!-- TODO: <header>
-                    <div class="row">
-                        <div class="h_confirmation">
-                            Confirmation Number
-                        </div>
-                        <div class="h_status">
-                            Order Status
-                        </div>
-                    </div>
-                </header> -->
                 <ul>
+                    <li class="order-item header">
+                        <div class="row">
+                            <div class="confirmation">
+                                Confirmation
+                            </div>
+                            <div class="status">
+                                Order Status
+                            </div>
+                            <div class="date sortable" ng-click="sortListToggle('insertDate')">
+                                Created Date
+                                <i class="fa"
+                                   ng-show="listOptions.sortBy=='insertDate'"
+                                   ng-class="{'fa-angle-up': listOptions.sortByAsc,
+                                              'fa-angle-down': !listOptions.sortByAsc}"></i>
+                            </div>
+                            <div class="date sortable" ng-click="sortListToggle('modifiedDate')">
+                                Modified Date
+                                <i class="fa"
+                                   ng-show="listOptions.sortBy=='modifiedDate'"
+                                   ng-class="{'fa-angle-up': listOptions.sortByAsc,
+                                              'fa-angle-down': !listOptions.sortByAsc}"></i>
+                            </div>
+                        </div>
+                    </li>
                     <li class="order-item with-chevron" data-ng-repeat="order in orderList">
                         <div class="row">
                             <div class="confirmation">
@@ -60,12 +74,6 @@
                                 {{formatDate(order.modifiedDate)}}
                             </div>
                         </div>
-                        <!--span class="inline-label">
-                            <span class="confirmation"></span>
-                            <!--a>
-                            {{order.status}}
-                            {{order.insertDate}}
-                            {{order.modifiedDate}}</a-->
                     </li>
                 </ul>
             </section>

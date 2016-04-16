@@ -25,7 +25,6 @@ angular.module('order')
                     $scope.totalItems = data.total;
                     $scope.pageNumber = data.page;
                     processPagination();
-                    //console.log('orderList>\n', $scope.orderList); //TODO: DELETE
                 });
         }
 
@@ -216,8 +215,30 @@ angular.module('order')
             return 'color_order_status_' + status;
         };
 
+        /**
+         * Passthrough method to format timestamp to a default date format
+         * @param date: timestamp
+         * @returns {*}
+         */
         $scope.formatDate = function(date) {
             return helper.formatTimestamp(date);
-        }
+        };
+
+        /**
+         * Toggle asc/desc with sortBy.
+         * New sortBy will start the list with desc.
+         * @param sortBy
+         */
+        $scope.sortListToggle= function(sortBy) {
+            console.log(sortBy);
+            if (sortBy === $scope.listOptions.sortBy) {
+                this.listOptions.sortByAsc = !this.listOptions.sortByAsc;
+            } else {
+                this.listOptions.sortBy = sortBy;
+                this.listOptions.sortByAsc = false;
+            }
+
+            this.refreshPage();
+        };
 
     });

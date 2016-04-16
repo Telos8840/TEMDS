@@ -7,59 +7,77 @@
     color: $smoke;
   }
   #content{
-    background-color: rgba(0, 0, 0, 0.4);
-    min-width: 750px;
-    margin: 0 2em 2em 2em;
-    .order-item {
-      width: 100%;
-      height: 42px;
-      // Animation
-      &.ng-enter{
-        -webkit-transition:0.1s ease-in-out transform;
-        transition:0.1s ease-in-out transform;
-      }
-      &.ng-enter,
-      &.ng-leave.ng-leave-active {
-        transform: scaleY(0);
-      }
-      &.ng-leave,
-      &.ng-enter.ng-enter-active {
-        transform: scaleY(1);
-      }
-      &.ng-enter-stagger {
-        -webkit-transition-delay: 0.075s;
-        transition-delay: 0.075s;
-        -webkit-transition-duration: 0s;
-        transition-duration: 0s;
-      }
-      span{margin-bottom: 0;}
-      .confirmation {
-        height: 40px;
-        width: 180px;
-        padding-left: 1em;
-        line-height: 40px;
-        color: white;
-        font-size: large;
-        font-weight: bold;
-        float: left;
-      }
-      .status {
-        height: 30px;
-        line-height: 30px;
-        margin: 5px 5px;
-        border-radius: 5px;
-        width: -webkit-calc(100% - 592px);
-        width:    -moz-calc(100% - 592px);
-        width:         calc(100% - 592px);
-        text-align: center;
-        float: left;
-        border: 1px solid;
-      }
-      .date {
-        line-height: 40px;
-        height: 40px;
-        min-width: 190px;
-        float:right;
+    #orderList {
+      background-color: rgba(0, 0, 0, 0.4);
+      min-width: 750px;
+      margin: 0 2em 2em 2em;
+      .order-item {
+        width: 100%;
+        height: 42px;
+        &.header {
+          margin:0;
+          .confirmation {
+            font-weight: normal;
+          }
+          .status {
+            border: none;
+          }
+          .sortable:hover {
+            background-color: rgba(255,255,255,0.2);
+            cursor: pointer;
+          }
+        }
+        // Animation
+        &.ng-enter {
+          -webkit-transition: 0.1s ease-in-out transform;
+          transition: 0.1s ease-in-out transform;
+        }
+        &.ng-enter,
+        &.ng-leave.ng-leave-active {
+          transform: scaleY(0);
+        }
+        &.ng-leave,
+        &.ng-enter.ng-enter-active {
+          transform: scaleY(1);
+        }
+        &.ng-enter-stagger {
+          -webkit-transition-delay: 0.075s;
+          transition-delay: 0.075s;
+          -webkit-transition-duration: 0s;
+          transition-duration: 0s;
+        }
+        span {
+          margin-bottom: 0;
+        }
+        .confirmation {
+          height: 40px;
+          width: 180px;
+          padding-left: 1em;
+          line-height: 40px;
+          color: white;
+          font-size: large;
+          font-weight: bold;
+          float: left;
+        }
+        .status {
+          height: 30px;
+          line-height: 30px;
+          margin: 5px 5px;
+          border-radius: 5px;
+          width: -webkit-calc(100% - 592px);
+          width: -moz-calc(100% - 592px);
+          width: calc(100% - 592px);
+          text-align: center;
+          float: left;
+          border: 1px solid;
+        }
+        .date {
+          line-height: 40px;
+          height: 40px;
+          min-width: 190px;
+          float: left;
+          text-align: center;
+        }
       }
     }
   }
