@@ -1,6 +1,6 @@
 'use strict';
 angular.module('utils')
-    .factory('helper', function () {
+    .factory('helper', function (moment) {
         return {
 
             /**
@@ -15,7 +15,7 @@ angular.module('utils')
                 }
 
                 if (typeof obj === 'string')
-                    return encodeURIComponent(key);
+                    return encodeURIComponent(obj);
 
                 // obj is an object/array
                 if (typeof obj === 'object') {
@@ -25,6 +25,31 @@ angular.module('utils')
                 }
 
                 return null;
+            },
+
+            /**
+             * Convert camel case string to normal string.
+             * Ex) helloWorldGoodbyeWorld -> Hello World Goodbye World
+             * @param camelString
+             * @param setUpperCaseFirstLetter each first letter is set to upper case
+             * @returns {*}
+             */
+            camelToNormalString: function(camelString, setUpperCaseFirstLetter) {
+                if (!camelString) return '';
+
+                // insert a space before all caps
+                camelString = camelString.replace(/([A-Z])/g, ' $1');
+
+                // uppercase the first character
+                if (setUpperCaseFirstLetter)
+                    camelString.replace(/^./, function(str){ return str.toUpperCase(); });
+
+                return camelString;
+            },
+
+            formatTimestamp: function(timestamp, format) {
+                if (!format) format = 'h:m A MM/DD/YYYY';
+                return moment(timestamp).format(format);
             }
         };
 

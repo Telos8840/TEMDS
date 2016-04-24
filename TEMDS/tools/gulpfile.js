@@ -28,6 +28,7 @@ var paths = {
         'bower_components/lodash/lodash.min.js',
         'bower_components/path/path.min.js',
         'bower_components/angular/angular.min.js',
+        'bower_components/moment/min/moment.min.js',
         'bower_components/angular-xeditable/dist/js/xeditable.min.js',
         'bower_components/angular-modal-service/dst/angular-modal-service.min.js',
         'bower_components/a0-angular-storage/dist/angular-storage.min.js',

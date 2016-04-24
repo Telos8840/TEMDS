@@ -1,1 +1,50 @@
 $smoke:#f6f6f6;
+
+$order_status_unknown     : #BBBBBB;
+$order_status_created     : #36506C;
+$order_status_processing  : #3F6C49;
+$order_status_in_progress : #AACCFF;
+$order_status_delivered   : #00CC00;
+$order_status_declined    : #777777;
+$order_status_cancelled   : #CD0000;
+$order_status_on_hold     : #BEBE00;
+
+.color_order_status_unknown    {
+  background-color: $order_status_unknown;
+  border-color: darken($order_status_unknown, 10%) !important;
+}
+
+.color_order_status_created    {
+  background-color: $order_status_created;
+  border-color: darken($order_status_created, 10%) !important;
+}
+
+.color_order_status_processing {
+  background-color: $order_status_processing;
+  border-color: darken($order_status_processing, 10%) !important;
+}
+
+.color_order_status_in_progress{
+  background-color: $order_status_in_progress;
+  border-color: darken($order_status_in_progress, 10%) !important;
+}
+
+.color_order_status_delivered  {
+  background-color: $order_status_delivered;
+  border-color: darken($order_status_delivered, 10%) !important;
+}
+
+.color_order_status_declined   {
+  background-color: $order_status_declined;
+  border-color: darken($order_status_declined, 10%) !important;
+}
+
+.color_order_status_cancelled  {
+  background-color: $order_status_cancelled;
+  border-color: darken($order_status_cancelled, 10%) !important;
+}
+
+.color_order_status_on_hold    {
+  background-color: $order_status_on_hold;
+  border-color: darken($order_status_on_hold, 10%) !important;
+}

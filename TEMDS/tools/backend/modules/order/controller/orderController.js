@@ -15,8 +15,6 @@ var Collections = rq('collectionsModel');
  * @constructor
  */
 module.exports.GetOrderList = function (req, res) {
-    console.log('I AM HERE!!!!!!!!!');
-
     // Page number
     var pageNum = parseInt(req.params.pageNum);
     if (pageNum < 0) pageNum = 0;
@@ -31,24 +29,52 @@ module.exports.GetOrderList = function (req, res) {
     if (!sortBy) sortBy = 'insertDate';
 
     // Optional filter <Status>: listed item will be filtered out from the list
+    var statusFilter = [];
     _(req.query.filters.split(',')).forEach(function(value) {
-        console.log(value);
+        if (value && value != '')
+            statusFilter.push({status: parseInt(value)});
     });
-    var filters = 1;
 
+    // Build Query
+    var query = statusFilter.length > 0 ? { $or: statusFilter } : {};
 
-    console.log('pageNum> \n',pageNum,'itemsPerPage>\n', itemsPerPage, 'sortByAsc>\n',sortByAsc, 'filters>\n',filters);
+    // Get list's item count
+    var totalCount = -1;
 
-    // Query
-    var q = {};
-
-    //TODO: add pageNum/pageCount/filter/sort to the query
-    Orders.find({}).exec(function (err, result) {
+    Orders.count(query, function(err, count) {
         if (err) {
             return res.status(400)
-                .send ("Error on GetOrderList: \n" + err);
-        } else {
-            return res.status(200).json(result);
+                .send("Error on GetOrderList: Unable to get count.\n" + err);
         }
+
+        // Nothing found
+        if (count <= 0) {
+            return res.status(200).json({
+                list: [],
+                total: count
+            });
+        }
+
+        // Build sort
+        var sort  = {};
+        sort[sortBy] = sortByAsc ? 'asc' : 'desc';
+
+        // Return paginated result
+        Orders.find(query)
+            .sort(sort)
+            .skip(pageNum * itemsPerPage)
+            .limit(itemsPerPage)
+            .exec(function(err, result) {
+            if (err) {
+                return res.status(400)
+                    .send ("Error on GetOrderList: \n" + err);
+            }
+
+            return res.status(200).json({
+                list: result,
+                total: count,
+                page: pageNum
+            });
+        });
     });
 };

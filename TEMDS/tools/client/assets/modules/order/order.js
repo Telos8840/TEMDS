@@ -7,8 +7,8 @@ angular.module('order', ['ui.router'])
     .config(function ($stateProvider) {
         $stateProvider.state('orders', {
             url: '/orders',
-            templateUrl: 'templates/order/orders.html',
-            controller: 'OrderController',
+            templateUrl: 'templates/order/index.html',
+            controller: 'OrderListController',
             data: {
                 requiresLogin: true
             },

@@ -1,0 +1,110 @@
+<div id="order" class="grid-block vertical">
+    <div class="header">
+        <h1>Orders</h1>
+    </div>
+    <div id="content" class="grid-block vertical">
+
+        <div id="toolbox" class="contain-to-grid vertical">
+            <div class="grid-block">
+                <div class="grid-block" id="search">
+                    <span class="inline-label">
+                        <input type="search" ng-model="search" placeholder="Confirmation #">
+                        <a class="button" ng-click="searchOrder()">Search</a>
+                    </span>
+                </div>
+                <div class="shrink grid-block">
+                    <span class="inline-label">
+                        <span class="form-label">Display</span>
+                        <select ng-model="itemsPerPage" ng-change="refreshPage()">
+                            <option ng-repeat="qty in itemsPerPageOptions" value="{{qty}}">{{qty}}</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+            <div id="filter" class="grid-block">
+                <span class="inline-label">
+                    <span class="form-label">Filter by status:</span>
+                    <a class="button"
+                       ng-repeat="s in status"
+                       ng-class="s.addFilter ? 'info' : 'dark'"
+                       ng-click="setFilter($index)">{{s.status}}</a>
+                </span>
+            </div>
+        </div>
+
+        <div class="grid-content scroll-section" id="orderList">
+            <section class="block-list">
+                <ul>
+                    <li class="order-item header">
+                        <div class="row">
+                            <div class="confirmation">
+                                Confirmation
+                            </div>
+                            <div class="status">
+                                Order Status
+                            </div>
+                            <div class="date sortable" ng-click="sortListToggle('insertDate')">
+                                Created Date
+                                <i class="fa"
+                                   ng-show="listOptions.sortBy=='insertDate'"
+                                   ng-class="{'fa-angle-up': listOptions.sortByAsc,
+                                              'fa-angle-down': !listOptions.sortByAsc}"></i>
+                            </div>
+                            <div class="date sortable" ng-click="sortListToggle('modifiedDate')">
+                                Modified Date
+                                <i class="fa"
+                                   ng-show="listOptions.sortBy=='modifiedDate'"
+                                   ng-class="{'fa-angle-up': listOptions.sortByAsc,
+                                              'fa-angle-down': !listOptions.sortByAsc}"></i>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="order-item with-chevron" data-ng-repeat="order in orderList">
+                        <div class="row">
+                            <div class="confirmation">
+                                #{{order.confirmationNumber}}
+                            </div>
+                            <div class="status {{getStatusColorClassByCode(order.status)}}">
+                                {{getStatusDescription(order.status)}}
+                            </div>
+                            <div class="date">
+                                {{formatDate(order.insertDate)}}
+                            </div>
+                            <div class="date">
+                                {{formatDate(order.modifiedDate)}}
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </div>
+
+        <div id="pagination" class="grid-block shrink">
+            <div class="grid-block">
+                <a class="button"
+                   ng-class="{'selected': 0 == pageNumber}"
+                   ng-click="goToPage(0)">1</a>
+                <a class="button empty"
+                   ng-show="hasPrevious"
+                   ng-click="skipPages(false)">...</a>
+                <a class="button"
+                   ng-class="{'selected': p == pageNumber}"
+                   ng-repeat="p in pagination"
+                   ng-click="goToPage(p)">
+                    {{p + 1}}
+                </a>
+                <a class="button empty"
+                   ng-show="hasNext"
+                   ng-click="skipPages(true)">...</a>
+                <a class="button"
+                   ng-class="{'selected': totalPages == pageNumber}"
+                   ng-click="goToPage(totalPages)"
+                   ng-show="0 != totalPages">{{totalPages + 1}}</a>
+            </div>
+            <div class="shrink grid-block">
+                <span class="form-label" id="totalItems">Total {{totalItems}} orders</span>
+            </div>
+        </div>
+
+    </div>
+</div>
