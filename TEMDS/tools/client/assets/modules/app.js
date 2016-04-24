@@ -33,6 +33,7 @@ const _ORDER_STATUS_CREATED_ = 0,
         //temds
         'order',
         'venue',
+        'media',
         //foundation
         'foundation',
         'foundation.dynamicRouting',

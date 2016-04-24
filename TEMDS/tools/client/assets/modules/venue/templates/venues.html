@@ -51,22 +51,6 @@
                     <textarea id="description" ng-model="venue.description" placeholder="Description"></textarea>
                 </label>
 
-                <label>
-                    Thumbnail URL (50px x 50px)
-                    <span class="inline-label">
-                        <input type="file" id="thumbnail" accept='image/*' onchange="angular.element(this).scope().onChange(this.files)">
-                        <a href="#" class="button" ng-click="uploadImage('thumb')">Upload</a>
-                    </span>
-                </label>
-
-                <label>
-                    Image URL (at least 375px x 200px)
-                    <span class="inline-label">
-                        <input type="file" id="img">
-                        <a href="#" class="button" ng-click="uploadImage('img')">Upload</a>
-                    </span>
-                </label>
-
                 <div class="grid-block">
                     <div class="small-12 medium-5 grid-content">
                         <label>Category (required)</label>
@@ -169,16 +153,6 @@
                 <label>
                     Description (required)
                     <textarea id="editDescription" ng-model="editVenue.description" placeholder="Description"></textarea>
-                </label>
-
-                <label>
-                    Thumbnail URL (50px x 50px)
-                    <input type="text" id="editThumbnail" ng-model="editVenue.thumbnail" placeholder="Image URL">
-                </label>
-
-                <label>
-                    Image URL (at least 375px x 200px)
-                    <input type="text" id="editImg" ng-model="editVenue.img" placeholder="Image URL">
                 </label>
 
                 <div class="grid-block">

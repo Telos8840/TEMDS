@@ -1,0 +1,81 @@
+<script src="js/directives.js"></script>
+<div id="media" class="grid-block vertical">
+
+	<div class="grid-block shrink">
+		<div class="medium-3 grid-block">
+			<div class="grid-content"><h2 class="text-center">Venues</h2></div>
+		</div>
+		<div class="medium-9 grid-block">
+			<div class="grid-block large-up-3 v-align">
+				<div class="grid-block align-center">
+					<input type="file" accept='image/*' onchange="angular.element(this).scope().onChange(this.files, 'thumb')">
+				</div>
+
+				<div class="grid-block align-center">
+					<input type="radio" name="mediaType" value="Thumbnail" id="mediaThumbnail" ng-model="mediaType">
+					<label for="mediaThumbnail">Thumbnail</label>
+					<input type="radio" name="mediaType" value="Header" id="mediaHeader" ng-model="mediaType">
+					<label for="mediaHeader">Header Image</label>
+					<input type="radio" name="mediaType" value="Gallery" id="mediaGallery" ng-model="mediaType">
+					<label for="mediaGallery">Gallery</label>
+				</div>
+				<div class="grid-block align-center">
+					<a href="#" class="button" ng-click="uploadImage()">
+						<i class="fa fa-cloud-upload fa-fw"></i>
+						Upload
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="grid-block">
+		<div class="medium-3 grid-block ">
+			<div class="grid-content scroll-section v-align">
+				<section id="venueList" class="block-list align-top">
+					<ul>
+						<li class="with-chevron" data-ng-repeat="venue in venueNames | orderBy:'name'">
+							<a ng-click="getVenueImages(venue)">{{venue.name}}</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</div>
+
+		<div class="medium-9 grid-block" id="gallery">
+			<div class="vertical grid-block">
+				<div id="firstRowImages" class="grid-block large-up-2">
+					<div class="grid-block align-center">
+						<div class="v-align">
+							<div class="align-center">
+								<a href="http://placehold.it/100x100">
+							<img class="thumbnail" src="http://placehold.it/100x100">
+							<h4 class="text-center">Thumbnail</h4>
+						</a>
+							</div>
+						</div>
+
+					</div>
+					<div class="grid-block align-center">
+						<a href="http://placehold.it/375x200">
+							<img class="thumbnail" src="http://placehold.it/375x200">
+							<h4 class="text-center">Header Image</h4>
+						</a>
+					</div>
+				</div>
+
+				<hr>
+
+				<h3 class="text-center">Gallery</h3>
+				<div class="grid-block large-up-3">
+					<div class="grid-content" data-ng-repeat="item in [1,2,3,4,5,6]">
+						<a href="http://placehold.it/350x350">
+							<img class="thumbnail" src="http://placehold.it/250x250">
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

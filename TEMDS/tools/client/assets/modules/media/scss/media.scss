@@ -1,0 +1,30 @@
+#media {
+	background: url('/assets/images/city-bg-1.jpg');
+	background-size:cover;
+	color:$smoke;
+
+	h1,h2,h3,h4,h5,h6,a,small,label{
+		color: $smoke;
+	}
+	#content{
+		background-color: rgba(0, 0, 0, 0.4);
+		padding: 2rem 1rem;
+	}
+	li a:hover {
+		background: #746D67;
+	}
+	li.with-chevron::after {
+		color: #ffffff;
+	}
+	#venueList {
+		width: 100%;
+	}
+	#firstRowImages {
+		min-height: 250px;
+	}
+	hr {
+		border: 0;
+		height: 1px;
+		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+	}
+}

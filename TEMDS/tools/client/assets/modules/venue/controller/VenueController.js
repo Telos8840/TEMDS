@@ -291,37 +291,5 @@ angular.module('venue')
 				$scope.venueNames = newVenues;
 			});
 		};
-
-		$scope.uploadImage = function (type) {
-			console.log($scope.venue.thumbnail);
-			switch (type) {
-				case 'thumb':
-					console.log(type);
-					break;
-
-				case 'img':
-					console.log(type, $scope.venue.img);
-					break;
-			}
-
-		};
-		
-		$scope.onChange = function (img) {
-			if (img.length > 0) {
-				console.log('changing', img[0].name);
-				console.log('thumb', $scope.venue.thumbnail);
-				$scope.$apply(function() {
-					$scope.venue.thumbnail = img[0].name;
-				});
-
-				VenueFactory.signAmazon(img).then(function (signed) {
-					console.log('ama signed', signed);
-				});
-			}
-			console.log('thumb', $scope.venue.thumbnail);
-
-		};
-
-
 	});
 

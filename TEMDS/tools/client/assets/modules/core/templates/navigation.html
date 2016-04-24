@@ -45,6 +45,13 @@
                   </a>
               </li>
               <li data-ng-if="auth.checkRole('admin')">
+                  <a ui-sref="media">
+                         <span>
+                              <i class="fa fa-camera-retro fa-fw"></i>Media
+                         </span>
+                  </a>
+              </li>
+              <li data-ng-if="auth.checkRole('admin')">
                   <a ui-sref="orders">
                          <span>
                               <i class="fa fa-truck fa-fw"></i>Orders

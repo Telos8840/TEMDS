@@ -4,9 +4,10 @@
  * Date: 10/7/15
  * Time: 10:45 PM
  */
+
 'use strict';
 angular.module('venue')
-    .factory('VenueFactory', function (API_URL, $http, NotificationFactory, $q) {
+    .factory('VenueFactory', function (API_URL, $http, NotificationFactory, $q, path) {
         var venue = {},
             venueNotes = new NotificationFactory({
                 id: 'venueNotes',
@@ -71,22 +72,6 @@ angular.module('venue')
                         autoclose: 5000
                     });
                 });
-        };
-
-        venue.signAmazon = function (file) {
-            var encName = encodeURIComponent(file[0].name);
-            console.log('file', encName);
-            console.log('type', file[0].type);
-            var deferred = $q.defer();
-            $http.get(API_URL + '/venue/signamazon/' + encName + '/' + file[0].type)
-                .then(function success(response) {
-                    deferred.resolve(response.data);
-                }, function error() {
-                    deferred.reject({
-                        message: 'unable to sign into Amazon'
-                    });
-                });
-            return deferred.promise;
         };
 
         return venue;
