@@ -180,7 +180,7 @@ module.exports = function (server, db) {
    * @param pageNumber
    * @param itemsPerPage
    */
-  server.get('api/delivery/getDeliveryHistory', function (req, res, next) {
+  server.get('api/delivery/getDeliveryHistory/:uId/:pageNumber/:itemsPerPage', function (req, res, next) {
     console.log("\n *** Getting delivery history for user " + req.params.uId + "*** \n");
 
     token.validate(req, res, function () {
@@ -189,15 +189,20 @@ module.exports = function (server, db) {
         itemsPerPage  = req.params.itemsPerPage,
         skip          = itemsPerPage * (pageNumber - 1);
 
-      db.deliveries.find({ uId: uId }, {_id: true, status: true, insertDate: true},
+      db.deliveries.find({ uId: uId }, {_id: true, confirmationNumber: true, status: true, insertDate: true},
         function (err, dbOrders) {
           if (err) response.error(res, "Error getting deliveries for user id - " + uId);
           else if (!dbOrders) response.error(res, "Can't find deliveries for user id - " + uId);
           else {
             var totalOrders = _.size(dbOrders),
               totalPages  = _.ceil(totalOrders/itemsPerPage),
-              orderList   = dbOrders.slice(skip, skip + itemsPerPage),
-              json        = {
+              orderList   = dbOrders.slice(skip, skip + itemsPerPage);
+
+	          orderList = _.sortBy(orderList, function (o) {
+		         return new Date(o.insertDate);
+	          });
+	          
+              var json = {
                 items: orderList,
                 totalPages: totalPages
               };
