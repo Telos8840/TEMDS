@@ -7,7 +7,7 @@
 
 'use strict';
 angular.module('venue')
-    .factory('VenueFactory', function (API_URL, $http, NotificationFactory, $q, path) {
+    .factory('VenueFactory', function (API_URL, $http, NotificationFactory, $q) {
         var venue = {},
             venueNotes = new NotificationFactory({
                 id: 'venueNotes',

@@ -15,6 +15,21 @@ var OrderSchema = new Schema({
         type: String,
         required: true
     },
+    recipient: {
+        type: String,
+        default: '',
+        required: false
+    },
+    orders: {
+        type: Object,
+        default: {},
+        required: false
+    },
+    deliveryAddress: {
+        type: Object,
+        default: {},
+        required: false
+    },
     status: {
         type: Number,
         required: true

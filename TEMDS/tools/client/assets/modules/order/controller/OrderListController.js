@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('order')
-    .controller('OrderListController', function($scope, $timeout, OrderFactory, helper, appParams, NotificationFactory) {
+    .controller('OrderListController', function($scope, $state, $timeout, OrderFactory, helper, appParams, NotificationFactory) {
         const FILTER_SWITCH_FETCH_LIMIT_TIME = 500;
         const VISIBLE_PAGE_COUNT_PER_SIDE = 3; // excludes first and last
         var _filterTimeout;
@@ -19,11 +19,11 @@ angular.module('order')
          * Fetch list of orders
          */
         function getOrderList() {
-            OrderFactory.GetOrderList($scope.pageNumber, $scope.itemsPerPage, $scope.listOptions)
+            OrderFactory.GetOrderList($scope.pgOptions.pageNumber, $scope.pgOptions.itemsPerPage, $scope.listOptions)
                 .then(function(data) {
                     $scope.orderList  = data.list;
                     $scope.totalItems = data.total;
-                    $scope.pageNumber = data.page;
+                    $scope.pgOptions.pageNumber = data.page;
                     processPagination();
                 });
         }
@@ -32,15 +32,16 @@ angular.module('order')
          * Set filters/sort to default status
          */
         function setDefault() {
-            $scope.itemsPerPageOptions = [20, 50, 100, 200];
-            $scope.itemsPerPage = $scope.itemsPerPageOptions[0];
-            $scope.pageNumber = 0;
-            $scope.itemCounts = 0;
-            $scope.search = "";
+            $scope.pgOptions = {
+                itemsPerPageOptions: [20, 50, 100, 200],
+                itemsPerPage: 20,
+                pageNumber: 0
+            };
+            $scope.search = ''; //TODO: might need to wrap this in an object
 
             $scope.status = [];
             for (var s in appParams.OrderStatus) {
-                if (s != 'Unknown')
+                if (s !== 'Unknown')
                 $scope.status.push( {
                     status: helper.camelToNormalString(s, true),
                     code: appParams.OrderStatus[s],
@@ -65,12 +66,12 @@ angular.module('order')
 
             if ($scope.totalItems === 0) {
                 $scope.totalPages = 0;
-                $scope.pageNumber = 0;
+                $scope.pgOptions.pageNumber = 0;
                 $scope.hasPrevious = false;
                 $scope.hasNext = false;
             } else {
-                $scope.totalPages = Math.ceil($scope.totalItems / $scope.itemsPerPage) - 1;
-                $scope.pageNumber = Math.min($scope.pageNumber, $scope.totalPages);
+                $scope.totalPages = Math.ceil($scope.totalItems / $scope.pgOptions.itemsPerPage) - 1;
+                $scope.pgOptions.pageNumber = Math.min($scope.pgOptions.pageNumber, $scope.totalPages);
 
                 var paginationCutoffs = getBegEndOfPagination();
 
@@ -94,19 +95,19 @@ angular.module('order')
 
             if ($scope.totalPages > visiblePgTotalCount) {
                 // 0 ... (VISIBLE_PAGE_COUNT_PER_SIDE-1)
-                if ($scope.pageNumber < VISIBLE_PAGE_COUNT_PER_SIDE + 1) {
-                    var nextAvailablePgCount = visiblePgTotalCount - ($scope.pageNumber - VISIBLE_PAGE_COUNT_PER_SIDE) - 2;
-                    end = Math.min($scope.pageNumber + nextAvailablePgCount, $scope.totalPages - 1);
+                if ($scope.pgOptions.pageNumber < VISIBLE_PAGE_COUNT_PER_SIDE + 1) {
+                    var nextAvailablePgCount = visiblePgTotalCount - ($scope.pgOptions.pageNumber - VISIBLE_PAGE_COUNT_PER_SIDE) - 2;
+                    end = Math.min($scope.pgOptions.pageNumber + nextAvailablePgCount, $scope.totalPages - 1);
                 }
                 // (Total - VISIBLE_PAGE_COUNT_PER_SIDE) ... Total
-                else if ($scope.pageNumber >= ($scope.totalPages - VISIBLE_PAGE_COUNT_PER_SIDE)) {
-                    var prevAvailablePgCount = visiblePgTotalCount - ($scope.totalPages - $scope.pageNumber - 1);
-                    beg = Math.max($scope.pageNumber - prevAvailablePgCount, 1);
+                else if ($scope.pgOptions.pageNumber >= ($scope.totalPages - VISIBLE_PAGE_COUNT_PER_SIDE)) {
+                    var prevAvailablePgCount = visiblePgTotalCount - ($scope.totalPages - $scope.pgOptions.pageNumber - 1);
+                    beg = Math.max($scope.pgOptions.pageNumber - prevAvailablePgCount, 1);
                 }
                 // Somewhere in the center
                 else {
-                    beg = Math.max($scope.pageNumber - VISIBLE_PAGE_COUNT_PER_SIDE, 1);
-                    end = Math.min($scope.pageNumber + VISIBLE_PAGE_COUNT_PER_SIDE, $scope.totalPages - 1);
+                    beg = Math.max($scope.pgOptions.pageNumber - VISIBLE_PAGE_COUNT_PER_SIDE, 1);
+                    end = Math.min($scope.pgOptions.pageNumber + VISIBLE_PAGE_COUNT_PER_SIDE, $scope.totalPages - 1);
                 }
             }
 
@@ -128,7 +129,7 @@ angular.module('order')
          */
         $scope.setFilter = function(index){
             if (_filterTimeout) $timeout.cancel(_filterTimeout);
-            $scope.pageNumber = 0;
+            $scope.pgOptions.pageNumber = 0;
             $scope.status[index].addFilter = !$scope.status[index].addFilter;
             var newFilter = [];
 
@@ -146,9 +147,8 @@ angular.module('order')
          * @param index
          */
         $scope.goToPage = function(index) {
-            console.log(index);
-            if (index != $scope.pageNumber) {
-                $scope.pageNumber = Math.min(Math.max(index, 0), $scope.totalPages);
+            if (index != $scope.pgOptions.pageNumber) {
+                $scope.pgOptions.pageNumber = Math.min(Math.max(index, 0), $scope.totalPages);
                 getOrderList();
             }
         };
@@ -171,7 +171,7 @@ angular.module('order')
          * Fetch the list again, starting from index 0 page
          */
         $scope.refreshPage = function() {
-            $scope.pageNumber = 0;
+            $scope.pgOptions.pageNumber = 0;
             getOrderList();
         };
 
@@ -229,8 +229,7 @@ angular.module('order')
          * New sortBy will start the list with desc.
          * @param sortBy
          */
-        $scope.sortListToggle= function(sortBy) {
-            console.log(sortBy);
+        $scope.sortListToggle = function(sortBy) {
             if (sortBy === $scope.listOptions.sortBy) {
                 this.listOptions.sortByAsc = !this.listOptions.sortByAsc;
             } else {

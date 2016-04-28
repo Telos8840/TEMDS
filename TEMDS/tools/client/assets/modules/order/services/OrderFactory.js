@@ -37,5 +37,26 @@ angular.module('order')
             return deferred.promise;
         };
 
+        order.GetOrderDetail = function(id) {
+            var deferred = $q.defer();
+
+            var api = path.join(API_URL, '/order/', String(id));
+            $http.get(api)
+                .then(function(response) {
+                    deferred.resolve(response.data);
+                }, function error(err) {
+                    deferred.reject({
+                        message: 'Error on GetOrderDetail:\n' + err
+                    });
+                    notification.addNotification({
+                        title: 'Error',
+                        content: err.data,
+                        autoclose: NOTIFICATION_AUTO_CLOSE_TIMEOUT
+                    });
+                });
+
+            return deferred.promise;
+        };
+
         return order;
     });

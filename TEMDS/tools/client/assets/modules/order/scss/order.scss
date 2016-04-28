@@ -7,15 +7,54 @@
     color: $smoke;
   }
   #content{
-    #orderList {
+    #orderHeader, #orderList {
       background-color: rgba(0, 0, 0, 0.4);
       min-width: 750px;
-      margin: 0 2em 2em 2em;
       .order-item {
         width: 100%;
         height: 42px;
+      }
+      .confirmation {
+        height: 40px;
+        width: 180px;
+        padding-left: 1em;
+        line-height: 40px;
+        color: white;
+        font-size: large;
+        font-weight: bold;
+        float: left;
+      }
+      .status {
+        height: 30px;
+        line-height: 30px;
+        margin: 5px 5px;
+        border-radius: 5px;
+        width: -webkit-calc(100% - 592px);
+        width: -moz-calc(100% - 592px);
+        width: calc(100% - 592px);
+        text-align: center;
+        float: left;
+        border: 1px solid;
+      }
+      .date {
+        line-height: 40px;
+        height: 40px;
+        min-width: 190px;
+        float: left;
+        text-align: center;
+      }
+      span { margin-bottom: 0; }
+    }
+    #orderHeader {
+      margin: 2em 2em 0 2em;
+      overflow: visible;
+      z-index: 9;
+      border-bottom: 1px solid white;
+      ul {margin:0;}
+      section {margin-bottom: 0;}
+      .order-item {
         &.header {
-          margin:0;
+          margin: 0;
           .confirmation {
             font-weight: normal;
           }
@@ -23,10 +62,18 @@
             border: none;
           }
           .sortable:hover {
-            background-color: rgba(255,255,255,0.2);
+            background-color: rgba(255, 255, 255, 0.2);
             cursor: pointer;
           }
         }
+      }
+    }
+    #orderList {
+      margin: 0 2em 2em 2em;
+      li{transition: background-color 0.2s}
+      li:first-child{border-top: none;}
+      li:hover {background-color: rgba(255,255,255,0.15);}
+      .order-item {
         // Animation
         &.ng-enter {
           -webkit-transition: 0.1s ease-in-out transform;
@@ -45,38 +92,6 @@
           transition-delay: 0.075s;
           -webkit-transition-duration: 0s;
           transition-duration: 0s;
-        }
-        span {
-          margin-bottom: 0;
-        }
-        .confirmation {
-          height: 40px;
-          width: 180px;
-          padding-left: 1em;
-          line-height: 40px;
-          color: white;
-          font-size: large;
-          font-weight: bold;
-          float: left;
-        }
-        .status {
-          height: 30px;
-          line-height: 30px;
-          margin: 5px 5px;
-          border-radius: 5px;
-          width: -webkit-calc(100% - 592px);
-          width: -moz-calc(100% - 592px);
-          width: calc(100% - 592px);
-          text-align: center;
-          float: left;
-          border: 1px solid;
-        }
-        .date {
-          line-height: 40px;
-          height: 40px;
-          min-width: 190px;
-          float: left;
-          text-align: center;
         }
       }
     }

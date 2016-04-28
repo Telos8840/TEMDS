@@ -44,7 +44,7 @@ module.exports.GetOrderList = function (req, res) {
     Orders.count(query, function(err, count) {
         if (err) {
             return res.status(400)
-                .send("Error on GetOrderList: Unable to get count.\n" + err);
+                .send('Error on GetOrderList: Unable to get count.\n' + err);
         }
 
         // Nothing found
@@ -67,7 +67,7 @@ module.exports.GetOrderList = function (req, res) {
             .exec(function(err, result) {
             if (err) {
                 return res.status(400)
-                    .send ("Error on GetOrderList: \n" + err);
+                    .send ('Error on GetOrderList: \n' + err);
             }
 
             return res.status(200).json({
@@ -78,3 +78,21 @@ module.exports.GetOrderList = function (req, res) {
         });
     });
 };
+
+module.exports.GetOrderDetail = function(req, res) {
+    var oid = req.params.orderId;
+
+    Orders
+        .find({_id: oid})
+        .exec(function(err, result) {
+            if (err) {
+                return res.status(400)
+                    .send ('Error on GetOrderDetail: \n' + err);
+            }
+            if (result.length <= 0)
+                return res.status(400)
+                    .send ('Error on GetOrderDetail: Unable to find order with id "' + oid + '" \n' + err);
+
+            return res.status(200).json(result[0]);
+        })
+}
