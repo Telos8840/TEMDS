@@ -23,7 +23,7 @@
         'core',
         'auth',
         'account',
-        'usermanagement',
+        'user',
         //temds
         'order',
         'venue',

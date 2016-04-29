@@ -51,7 +51,7 @@ app.use(function (err, req, res, next) {
 });
 //Routes
 app.use('/api/auth', rq('authRoutes'));
-app.use('/api/usermanagement', rq('usermanagementRoutes'));
+app.use('/api/user', rq('userRoutes'));
 app.use('/api/venue', rq('venueRoutes'));
 app.use('/api/order', rq('orderRoutes'));
 

@@ -38,9 +38,6 @@ module.exports.GetOrderList = function (req, res) {
     // Build Query
     var query = statusFilter.length > 0 ? { $or: statusFilter } : {};
 
-    // Get list's item count
-    var totalCount = -1;
-
     Orders.count(query, function(err, count) {
         if (err) {
             return res.status(400)
@@ -80,19 +77,19 @@ module.exports.GetOrderList = function (req, res) {
 };
 
 module.exports.GetOrderDetail = function(req, res) {
-    var oid = req.params.orderId;
+    var oId = req.params.orderId;
 
     Orders
-        .find({_id: oid})
-        .exec(function(err, result) {
+        .findOne({_id: oId})
+        .exec(function(err, order) {
             if (err) {
                 return res.status(400)
                     .send ('Error on GetOrderDetail: \n' + err);
             }
-            if (result.length <= 0)
-                return res.status(400)
-                    .send ('Error on GetOrderDetail: Unable to find order with id "' + oid + '" \n' + err);
+            if (order === null)
+                return res.status(404)
+                    .send ('Error on GetOrderDetail: Unable to find order with id "' + oId + '" \n' + err);
 
-            return res.status(200).json(result[0]);
+            return res.status(200).json(order);
         })
 }

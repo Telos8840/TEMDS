@@ -3,15 +3,15 @@
  */
 'use strict';
 
-const NOTIFICATION_AUTO_CLOSE_TIMEOUT = 5000;
+
 
 angular.module('order')
-    .factory('OrderFactory', function (API_URL, $http, NotificationFactory, $q, helper, path) {
+    .factory('OrderFactory', function (API_URL, $http, NotificationFactory, $q, helper, path, appParams) {
         var order = {},
-            notification = new NotificationFactory({
-                id: 'orderNotification',
-                position: 'top-middle'
-            });
+        notification = new NotificationFactory({
+            id: 'orderNotification',
+            position: 'top-middle'
+        });
 
         order.GetOrderList = function(pageNum, itemsPerPage, query) {
             var deferred = $q.defer();
@@ -30,7 +30,7 @@ angular.module('order')
                     notification.addNotification({
                         title: 'Error',
                         content: err.data,
-                        autoclose: NOTIFICATION_AUTO_CLOSE_TIMEOUT
+                        autoclose: appParams.Constants.NOTIFICATION_AUTO_CLOSE_TIMEOUT
                     });
                 });
 
@@ -51,7 +51,7 @@ angular.module('order')
                     notification.addNotification({
                         title: 'Error',
                         content: err.data,
-                        autoclose: NOTIFICATION_AUTO_CLOSE_TIMEOUT
+                        autoclose: appParams.Constants.NOTIFICATION_AUTO_CLOSE_TIMEOUT
                     });
                 });
 

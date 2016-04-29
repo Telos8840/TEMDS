@@ -18,5 +18,12 @@ angular.module('const', [])
             Denied: 4,
             Cancelled: 5,
             OnHold: 6
+        },
+
+        /**
+         * Application Constant Variables
+         */
+        Constants: {
+            NOTIFICATION_AUTO_CLOSE_TIMEOUT: 5000
         }
     });

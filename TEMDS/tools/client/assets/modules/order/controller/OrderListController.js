@@ -11,9 +11,65 @@ angular.module('order')
 
         // TEMP
         var notification = new NotificationFactory({
-            id: 'orderNotification',
+            id: 'orderListNotification',
             position: 'top-middle'
         });
+
+        /**
+         * Calculate the beginning of visible page number
+         * and end of visible page number, excluding first
+         * page and last page.
+         * @returns {{beg: number, end: number}}
+         */
+        function getBegEndOfPagination() {
+            var visiblePgTotalCount = VISIBLE_PAGE_COUNT_PER_SIDE * 2;
+            var beg = 1, end = $scope.totalPages - 1;
+
+            if ($scope.totalPages > visiblePgTotalCount) {
+                // 0 ... (VISIBLE_PAGE_COUNT_PER_SIDE-1)
+                if ($scope.pgOptions.pageNumber < VISIBLE_PAGE_COUNT_PER_SIDE + 1) {
+                    var nextAvailablePgCount = visiblePgTotalCount - ($scope.pgOptions.pageNumber - VISIBLE_PAGE_COUNT_PER_SIDE) - 2;
+                    end = Math.min($scope.pgOptions.pageNumber + nextAvailablePgCount, $scope.totalPages - 1);
+                }
+                // (Total - VISIBLE_PAGE_COUNT_PER_SIDE) ... Total
+                else if ($scope.pgOptions.pageNumber >= ($scope.totalPages - VISIBLE_PAGE_COUNT_PER_SIDE)) {
+                    var prevAvailablePgCount = visiblePgTotalCount - ($scope.totalPages - $scope.pgOptions.pageNumber - 1);
+                    beg = Math.max($scope.pgOptions.pageNumber - prevAvailablePgCount, 1);
+                }
+                // Somewhere in the center
+                else {
+                    beg = Math.max($scope.pgOptions.pageNumber - VISIBLE_PAGE_COUNT_PER_SIDE, 1);
+                    end = Math.min($scope.pgOptions.pageNumber + VISIBLE_PAGE_COUNT_PER_SIDE, $scope.totalPages - 1);
+                }
+            }
+
+            return {beg: beg, end: end};
+        }
+
+        /**
+         * Create pagination
+         */
+        function processPagination() {
+            $scope.pagination = [];
+
+            if ($scope.totalItems === 0) {
+                $scope.totalPages = 0;
+                $scope.pgOptions.pageNumber = 0;
+                $scope.hasPrevious = false;
+                $scope.hasNext = false;
+            } else {
+                $scope.totalPages = Math.ceil($scope.totalItems / $scope.pgOptions.itemsPerPage) - 1;
+                $scope.pgOptions.pageNumber = Math.min($scope.pgOptions.pageNumber, $scope.totalPages);
+
+                var paginationCutoffs = getBegEndOfPagination();
+
+                $scope.hasPrevious = paginationCutoffs.beg > 1;
+                $scope.hasNext = paginationCutoffs.end < $scope.totalPages - 1;
+
+                for (var i = paginationCutoffs.beg; i <= paginationCutoffs.end; i++)
+                    $scope.pagination.push(i);
+            }
+        }
 
         /**
          * Fetch list of orders
@@ -58,65 +114,7 @@ angular.module('order')
             getOrderList();
         }
 
-        /**
-         * Create pagination
-         */
-        function processPagination() {
-            $scope.pagination = [];
-
-            if ($scope.totalItems === 0) {
-                $scope.totalPages = 0;
-                $scope.pgOptions.pageNumber = 0;
-                $scope.hasPrevious = false;
-                $scope.hasNext = false;
-            } else {
-                $scope.totalPages = Math.ceil($scope.totalItems / $scope.pgOptions.itemsPerPage) - 1;
-                $scope.pgOptions.pageNumber = Math.min($scope.pgOptions.pageNumber, $scope.totalPages);
-
-                var paginationCutoffs = getBegEndOfPagination();
-
-                $scope.hasPrevious = paginationCutoffs.beg > 1;
-                $scope.hasNext = paginationCutoffs.end < $scope.totalPages - 1;
-
-                for (var i = paginationCutoffs.beg; i <= paginationCutoffs.end; i++)
-                    $scope.pagination.push(i);
-            }
-        }
-
-        /**
-         * Calculate the beginning of visible page number
-         * and end of visible page number, excluding first
-         * page and last page.
-         * @returns {{beg: number, end: number}}
-         */
-        function getBegEndOfPagination() {
-            var visiblePgTotalCount = VISIBLE_PAGE_COUNT_PER_SIDE * 2;
-            var beg = 1, end = $scope.totalPages - 1;
-
-            if ($scope.totalPages > visiblePgTotalCount) {
-                // 0 ... (VISIBLE_PAGE_COUNT_PER_SIDE-1)
-                if ($scope.pgOptions.pageNumber < VISIBLE_PAGE_COUNT_PER_SIDE + 1) {
-                    var nextAvailablePgCount = visiblePgTotalCount - ($scope.pgOptions.pageNumber - VISIBLE_PAGE_COUNT_PER_SIDE) - 2;
-                    end = Math.min($scope.pgOptions.pageNumber + nextAvailablePgCount, $scope.totalPages - 1);
-                }
-                // (Total - VISIBLE_PAGE_COUNT_PER_SIDE) ... Total
-                else if ($scope.pgOptions.pageNumber >= ($scope.totalPages - VISIBLE_PAGE_COUNT_PER_SIDE)) {
-                    var prevAvailablePgCount = visiblePgTotalCount - ($scope.totalPages - $scope.pgOptions.pageNumber - 1);
-                    beg = Math.max($scope.pgOptions.pageNumber - prevAvailablePgCount, 1);
-                }
-                // Somewhere in the center
-                else {
-                    beg = Math.max($scope.pgOptions.pageNumber - VISIBLE_PAGE_COUNT_PER_SIDE, 1);
-                    end = Math.min($scope.pgOptions.pageNumber + VISIBLE_PAGE_COUNT_PER_SIDE, $scope.totalPages - 1);
-                }
-            }
-
-            return {beg: beg, end: end};
-        }
-
         setDefault();
-
-
 
         // Scope Methods
 
@@ -147,7 +145,7 @@ angular.module('order')
          * @param index
          */
         $scope.goToPage = function(index) {
-            if (index != $scope.pgOptions.pageNumber) {
+            if (index !== $scope.pgOptions.pageNumber) {
                 $scope.pgOptions.pageNumber = Math.min(Math.max(index, 0), $scope.totalPages);
                 getOrderList();
             }
@@ -197,11 +195,11 @@ angular.module('order')
          */
         $scope.getStatusDescription = function(code) {
             for (var s in appParams.OrderStatus) {
-                if (code == appParams.OrderStatus[s])
+                if (code === appParams.OrderStatus[s])
                     return helper.camelToNormalString(s, true).trim();
             }
 
-            return "Unknown";
+            return 'Unknown';
         };
 
         /**
