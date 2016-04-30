@@ -25,7 +25,10 @@ var paths = {
         'bower_components/fastclick/lib/fastclick.js',
         'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
         'bower_components/tether/tether.js',
+        'bower_components/angular-simple-logger/dist/angular-simple-logger.min.js',
         'bower_components/lodash/lodash.min.js',
+        'bower_components/lodash/angular-google-maps.min.js',
+        '//maps.googleapis.com/maps/api/js?sensor=false',
         'bower_components/path/path.min.js',
         'bower_components/angular/angular.min.js',
         'bower_components/moment/min/moment.min.js',
@@ -43,7 +46,7 @@ var paths = {
     // These files are for your app's JavaScript
     appJS: [
         'client/assets/modules/app.js',
-        'client/assets/modules/**/*.js'
+        'client/assets/modules/**/*.js',
     ]
 };
 // 3. TASKS

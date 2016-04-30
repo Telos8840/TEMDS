@@ -22,8 +22,8 @@ angular.module('order')
          *     After fetching order detail, get user detail from its uid
          * @param uid
          */
-        function getUserDetail(uId) {
-            UserFactory.getUserDetailById(uId)
+        function getUser(uId) {
+            UserFactory.getUserById(uId)
                 .then(function(data) {
                     $scope.user = data;
                     console.log('User> ', data); //TODO: debug use
@@ -46,7 +46,7 @@ angular.module('order')
                 .then(function(data) {
                     $scope.order = data;
                     console.log('Order> ',data); //TODO: debug use
-                    getUserDetail($scope.order.uId);
+                    getUser($scope.order.uId);
                 });
         }
 
@@ -56,5 +56,66 @@ angular.module('order')
             autoclose: 200
         });
 
+        // Scope Methods
+
+        // Google Map
+        /*
+        uiGmapGoogleMapApi.then(function(maps) {
+            VenueService.getVenueDetail(venueId)
+                .then(function (data) {
+                    $scope.venue = data;
+                    // Get Location
+                    var geocoder = new google.maps.Geocoder();
+                    if (geocoder) {
+                        geocoder.geocode({
+                            'address': $scope.venue.address.addr1 + ', ' +
+                            $scope.venue.address.city + ', ' +
+                            $scope.venue.address.state + ' ' +
+                            $scope.venue.address.zipcode
+                        }, function (results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+                                    var lat = results[0].geometry.location.lat();
+                                    var lng = results[0].geometry.location.lng();
+                                    $scope.map = {
+                                        'center': {
+                                            latitude: lat,
+                                            longitude: lng
+                                        },
+                                        'options': {
+                                            'zoomControl': false,
+                                            'minZoom': 12,
+                                            'maxZoom': 20,
+                                            'mapTypeControl': false,
+                                            'streetViewControl': false,
+                                            'draggable': true,
+                                            'panControl': false,
+                                            'optimized': true,
+                                            'mapTypeId': 'roadmap',
+                                            'styles': _MAP_STYLE_
+                                        },
+                                        'zoom': 13
+                                    };
+
+                                    $scope.map.markers = [{
+                                        'id': '50651',
+                                        'latitude': lat,
+                                        'longitude': lng,
+                                        'options': {
+                                            'animation': 1
+                                        }
+                                    }];
+                                } else {
+                                    cosnole.log('No results found');
+                                }
+                            } else {
+                                console.log('Geocode was not successful for the following reason: ' + status);
+                            }
+                        });
+                    } else {console.log('WTF IS GEOCODE? I NO HAVE!');}
+                });
+        });*/
+
+        // Init
         getOrderDetail();
     });

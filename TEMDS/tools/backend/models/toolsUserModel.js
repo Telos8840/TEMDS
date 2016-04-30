@@ -1,8 +1,10 @@
 'use strict';
+
 var mongoose = require('mongoose'),
     bcrypt = require('bcryptjs'),
     Schema = mongoose.Schema;
-var UserSchema = new Schema({
+
+var ToolsUserSchema = new Schema({
     username: {
         type: String,
         unique: true,
@@ -55,7 +57,8 @@ var UserSchema = new Schema({
         virtuals: true
     }
 });
-UserSchema.pre('save', function(next) {
+
+ToolsUserSchema.pre('save', function(next) {
     var user = this;
     if (this.isModified('password') || this.isNew) {
         bcrypt.genSalt(10, function(err, salt) {
@@ -74,7 +77,8 @@ UserSchema.pre('save', function(next) {
         return next();
     }
 });
-UserSchema.methods.compare = function(passw, cb) {
+
+ToolsUserSchema.methods.compare = function(passw, cb) {
     bcrypt.compare(passw, this.password, function(err, isMatch) {
         if (err) {
             return cb(err);
@@ -82,4 +86,5 @@ UserSchema.methods.compare = function(passw, cb) {
         cb(null, isMatch);
     });
 };
-module.exports = mongoose.model('tools_users', UserSchema);
+
+module.exports = mongoose.model('tools_users', ToolsUserSchema);

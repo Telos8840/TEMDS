@@ -21,7 +21,7 @@ angular.module('order', ['ui.router'])
             })
             .state('orders.detail', {
                 url: '/:orderId',
-                templateUrl: "templates/order/detail.html",
+                templateUrl: 'templates/order/detail.html',
                 controller: 'OrderDetailController',
                 data: {
                     requiresLogin: true

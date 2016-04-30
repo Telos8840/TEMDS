@@ -32,7 +32,7 @@ angular.module('user')
          */
         function getUserDetailById(uId) {
             var deferred = $q.defer();
-            var api = path.join(API_URL, '/user/clients', String(uId));
+            var api = path.join(API_URL, '/user/clients', String(uId), 'detail');
 
             $http.get(api)
                 .then(function success(response) {
@@ -53,10 +53,37 @@ angular.module('user')
             return deferred.promise;
         }
 
+        /**
+         * Get client user account info + detail by user id
+         * @param uId
+         * @returns {*}
+         */
+        function getUserById(uId) {
+            var deferred = $q.defer();
+            var api = path.join(API_URL, '/user/clients', String(uId));
+
+            $http.get(api)
+                .then(function success(response) {
+                    deferred.resolve(response.data);
+                }, function error(err) {
+                    var message = 'Error on getUserById:\n' + err.data;
+
+                    deferred.reject({message: message});
+                    notification.addNotification({
+                        title: 'Error',
+                        content: message,
+                        autoclose: appParams.Constants.NOTIFICATION_AUTO_CLOSE_TIMEOUT
+                    });
+                });
+
+            return deferred.promise;
+        }
+
         return {
             getUsers: getUsers,
             updateUser: updateUser,
             getUserDetailById: getUserDetailById,
+            getUserById: getUserById,
             roles: ['registered', 'user', 'editor', 'admin', 'manager']
         };
     });

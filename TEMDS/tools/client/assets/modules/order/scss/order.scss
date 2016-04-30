@@ -48,7 +48,7 @@
     #orderHeader {
       margin: 2em 2em 0 2em;
       overflow: visible;
-      z-index: 9;
+      z-index: 0;
       border-bottom: 1px solid white;
       ul {margin:0;}
       section {margin-bottom: 0;}
@@ -159,5 +159,67 @@
       &.empty {background-color: rgba(0,0,0,0);}
     }
     #totalItems{line-height: 37px; padding-right: 8px;}
+  }
+}
+
+/**
+ * Order Detail View
+ */
+#orderdetail {
+  min-width: 750px;
+
+  .section {
+    width: 100%;
+    padding: 0 2em 1em 2em;
+
+    &>div{
+      width:100%;
+      display: table;
+    }
+
+    .row.title {
+      background-color: rgba(0,0,0, 0.75);
+      padding:4px 8px;
+      line-height: 24px;
+    }
+
+    .row.content {
+      background-color: rgba(0,0,0, 0.4);
+      
+      &>.row {
+        padding: 8px 12px;
+        border-top: 1px solid #d0d0d0;
+        &:last-child {
+          border-bottom: 1px solid #d0d0d0;
+        }
+      }
+      
+
+      label, span {
+        display:inline-block;
+        font-size:16px;
+        line-height: 26px;
+        vertical-align: top;
+        padding:0;
+        margin:0;
+      }
+      label {
+        width: 150px;
+      }
+    }
+
+    #address{
+      float:left;
+      width:65%;
+    }
+    #map {
+      display: table-cell;
+      background-color: rgba(120,234,183, 0.2);
+      vertical-align: middle;
+      text-align: center;
+      width:35%;
+      height:100%;
+      float:right;
+    }
   }
 }
