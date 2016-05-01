@@ -18,3 +18,4 @@ var app = module.exports = express.Router();
 app.use('/', jwtCheck, rolesCheck(['admin']));
 app.get('/li/:pageNum/:itemsPerPage?', orderController.GetOrderList);
 app.get('/:orderId', orderController.GetOrderDetail);
+app.get('/:confirmNum/confirmNum', orderController.GetOrderByConfirmationNumber);

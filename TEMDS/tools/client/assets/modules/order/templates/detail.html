@@ -4,76 +4,96 @@
     </div>
 
     <div class="row section">
-    <div>
-        <div id="address">
-            <div class="contain-to-grid">
-                <div class="row title">
-                    <i class="fa fa-user"></i>
-                    <span>User Information</span>
+        <div class="contain-to-grid">
+            <div class="row title">
+                <i class="fa fa-user"></i>
+                <span>User Information</span>
+            </div>
+            <div class="row content">
+                <div class="row">
+                    <label>Name</label>
+                    <span>{{user.lName}}, {{user.fName}}</span>
                 </div>
-                <div class="row content">
-                    <div class="row">
-                        <label>Name</label>
-                        <span>{{user.lName}}, {{user.fName}}</span>
-                    </div>
-                    <div class="row">
-                        <label>Email</label>
+                <div class="row">
+                    <label>Email</label>
                             <span>
                                 <a href="mailto:{{user.email}}">{{user.email}}</a>
                             </span>
-                    </div>
-                    <div class="row">
-                        <label>Phone Number</label>
+                </div>
+                <div class="row">
+                    <label>Phone Number</label>
                             <span>
                                 {{user.phoneNum}}
                             </span>
-                    </div>
-                    <div class="row">
-                        <label>Birth Date</label>
+                </div>
+                <div class="row">
+                    <label>Birth Date</label>
                             <span>
                                 {{user.bDay}}
                             </span>
-                    </div>
                 </div>
+            </div>
 
-                <div class="row title">
-                    <i class="fa fa-truck"></i>
-                    <span>Delivery Address</span>
+            <div class="row title">
+                <i class="fa fa-truck"></i>
+                <span>Delivery Information</span>
+            </div>
+            <div class="row content">
+                <div class="row">
+                    <label>Recipient</label>
+                    <span>{{order.recipient}}</span>
                 </div>
-                <div class="row content">
-                    <div class="row">
-                        <label>Recipient</label>
-                        <span>{{order.recipient}}</span>
-                    </div>
-                    <div class="row">
-                        <label>Address1</label>
-                            <span>
-                                {{order.deliveryAddress.addr1}}<br/>
-                                {{order.deliveryAddress.addr2}}<br data-ng-show="order.deliveryAddress.addr2 != ''"/>
-                                {{order.deliveryAddress.city}},
-                                {{order.deliveryAddress.state}},
-                                {{order.deliveryAddress.zipcode}}
-                            </span>
+                <div class="row">
+                    <label>Address</label>
+                    <span temds-address address="order.deliveryAddress">
+                    </span>
+                </div>
+                <div class="row">
+                    <label>Status</label>
+                    <span>{{getStatusDescription(order.status)}}</span>
+                </div>
+            </div>
+
+            <div class="row title">
+                <i class="fa fa-shopping-cart"></i>
+                <span>Orders ({{order.orders.length}})</span>
+            </div>
+            <div class="row content align-spaced grid-block small-up-2">
+                <div class="orders grid-block" ng-repeat="o in order.orders">
+                    <div class="order-card" >
+                        <div class="row title">
+                            <i class="fa fa-building-o"></i>
+                            <span>Venue #{{$index+1}}</span>
+                        </div>
+                        <div class="row">
+                            <label>Name</label>
+                            <span>{{o.v.venue.name}}</span>
+                        </div>
+                        <div class="row">
+                            <label>Address</label>
+                            <span temds-address address="o.v.detail.address"></span>
+                        </div>
+
+                        <div class="row title">
+                            <i class="fa fa-tags"></i>
+                            <span>Items</span>
+                        </div>
+                        <div class="row" ng-repeat="item in o.items">
+                            <span>{{$index+1}}. {{item.description}}</span>
+                        </div>
+
+
+
+                        <div class="row title">
+                            <i class="fa fa-pencil-square"></i>
+                            <span>Comments</span>
+                        </div>
+                        <div class="row">
+                            <span class="small">{{o.comment}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-        </div>
-        <div id="map" class="grid-block">
-            <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
-            <!--<ui-gmap-google-map center="map.center" draggable="true" zoom="map.zoom" options="map.options" events="map.events" data-tap-disabled="true">
-                <ui-gmap-markers models="map.markers"
-                                 doCluster="true"
-                                 coords="'self'"
-                                 icon="'icon'"
-                                 options="'options'"
-                                 idkey='id'
-                                 clusterOptions='map.clusterOptions'
-                                 control='markerControl.getChildMarkers().get(id)'>
-                </ui-gmap-markers>
-            </ui-gmap-google-map>-->
-
-        </div>
-    </div>
     </div>
 </div>

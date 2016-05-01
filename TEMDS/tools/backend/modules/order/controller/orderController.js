@@ -88,8 +88,25 @@ module.exports.GetOrderDetail = function(req, res) {
             }
             if (order === null)
                 return res.status(404)
-                    .send ('Error on GetOrderDetail: Unable to find order with id "' + oId + '" \n' + err);
+                    .send ('Error on GetOrderDetail: Unable to find order with id, "' + oId + '" \n' + err);
 
             return res.status(200).json(order);
-        })
-}
+        });
+};
+
+module.exports.GetOrderByConfirmationNumber = function(req, res) {
+    var oConfirmNum = req.params.confirmNum;
+
+    Orders.findOne({confirmationNumber: oConfirmNum})
+        .exec(function(err, order) {
+            if (err) {
+                return res.status(400)
+                    .send ('Error on GetOrderByConfirmationNumber: \n' + err);
+            }
+            if (order === null)
+                return res.status(404)
+                    .send ('Error on GetOrderByConfirmationNumber: Unable to find order with confirmation number, "' + oConfirmNum + '" \n' + err);
+
+            return res.status(200).json(order);
+        });
+};

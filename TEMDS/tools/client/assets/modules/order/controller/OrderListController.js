@@ -93,7 +93,10 @@ angular.module('order')
                 itemsPerPage: 20,
                 pageNumber: 0
             };
-            $scope.search = ''; //TODO: might need to wrap this in an object
+
+            $scope.search = {
+                confirmationNumber: ''
+            };
 
             $scope.status = [];
             for (var s in appParams.OrderStatus) {
@@ -177,29 +180,28 @@ angular.module('order')
          * Search order by confirmation number
          */
         $scope.searchOrder = function() {
-            var confirmationNumber = $scope.search;
-            console.log(confirmationNumber);
-            //TODO: bind to order detail page when finished
-            notification.addNotification({
-                title: 'TODO',
-                content: 'Bind to order detail page when finished.\n Confirmation #'+confirmationNumber,
-                autoclose: 3000
-            });
-            $scope.search = '';
+            var confirmationNumber = String($scope.search.confirmationNumber).replace(' ', '');
+
+            OrderFactory.GetOrderByConfirmationNumber(confirmationNumber, true)
+                .then(function(data) {
+                    console.log('data>', data);
+                    $state.go('.detail', {orderId: data._id});
+                }, function(data) {
+                    notification.addNotification({
+                        title: 'Unknown Order',
+                        content: 'Unable to find orders with confirmation #'+confirmationNumber+'.',
+                        autoclose: 3000
+                    });
+                });
         };
 
         /**
-         * Passthrough method to helper.camelToNormalizeString
+         * Passthrough method to OrderFactory.GetOrderStatusDescription
          * @param str
          * @returns {*}
          */
-        $scope.getStatusDescription = function(code) {
-            for (var s in appParams.OrderStatus) {
-                if (code === appParams.OrderStatus[s])
-                    return helper.camelToNormalString(s, true).trim();
-            }
-
-            return 'Unknown';
+        $scope.getStatusDescription = function(statusCode) {
+            return OrderFactory.GetOrderStatusDescription(statusCode);
         };
 
         /**

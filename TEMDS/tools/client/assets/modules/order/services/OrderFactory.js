@@ -13,6 +13,14 @@ angular.module('order')
             position: 'top-middle'
         });
 
+        /**
+         * Returns a filtered and paginated list of order objects
+         * @param pageNum
+         * @param itemsPerPage
+         * @param query
+         * @returns {*}
+         * @constructor
+         */
         order.GetOrderList = function(pageNum, itemsPerPage, query) {
             var deferred = $q.defer();
 
@@ -25,7 +33,7 @@ angular.module('order')
                     deferred.resolve(response.data);
                 }, function error(err) {
                     deferred.reject({
-                        message: 'Error on GetOrderList:\n' + err
+                        message: 'Error on GetOrderList:\n' + err.data
                     });
                     notification.addNotification({
                         title: 'Error',
@@ -37,6 +45,12 @@ angular.module('order')
             return deferred.promise;
         };
 
+        /**
+         * Returns order object that matches the order id
+         * @param id
+         * @returns {*}
+         * @constructor
+         */
         order.GetOrderDetail = function(id) {
             var deferred = $q.defer();
 
@@ -46,7 +60,7 @@ angular.module('order')
                     deferred.resolve(response.data);
                 }, function error(err) {
                     deferred.reject({
-                        message: 'Error on GetOrderDetail:\n' + err
+                        message: 'Error on GetOrderDetail:\n' + err.data
                     });
                     notification.addNotification({
                         title: 'Error',
@@ -56,6 +70,51 @@ angular.module('order')
                 });
 
             return deferred.promise;
+        };
+
+        /**
+         * Returns order object that matches the confirmation number.
+         * @param cn
+         * @param ignoreError
+         * @returns {*}
+         * @constructor
+         */
+        order.GetOrderByConfirmationNumber = function(cn, ignoreError) {
+            var deferred = $q.defer();
+
+            var api = path.join(API_URL, 'order', cn, 'confirmNum');
+            $http.get(api)
+                .then(function(response) {
+                    deferred.resolve(response.data);
+                }, function error(err) {
+                    deferred.reject({
+                        message: 'Error on GetOrderByConfirmationNumber:\n' + err.data
+                    });
+                    if (!ignoreError) {
+                        notification.addNotification({
+                            title: 'Error',
+                            content: err.data,
+                            autoclose: appParams.Constants.NOTIFICATION_AUTO_CLOSE_TIMEOUT
+                        });
+                    }
+                });
+
+            return deferred.promise;
+        };
+
+        /**
+         * Retruns status descriptiong string from status code.
+         * @param statusCode
+         * @returns {*}
+         * @constructor
+         */
+        order.GetOrderStatusDescription = function(statusCode) {
+            for (var s in appParams.OrderStatus) {
+                if (statusCode === appParams.OrderStatus[s])
+                    return helper.camelToNormalString(s, true).trim();
+            }
+
+            return 'Unknown';
         };
 
         return order;
