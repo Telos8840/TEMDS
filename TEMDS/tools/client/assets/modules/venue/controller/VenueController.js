@@ -19,8 +19,6 @@ angular.module('venue')
 			description: '',
 			category: '',
 			tags: '',
-			img: '',
-			thumbnail: '',
 			hours: {
 				MON: false,
 				TUE: false,
@@ -79,8 +77,6 @@ angular.module('venue')
 			description: '',
 			category: '',
 			tags: '',
-			img: '',
-			thumbnail: '',
 			hours: {
 				MON: false,
 				TUE: false,
@@ -139,8 +135,6 @@ angular.module('venue')
 			description: '',
 			category: '',
 			tags: '',
-			img: '',
-			thumbnail: '',
 			hours: {
 				MON: false,
 				TUE: false,
@@ -205,21 +199,10 @@ angular.module('venue')
 				}
 			}).value();
 
-			var detail = _.pick(venue, ['address', 'description', 'tags', 'hours', 'img']);
-
-			var ranNum = 0;
-			if(detail.img.trim() === '') {
-				ranNum = Math.floor(Math.random() * 10) + 1;
-				detail.img = 'http://lorempixel.com/375/200/abstract/' + ranNum;
-			}
+			var detail = _.pick(venue, ['address', 'description', 'tags', 'hours']);
 
 			// Cleans up unneeded properties
-			venue = _.omit(venue, ['address', 'description', 'tags', 'hours', 'img', 'openTime', 'openAP', 'closeTime', 'closeAP']);
-
-			if(venue.thumbnail.trim() === '') {
-				ranNum = Math.floor(Math.random() * 10) + 1;
-				venue.thumbnail = 'http://lorempixel.com/50/50/abstract/' + ranNum;
-			}
+			venue = _.omit(venue, ['address', 'description', 'tags', 'hours', 'openTime', 'openAP', 'closeTime', 'closeAP']);
 
 			var venueObj = { venue: venue, detail: detail };
 			VenueFactory.addVenue(venueObj);
@@ -279,9 +262,9 @@ angular.module('venue')
 				}
 			}).value();
 
-			var detail = _.pick(venue, ['detailId', 'address', 'description', 'tags', 'hours', 'img']);
+			var detail = _.pick(venue, ['detailId', 'address', 'description', 'tags', 'hours']);
 			// Cleans up unneeded properties
-			venue = _.omit(venue, ['detailId', 'address', 'description', 'tags', 'hours', 'img', 'openTime', 'openAP', 'closeTime', 'closeAP']);
+			venue = _.omit(venue, ['detailId', 'address', 'description', 'tags', 'hours', 'openTime', 'openAP', 'closeTime', 'closeAP']);
 
 			var venueObj = { venue: venue, detail: detail };
 			VenueFactory.editVenue(venueObj);

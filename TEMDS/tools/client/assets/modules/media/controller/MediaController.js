@@ -7,29 +7,43 @@ angular.module('media')
 	.controller('MediaController', function ($scope, MediaFactory, VenueFactory, venueNames, _) {
 		$scope.venueNames = venueNames;
 		$scope.mediaType = null;
+		$scope.selectedVenue = null;
 
 		$scope.getVenueImages = function (v) {
-			console.log('Venue', v);
+			VenueFactory.getVenue(v).then(function (venueObj) {
+				$scope.selectedVenue = venueObj;
+				console.log('V OBJ', $scope.selectedVenue);
+			});
+		};
+
+		$scope.onChange = function (img) {
+			if (img.length > 0) {
+
+				var obj = { file: img, venue: $scope.selectedVenue, type: $scope.mediaType };
+
+
+				console.log('changing', obj);
+
+				var fileExtension = '.' + img.file[0].name.split('.').pop();
+
+				img.file[0].name = Math.random().toString(36).substring(7) + new Date().getTime() + fileExtension;
+
+				console.log(img.file[0].name);
+				// MediaFactory.signAmazon(obj).then(function (signed) {
+				// 	console.log('ama signed', signed);
+				// });
+			}
 		};
 
 		$scope.uploadImage = function () {
-			console.log('Radio', $scope.mediaType);
-
-		};
-
-		$scope.onChange = function (img, type) {
-			if (img.length > 0) {
-				console.log('changing', img[0].name);
-				console.log('thumb', $scope.venue.thumbnail);
-				$scope.$apply(function() {
-					$scope.venue.thumbnail = img[0].name;
-				});
-
-				VenueFactory.signAmazon(img).then(function (signed) {
-					console.log('ama signed', signed);
-				});
+			if (!$scope.mediaType || !$scope.selectedVenue) {
+				alert("Please pick a venue or select  an image type");
+				return;
 			}
-			console.log('thumb', $scope.venue.thumbnail);
+
+			var type = $scope.mediaType.split(" ").splice(-1);
+			$scope.mediaType = null;
 
 		};
+
 	});

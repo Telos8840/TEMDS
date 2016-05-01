@@ -21,10 +21,29 @@
 	}
 	#firstRowImages {
 		min-height: 250px;
+
+		#thumbnail {
+			height: 100px;
+			width: 100px;
+		}
+
+		#headerImg {
+			height: 200px;
+			width: 375px;
+		}
+	}
+
+	#gallery {
+		img {
+			height: 250px;
+			width: 250px;
+		}
 	}
 	hr {
 		border: 0;
 		height: 1px;
 		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 	}
+
+
 }

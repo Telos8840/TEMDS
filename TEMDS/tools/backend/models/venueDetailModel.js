@@ -12,10 +12,6 @@ var VenueDetailSchema = new Schema({
     type: Schema.Types.ObjectId,
     required: true
   },
-  img: {
-    type: String,
-    required: false
-  },
   address: {
     type: Schema.Types.Mixed,
     required: true
@@ -27,6 +23,10 @@ var VenueDetailSchema = new Schema({
   tags: {
     type: [],
     required: true
+  },
+  gallery: {
+    type: [],
+    required: false
   },
   hours: {
     type: Schema.Types.Mixed,

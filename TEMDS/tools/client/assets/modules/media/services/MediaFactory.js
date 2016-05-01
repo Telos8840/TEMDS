@@ -11,11 +11,19 @@ angular.module('media')
 				position: 'top-middle'
 			});
 
-		media.signAmazon = function (file) {
+		media.signAmazon = function (obj) {
+			var file = obj.file,
+				venue = obj.venue,
+				type = obj.type;
+			
+			if (type === 'Img') {
+				
+			}
+			
 			var encName = encodeURIComponent(file[0].name);
 			var encType = encodeURIComponent(file[0].type);
 			console.log('file', encName);
-			var api = path.join(API_URL, '/venue/signamazon', encName, encType);
+			var api = path.join(API_URL, '/media/signamazon', encName, encType);
 			console.log('api', api);
 			var deferred = $q.defer();
 			$http.get(api)

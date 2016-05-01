@@ -54,6 +54,7 @@ app.use('/api/auth', rq('authRoutes'));
 app.use('/api/usermanagement', rq('usermanagementRoutes'));
 app.use('/api/venue', rq('venueRoutes'));
 app.use('/api/order', rq('orderRoutes'));
+app.use('/api/media', rq('mediaRoutes'));
 
 //Enable HTML5-Mode
 app.all('/*', function (req, res) {

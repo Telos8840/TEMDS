@@ -4,6 +4,7 @@
  * Date: 10/20/15
  * Time: 9:46 PM
  */
+
 'use strict';
 var express = rq('express'),
   venueController = rq('venueController'),
@@ -19,4 +20,3 @@ app.post('/addvenue', venueController.addVenue);
 app.get('/getnames', venueController.getNames);
 app.get('/getvenue/:id', venueController.getVenue);
 app.put('/editvenue/', venueController.editVenue);
-app.get('/signamazon/:name/:type', venueController.signAmazon);

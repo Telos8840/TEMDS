@@ -8,22 +8,21 @@
 		<div class="medium-9 grid-block">
 			<div class="grid-block large-up-3 v-align">
 				<div class="grid-block align-center">
-					<input type="file" accept='image/*' onchange="angular.element(this).scope().onChange(this.files, 'thumb')">
+					<input type="radio" name="mediaType" value="Img" id="mediaHeader" ng-model="mediaType" ng-disabled="!selectedVenue">
+					<label for="mediaHeader">Main Image</label>
+					<input type="radio" name="mediaType" value="Gallery" id="mediaGallery" ng-model="mediaType" ng-disabled="!selectedVenue">
+					<label for="mediaGallery">Gallery</label>
 				</div>
 
 				<div class="grid-block align-center">
-					<input type="radio" name="mediaType" value="Thumbnail" id="mediaThumbnail" ng-model="mediaType">
-					<label for="mediaThumbnail">Thumbnail</label>
-					<input type="radio" name="mediaType" value="Header" id="mediaHeader" ng-model="mediaType">
-					<label for="mediaHeader">Header Image</label>
-					<input type="radio" name="mediaType" value="Gallery" id="mediaGallery" ng-model="mediaType">
-					<label for="mediaGallery">Gallery</label>
+					<input type="file" accept='image/*' onchange="angular.element(this).scope().onChange(this.files)" ng-disabled="!mediaType">
 				</div>
+
 				<div class="grid-block align-center">
-					<a href="#" class="button" ng-click="uploadImage()">
+					<button class="button" ng-click="uploadImage()" ng-disabled="!mediaType">
 						<i class="fa fa-cloud-upload fa-fw"></i>
 						Upload
-					</a>
+					</button>
 				</div>
 			</div>
 		</div>
@@ -42,24 +41,13 @@
 			</div>
 		</div>
 
-		<div class="medium-9 grid-block" id="gallery">
+		<div class="medium-9 grid-block">
 			<div class="vertical grid-block">
-				<div id="firstRowImages" class="grid-block large-up-2">
+				<div id="firstRowImages" class="grid-block large-up-1">
 					<div class="grid-block align-center">
-						<div class="v-align">
-							<div class="align-center">
-								<a href="http://placehold.it/100x100">
-							<img class="thumbnail" src="http://placehold.it/100x100">
-							<h4 class="text-center">Thumbnail</h4>
-						</a>
-							</div>
-						</div>
-
-					</div>
-					<div class="grid-block align-center">
-						<a href="http://placehold.it/375x200">
-							<img class="thumbnail" src="http://placehold.it/375x200">
-							<h4 class="text-center">Header Image</h4>
+						<a ng-href="{{selectedVenue.venue.img || 'http://placehold.it/375x200'}}" target="_blank">
+							<img id="headerImg" class="thumbnail" ng-src="{{selectedVenue.venue.img || 'http://placehold.it/375x200'}}">
+							<h4 class="text-center">Main Image</h4>
 						</a>
 					</div>
 				</div>
@@ -67,10 +55,10 @@
 				<hr>
 
 				<h3 class="text-center">Gallery</h3>
-				<div class="grid-block large-up-3">
+				<div id="gallery" class="grid-block large-up-3">
 					<div class="grid-content" data-ng-repeat="item in [1,2,3,4,5,6]">
-						<a href="http://placehold.it/350x350">
-							<img class="thumbnail" src="http://placehold.it/250x250">
+						<a href="http://placehold.it/250x250">
+							<img class="thumbnail gallery" src="http://placehold.it/250x250">
 						</a>
 					</div>
 
