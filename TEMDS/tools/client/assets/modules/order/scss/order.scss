@@ -211,6 +211,7 @@
       .order-card {
         border:1px solid #d0d0d0;
         background-color: rgba(255,255,255,0.1);
+
         span.small {
           font-size: 14px; line-height: 14px;
         }
@@ -227,7 +228,9 @@
             }
           }
           &:last-child {border-bottom: none;}
+
         }
+
         padding:0;
         width: 100%;
       }
@@ -235,6 +238,81 @@
 
     .note {
       width:100%;
+    }
+
+    span.editable,
+    span[editable-text],
+    span[editable-select] {
+      color: #fff;
+      border-bottom: none;
+      cursor: pointer;
+      &:hover { color: #ccc;}
+    }
+
+    #inlineEditableFormStyles {
+      input, select {
+        margin-bottom: 0.5em;
+        padding: 0 4px;
+        height: 26px;
+        border: none;
+        background-color: rgba(255,255,255,0.75);
+        font-size:12px;
+      }
+      select {padding-right: 26px;}
+    }
+
+    form[editable-form] {
+      @extend #inlineEditableFormStyles;
+      &>.grid-block {
+        padding-left:1em;
+        &.oneline>div {
+          margin-right: 4px;
+          &:last-child{margin-right:0px;}
+        }
+        .editable-wrap {
+          display: inherit;
+          line-height: 22px;
+        }
+      }
+      width: 450px;
+      label.title {
+        padding-top: 4px;
+        line-height:12px;
+        font-size: 12px;
+      }
+    }
+
+    .form-inline {
+      .editable-controls {
+        @extend #inlineEditableFormStyles;
+        height: 26px;
+      }
+    }
+
+    .editable-buttons {
+      position: relative;
+      height: 26px;
+      button {
+        @extend .fa;
+        height: 26px;
+        font-size: 12px;
+        position: absolute;
+        border: none;
+        padding: 0 12px;
+        color: #fff;
+        &.btn-primary {
+          @extend .fa-check;
+          left: 0px;
+          background-color: rgba(0, 180, 0, 0.75);
+          &:hover {color: #00ff00;}
+        }
+        &.btn-default {
+          @extend .fa-times;
+          background-color: rgba(150, 150, 150, 0.75);
+          left: 40px;
+          &:hover {color: #ddd;}
+        }
+      }
     }
   }
 }

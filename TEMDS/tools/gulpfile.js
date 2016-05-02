@@ -63,6 +63,10 @@ gulp.task('copy', function () {
     //font-awesome icon-font
     gulp.src('./bower_components/font-awesome/fonts/**/*')
         .pipe(gulp.dest('./' + buildFolder + '/assets/fonts/'));
+    //angular-xeditable
+    gulp.src('./bower_components/angular-xeditable/dist/css/xeditable.css')
+        .pipe(gulp.dest('./' + buildFolder + '/assets/css/'));
+
     // Foundation's Angular partials
     return gulp.src(['./bower_components/foundation-apps/js/angular/components/**/*.html'])
         .pipe(gulp.dest('./' + buildFolder + '/components/'))

@@ -4,12 +4,14 @@
 'use strict';
 
 angular.module('order')
-    .controller('OrderDetailController', function($scope, $timeout, OrderFactory, VenueFactory, UserFactory, helper, $stateParams) {
+    .controller('OrderDetailController', function($scope, $timeout, OrderFactory, VenueFactory, UserFactory, helper, $stateParams, appParams) {
         var orderId = $stateParams.orderId;
 
         // ViewData
         $scope.order = {};
         $scope.user = {};
+        $scope.orderStatusOptions = appParams.OrderStatus;
+        $scope.usStates = appParams.USStates;
 
         // Private Methods
 
@@ -32,6 +34,7 @@ angular.module('order')
             OrderFactory.GetOrderDetail(orderId)
                 .then(function(data) {
                     $scope.order = data;
+                    console.log(data);
                     getUser($scope.order.uId);
 
                     // fetch venue details
@@ -53,6 +56,10 @@ angular.module('order')
          */
         $scope.getStatusDescription = function(statusCode) {
             return OrderFactory.GetOrderStatusDescription(statusCode);
+        };
+
+        $scope.updateDelivery = function() {
+            console.log('should save');
         };
 
         // Init

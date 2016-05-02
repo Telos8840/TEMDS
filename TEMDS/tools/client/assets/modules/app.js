@@ -9,8 +9,9 @@
         });
     }
 
-    function run() {
+    function run(editableOptions) {
         FastClick.attach(document.body);
+        editableOptions.theme = 'bs3';
     }
 
     angular.module('application', [

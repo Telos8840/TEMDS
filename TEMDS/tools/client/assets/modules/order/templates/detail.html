@@ -41,16 +41,71 @@
             <div class="row content">
                 <div class="row">
                     <label>Recipient</label>
-                    <span>{{order.recipient}}</span>
-                </div>
-                <div class="row">
-                    <label>Address</label>
-                    <span temds-address address="order.deliveryAddress">
+                    <span editable-text="order.recipient" onaftersave="updateDelivery()">
+                      {{order.recipient || '- No Recipient Name Provided -'}}
                     </span>
                 </div>
                 <div class="row">
+                    <label>Address</label>
+                    <span class="editable" temds-address address="order.deliveryAddress" ng-click="deliveryAddressForm.$show()" ng-hide="deliveryAddressForm.$visible">
+                    </span>
+                    <!-- STOP CRYING !!! -->
+
+                    <form editable-form name="deliveryAddressForm" onaftersave="saveUser()" ng-show="deliveryAddressForm.$visible">
+                        <div class="grid-block">
+                            <div class="small-12">
+                                <label class="title">Line 1 </label>
+                                <span editable-text="order.deliveryAddress.addr1">
+                                    {{ order.deliveryAddress.addr1 }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="grid-block">
+                            <div class="small-12">
+                                <label class="title">Line 2 </label>
+                                <span editable-text="order.deliveryAddress.addr2">
+                                    {{ order.deliveryAddress.addr2 }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="grid-block oneline">
+                            <div class="small-5">
+                                <label class="title">City/County</label>
+                                <span editable-text="order.deliveryAddress.city">
+                                    {{ order.deliveryAddress.city }}
+                                </span>
+                            </div>
+                            <div class="small-3">
+                                <label class="title">State</label>
+                                <span editable-select="order.deliveryAddress.state" e-name="state" e-ng-options="state.abbr as state.abbr for state in usStates">
+                                    {{ order.deliveryAddress.state }}
+                                </span>
+                            </div>
+                            <div class="small-4">
+                                <label class="title">Zipcode</label>
+                                <span editable-text="order.deliveryAddress.zipcode">
+                                    {{ order.deliveryAddress.city }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="grid-block">
+                            <span class="editable-buttons">
+                                <button type="submit" class="btn btn-primary" style="margin-left: 0;"
+                                        ng-disabled="deliveryAddressForm.$waiting" ></button>
+                                <button type="button" class="btn btn-default"
+                                        ng-disabled="deliveryAddressForm.$waiting"
+                                        ng-click="deliveryAddressForm.$cancel()"></button>
+                            </span>
+                        </div>
+                    </form>
+
+                    <!-- AHHHHHH -->
+                </div>
+                <div class="row">
                     <label>Status</label>
-                    <span>{{getStatusDescription(order.status)}}</span>
+                    <span editable-select="order.status" e-ng-options="getStatusDescription(v) for (k,v) in orderStatusOptions">
+                        {{ getStatusDescription(order.status) }}
+                    </span>
                 </div>
             </div>
 
@@ -89,11 +144,11 @@
                             <span>Comments</span>
                         </div>
                         <div class="row">
-                            <span class="small">{{o.comment}}</span>
+                            <span class="small">{{o.comment || '- No Comment -'}}</span>
                         </div>
                     </div>
                 </div>
             </div>
 
+        </div>
     </div>
-</div>

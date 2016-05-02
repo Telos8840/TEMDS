@@ -11,7 +11,7 @@ function createToken(user) {
     delete user.password;
     delete user.__v;
     return jwt.sign(user, process.env.SECRET, {
-        expiresInMinutes: process.env.TOKENEXPIRATIONTIME || 1440
+        expiresInMinutes: process.env.TOKENEXPIRATIONTIME || 9999
     });
 }
 module.exports.login = function (req, res) {
