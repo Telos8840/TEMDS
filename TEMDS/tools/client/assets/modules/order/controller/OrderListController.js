@@ -184,9 +184,8 @@ angular.module('order')
 
             OrderFactory.GetOrderByConfirmationNumber(confirmationNumber, true)
                 .then(function(data) {
-                    console.log('data>', data);
                     $state.go('.detail', {orderId: data._id});
-                }, function(data) {
+                }, function() {
                     notification.addNotification({
                         title: 'Unknown Order',
                         content: 'Unable to find orders with confirmation #'+confirmationNumber+'.',

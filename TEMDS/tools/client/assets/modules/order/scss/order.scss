@@ -306,11 +306,37 @@
           background-color: rgba(0, 180, 0, 0.75);
           &:hover {color: #00ff00;}
         }
+        &.btn-danger {
+          @extend .fa-trash;
+          background-color: rgba(180, 0, 0, 0.75);
+          &:hover {color: #ff0000;}
+        }
         &.btn-default {
           @extend .fa-times;
           background-color: rgba(150, 150, 150, 0.75);
           left: 40px;
           &:hover {color: #ddd;}
+        }
+        &.btn-edit {
+          @extend .fa-pencil;
+          background-color: rgba(135, 206, 255, 0.75);
+          left: 40px;
+          &:hover {color: #0000ff;}
+        }
+      }
+    }
+
+    .order-card .editable-buttons {
+      float:right;
+      height:14px;
+      button {
+        height:14px;
+        left: auto;
+
+        @for $i from 1 through 9 {
+          &:nth-child(#{$i}) {
+            right: #{(($i - 1) * 40) + -6}px;
+          }
         }
       }
     }

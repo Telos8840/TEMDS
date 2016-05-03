@@ -49,9 +49,7 @@
                     <label>Address</label>
                     <span class="editable" temds-address address="order.deliveryAddress" ng-click="deliveryAddressForm.$show()" ng-hide="deliveryAddressForm.$visible">
                     </span>
-                    <!-- STOP CRYING !!! -->
-
-                    <form editable-form name="deliveryAddressForm" onaftersave="saveUser()" ng-show="deliveryAddressForm.$visible">
+                    <form editable-form name="deliveryAddressForm" onaftersave="updateDelivery()" ng-show="deliveryAddressForm.$visible">
                         <div class="grid-block">
                             <div class="small-12">
                                 <label class="title">Line 1 </label>
@@ -98,8 +96,6 @@
                             </span>
                         </div>
                     </form>
-
-                    <!-- AHHHHHH -->
                 </div>
                 <div class="row">
                     <label>Status</label>
@@ -115,38 +111,51 @@
             </div>
             <div class="row content align-spaced grid-block small-up-2">
                 <div class="orders grid-block" ng-repeat="o in order.orders">
-                    <div class="order-card" >
-                        <div class="row title">
-                            <i class="fa fa-building-o"></i>
-                            <span>Venue #{{$index+1}}</span>
-                        </div>
-                        <div class="row">
-                            <label>Name</label>
-                            <span>{{o.v.venue.name}}</span>
-                        </div>
-                        <div class="row">
-                            <label>Address</label>
-                            <span temds-address address="o.v.detail.address"></span>
-                        </div>
-
-                        <div class="row title">
-                            <i class="fa fa-tags"></i>
-                            <span>Items</span>
-                        </div>
-                        <div class="row" ng-repeat="item in o.items">
-                            <span>{{$index+1}}. {{item.description}}</span>
-                        </div>
 
 
+                        <form class="order-card" editable-form name="orderForm_{{$index}}" onaftersave="updateDelivery()">
+                            <div class="row title">
+                                <i class="fa fa-building-o"></i>
+                                <span>Venue #{{$index+1}}</span>
+                                <span class="editable-buttons">
+                                    <button type="button" class="btn btn-edit"
+                                            ng-disabled="deliveryAddressForm.$waiting"></button>
+                                    <button type="button" class="btn btn-default"
+                                            ng-disabled="deliveryAddressForm.$waiting"
+                                            ng-click="deliveryAddressForm.$cancel()"></button>
+                                    <button type="submit" class="btn btn-primary"
+                                            ng-disabled="deliveryAddressForm.$waiting" ></button>
+                                    <button type="submit" class="btn btn-danger"
+                                            ng-disabled="deliveryAddressForm.$waiting" ></button>
+                                </span>
+                            </div>
+                            <div class="row">
+                                <label>Name</label>
+                                <span>{{o.v.venue.name}}</span>
+                            </div>
+                            <div class="row">
+                                <label>Address</label>
+                                <span temds-address address="o.v.detail.address"></span>
+                            </div>
 
-                        <div class="row title">
-                            <i class="fa fa-pencil-square"></i>
-                            <span>Comments</span>
-                        </div>
-                        <div class="row">
-                            <span class="small">{{o.comment || '- No Comment -'}}</span>
-                        </div>
-                    </div>
+                            <div class="row title">
+                                <i class="fa fa-tags"></i>
+                                <span>Items</span>
+                            </div>
+                            <div class="row" ng-repeat="item in o.items">
+                                <span>{{$index+1}}. {{item.description}}</span>
+                            </div>
+
+                            <div class="row title">
+                                <i class="fa fa-pencil-square"></i>
+                                <span>Comments</span>
+                            </div>
+                            <div class="row">
+                                <span class="small">{{o.comment || '- No Comment -'}}</span>
+                            </div>
+                        </form>
+
+
                 </div>
             </div>
 
