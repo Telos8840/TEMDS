@@ -19,3 +19,4 @@ app.use('/', jwtCheck, rolesCheck(['admin']));
 app.get('/li/:pageNum/:itemsPerPage?', orderController.GetOrderList);
 app.get('/:orderId', orderController.GetOrderDetail);
 app.get('/:confirmNum/confirmNum', orderController.GetOrderByConfirmationNumber);
+app.put('/', orderController.UpdateOrder);

@@ -22,10 +22,9 @@ angular.module('order')
          * @constructor
          */
         order.GetOrderList = function(pageNum, itemsPerPage, query) {
-            var deferred = $q.defer();
-
-            var api = path.join(API_URL, '/order/li/', String(pageNum), String(itemsPerPage));
-            var q = helper.toQueryString(query);
+            var deferred = $q.defer(),
+                api = path.join(API_URL, '/order/li/', String(pageNum), String(itemsPerPage)),
+                q = helper.toQueryString(query);
             if (q) api += '?' + q;
 
             $http.get(api)
@@ -89,6 +88,37 @@ angular.module('order')
                 }, function error(err) {
                     deferred.reject({
                         message: 'Error on GetOrderByConfirmationNumber:\n' + err.data
+                    });
+                    if (!ignoreError) {
+                        notification.addNotification({
+                            title: 'Error',
+                            content: err.data,
+                            autoclose: appParams.Constants.NOTIFICATION_AUTO_CLOSE_TIMEOUT
+                        });
+                    }
+                });
+
+            return deferred.promise;
+        };
+
+        /**
+         * Update the order
+         *     It will overwrite order object with updateRequest
+         * @param updateRequest
+         * @returns {*}
+         * @constructor
+         */
+        order.UpdateOrder = function(updateRequest) {
+            var deferred = $q.defer();
+
+            var api = path.join(API_URL, 'order');
+
+            $http.put(api, updateRequest)
+                .then(function(response) {
+                    deferred.resolve(response.data);
+                }, function error(err) {
+                    deferred.reject({
+                        message: 'Error on UpdateOrder:\n' + err.data
                     });
                     if (!ignoreError) {
                         notification.addNotification({

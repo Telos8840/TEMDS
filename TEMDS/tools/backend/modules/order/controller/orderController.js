@@ -62,17 +62,17 @@ module.exports.GetOrderList = function (req, res) {
             .skip(pageNum * itemsPerPage)
             .limit(itemsPerPage)
             .exec(function(err, result) {
-            if (err) {
-                return res.status(400)
-                    .send ('Error on GetOrderList: \n' + err);
-            }
+                if (err) {
+                    return res.status(400)
+                        .send ('Error on GetOrderList: \n' + err);
+                }
 
-            return res.status(200).json({
-                list: result,
-                total: count,
-                page: pageNum
+                return res.status(200).json({
+                    list: result,
+                    total: count,
+                    page: pageNum
+                });
             });
-        });
     });
 };
 
@@ -109,4 +109,29 @@ module.exports.GetOrderByConfirmationNumber = function(req, res) {
 
             return res.status(200).json(order);
         });
+};
+
+module.exports.UpdateOrder = function(req, res) {
+    if (!req.body) {
+        return res.status(400).send("Error in UpdateOrder: Cannot update order with undefined request");
+    } else {
+        var updateRequest = req.body;
+        Orders.findOne({_id: updateRequest.id})
+            .exec(function(err, order) {
+                if(err) {
+                    return res.status(400).send("Cannot update the order:\n" + err);
+                }
+
+                updateRequest= _.omit(updateRequest, 'id');
+                order = _.extend(order, updateRequest);
+                order.save(function (err) {
+                    if(err) {
+                        return res.status(400).send('Cannot save the order:\n' + err);
+                    }
+
+                    return res.status(200).send('Order #' + order.confirmationNumber + ' updated successfully');
+                });
+
+            });
+    }
 };

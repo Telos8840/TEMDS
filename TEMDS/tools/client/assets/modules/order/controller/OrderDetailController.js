@@ -4,8 +4,12 @@
 'use strict';
 
 angular.module('order')
-    .controller('OrderDetailController', function($scope, $timeout, OrderFactory, VenueFactory, UserFactory, helper, $stateParams, appParams) {
-        var orderId = $stateParams.orderId;
+    .controller('OrderDetailController', function($scope, $timeout, NotificationFactory, OrderFactory, VenueFactory, UserFactory, helper, $stateParams, appParams) {
+        var orderId = $stateParams.orderId,
+            notification = new NotificationFactory({
+                id: 'orderDetailNotification',
+                position: 'top-right'
+            });
 
         // ViewData
         $scope.order = {};
@@ -34,7 +38,6 @@ angular.module('order')
             OrderFactory.GetOrderDetail(orderId)
                 .then(function(data) {
                     $scope.order = data;
-                    console.log(data);
                     getUser($scope.order.uId);
 
                     // fetch venue details
@@ -58,8 +61,33 @@ angular.module('order')
             return OrderFactory.GetOrderStatusDescription(statusCode);
         };
 
-        $scope.updateDelivery = function() {
-            console.log('should save');
+        /**
+         * Update order. Used by xeditable fields to update address, recipient, and status
+         * @param data
+         * @param property
+         * @param id
+         * @returns {*}
+         */
+        $scope.updateOrder= function(data, property, id) {
+            var request = { id: id };
+            request[property] = data;
+            return OrderFactory.UpdateOrder(request)
+                .then(function(data) {
+                    notification.addNotification({
+                        title: 'Success',
+                        content: data,
+                        autoclose: appParams.Constants.NOTIFICATION_AUTO_CLOSE_TIMEOUT
+                    });
+                    $scope.refreshPage(); //parent scope refresh
+                    return true;
+                }, function(data) {
+                    notification.addNotification({
+                        title: 'Error',
+                        content: data,
+                        autoclose: appParams.Constants.NOTIFICATION_AUTO_CLOSE_TIMEOUT
+                    });
+                    return false;
+                });
         };
 
         // Init
