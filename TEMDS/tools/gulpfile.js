@@ -38,6 +38,7 @@ var paths = {
         'bower_components/hammerjs/hammer.min.js',
         'bower_components/foundation-apps/js/vendor/**/*.js',
         'bower_components/foundation-apps/js/angular/**/*.js',
+        'bower_components/angular-file-upload/dist/angular-file-upload.min.js',
         '!bower_components/foundation-apps/js/angular/app.js'
     ],
     // These files are for your app's JavaScript

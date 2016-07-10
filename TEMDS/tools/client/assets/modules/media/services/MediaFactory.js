@@ -13,19 +13,13 @@ angular.module('media')
 
 		media.signAmazon = function (obj) {
 			var file = obj.file,
-				venue = obj.venue,
-				type = obj.type;
+				venueId = obj.venueId;
 			
-			if (type === 'Img') {
-				
-			}
-			
-			var encName = encodeURIComponent(file[0].name);
-			var encType = encodeURIComponent(file[0].type);
-			console.log('file', encName);
-			var api = path.join(API_URL, '/media/signamazon', encName, encType);
-			console.log('api', api);
+			var encName = encodeURIComponent(file.name);
+			var encType = encodeURIComponent(file.type);
+			var api = path.join(API_URL, '/media/signamazon', encName, encType, venueId);
 			var deferred = $q.defer();
+
 			$http.get(api)
 				.then(function success(response) {
 					deferred.resolve(response.data);

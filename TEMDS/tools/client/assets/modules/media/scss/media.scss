@@ -6,19 +6,24 @@
 	h1,h2,h3,h4,h5,h6,a,small,label{
 		color: $smoke;
 	}
+
 	#content{
 		background-color: rgba(0, 0, 0, 0.4);
 		padding: 2rem 1rem;
 	}
+
 	li a:hover {
 		background: #746D67;
 	}
+
 	li.with-chevron::after {
 		color: #ffffff;
 	}
+
 	#venueList {
 		width: 100%;
 	}
+
 	#firstRowImages {
 		min-height: 250px;
 
@@ -33,17 +38,37 @@
 		}
 	}
 
+	#fileUploader {
+		min-height: 750px;
+
+		canvas {
+			background-color: #f3f3f3;
+			-webkit-box-shadow: 3px 3px 3px 0 #e3e3e3;
+			-moz-box-shadow: 3px 3px 3px 0 #e3e3e3;
+			box-shadow: 3px 3px 3px 0 #e3e3e3;
+			border: 1px solid #c3c3c3;
+			height: 100px;
+			max-width: 375px;
+			margin: 6px 0 0 6px;
+		}
+	}
+
 	#gallery {
 		img {
 			height: 250px;
 			width: 250px;
 		}
 	}
+
+	table tbody {
+		tr {
+			margin: 50px;
+		}
+	}
+
 	hr {
 		border: 0;
 		height: 1px;
 		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 	}
-
-
 }

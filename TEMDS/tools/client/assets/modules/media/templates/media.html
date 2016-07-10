@@ -7,23 +7,27 @@
 		</div>
 		<div class="medium-9 grid-block">
 			<div class="grid-block large-up-3 v-align">
-				<div class="grid-block align-center">
-					<input type="radio" name="mediaType" value="Img" id="mediaHeader" ng-model="mediaType" ng-disabled="!selectedVenue">
-					<label for="mediaHeader">Main Image</label>
-					<input type="radio" name="mediaType" value="Gallery" id="mediaGallery" ng-model="mediaType" ng-disabled="!selectedVenue">
-					<label for="mediaGallery">Gallery</label>
-				</div>
+				<!--<div class="grid-block align-center">-->
+					<!--<input type="radio" name="mediaType" value="Img" id="mediaHeader" ng-model="mediaType" ng-disabled="!selectedVenue">-->
+					<!--<label for="mediaHeader">Main Image</label>-->
+					<!--<input type="radio" name="mediaType" value="Gallery" id="mediaGallery" ng-model="mediaType" ng-disabled="!selectedVenue">-->
+					<!--<label for="mediaGallery">Gallery</label>-->
+				<!--</div>-->
 
-				<div class="grid-block align-center">
-					<input type="file" accept='image/*' onchange="angular.element(this).scope().onChange(this.files)" ng-disabled="!mediaType">
-				</div>
+				<!--<div class="grid-block align-center">-->
+					<!--<input type="file" accept='image/*' onchange="angular.element(this).scope().onChange(this.files)" ng-disabled="!mediaType">-->
+				<!--</div>-->
 
-				<div class="grid-block align-center">
-					<button class="button" ng-click="uploadImage()" ng-disabled="!mediaType">
-						<i class="fa fa-cloud-upload fa-fw"></i>
-						Upload
-					</button>
-				</div>
+				<!--<div class="grid-block align-center">-->
+					<!--<button class="button" ng-click="uploadImage()" ng-disabled="!mediaType">-->
+						<!--<i class="fa fa-cloud-upload fa-fw"></i>-->
+						<!--Upload-->
+					<!--</button>-->
+				<!--</div>-->
+				<form enctype="multipart/form-data" method="post">
+					<input name="file" style="width: 100%;" type="file" nv-file-select uploader="uploader" ng-disabled="!selectedVenue"/>
+				</form>
+
 			</div>
 		</div>
 	</div>
@@ -43,26 +47,108 @@
 
 		<div class="medium-9 grid-block">
 			<div class="vertical grid-block">
-				<div id="firstRowImages" class="grid-block large-up-1">
+				<section id="fileUploader" class="grid-block large-up-1">
+					<div class="grid-block">
+						<div class="grid-content">
+							<table>
+								<thead>
+								<tr>
+									<th width="25%">Name</th>
+									<th width="25%">Type</th>
+									<th width="25%" ng-show="uploader.isHTML5">Progress</th>
+									<th width="25%">Status</th>
+									<th width="25%">Actions</th>
+								</tr>
+
+								</thead>
+								<tbody>
+								<tr ng-repeat="item in uploader.queue">
+									<td>
+										<strong>{{ item.file.name }}</strong>
+										<!-- Image preview -->
+										<!--auto height-->
+										<!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
+										<!--auto width-->
+										<div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+										<!--fixed width and height -->
+										<!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
+									</td>
+									<td class="align-center">
+										<div class="grid-block align-center">
+											<input type="checkbox" name="mediaType" value="Img" id="mediaHeader" ng-model="item.mainImage">
+											<label for="mediaHeader">Main Image</label>
+										</div>
+									</td>
+									<td ng-show="uploader.isHTML5">
+										<div class="progress" style="margin-bottom: 0;">
+											<!--<div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>-->
+											<progress class="high" value="{{ item.progress }}" max="100"></progress>
+										</div>
+									</td>
+									<td class="text-center">
+										<span ng-show="item.isSuccess"><i class="fa fa-check fa-fw"></i></span>
+										<span ng-show="item.isCancel"><i class="fa fa-ban fa-fw"></i></span>
+										<span ng-show="item.isError"><i class="fa fa-exclamation-triangle fa-fw"></i></span>
+									</td>
+									<td nowrap>
+										<button class="success small button" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+											<span class="fa fa-cloud-upload fa-fw"></span> Upload
+										</button>
+										<button class="warning small button" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+											<span class="fa fa-ban fa-fw"></span> Cancel
+										</button>
+										<button class="alert small button" ng-click="item.remove()">
+											<span class="fa fa-trash fa-fw"></span> Remove
+										</button>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="grid-block">
+						<div class="grid-content">
+							<div>
+								Queue progress:
+								<progress class="high" value="{{ uploader.progress }}" max="100"></progress>
+								<!--<div class="progress" style="">-->
+								<!--<div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>-->
+								<!--</div>-->
+							</div>
+							<button type="button" class="success button" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+								<span class="fa fa-cloud-upload fa-fw"></span> Upload all
+							</button>
+							<button type="button" class="warning button" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+								<span class="fa fa-ban fa-fw"></span> Cancel all
+							</button>
+							<button type="button" class="alert button" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+								<span class="fa fa-trash fa-fw"></span> Remove all
+							</button>
+						</div>
+					</div>
+				</section>
+
+				<section id="firstRowImages" class="grid-block large-up-1">
 					<div class="grid-block align-center">
 						<a ng-href="{{selectedVenue.venue.img || 'http://placehold.it/375x200'}}" target="_blank">
 							<img id="headerImg" class="thumbnail" ng-src="{{selectedVenue.venue.img || 'http://placehold.it/375x200'}}">
 							<h4 class="text-center">Main Image</h4>
 						</a>
 					</div>
-				</div>
+				</section>
 
 				<hr>
 
 				<h3 class="text-center">Gallery</h3>
-				<div id="gallery" class="grid-block large-up-3">
+				<section id="gallery" class="grid-block large-up-3">
 					<div class="grid-content" data-ng-repeat="item in [1,2,3,4,5,6]">
 						<a href="http://placehold.it/250x250">
 							<img class="thumbnail gallery" src="http://placehold.it/250x250">
 						</a>
 					</div>
 
-				</div>
+				</section>
 			</div>
 		</div>
 	</div>

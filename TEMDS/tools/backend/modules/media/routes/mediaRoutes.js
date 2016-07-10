@@ -13,4 +13,5 @@ var jwtCheck = jwt({
 var app = module.exports = express.Router();
 //The following routes are only available for Users with admin role
 app.use('/', jwtCheck, rolesCheck(['admin']));
-app.get('/signamazon/:name/:type', mediaController.signAmazon);
+app.get('/signamazon/:name/:type/:venueId', mediaController.signAmazon);
+app.post('/upload', mediaController.uploadToAmazon);
