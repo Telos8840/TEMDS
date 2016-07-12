@@ -46,7 +46,7 @@
 		</div>
 
 		<div class="medium-9 grid-block">
-			<div class="vertical grid-block">
+			<div class="vertical grid-block" style="position: absolute">
 				<section id="fileUploader" class="grid-block large-up-1">
 					<div class="grid-block">
 						<div class="grid-content">
@@ -142,12 +142,11 @@
 
 				<h3 class="text-center">Gallery</h3>
 				<section id="gallery" class="grid-block large-up-3">
-					<div class="grid-content" data-ng-repeat="item in [1,2,3,4,5,6]">
-						<a href="http://placehold.it/250x250">
-							<img class="thumbnail gallery" src="http://placehold.it/250x250">
+					<div class="grid-content" data-ng-repeat="item in selectedVenue.detail.gallery track by $index">
+						<a ng-href="{{item}}">
+							<img class="thumbnail gallery" ng-src="{{item}}">
 						</a>
 					</div>
-
 				</section>
 			</div>
 		</div>

@@ -25,14 +25,14 @@ angular.module('media')
 			}
 		});
 
-		uploader.onAfterAddingFile = function(fileItem) {
-			var obj = { file: fileItem._file, venueId: $scope.selectedVenue.venue._id };
-			MediaFactory.signAmazon(obj).then(function (signed) {
-				fileItem.formData.push({
-					s3: signed
-				});
-			});
-		};
+		// uploader.onAfterAddingFile = function(fileItem) {
+		// 	var obj = { file: fileItem._file, venueId: $scope.selectedVenue.venue._id };
+		// 	MediaFactory.signAmazon(obj).then(function (signed) {
+		// 		fileItem.formData.push({
+		// 			s3: signed
+		// 		});
+		// 	});
+		// };
 
 		uploader.onBeforeUploadItem = function(item) {
 			item.formData.push({
@@ -48,6 +48,7 @@ angular.module('media')
 		$scope.getVenueImages = function (v) {
 			VenueFactory.getVenue(v).then(function (venueObj) {
 				$scope.selectedVenue = venueObj;
+				console.log('v', $scope.selectedVenue);
 			});
 		};
 	});

@@ -39,7 +39,7 @@
 	}
 
 	#fileUploader {
-		min-height: 750px;
+		min-height: 300px;
 
 		canvas {
 			background-color: #f3f3f3;
@@ -54,6 +54,12 @@
 	}
 
 	#gallery {
+		.grid-content{
+			height: auto;
+			margin-bottom: 50px;
+			overflow-y: visible;
+		}
+
 		img {
 			height: 250px;
 			width: 250px;
