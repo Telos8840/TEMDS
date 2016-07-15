@@ -48,7 +48,6 @@ angular.module('media')
 		$scope.getVenueImages = function (v) {
 			VenueFactory.getVenue(v).then(function (venueObj) {
 				$scope.selectedVenue = venueObj;
-				console.log('v', $scope.selectedVenue);
 			});
 		};
 	});

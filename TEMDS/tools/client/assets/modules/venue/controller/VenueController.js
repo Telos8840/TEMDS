@@ -200,6 +200,7 @@ angular.module('venue')
 			}).value();
 
 			var detail = _.pick(venue, ['address', 'description', 'tags', 'hours']);
+			detail.gallery = [];
 
 			// Cleans up unneeded properties
 			venue = _.omit(venue, ['address', 'description', 'tags', 'hours', 'openTime', 'openAP', 'closeTime', 'closeAP']);
