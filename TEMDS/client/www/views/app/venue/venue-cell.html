@@ -1,17 +1,12 @@
-<div class="content">
-    <div class="thumb">
-        <img src='{{venue.thumbnail}}' fade-in-on-load/>
-    </div>
-    <div class="body">
-        <div class="title">
-            {{venue.name}}
-        </div>
-        <div class="category">
-            <p>{{venue.category}}</p>
-        </div>
+<div class="list card venue_card">
+    <!-- Venue Image -->
+    <div class="item item-image">
+        <img src="{{venue.img}}">
     </div>
 
-    <div class="arrow">
-        <i class="icon ion-ios-arrow-right"></i>
+    <!-- Venue Name -->
+    <div class="item">
+        <h2>{{venue.name}}</h2>
+        <p>{{venue.category}}</p>
     </div>
 </div>

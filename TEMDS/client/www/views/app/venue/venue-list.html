@@ -6,10 +6,10 @@
 
         <div class="list">
             <div class="section" ng-repeat="(key, venues) in sortedVenueList">
-                <div class="item item-divider">{{key}}</div>
-                <div class="item cell" ng-repeat="venue in venues" ng-click="showVenueDetail(venue)">
-                    <section ng-include="'views/app/venue/venue-cell.html'" class="venue-cell"></section>
-                </div>
+                <!-- div class="item item-divider">{{key}}</div -->
+                <section ng-include="'views/app/venue/venue-cell.html'"
+                         ng-repeat="venue in venues"
+                         ng-click="showVenueDetail(venue)"></section>
             </div>
 
         </div>

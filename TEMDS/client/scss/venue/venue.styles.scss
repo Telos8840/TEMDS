@@ -1,81 +1,13 @@
 .venue-list-view {
     ion-content{
-        background-color: white;
+        background-color: #efefef;
     }
     .list {
-        .cell {
-            padding: 10px;
-            height: 70px;
-            // CELL ITEM
-            .content {
-                .thumb {
-                    float: left;
-                    width: 50px;
-                    height: 50px;
-                    background-image: url('/img/th_50x50.jpg');
-                    border-radius: 5px;
-                    margin-right: 10px;
-                    overflow: hidden;
-                    img {
-                        width: 100%;
-                        @extend .animtype_easeout;
-                        border-radius: 5px;
-                        &.ng-hide-add,
-                        &.ng-hide-remove {
-                            transition: all linear 0.333s;
-                            display: block !important;
-                        }
-                        &.ng-hide-add.ng-hide-add-active,
-                        &.ng-hide-remove {
-                            opacity: 0;
-                        }
-                        &.ng-hide-add,
-                        &.ng-hide-remove.ng-hide-remove-active {
-                            opacity: 1;
-                        }
-                    }
-                }
-                .body {
-                    float: left;
-                    height: 100%;
-                    float: left;
-                    .title {
-                        text-transform: uppercase;
-                        padding: 7px 0 0 0px;
-                        margin: 0px;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        font-size: 14px;
-                        color: lighten($address-book-cell-text-color, 25%);
-                        font-weight: 500;
-                    }
-                    .category {
-                        padding: 0;
-                        color: lighten($address-book-cell-text-color, 50%);
-                        line-height: 14px;
-                        margin: 0px;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        font-size: 12px;
-                        p {
-                            padding: 0;
-                            margin: 0;
-                        }
-                    }
-                }
-                .arrow {
-                    float: right;
-                    height: 100%;
-                    text-align: center;
-                    width: 20px;
-                    padding: 15px 0 0 0;
-                    i {
-                        font-size: 20px;
-                        font-weight: 800px;
-                    }
-                }
+        .venue_card {
+            img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
             }
         }
     }

@@ -3,7 +3,6 @@ angular.module('temds.app.services')
 
 .service('VenueService', function ($http, $q, $localstorage) {
 
-    // TODO: Implement this with backend api
     this.getVenueList = function () {
         var dfd = $q.defer();
         var venues = $localstorage.getObject('venues');
@@ -22,9 +21,8 @@ angular.module('temds.app.services')
             });
 
         return dfd.promise;
-    }
+    };
 
-    // TODO: use api
     this.getVenueDetail = function (venueId) {
         var dfd = $q.defer();
 
@@ -37,6 +35,6 @@ angular.module('temds.app.services')
             });
 
         return dfd.promise;
-    }
+    };
 
 });

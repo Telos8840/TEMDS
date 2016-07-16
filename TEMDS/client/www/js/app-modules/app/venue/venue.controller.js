@@ -21,6 +21,8 @@ angular.module('temds.app.controllers')
                     $scope.venueList = $filter('orderBy')(data.list, '+name', false);
                     $scope.sortByName(); // default
                     $scope.$broadcast('scroll.infiniteScrollComplete');
+
+                    console.log('venueList:', $scope.venueList);
                 });
         };
         $scope.getList();
