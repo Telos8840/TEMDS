@@ -1,13 +1,30 @@
 <ion-view class="feed-view venue-detail-view" view-title="">
-    <div class="header">
+    <!-- div class="header">
         <div class="placeholder"></div>
         <img class="venueImg" src="{{venue.img}}" fade-in-on-load/>
         <div class="overlay"></div>
         <div class="name">
             <h1>{{venueName}}</h1>
         </div>
-    </div>
+    </div -->
     <ion-content class="has-footer has-header">
+        <div class="header_image">
+            <img src="{{venueImage}}">
+            <div class="shadow_top"></div>
+        </div>
+
+        <div class="venue_title">
+            <div class="info">
+                <span>{{venueName}}</span>
+                <p>{{venueCategory}}</p>
+            </div>
+        </div>
+
+        <div class="current_hour">
+            <i class="ion-ios-clock"></i>
+            {{currentHour}}
+        </div>
+
         <div class="list card">
             <div class="item item-divider">Location</div>
             <div class="item map">

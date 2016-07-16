@@ -21,8 +21,6 @@ angular.module('temds.app.controllers')
                     $scope.venueList = $filter('orderBy')(data.list, '+name', false);
                     $scope.sortByName(); // default
                     $scope.$broadcast('scroll.infiniteScrollComplete');
-
-                    console.log('venueList:', $scope.venueList);
                 });
         };
         $scope.getList();
@@ -51,7 +49,9 @@ angular.module('temds.app.controllers')
             })
         }
     })
-    .controller('VenueDetailCtrl', function ($scope, $state, $stateParams, $ionicHistory, VenueService, uiGmapGoogleMapApi) {
+    .controller('VenueDetailCtrl', function ($scope, $state, $stateParams, $ionicConfig, $ionicHistory, VenueService, uiGmapGoogleMapApi) {
+        $ionicConfig.backButton.text('').icon('ion-close');
+
         // isFromVenueList is true if user is creating a new order from browsing venues.
         // It is false if user was already creating a delivery and is picking venue.
         var isFromVenueList = false;
@@ -67,12 +67,17 @@ angular.module('temds.app.controllers')
 
         $scope.submitBtnText = isFromVenueList ? 'Create Order' : 'Select Venue';
         var venueId = $stateParams.venue._id;
-        $scope.venueName = $stateParams.venue.name; // TODO: Change
+        $scope.venueName = $stateParams.venue.name;
+        $scope.venueImage = $stateParams.venue.img;
+        $scope.venueCategory = $stateParams.venue.category;
+        $scope.currentHour = '';
 
         uiGmapGoogleMapApi.then(function(maps) {
             VenueService.getVenueDetail(venueId)
                 .then(function (data) {
+                    console.log('data>', data);
                     $scope.venue = data;
+                    $scope.currentHour = data.hours[moment().format('ddd').toUpperCase()];
                     // Get Location
                     var geocoder = new google.maps.Geocoder();
                     if (geocoder) {
