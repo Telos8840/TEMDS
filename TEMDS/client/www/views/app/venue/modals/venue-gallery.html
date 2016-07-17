@@ -1,0 +1,31 @@
+<ion-modal-view class="modal-view venue-gallery">
+    <ion-header-bar>
+        <h1 class="title modal-title">Gallery</h1>
+        <a class="button button-clear" ng-click="gallery_modal.hide()"><span class="icon ion-close"></span></a>
+    </ion-header-bar>
+
+    <ion-scroll class="has-header" zooming="true" direction="y">
+
+        <div class="row" ng-repeat="img in venue.gallery track by $index" ng-if="$index % 4 === 0">
+            <div class="col col-25" ng-if="$index < venue.gallery.length"
+                 ng-click="showFullImage(venue.gallery[$index])">
+                <img ng-src="{{venue.gallery[$index]}}" width="100%" />
+            </div>
+            <div class="col col-25" ng-if="$index + 1 < venue.gallery.length"
+                 ng-click="showFullImage(venue.gallery[$index + 1])">
+                <img ng-src="{{venue.gallery[$index + 1]}}" width="100%" />
+            </div>
+            <div class="col col-25" ng-if="$index + 2 < venue.gallery.length"
+                 ng-click="showFullImage(venue.gallery[$index + 2])">
+                <img ng-src="{{venue.gallery[$index + 2]}}" width="100%" />
+            </div>
+            <div class="col col-25"
+                 ng-if="$index + 3 < venue.gallery.length"
+                 ng-click="showFullImage(venue.gallery[$index + 3])">
+                <img ng-src="{{venue.gallery[$index + 3]}}" width="100%" />
+            </div>
+        </div>
+
+    </ion-scroll>
+
+</ion-modal-view>

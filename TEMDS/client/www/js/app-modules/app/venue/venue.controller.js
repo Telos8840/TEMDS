@@ -49,7 +49,7 @@ angular.module('temds.app.controllers')
             })
         }
     })
-    .controller('VenueDetailCtrl', function ($scope, $state, $stateParams, $ionicConfig, $ionicHistory, VenueService, uiGmapGoogleMapApi) {
+    .controller('VenueDetailCtrl', function ($scope, $state, $stateParams, $ionicModal, $ionicConfig, $ionicHistory, VenueService, uiGmapGoogleMapApi) {
         $ionicConfig.backButton.text('').icon('ion-close');
 
         // isFromVenueList is true if user is creating a new order from browsing venues.
@@ -65,6 +65,7 @@ angular.module('temds.app.controllers')
             }
         }
 
+        // View data: coming from the venue list
         $scope.submitBtnText = isFromVenueList ? 'Create Order' : 'Select Venue';
         var venueId = $stateParams.venue._id;
         $scope.venueName = $stateParams.venue.name;
@@ -72,10 +73,13 @@ angular.module('temds.app.controllers')
         $scope.venueCategory = $stateParams.venue.category;
         $scope.currentHour = '';
 
+        /**
+         * Init:
+         *    Fetch data once GoogleMap is ready.
+         */
         uiGmapGoogleMapApi.then(function(maps) {
             VenueService.getVenueDetail(venueId)
                 .then(function (data) {
-                    console.log('data>', data);
                     $scope.venue = data;
                     $scope.currentHour = data.hours[moment().format('ddd').toUpperCase()];
                     // Get Location
@@ -146,4 +150,32 @@ angular.module('temds.app.controllers')
                 $ionicHistory.goBack(-2);
             }
         };
-    })
+
+        /**
+         * Image Gallery Modal
+         */
+        $ionicModal.fromTemplateUrl('views/app/venue/modals/venue-gallery.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.gallery_modal = modal;
+        });
+
+        $ionicModal.fromTemplateUrl('views/app/venue/modals/venue-gallery-image.html', {
+            scope: $scope,
+            animation: 'scale-up'
+        }).then(function (modal) {
+            $scope.gallery_modal_image = modal;
+        });
+
+
+        $scope.showGallery = function () {
+            $scope.gallery_modal.show();
+        };
+
+        $scope.showFullImage = function(img) {
+            $scope.fullImageSrc = img;
+            $scope.gallery_modal_image.show();
+        };
+
+    });

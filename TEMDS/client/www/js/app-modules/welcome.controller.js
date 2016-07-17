@@ -8,14 +8,14 @@ angular.module('temds.welcome.controllers')
         /// Goto Sign In View
         $scope.signIn = function () {
             $state.go('sign-in');
-        }
+        };
 
         $scope.signUp = function () {
             /// <summary>
             /// Open new user registration step 1: Email Confirmation Form
             /// </summary>
             $state.go('email-confirm');
-        }
+        };
 
         $ionicModal.fromTemplateUrl('views/app/legal/privacy-policy.html', {
             scope: $scope,

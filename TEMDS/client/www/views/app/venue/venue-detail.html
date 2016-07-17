@@ -18,6 +18,9 @@
                 <span>{{venueName}}</span>
                 <p>{{venueCategory}}</p>
             </div>
+            <i class="ion-images"
+               ng-show="venue.gallery && venue.gallery.length > 0"
+               ng-click="showGallery()"></i>
         </div>
 
         <div class="current_hour">
