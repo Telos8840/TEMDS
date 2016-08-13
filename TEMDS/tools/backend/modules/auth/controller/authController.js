@@ -4,17 +4,17 @@ var _ = rq('lodash'),
     async = rq('async'),
     crypto = rq('crypto'),
     authMailer = rq('authMailer'),
-    User = rq('toolsUserModel');
+    User = rq('userModel');
 
 function createToken(user) {
     // delete properties that should not be included in token
     delete user.password;
     delete user.__v;
     return jwt.sign(user, process.env.SECRET, {
-        expiresInMinutes: process.env.TOKENEXPIRATIONTIME || 1440,
-        expiresIn: process.env.TOKENEXPIRATIONTIME
+        expiresInMinutes: process.env.TOKENEXPIRATIONTIME || 3600
     });
 }
+
 module.exports.login = function (req, res) {
     if (!req.body.username || !req.body.password) {
         return res.status(400)
@@ -44,6 +44,7 @@ module.exports.login = function (req, res) {
             });
     });
 };
+
 module.exports.signUp = function (req, res) {
     delete req.body.roles;
     if (!req.body.username || !req.body.password || !req.body.email) {
@@ -87,12 +88,14 @@ module.exports.signUp = function (req, res) {
             }
         });
 };
+
 module.exports.newToken = function (req, res) {
     res.status(201)
         .send({
             token: createToken(req.user)
         });
 };
+
 module.exports.forgotPassword = function (req, res) {
     async.waterfall([
 
@@ -135,6 +138,7 @@ module.exports.forgotPassword = function (req, res) {
             .send('please check your inbox');
     });
 };
+
 module.exports.resetPassword = function (req, res) {
     User.findOne({
         resetPasswordToken: req.params.resetToken,

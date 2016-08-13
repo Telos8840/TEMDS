@@ -18,6 +18,7 @@
         'ui.router',
         'ngAnimate',
         'xeditable',
+        'angularFileUpload',
         //app constants
         'const',
         //app modules
