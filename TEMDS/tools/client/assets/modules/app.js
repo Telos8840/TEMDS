@@ -4,26 +4,28 @@
     function config($urlRouterProvider, $locationProvider) {
         $urlRouterProvider.otherwise('/');
         $locationProvider.html5Mode({
-            enabled: true,
+            enabled: false,
             requireBase: false
         });
     }
 
-    function run() {
+    function run(editableOptions) {
         FastClick.attach(document.body);
+        editableOptions.theme = 'bs3';
     }
 
     angular.module('application', [
         'ui.router',
         'ngAnimate',
         'xeditable',
+        'angularFileUpload',
         //app constants
         'const',
         //app modules
         'core',
         'auth',
         'account',
-        'usermanagement',
+        'user',
         //temds
         'order',
         'venue',

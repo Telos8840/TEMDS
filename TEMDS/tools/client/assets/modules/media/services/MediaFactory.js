@@ -11,13 +11,15 @@ angular.module('media')
 				position: 'top-middle'
 			});
 
-		media.signAmazon = function (file) {
-			var encName = encodeURIComponent(file[0].name);
-			var encType = encodeURIComponent(file[0].type);
-			console.log('file', encName);
-			var api = path.join(API_URL, '/venue/signamazon', encName, encType);
-			console.log('api', api);
+		media.signAmazon = function (obj) {
+			var file = obj.file,
+				venueId = obj.venueId;
+			
+			var encName = encodeURIComponent(file.name);
+			var encType = encodeURIComponent(file.type);
+			var api = path.join(API_URL, '/media/signamazon', encName, encType, venueId);
 			var deferred = $q.defer();
+
 			$http.get(api)
 				.then(function success(response) {
 					deferred.resolve(response.data);

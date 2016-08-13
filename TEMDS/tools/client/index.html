@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TEMDS TOOLS</title>
     <link href="/assets/css/app.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/xeditable.css" rel="stylesheet" type="text/css">
     <script src="/assets/js/vendor.js"></script>
     <script src="/assets/js/routes.js"></script>
     <script src="/assets/js/app.js"></script>
   </head>
   <body>
     <div id="app" class="grid-frame vertical">
-      <div class="grid-block shrink" data-ng-controller="NavigationController" data-ng-include="'/templates/core/navigation.html'">
-        
-      </div>
+      <div class="grid-block shrink" data-ng-controller="NavigationController" data-ng-include="'/templates/core/navigation.html'"></div>
       
       <div id="view-container" class="grid-block">
         <div class="grid-block" ui-view></div>

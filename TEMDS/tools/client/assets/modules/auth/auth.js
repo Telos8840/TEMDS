@@ -4,17 +4,18 @@ angular.module('auth', [
     'angular-storage',
     'angular-jwt',
     'angularModalService'
-    ])
+])
     .config(function ($stateProvider, $httpProvider, jwtInterceptorProvider) {
-        $stateProvider.state('login', {
-            url: '/login',
-            controller: 'LoginController',
-            templateUrl: '/templates/auth/login.html',
-            animation: {
-                enter: 'slideInRight',
-                leave: 'slideOutRight'
-            }
-        })
+        $stateProvider
+            .state('login', {
+                url: '/login',
+                controller: 'LoginController',
+                templateUrl: '/templates/auth/login.html',
+                animation: {
+                    enter: 'slideInRight',
+                    leave: 'slideOutRight'
+                }
+            })
             .state('resetpassword', {
                 url: '/reset/:resetToken',
                 controller: 'ResetPasswordController',

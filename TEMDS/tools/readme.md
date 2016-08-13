@@ -53,4 +53,4 @@ and replace username password and email with your account Details.
 https://git.heroku.com/temds-tools.git
 git add .
 git commit -m "TEXT"
-git push heroku-tools master
+git push heroku/heroku-tools master

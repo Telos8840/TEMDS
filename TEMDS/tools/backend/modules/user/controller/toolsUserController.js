@@ -1,7 +1,9 @@
 'use strict';
-var User = rq('userModel');
+
+var ToolsUser = rq('toolsUserModel');
+
 module.exports.getUserById = function (req, res) {
-    User.findById(req.params.id, function (err, user) {
+    ToolsUser.findById(req.params.id, function (err, user) {
         if (err) {
             return res.status(400)
                 .send('User not found');
@@ -11,7 +13,7 @@ module.exports.getUserById = function (req, res) {
     });
 };
 module.exports.updateUserById = function (req, res) {
-    User.findById(req.params.id, function (err, user) {
+    ToolsUser.findById(req.params.id, function (err, user) {
         if (err) {
             return res.status(400)
                 .send('User not found');
@@ -34,7 +36,7 @@ module.exports.updateUserById = function (req, res) {
     });
 };
 module.exports.deleteUserById = function (req, res) {
-    User.findById(req.params.id, function (err, user) {
+    ToolsUser.findById(req.params.id, function (err, user) {
         if (err) {
             return res.status(400)
                 .send('User not found');
@@ -55,7 +57,7 @@ module.exports.deleteUserById = function (req, res) {
 };
 //list all Users except admins
 module.exports.listUsers = function (req, res) {
-    User.find({})
+    ToolsUser.find({})
         .where('roles')
     //uncomment to exclude users with admin or manager role from userlist
     //.nin(['admin', 'manager'])

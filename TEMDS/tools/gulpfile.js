@@ -38,12 +38,13 @@ var paths = {
         'bower_components/hammerjs/hammer.min.js',
         'bower_components/foundation-apps/js/vendor/**/*.js',
         'bower_components/foundation-apps/js/angular/**/*.js',
+        'bower_components/angular-file-upload/dist/angular-file-upload.min.js',
         '!bower_components/foundation-apps/js/angular/app.js'
     ],
     // These files are for your app's JavaScript
     appJS: [
         'client/assets/modules/app.js',
-        'client/assets/modules/**/*.js'
+        'client/assets/modules/**/*.js',
     ]
 };
 // 3. TASKS
@@ -63,6 +64,10 @@ gulp.task('copy', function () {
     //font-awesome icon-font
     gulp.src('./bower_components/font-awesome/fonts/**/*')
         .pipe(gulp.dest('./' + buildFolder + '/assets/fonts/'));
+    //angular-xeditable
+    gulp.src('./bower_components/angular-xeditable/dist/css/xeditable.css')
+        .pipe(gulp.dest('./' + buildFolder + '/assets/css/'));
+
     // Foundation's Angular partials
     return gulp.src(['./bower_components/foundation-apps/js/angular/components/**/*.html'])
         .pipe(gulp.dest('./' + buildFolder + '/components/'))

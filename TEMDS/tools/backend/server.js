@@ -10,11 +10,15 @@ var logger = rq('morgan')('tiny'),
     cors = rq('cors'),
     dotenv = rq('dotenv'),
     bodyParser = rq('body-parser'),
-    mongoose = rq('mongoose');
+    mongoose = rq('mongoose'),
+    multer = rq('multer');
+
 //load Enviromentvariables
 dotenv.load();
+
 //Init Express
 var app = express();
+
 // MongoDB
 mongoose.set('debug', false);
 mongoose.connect(process.env.DATABASE);
@@ -24,13 +28,16 @@ mongoose.connection.on('error', function () {
 mongoose.connection.once('open', function callback() {
     debug('Mongoose connected to the database');
 });
+
 // Parsers
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+
 //CORS
 app.use(cors());
+
 //dev-middleware
 if (process.env.MODE === 'development') {
     app.use(logger);
@@ -40,6 +47,7 @@ if (process.env.MODE === 'development') {
         port:  35729  
     }));
 }
+
 //static fileserver
 app.use(express.static(__dirname + '/../www'));
 app.use(function (err, req, res, next) {
@@ -49,11 +57,15 @@ app.use(function (err, req, res, next) {
         next(err);
     }
 });
+
+app.use(multer().single('file'));
+
 //Routes
 app.use('/api/auth', rq('authRoutes'));
-app.use('/api/usermanagement', rq('usermanagementRoutes'));
+app.use('/api/user', rq('userRoutes'));
 app.use('/api/venue', rq('venueRoutes'));
 app.use('/api/order', rq('orderRoutes'));
+app.use('/api/media', rq('mediaRoutes'));
 
 //Enable HTML5-Mode
 app.all('/*', function (req, res) {
@@ -62,6 +74,7 @@ app.all('/*', function (req, res) {
         root: __dirname + '/../www'
     });
 });
+
 //start server
 var port = process.env.PORT || 3000;
 http.createServer(app)
