@@ -1,0 +1,46 @@
+[
+    {
+        "question": "Where is my order?",
+        "answer": "You can use the tracking screen in the app to check on the status of your delivery. Once the driver has picked up your order, you will see their progress . You can contact your driver or call him by using the number provided. Feel free to let the driver know if you have any special instructions for reaching you at the drop-off. Please provide your gate code if you have one."
+    },
+    {
+        "question": "What is the 'Estimated Delivery Time' that displays when my order is accepted?",
+        "answer": "When your order is accepted, the screen will display an Estimated Delivery Time. This is a calculation of when the platform anticipates your delivery to arrive at your drop-off address.\nThe time is based on a number of variables and factors about your order – food preparation time, driver location, your distance from the pickup location, traffic, and other factors. For this reason, the time can change as the delivery progresses. For example, the driver is close to the pickup location and your order is ready quickly, the ETA could go down but if the restaurant or store takes a longer time to prepare your order than anticipated, the ETA could go up. We want you too have the most accurate possible delivery timeframe."
+    },
+    {
+        "question": "Can I tip a driver in cash?",
+        "answer": "Yes, you may tip your driver in cash or through either Paypal or Square cash."
+    },
+    {
+        "question": "What is Paypal?",
+        "answer": "Instant transfer: Sending money this way means the money is immediately credited to the recipient's account. That person can then immediately transfer the money to his or her personal bank account. If you want to send a transfer, you must have a credit or debit card registered with PayPal as a backup for your funds."
+    },
+    {
+        "question": "What is Square cash?",
+        "answer": "Just like real cash, but better. Cash is fast. You can cash out to your bank instantly. Cash is easy. Use it with anyone, even if they don’t have an account. Cash is free. Send money to friends and family with your debit card at no cost."
+    },
+    {
+        "question": "Why was my order canceled?",
+        "answer": "We apologize that your delivery was canceled. A few reasons that may have cause your order to be canceled are:\ni. The merchant is closed due to a private event, emergency, or a change in their operating hours.\n ii. The merchant is too busy to take new orders.\n iii. If your order is canceled, you will receive a text message, with the reason for the cancellation."
+    },
+    {
+        "question": "How can I contact customer service?",
+        "answer": "Contacting customer service is very easy. Just text us at (323) 498-1328 or call us at 1 (800) 726-3410.\nYou may also email us at cs@temds.services."
+    },
+    {
+        "question": "What cities is TEMDS available in?",
+        "answer": "The Extra Mile Delivery Service currently services Montebello, Pico Rivera, Commerce, Monterey Park, Norwalk, Paramount, Bellflower, Alhambra, East LA, Maywood, Cudahy, Vernon, Huntington Park, South Gate, Santa Fe Springs, South El Monte, South San Gabriel, Boyle Heights, Downey, Whittier, and Bell Gardens.\nWe are always opening more cities. Please click the link and visit our website to see all the cities we currently cover http://www.temds.services/#service-map"
+    },
+    {
+        "question": "How do I become a Driver?",
+        "answer": "Please visit our page and fill out the form http://www.temds.services/#drivers "
+    },
+    {
+        "question": "How do you determine the Delivery Fee?",
+        "answer": "TBD"
+    },
+    {
+        "question": "How can my restaurant join TEMDS?",
+        "answer": "Want to join our Restaurant or Store Club please fill out the form here and someone will call you.\nhttp://www.temds.services/#become-a-restaurant-and-store-memeber "
+    }
+]
