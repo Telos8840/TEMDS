@@ -4,7 +4,7 @@ var _ = rq('lodash'),
     async = rq('async'),
     crypto = rq('crypto'),
     authMailer = rq('authMailer'),
-    User = rq('userModel');
+    User = rq('toolsUserModel');
 
 function createToken(user) {
     // delete properties that should not be included in token

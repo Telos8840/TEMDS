@@ -1,6 +1,6 @@
 'use strict';
 /**
- * This is client user detail scehema from user-detail collection
+ * This is client user detail schema from user-detail collection
  */
 
 var mongoose = require('mongoose'),
