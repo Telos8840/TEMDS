@@ -15,11 +15,11 @@ var crypto      = require('crypto');
 var randomstring = require("randomstring");
 
 //TODO: Get SMTP authentication from businessowner
-var smtpTransport = nodeMailer.createTransport("SMTP",{
-  service: "Gmail",
+var smtpTransport = nodeMailer.createTransport({
+  service: "Godaddy",
   auth: {
-    user: "tester@ghlee.com",
-    pass: "testerPassword"
+    user: "do-not-reply@temds.services",
+    pass: "t3Md$06%"
   }
 });
 
@@ -35,7 +35,7 @@ var sendConfirmationEmail = function (res, user) {
   console.log("Sending email to: ", user.email);
 
   var mailOptions = {
-    from: "TEMDS Sender <donotreply@temds.com>", // sender address
+    from: "TEMDS Sender <do-not-reply@temds.services>", // sender address
     to: "<"+user.email+">", // comma separated list of receivers
     subject: "TEMDS - Email Confirmation Number",
     text: "Confirmation Number: " + user.confirmationNumber
@@ -43,7 +43,7 @@ var sendConfirmationEmail = function (res, user) {
 
   smtpTransport.sendMail(mailOptions, function(error, response) {
     console.log("email response: ", response);
-    if (error) console.log("Error sending email");
+    if (error) console.log("Error sending email ", error);
     else console.log("Email sent successfully");
   });
   // TODO: Push confirmation number and email to db
