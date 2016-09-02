@@ -1,0 +1,15 @@
+<ion-view class="faq-view" view-title="FAQ">
+    <ion-content class="has-header">
+        <div class="list card">
+            <div class=""ng-repeat="faq in faqList" ng-click="Toggle($index)">
+                <div href="#" class="item item-icon-left question" >
+                    <i class="icon ion-ios-help-outline"></i>
+                    {{faq.question}}
+                </div>
+                <div class="item item-body answer"  ng-class="{openDrawer: openedIndex == $index}">
+                    {{faq.answer}}
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
