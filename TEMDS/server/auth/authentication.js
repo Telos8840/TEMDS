@@ -8,18 +8,21 @@
 var response    = require('../helpers/response');
 var token       = require('../helpers/token');
 var password    = require('../helpers/password');
-var nodeMailer  = require('nodemailer');				//http://blog.nodeknockout.com/post/34641712180/sending-email-from-nodejs
+var nodeMailer  = require('nodemailer');
 var _           = require('lodash');
 var async       = require('async');
 var crypto      = require('crypto');
 var randomstring = require("randomstring");
 
 //TODO: Get SMTP authentication from businessowner
-var smtpTransport = nodeMailer.createTransport("SMTP",{
-  service: "Gmail",
+var smtpTransport = nodeMailer.createTransport({
+  transport: "SMTP",
+  host: "a2plcpnl0212.prod.iad2.secureserver.net",
+  port: 465,
+  requiresAuth: true,
   auth: {
-    user: "tester@ghlee.com",
-    pass: "testerPassword"
+    user: "donotreply@temds.services",
+    pass: "%!Se(,02i_A."
   }
 });
 
@@ -35,7 +38,7 @@ var sendConfirmationEmail = function (res, user) {
   console.log("Sending email to: ", user.email);
 
   var mailOptions = {
-    from: "TEMDS Sender <donotreply@temds.com>", // sender address
+    from: "TEMDS Sender <donotreply@temds.services>", // sender address
     to: "<"+user.email+">", // comma separated list of receivers
     subject: "TEMDS - Email Confirmation Number",
     text: "Confirmation Number: " + user.confirmationNumber
@@ -43,7 +46,7 @@ var sendConfirmationEmail = function (res, user) {
 
   smtpTransport.sendMail(mailOptions, function(error, response) {
     console.log("email response: ", response);
-    if (error) console.log("Error sending email");
+    if (error) console.log("Error sending email ", error);
     else console.log("Email sent successfully");
   });
   // TODO: Push confirmation number and email to db

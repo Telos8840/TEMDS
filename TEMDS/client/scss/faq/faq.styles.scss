@@ -1,0 +1,41 @@
+/*
+#orderItem.ng-enter {
+    -webkit-animation: fadeInLeft 1s;
+    animation: fadeInLeft 1s;
+}
+
+#orderItem.ng-enter-stagger {
+    -webkit-animation-delay: 120ms;
+    animation-delay: 120ms;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+}*/
+
+.faq-view {
+    background-color: $feed-content-bg;
+
+    ion-content {
+        background-color: #FFF;
+
+        .list {
+            .question {
+                cursor:pointer;
+            }
+
+            .answer {
+                background-color: #888;
+                height:0;
+                padding:0 16px;
+                transition: 0.25s;
+                line-height: 0;
+            }
+
+            .openDrawer{
+                background: #eee;
+                height:auto;
+                padding:16px;
+                line-height: 16px;
+            }
+        }
+    }
+}

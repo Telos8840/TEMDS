@@ -313,6 +313,17 @@ angular.module('temds', [
                 }
             })
 
+        /** FAQ **/
+            .state('app.faq', {
+                url: '/faq',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'views/app/faq/faq.html',
+                        controller: 'FAQCtrl'
+                    }
+                }
+            })
+
         /** Order **/
             .state('app.order-create', {
                 url: '/order/new',
@@ -447,6 +458,7 @@ angular.module('temds', [
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/splash');
+        //urlRouterProvider.otherwise('/app/faq');
         //$urlRouterProvider.otherwise('/sign-in');
         //$urlRouterProvider.otherwise('/app/venue-list');
         //$urlRouterProvider.otherwise('/app/delivery/new');
