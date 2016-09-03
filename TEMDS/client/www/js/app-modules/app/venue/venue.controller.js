@@ -135,6 +135,30 @@ angular.module('temds.app.controllers')
         });
 
         /**
+         * Returns true is venue is closed
+         */
+        $scope.isVenueClosed = function() {
+            if ($scope.currentHour.toLowerCase() === 'closed') {
+                return true;
+            }
+
+            var hrs = $scope.currentHour.split(' - ');
+
+            if (hrs.length === 2) {
+                var openHr = parseInt(hrs[0]);
+                if (hrs[0].toLowerCase().endsWith('pm')) openHr += 12;
+
+                var closeHr = parseInt(hrs[1]);
+                if (hrs[1].toLowerCase().endsWith('pm')) closeHr += 12;
+
+                return !(moment().isSameOrAfter(moment({hour: openHr}))
+                && moment().isSameOrBefore(moment({hour: closeHr})));
+            }
+
+            return false;
+        };
+
+        /**
          * Redirect to new order view.
          * Send venue information to order from.
          */
