@@ -30,6 +30,7 @@
         'order',
         'venue',
         'media',
+        'delivery',
         //foundation
         'foundation',
         'foundation.dynamicRouting',

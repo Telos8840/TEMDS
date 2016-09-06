@@ -33,17 +33,6 @@
 
         </div>
 
-        <a style="height: 100px" class="success expand button show-for-small-only" href="#" zf-hard-toggle="filters">Filters</a>
-        <zf-action-sheet id="filters">
-            <div zf-as-content="" position="bottom">
-                <ul>
-                    <li ng-repeat="s in status">
-                        <a style="color: black" ng-click="setFilter($index)">{{s.status}}</a>
-                    </li>
-                </ul>
-            </div>
-        </zf-action-sheet>
-
         <div class="grid-content" id="orderHeader">
             <section class="block-list">
                 <ul>

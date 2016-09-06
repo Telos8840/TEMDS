@@ -25,6 +25,11 @@ var OrderSchema = new Schema({
         default: {},
         required: false
     },
+    driver: {
+        type: Object,
+        default: {},
+        required: false
+    },
     deliveryAddress: {
         type: Object,
         default: {},

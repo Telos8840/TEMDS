@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('order')
-    .controller('OrderDetailController', function($scope, $timeout, NotificationFactory, OrderFactory, VenueFactory, UserFactory, helper, $stateParams, appParams) {
+    .controller('OrderDetailController', function($scope, $timeout, NotificationFactory, OrderFactory, VenueFactory, UserFactory, helper, $stateParams, appParams, drivers) {
         var orderId = $stateParams.orderId,
             notification = new NotificationFactory({
                 id: 'orderDetailNotification',
@@ -16,6 +16,8 @@ angular.module('order')
         $scope.user = {};
         $scope.orderStatusOptions = appParams.OrderStatus;
         $scope.usStates = appParams.USStates;
+	    $scope.drivers = drivers;
+        $scope.selectedDriver = null;
 
         // Private Methods
 
@@ -38,6 +40,10 @@ angular.module('order')
             OrderFactory.GetOrderDetail(orderId)
                 .then(function(data) {
                     $scope.order = data;
+                    console.log($scope.order);
+                    if (!$scope.order.driver) {
+                        $scope.order.driver = {username: 'None'};
+                    }
                     getUser($scope.order.uId);
 
                     // fetch venue details

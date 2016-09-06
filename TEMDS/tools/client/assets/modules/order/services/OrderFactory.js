@@ -3,8 +3,6 @@
  */
 'use strict';
 
-
-
 angular.module('order')
     .factory('OrderFactory', function (API_URL, $http, NotificationFactory, $q, helper, path, appParams) {
         var order = {},
@@ -133,7 +131,7 @@ angular.module('order')
         };
 
         /**
-         * Retruns status descriptiong string from status code.
+         * Retruns status description string from status code.
          * @param statusCode
          * @returns {*}
          * @constructor

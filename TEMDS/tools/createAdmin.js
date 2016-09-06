@@ -1,6 +1,6 @@
 'use strict';
 var rq = require('rekuire'),
-    User = rq('userModel'),
+    User = rq('toolsUserModel'),
     path = rq('path'),
     dotenv = rq('dotenv');
 //load Enviromentvariables
