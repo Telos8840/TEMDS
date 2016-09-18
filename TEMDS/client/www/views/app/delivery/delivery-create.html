@@ -26,7 +26,7 @@
 
             <ion-list show-delete="showDelete" can-swipe="true" ng-hide="delivery.orders.length <= 0">
                 <ion-item ng-repeat="order in delivery.orders" item="order" class="item-avatar item-remove-animate">
-                    <img id="thumbnail" src="{{order.venue.thumbnail}}">
+                    <img id="thumbnail" src="{{order.venue.img}}">
                     <h2>{{order.venue.name}}</h2>
                     <h3>{{order.items.length}} {{order.items.length>1?'items':'item'}}</h3>
 
