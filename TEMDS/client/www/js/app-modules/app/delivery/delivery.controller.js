@@ -110,11 +110,7 @@ angular.module('temds.app.controllers')
             var delivery = angular.copy($scope.delivery);
             delivery.uId = user.id;
             delivery.status = _ORDER_STATUS_CREATED_;
-
-            for (var i in delivery.orders) {
-                delivery.orders[i].vId = delivery.orders[i].venue._id;
-                delete delivery.orders[i]["venue"];
-            }
+            
 
             delete delivery.deliveryAddress["primary"];
 
