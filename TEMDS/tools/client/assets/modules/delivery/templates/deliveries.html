@@ -1,11 +1,18 @@
+<script src="js/directives.js"></script>
 <div id="delivery" class="grid-block vertical">
 	<div class="grid-content">
 		<div zf-tabs="">
 			<div zf-tab="" title="Open">
 				<section class="block-list">
 					<ul>
-						<li data-ng-repeat="order in orders">
-							<a href="#">List item 1
+						<li data-ng-repeat="order in $parent.orders" ng-if="order.status === 1">
+							<a ng-click="$parent.$parent.$parent.orderClicked(order)" zf-open="animatedModal" >
+								<span ng-if="order.orders.length == 1" >
+									{{ order.orders[0].venue.name }}
+								</span>
+								<span ng-if="order.orders.length > 1">
+									{{ order.orders[0].venue.name }} and {{order.orders.length}} others
+								</span>
 								<i class="fa fa-pencil-square-o float-right" aria-hidden="true"></i>
 							</a>
 						</li>
@@ -13,11 +20,41 @@
 				</section>
 			</div>
 			<div zf-tab="" title="In Progress">
-				Tab content 2
+				<section class="block-list">
+					<ul>
+						<li data-ng-repeat="order in $parent.orders" ng-if="order.status === 2">
+							<a href="#">
+								<span ng-if="order.orders.length == 1">
+									{{ order.orders[0].venue.name }}
+								</span>
+								<span ng-if="order.orders.length > 1">
+									{{ order.orders[0].venue.name }} and {{order.orders.length}} others
+								</span>
+								<i class="fa fa-pencil-square-o float-right" aria-hidden="true"></i>
+							</a>
+						</li>
+					</ul>
+				</section>
 			</div>
 			<div zf-tab="" title="Complete">
 				Tab content 3
 			</div>
+		</div>
+	</div>
+</div>
+
+<div zf-modal="" id="animatedModal" animation-in="slideInUp" animation-out="hingeOutFromMiddleY">
+	<div class="grid-block vertical">
+		<div class="primary title-bar">
+			<div class="center title">{{selectedOrder.recipient}}'s Order</div>
+			<span zf-close="" class="right"><a>Close</a></span>
+		</div>
+		<div class="grid-content padding" style="padding-top: 1rem;">
+			<p>
+				<img src="assets/img/mountain.jpg">
+			</p>
+			<a zf-close="" class="button">OK</a>
+			<a zf-close="" class="button">Cancel</a>
 		</div>
 	</div>
 </div>

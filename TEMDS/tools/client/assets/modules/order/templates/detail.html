@@ -103,11 +103,12 @@
                         </div>
                     </form>
                 </div>
+                <!--e-ng-options="getStatusDescription(v) for (k,v) in orderStatusOptions"-->
                 <div class="row">
                     <label>Status</label>
                     <span editable-select="order.status"
-                          e-ng-options="getStatusDescription(v) for (k,v) in orderStatusOptions"
-                          onbeforesave="updateOrder($data,'status', order._id)">
+                    e-ng-options="getStatusDescription(opt.key) as opt.status for opt in orderStatusOptions"
+                          onbeforesave="updateOrder($data, 'status', order._id)">
                         {{ getStatusDescription(order.status) }}
                     </span>
                 </div>

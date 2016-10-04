@@ -111,10 +111,14 @@ angular.module('temds.app.controllers')
             delivery.uId = user.id;
             delivery.status = _ORDER_STATUS_CREATED_;
 
+            /*
+             Taking this out and saving whole venue info
+             This was making things a nightmare to query for the tools api
+
             for (var i in delivery.orders) {
                 delivery.orders[i].vId = delivery.orders[i].venue._id;
                 delete delivery.orders[i]["venue"];
-            }
+            }*/
 
             delete delivery.deliveryAddress["primary"];
 
