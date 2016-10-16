@@ -21,6 +21,7 @@ import MyOrder from "./Views/MyOrder";
 import PostDetails from "./Views/Wordpress/NewsDetail";
 import News from "./Views/Wordpress/Index";
 import Templates from "./Views/Templates";
+import HorizontalItem from "./Layout/HorizontalItem";
 import AppEventEmitter from "./../Services/AppEventEmitter";
 
 import MenuSide from "./Views/Navigation/MenuScale";
@@ -45,9 +46,12 @@ export default class RootRouter extends Component {
     render() {
         const scenes = Actions.create(
             <Scene key="scene">
-                <Scene key="intro" component={Intro}/>
-                <Scene key="login" component={Login}/>
+                <Scene key="intro" component={Intro} />
+                <Scene key="login" component={Login} initial={true}/>
                 <Scene key="home" component={Home} title="Home"/>
+                <Scene key="restaurant" component={HorizontalItem} title="Restaurant" />
+
+
                 <Scene key="productgrid" component={ProductGrid} title="ProductGrid"/>
                 <Scene key="product" component={Product} title="Product"/>
                 <Scene key="notification" component={Notification} title="Notification"/>
@@ -61,7 +65,7 @@ export default class RootRouter extends Component {
                 <Scene key="templates" component={Templates} title="Templates" />
 
 
-                <Scene key="wooProduct" component={WooProduct} title="Woo Product" initial={true}/>
+                <Scene key="wooProduct" component={WooProduct} title="Woo Product"/>
                 <Scene key="productdetails" component={ProductDetails} title="ProductDetails"/>
                 <Scene key="news" component={News} title="News"/>
                 <Scene key="postDetails" component={PostDetails} title="Post"/>

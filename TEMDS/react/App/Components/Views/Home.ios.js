@@ -3,6 +3,7 @@ import {Text, View, Platform, Image, ScrollView, BackAndroid, TouchableOpacity, 
 import ListItem from "./../Layout/ListItem";
 import HorizontalItem from "./../Layout/HorizontalItem";
 import Category from "./Category";
+import SpecialRequests from "./SpecialRequests";
 import ScrollableTabView, {ScrollableTabBar} from "react-native-scrollable-tab-view";
 import {Actions} from "react-native-router-flux";
 import AppEventEmitter from "./../../Services/AppEventEmitter";
@@ -17,7 +18,7 @@ export default class Home extends Component {
     render() {
         return (
             <View style={home.color}>
-                <Toolbar name='Shop' searchButton={true} />
+                <Toolbar name='Extra Mile Delivery Service' searchButton={false} />
 
                 <View style={[home.search]}>
                     <TextInput
@@ -43,9 +44,10 @@ export default class Home extends Component {
                           tabStyle={{paddingBottom: 0, borderBottomWidth: 0, paddingTop: 0, paddingLeft: 10, paddingRight: 10}}
                          />}>
 
-                        <HorizontalItem tabLabel="Man"/>
-                        <ListItem tabLabel="Women"/>
-                        <Category tabLabel="Categories"/>
+                        {/*<HorizontalItem tabLabel="Man"/>
+                        <ListItem tabLabel="Women"/>*/}
+                        <Category tabLabel="Restaurants"/>
+                        <SpecialRequests tabLabel="Special Requests"/>
                     </ScrollableTabView>
                 </View>
             </View>

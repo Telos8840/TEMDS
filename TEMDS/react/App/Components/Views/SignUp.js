@@ -31,7 +31,7 @@ export default class SignUp extends Component {
                     </View>
                     <ButtonRoundBlue
                         onPress={()=>Actions.home}
-                        text="Registration"/>
+                        text="Register"/>
 
                     <Text style={{color:'white',opacity:0.7,marginRight:5,fontSize:15}}>
                         already have an account
@@ -43,7 +43,7 @@ export default class SignUp extends Component {
                     </TouchableOpacity>
 
                     <Text style={{color: '#aaa', textAlign: 'center', padding: 12}}>
-                        By clicking "Registration" I agree to BeoStore <Text style={{color: '#3071D0'}}>Terms of Service</Text>
+                        By clicking "Register" I agree to TEMDS <Text style={{color: '#3071D0'}}>Terms of Service</Text>
                     </Text>
 
                 </View>

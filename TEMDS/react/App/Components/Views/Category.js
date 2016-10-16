@@ -4,6 +4,7 @@ import React, {Component} from "react";
 import {Text, View, Dimensions, StyleSheet, PixelRatio, Image, ListView, TouchableOpacity} from "react-native";
 import styles from "./../Styles/category";
 import Parallax from "react-native-parallax";
+import {Actions} from "react-native-router-flux";
 
 var SCROLLVIEW = 'Parallax_scroll';
 var PARALLAX_FACTOR = 0.8;
@@ -55,7 +56,9 @@ export default class Category extends Component {
                         style={styles.image}
                         overlayStyle={styles.overlay}
                         source={section.keyword}
-                        parallaxFactor={PARALLAX_FACTOR}>
+                        parallaxFactor={PARALLAX_FACTOR}
+                        onPress={Actions.restaurant}
+                    >
                         <Text style={styles.title}>{section.title}</Text>
                         <Text style={styles.description}>{section.number} products</Text>
                     </Parallax.Image>

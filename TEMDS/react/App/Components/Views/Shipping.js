@@ -30,11 +30,11 @@ export default class Shipping extends Component {
                         <TextInput underlineColorAndroid='rgba(0,0,0,0)' style={shipping.input} placeholder={'Phone'}/>
                         <TextInput underlineColorAndroid='rgba(0,0,0,0)' style={shipping.input} placeholder={'E-mail'}/>
                         <TextInput underlineColorAndroid='rgba(0,0,0,0)' style={shipping.input} placeholder={'Country'}/>
+                        <TextInput underlineColorAndroid='rgba(0,0,0,0)' style={shipping.input} placeholder={'Address'}/>
                         <View style={shipping.inputContainer}>
                             <TextInput underlineColorAndroid='rgba(0,0,0,0)' style={shipping.inputHalf} placeholder={'State'}/>
                             <TextInput underlineColorAndroid='rgba(0,0,0,0)' style={shipping.inputHalf} placeholder={'City'}/>
                         </View>
-                        <TextInput underlineColorAndroid='rgba(0,0,0,0)' style={shipping.input} placeholder={'Address'}/>
                     </View>
 
                 </ScrollView>

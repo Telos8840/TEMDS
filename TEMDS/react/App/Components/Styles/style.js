@@ -29,7 +29,7 @@ export default StyleSheet.create({
         "zIndex": 9
     },
     "toolbarMenu": {
-        "height": 60,
+        // "height": 90,
         "backgroundColor": "#fff",
         "flexDirection": "row",
         "justifyContent": "space-between",
@@ -118,10 +118,16 @@ export default StyleSheet.create({
         "paddingBottom": 15,
         "paddingLeft": 15
     },
+    mainLogoContainer: {
+        flex:1,
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'center'
+    },
     "logo": {
         "resizeMode": "contain",
-        "height": 22,
-        "marginTop": 0,
+        "height": 70,
+        "marginTop": 20,
         "marginRight": 0,
         "marginBottom": 0,
         "marginLeft": 0
