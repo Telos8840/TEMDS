@@ -16,7 +16,7 @@ import {Actions} from "react-native-router-flux";
 import ScrollableTabView, {ScrollableTabBar} from "react-native-scrollable-tab-view";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
-import css from "./../Styles/style";
+import css from "../../Styles/style";
 
 export default class Login extends Component {
     constructor(props) {
@@ -32,23 +32,23 @@ export default class Login extends Component {
     render() {
         const toolbar = (
             <View style={[css.toolbarMenu]}>
-                <View style={{flexDirection:'row',alignItems:'center'}}>
+                {/*<View style={{flexDirection:'row',alignItems:'center'}}>
                     <TouchableOpacity onPress={Actions.product}>
                         <Image source={require('../../images/icon-back.png')}
                                style={[css.imageIconLarge, {marginLeft: 8, width: 14}]}></Image>
                     </TouchableOpacity>
+                </View>*/}
+
+                <View style={css.mainLogoContainer}>
+                    <Image style={css.logo} source={require('../../../images/TEMDS-Color-Logo_75.png')} />
                 </View>
 
-                <View style={css.rowCenter}>
-                    <Image style={css.logo} source={require('../../images/beologo.png')}></Image>
-                </View>
-
-                <View style={{flexDirection:'row',alignItems:'center'}}>
+                {/*<View style={{flexDirection:'row',alignItems:'center'}}>
                     <TouchableOpacity onPress={Actions.cart}>
                         <Image source={require('../../images/icon-bag.png')}
                                style={[css.imageIconLarge, {marginRight: 8}]}></Image>
                     </TouchableOpacity>
-                </View>
+                </View>*/}
             </View>
         )
         return (

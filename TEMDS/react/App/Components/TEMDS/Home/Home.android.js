@@ -1,14 +1,15 @@
+
 import React, {Component} from "react";
 import {Text, View, Platform, Image, ScrollView, BackAndroid, TouchableOpacity, TextInput} from "react-native";
-import ListItem from "./../Layout/ListItem";
-import HorizontalItem from "./../Layout/HorizontalItem";
-import Category from "./Category";
+
+import Restaurants from "./RestaurantList";
+import SpecialRequests from "./SpecialRequests";
 import ScrollableTabView, {ScrollableTabBar} from "react-native-scrollable-tab-view";
 import {Actions} from "react-native-router-flux";
-import AppEventEmitter from "./../../Services/AppEventEmitter";
+import AppEventEmitter from "../../../Services/AppEventEmitter";
 import Icon from "react-native-vector-icons/EvilIcons";
-import home from "./../Styles/home";
-import Toolbar from "./../Controls/Toolbar";
+import home from "./home";
+import Toolbar from "../../Controls/Toolbar";
 
 export default class Home extends Component {
     open() {
@@ -17,7 +18,7 @@ export default class Home extends Component {
     render() {
         return (
             <View style={home.color}>
-                <Toolbar name='Shop' searchButton={true} />
+                <Toolbar name='Extra Mile Delivery Service' cartButton={true} />
 
                 <View style={[home.search]}>
                     <TextInput
@@ -43,9 +44,9 @@ export default class Home extends Component {
                           tabStyle={{paddingBottom: 0, borderBottomWidth: 0, paddingTop: 0, paddingLeft: 10, paddingRight: 10}}
                          />}>
 
-                        <HorizontalItem tabLabel="Man"/>
-                        <ListItem tabLabel="Women"/>
-                        <Category tabLabel="Categories"/>
+
+                        <Restaurants tabLabel="Restaurants"/>
+                        <SpecialRequests tabLabel="Special Requests"/>
                     </ScrollableTabView>
                 </View>
             </View>

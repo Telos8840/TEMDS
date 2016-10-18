@@ -10,7 +10,7 @@ import {
 	TouchableOpacity, InteractionManager, RefreshControl, Animated, Platform, Dimensions
 } from 'react-native';
 import {Actions} from "react-native-router-flux";
-import ButtonRoundBlue from "./../Controls/ButtonRoundBlue";
+import ButtonRoundBlue from "../../Controls/ButtonRoundBlue";
 import DynamicListRow from "./DynamicListRow";
 import Icon from 'react-native-vector-icons/Ionicons';
 

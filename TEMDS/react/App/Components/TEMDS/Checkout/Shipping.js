@@ -11,7 +11,7 @@ import {
     ScrollView,
     StyleSheet
 } from "react-native";
-import shipping from "./../Styles/shipping";
+import shipping from "../../Styles/shipping";
 import {Actions} from "react-native-router-flux";
 
 

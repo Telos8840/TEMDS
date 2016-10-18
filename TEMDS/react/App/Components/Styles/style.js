@@ -46,6 +46,24 @@ export default StyleSheet.create({
         "marginRight": 80,
         "alignItems": "center"
     },
+    "toolbarTitleViewNoIcon": {
+        "position": "absolute",
+        "top": 20,
+        "left": 0,
+        "width": width - 160,
+        "marginLeft": 80,
+        "marginRight": 80,
+        "alignItems": "center"
+    },
+    "toolbarTitleViewCheckout": {
+        "position": "absolute",
+        "top": 10,
+        "left": 0,
+        "width": width - 160,
+        "marginLeft": 80,
+        "marginRight": 80,
+        "alignItems": "center"
+    },
     "toolbarTitle": {
         "color": "#494949",
         "fontSize": 16,
@@ -74,7 +92,7 @@ export default StyleSheet.create({
         "paddingLeft": 10
     },
     "imageIcon": {
-        "width": 14,
+        "width": 20,
         "height": 14
     },
     "imageIconLarge": {
@@ -302,5 +320,20 @@ export default StyleSheet.create({
         "color": "#888",
         "fontWeight": "600",
         "fontSize": 12
+    },
+    "multiLineInput": {
+        "height": 80,
+        "borderColor": "#ddd",
+        "borderWidth": 1,
+        "fontSize": 14,
+        "paddingTop": 4,
+        "paddingRight": 4,
+        "paddingBottom": 4,
+        "paddingLeft": 8,
+        "borderRadius": 4,
+        "marginLeft": 20,
+        "marginRight": 20,
+        "marginBottom": 8,
+        "color": "#333",
     }
 });

@@ -15,12 +15,12 @@ import {
 	ScrollView,
 	StyleSheet
 } from "react-native";
-import shipping from "./../Styles/shipping";
+
+import shipping from "../../Styles/shipping";
 import {Actions} from "react-native-router-flux";
-import ButtonRoundBlue from "./../Controls/ButtonRoundBlue";
 import AddItemsList from "./AddItemList";
-import product from "./../Styles/product";
-import css from "./../Styles/style";
+import product from "../../Styles/product";
+import css from "../../Styles/style";
 
 
 export default class SpecialRequests extends Component {
@@ -39,11 +39,18 @@ export default class SpecialRequests extends Component {
 							<TextInput underlineColorAndroid='rgba(0,0,0,0)' style={shipping.inputHalf} placeholder={'City'}/>
 							<TextInput underlineColorAndroid='rgba(0,0,0,0)' style={shipping.inputHalf} placeholder={'ZIP Code'}/>
 						</View>
+						<TextInput
+							multiline = {true}
+							numberOfLines = {4}
+							editable = {true}
+							underlineColorAndroid='rgba(0,0,0,0)'
+							style={css.multiLineInput}
+							placeholder={'Comments'}
+						/>
 						<AddItemsList />
 					</View>
 				</ScrollView>
-				<View
-					style={{position:'absolute',bottom:0,flexDirection:'row',alignItems:'center',justifyContent:'space-around'}}>
+				<View style={{position:'absolute',bottom:0,flexDirection:'row',alignItems:'center',justifyContent:'space-around'}}>
 
 					<TouchableOpacity style={[product.detailsBtn,{backgroundColor:'#eee'}]}>
 						<Text style={[product.detailsBtnTxt,{color:'#494949'}]}>CANCEL</Text>

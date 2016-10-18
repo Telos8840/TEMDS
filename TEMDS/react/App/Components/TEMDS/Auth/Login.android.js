@@ -16,7 +16,7 @@ import {Actions} from "react-native-router-flux";
 import ScrollableTabView, {ScrollableTabBar} from "react-native-scrollable-tab-view";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
-import css from "./../Styles/style";
+import css from "../../Styles/style";
 
 export default class Login extends Component {
     constructor(props) {
@@ -34,19 +34,19 @@ export default class Login extends Component {
             <View style={[css.toolbarMenu]}>
                 <View style={{flexDirection:'row',alignItems:'center'}}>
                     <TouchableOpacity onPress={Actions.product}>
-                        <Image source={require('../../images/icon-back.png')}
-                               style={[css.imageIconLarge, {marginLeft: 8, width: 14}]}></Image>
+                        <Image source={require('../../../images/icon-back.png')}
+                               style={[css.imageIconLarge, {marginLeft: 8, width: 14}]} />
                     </TouchableOpacity>
                 </View>
 
                 <View style={css.rowCenter}>
-                    <Image style={css.logo} source={require('../../images/beologo.png')}></Image>
+                    <Image style={css.logo} source={require('../../../images/beologo.png')} />
                 </View>
 
                 <View style={{flexDirection:'row',alignItems:'center'}}>
                     <TouchableOpacity onPress={Actions.cart}>
-                        <Image source={require('../../images/icon-bag.png')}
-                               style={[css.imageIconLarge, {marginRight: 8}]}></Image>
+                        <Image source={require('../../../images/icon-bag.png')}
+                               style={[css.imageIconLarge, {marginRight: 8}]} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -62,7 +62,7 @@ export default class Login extends Component {
                     tabBarActiveTextColor={"#393838"}
                     tabBarInactiveTextColor={"#B8B8B8"}
                     tabBarTextStyle={{ fontWeight: 'normal', fontSize: 14}}
-                    style={{paddingTop: 30, backgroundColor: '#ffff'}}
+                    style={{backgroundColor: '#ffff'}}
                     contentProps={{backgroundColor: '#ffff', marginTop: 0}}
                     renderTabBar={() => <ScrollableTabBar
                           underlineHeight={3}

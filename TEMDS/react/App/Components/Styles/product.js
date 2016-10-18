@@ -169,6 +169,12 @@ export default StyleSheet.create({
         "alignItems": "center",
         "justifyContent": "center"
     },
+    "detailsBtnFullWidth": {
+        "width": width,
+        "height": 40,
+        "alignItems": "center",
+        "justifyContent": "center"
+    },
     "detailsBtnTxt": {
         "fontSize": 12,
         "fontWeight": "600"
