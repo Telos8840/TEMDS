@@ -6,14 +6,21 @@
 'use strict';
 import React, { Component } from 'react';
 import { AppRegistry,  StatusBar} from 'react-native';
+import { Provider } from 'react-redux';
+import configureStore from './App/Components/store';
+import RootRouter from './App/Components/RootRouter';
+import {loadRestaurants} from './App/actions/HomeAction';
 
 StatusBar.setBarStyle('light-content');
-import RootRouter from './App/Components/RootRouter';
+const store = configureStore();
+store.dispatch(loadRestaurants());
 
 class eCommerce extends Component {
     render() {
         return (
-            <RootRouter />
+            <Provider store={store}>
+                <RootRouter />
+            </Provider>
         );
     }
 }

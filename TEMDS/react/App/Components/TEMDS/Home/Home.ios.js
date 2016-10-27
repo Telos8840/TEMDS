@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import {Text, View, Platform, Image, ScrollView, BackAndroid, TouchableOpacity, TextInput} from "react-native";
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as HomeActions from '../../../actions/HomeAction';
 
 import RestaurantList from "./RestaurantList";
 import SpecialRequests from "./SpecialRequests";
@@ -10,7 +13,7 @@ import Icon from "react-native-vector-icons/EvilIcons";
 import home from "./home";
 import Toolbar from "../../Controls/Toolbar";
 
-export default class Home extends Component {
+class Home extends Component {
     open() {
         AppEventEmitter.emit('hamburger.click');
     }
@@ -43,7 +46,7 @@ export default class Home extends Component {
                           tabStyle={{paddingBottom: 0, borderBottomWidth: 0, paddingTop: 0, paddingLeft: 10, paddingRight: 10}}
                          />}>
 
-                        <RestaurantList tabLabel="Restaurants"/>
+                        <RestaurantList tabLabel="Restaurants" restaurants={this.props.restaurants}/>
                         <SpecialRequests tabLabel="Special Requests"/>
                     </ScrollableTabView>
                 </View>
@@ -51,3 +54,18 @@ export default class Home extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    var arr = Object.values(state.temds);
+    return {
+            restaurants: arr
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(HomeActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

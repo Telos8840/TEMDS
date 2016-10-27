@@ -62,10 +62,8 @@ export default class RestaurantView extends Component {
 
 		if (currentOffset > offset) {
 			this.hideMenu();
-			console.log('down');
 		} else if (currentOffset < offset) {
 			this.showMenu();
-			console.log('up');
 		}
 
 		offset = currentOffset;

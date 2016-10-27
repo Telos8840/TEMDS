@@ -49,9 +49,6 @@ import TrackOrder from "./TEMDS/TrackOrder/TrackOrder";
 import Profile from "./Views/Profile";
 
 
-
-import ProductDetails from "./Views/ProductDetails";
-
 export default class RootRouter extends Component {
     constructor(props) {
         super(props);
@@ -109,11 +106,6 @@ export default class RootRouter extends Component {
                 <Scene key="myorders" component={MyOrder} title="MyOrder"/>
 
                 <Scene key="profile" component={Profile} title="Profile"/>
-
-
-
-
-                <Scene key="productdetails" component={ProductDetails} title="ProductDetails"/>
             </Scene>
         );
 

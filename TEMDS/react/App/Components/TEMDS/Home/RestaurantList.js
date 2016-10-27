@@ -11,8 +11,8 @@ import Parallax from "react-native-parallax";
 import {Actions} from "react-native-router-flux";
 
 var SCROLLVIEW = 'Parallax_scroll';
-var PARALLAX_FACTOR = 0.8;
-var SECTIONS = [
+var PARALLAX_FACTOR = 0.2;
+/*var SECTIONS = [
 	{
 		title: 'B A G S',
 		number: '2990',
@@ -48,22 +48,22 @@ var SECTIONS = [
 		number: '430',
 		keyword: require('../../../images/cate7.png'),
 	}
-];
+];*/
 
 export default class Restaurants extends Component {
 	render() {
 		return (
 			<Parallax.ScrollView ref={SCROLLVIEW} style={styles.scrollView}>
-				{SECTIONS.map((section, i) => (
+				{this.props.restaurants.map((restaurant, i) => (
 					<Parallax.Image
 						key={i}
 						style={styles.image}
 						overlayStyle={styles.overlay}
-						source={section.keyword}
+						source={{uri: restaurant.image}}
 						parallaxFactor={PARALLAX_FACTOR}
-						onPress={Actions.restaurant} >
-						<Text style={styles.title}>{section.title}</Text>
-						<Text style={styles.description}>{section.number} products</Text>
+						onPress={() => Actions.restaurant({restaurant: restaurant})} >
+						<Text style={styles.title}>{restaurant.name}</Text>
+						<Text style={styles.description}>{restaurant.category}</Text>
 					</Parallax.Image>
 				))}
 			</Parallax.ScrollView>
