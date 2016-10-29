@@ -28,6 +28,10 @@ export default class SignIn extends Component {
         };
     }
 
+    login() {
+        this.props.login();
+    }
+
     render() {
         return (
             <View style={login.container} >
@@ -43,7 +47,8 @@ export default class SignIn extends Component {
                     </Text>
                 </View>
 
-                <ButtonRoundBlue text="Enter" onPress={()=>Actions.home({data:this.state.value })}/>
+                {/*<ButtonRoundBlue text="Enter" onPress={()=>Actions.home({data:this.state.value })}/>*/}
+                <ButtonRoundBlue text="Login" onPress={this.login.bind(this)}/>
             </View>
         );
     }

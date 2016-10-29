@@ -3,10 +3,12 @@
  */
 
 import {combineReducers} from 'redux';
-import temds from './HomeReducer';
+import home from './HomeReducer';
+import auth from './AuthReducer'
 
 const rootReducer = combineReducers({
-	temds
+	home,
+	auth
 });
 
 export default rootReducer;

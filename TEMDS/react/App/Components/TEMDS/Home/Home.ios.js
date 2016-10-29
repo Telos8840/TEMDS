@@ -56,7 +56,7 @@ class Home extends Component {
 }
 
 function mapStateToProps(state) {
-    var arr = Object.values(state.temds);
+    var arr = Object.values(state.home);
     return {
             restaurants: arr
     };

@@ -12,13 +12,18 @@ import {
     Dimensions,
     DeviceEventEmitter
 } from "react-native";
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as AuthActions from '../../../actions/AuthAction';
+import {API_ROOT} from '../../../middleware/api';
+
 import {Actions} from "react-native-router-flux";
 import ScrollableTabView, {ScrollableTabBar} from "react-native-scrollable-tab-view";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import css from "../../Styles/style";
 
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,6 +32,39 @@ export default class Login extends Component {
             visibleHeight: Dimensions.get('window').height,
             scroll: false
         };
+
+        this.login = this.login.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.checkAuth(nextProps);
+    }
+
+    checkAuth(nextProps) {
+        if (!nextProps.user.token) {
+            console.log('not logged in');
+        } else {
+            Actions.home();
+        }
+    }
+
+    login(user) {
+        this.props.actions.login();
+        /*return fetch(API_ROOT + 'api/auth/signIn', {
+            method: 'POST',
+            body: JSON.stringify({
+                email: 'seguardado88@gmail.com',
+                rawPass: 'password'
+            })
+        }).then((res)=> {
+            return res.json()
+        }).then((json)=> {
+            console.log('return json', json);
+            this.setState({auth: json});
+            console.log('state', this.state);
+        }).catch((error) => {
+            console.warn(error)
+        }).done()*/
     }
 
     render() {
@@ -40,7 +78,7 @@ export default class Login extends Component {
                 </View>*/}
 
                 <View style={css.mainLogoContainer}>
-                    <Image style={css.logo} source={require('../../../images/TEMDS-Color-Logo_75.png')} />
+                    <Image style={css.logo} source={require('../../../images/temds-words.png')} />
                 </View>
 
                 {/*<View style={{flexDirection:'row',alignItems:'center'}}>
@@ -71,10 +109,25 @@ export default class Login extends Component {
                           tabStyle={{paddingBottom: 0, borderBottomWidth: 0, paddingTop: 0, paddingLeft: 50, paddingRight: 50}}
                          />}
                     >
-                    <SignIn tabLabel="Login"/>
+                    <SignIn tabLabel="Login" login={this.login}/>
                     <SignUp tabLabel="Sign Up"/>
                 </ScrollableTabView>
             </View>
         );
     }
 }
+
+function mapStateToProps(state) {
+    console.log('login state', state.auth);
+    return {
+        user: state.auth
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(AuthActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

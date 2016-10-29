@@ -42,7 +42,7 @@ export default class Confirm extends Component {
 
                 <View style={shipping.successView}>
                     <Animatable.View animation="lightSpeedIn" easing="ease-out" style={{justifyContent: 'center',  alignItems: 'center'}}>
-                        <Image source={require('../../../images/temds-icon.png')}/>
+                        <Image source={require('../../../images/temds_icon_no_bg.png')} style={{width: 200, height: 200}}/>
                     </Animatable.View>
 
                     <Text style={shipping.h1}>Congratulations. Your order is accepted.</Text>
