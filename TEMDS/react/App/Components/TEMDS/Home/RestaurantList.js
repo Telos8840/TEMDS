@@ -10,6 +10,10 @@ import styles from "./restaurant-list";
 import Parallax from "react-native-parallax";
 import {Actions} from "react-native-router-flux";
 
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as RestaurantActions from '../../../actions/RestaurantAction';
+
 var SCROLLVIEW = 'Parallax_scroll';
 var PARALLAX_FACTOR = 0.2;
 /*var SECTIONS = [
@@ -51,6 +55,10 @@ var PARALLAX_FACTOR = 0.2;
 ];*/
 
 export default class Restaurants extends Component {
+	constructor(props) {
+		super(props);
+	}
+
 	render() {
 		return (
 			<Parallax.ScrollView ref={SCROLLVIEW} style={styles.scrollView}>
@@ -61,7 +69,7 @@ export default class Restaurants extends Component {
 						overlayStyle={styles.overlay}
 						source={{uri: restaurant.image}}
 						parallaxFactor={PARALLAX_FACTOR}
-						onPress={() => Actions.restaurant({restaurant: restaurant})} >
+						onPress={() => Actions.restaurant()} >
 						<Text style={styles.title}>{restaurant.name}</Text>
 						<Text style={styles.description}>{restaurant.category}</Text>
 					</Parallax.Image>
@@ -70,3 +78,4 @@ export default class Restaurants extends Component {
 		);
 	}
 }
+

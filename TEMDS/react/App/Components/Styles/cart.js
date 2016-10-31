@@ -33,7 +33,7 @@ export default StyleSheet.create({
         "height": 120
     },
     "name": {
-        "fontSize": 12,
+        "fontSize": 20,
         "fontWeight": "300",
         "color": "#333"
     },

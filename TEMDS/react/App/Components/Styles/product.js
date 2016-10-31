@@ -57,12 +57,15 @@ export default StyleSheet.create({
         "marginTop": 110
     },
     "productItem": {
-        "width": width-30,
-        "height":  (width-20)*962/875,
-        "marginTop": 5,
-        "marginRight": 5,
-        "marginBottom": 5,
-        "marginLeft": 5
+        "flex": 1,
+        "width": width,
+        "height": (width-40)*962/875,
+        // "width": width-30,
+        // "height":  (width-20)*962/875,
+         //"marginTop": 5,
+        // "marginRight": 5,
+         "marginBottom": 10,
+        // "marginLeft": 5
     },
     "detailPanel": {
         "height": 300,
@@ -89,20 +92,20 @@ export default StyleSheet.create({
         "paddingLeft": 1
     },
     "detailName": {
-        "color": "#535353",
-        "fontWeight": "300",
+        //"color": "#535353",
+        "fontWeight": "400",
         "fontSize": 18,
         "paddingTop": 8
     },
     "detailDesc": {
-        "color": "#535353",
-        "fontWeight": "300",
-        "fontSize": 13,
+        //"color": "#535353",
+        "fontWeight": "400",
+        "fontSize": 14,
         "paddingTop": 10,
         "textAlign": "center"
     },
     "detailPrice": {
-        "fontSize": 18,
+        "fontSize": 14,
         "width": 100,
         "textAlign": "center"
     },

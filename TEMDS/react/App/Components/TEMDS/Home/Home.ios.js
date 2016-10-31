@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Text, View, Platform, Image, ScrollView, BackAndroid, TouchableOpacity, TextInput} from "react-native";
+
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as HomeActions from '../../../actions/HomeAction';
