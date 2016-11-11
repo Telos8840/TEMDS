@@ -258,19 +258,43 @@ let ITECH_DETAIL = {
 	price: '8.99',
 	description: 'Consists of a cheese and tomato base with pieces of ham and pineapple',
 	menuOptions: [{
+		id: '0',
 		title: 'Size',
 		type: 'required',
 		options: [
 			{
+				id: '0',
 				option: '9 Inches',
-				price: '8.99'
+				price: '0.00',
+				type: 1
 			},
 			{
+				id: '1',
 				option: '12 Inches',
-				price: '11.99'
+				price: '3.00',
+				type: 1
 			}
 		]
-	}]
+	},
+		{
+			id: '1',
+			title: 'Shit',
+			type: 'option',
+			options: [
+				{
+					id: '0',
+					option: '99 Inches',
+					price: '0.00',
+					type: 0
+				},
+				{
+					id: '1',
+					option: '122 Inches',
+					price: '3.00',
+					type: 0
+				}
+			]
+		}]
 };
 
 class TEMDSApi {
