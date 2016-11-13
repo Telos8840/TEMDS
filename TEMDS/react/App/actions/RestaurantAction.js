@@ -23,7 +23,6 @@ function getRestaurantDetailAction(detail) {
 export function getRestaurantInfo() {
 	return dispatch => {
 		return TEMDSApi.getRestaurantInfo().then(restaurant => {
-			console.log('dispatching info');
 			dispatch(getRestaurantInfoAction(restaurant));
 		}).catch(error => {
 			throw(error);

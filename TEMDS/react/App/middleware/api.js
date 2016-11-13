@@ -266,32 +266,28 @@ let ITECH_DETAIL = {
 				id: '0',
 				option: '9 Inches',
 				price: '0.00',
-				type: 1
 			},
 			{
 				id: '1',
 				option: '12 Inches',
 				price: '3.00',
-				type: 1
 			}
 		]
 	},
 		{
 			id: '1',
 			title: 'Shit',
-			type: 'option',
+			type: 'optional',
 			options: [
 				{
 					id: '0',
 					option: '99 Inches',
 					price: '0.00',
-					type: 0
 				},
 				{
 					id: '1',
 					option: '122 Inches',
 					price: '3.00',
-					type: 0
 				}
 			]
 		}]

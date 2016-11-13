@@ -139,7 +139,6 @@ class RestaurantView extends Component {
 
 
 function mapStateToProps(state) {
-	console.log('mapping state in view', state);
 	return {
 		restaurant: state.restaurant.info
 	};
