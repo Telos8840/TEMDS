@@ -35,8 +35,12 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as RestaurantActions from '../../../actions/RestaurantAction';
 
+let _ = require('lodash');
+
 let deviceWidth = Dimensions.get('window').width,
-	details = null;
+	details = null,
+	selectedRadios = [],
+	selectedChecks = {};
 
 class RestaurantDetail extends Component {
 	constructor(props) {
@@ -44,10 +48,13 @@ class RestaurantDetail extends Component {
 
 		this.state = {
 			loaded: false,
-			selectedOption: {}
 		};
 
 		this.props.actions.getRestaurantDetail();
+	}
+
+	componentDidMount() {
+		AppEventEmitter.addListener('cart.click', this._addToCart.bind(this));
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -57,9 +64,74 @@ class RestaurantDetail extends Component {
 		});
 	}
 
+	_renderOptionList() {
+		let listView = details.menuOptions.map((option, i) => (
+			<View key={i}>
+				<List>
+					<View style={styles.section}>
+						<Text style={styles.headerText}>{option.title}</Text>
+						<Text style={styles.headerSubText}>({option.type})</Text>
+					</View>
+					{
+						option.type === 'required' ? (
+							<RadioForm
+								radio_props={option.options}
+								initial={0}
+								onPress={this._handleRadioPress}
+							/>
+						) : (
+							option.options.map((opt, i) => (
+								<CheckBoxForm
+									key={i}
+									style={styles}
+									object={opt}
+									optionId={option.id}
+									onPress={this._handleCheckboxPress}
+								/>
+							))
+						)
+					}
+				</List>
+			</View>
+		));
+
+		return listView;
+	}
+
+	_handleRadioPress(option, id) {
+		console.log('radio press', option, id);
+		selectedRadios.push(option);
+		let newRadio =
+			_.chain(selectedRadios)
+			.assign(selectedRadios, option)
+			.uniqBy(selectedRadios, 'id')
+			.value();
+
+		console.log('new radio', newRadio);
+
+	}
+
+	_handleCheckboxPress(option, id, isChecked) {
+		console.log('check press', option, id, isChecked);
+		if (isChecked) {
+			_.isArray(selectedChecks[id]) ?
+				selectedChecks[id].push(option) :
+				selectedChecks[id] = [option];
+		} else {
+			
+		}
+
+		console.log(selectedChecks);
+	}
+
+	_addToCart() {
+		console.log('cart', selectedRadios, selectedChecks);
+	}
+
 	render() {
 		return (
 			this.state.loaded &&
+
 			<View style={product.color}>
 				<ParallaxScrollView
 					backgroundColor="white"
@@ -82,41 +154,12 @@ class RestaurantDetail extends Component {
 							</View>
 						</View>
 					)}>
-					{details.menuOptions.map((option, i) => (
-						<View key={i}>
-							<List>
-								<View style={styles.section}>
-									<Text style={styles.headerText}>{option.title}</Text>
-									<Text style={styles.headerSubText}>({option.type})</Text>
-								</View>
 
-								{option.type === 'required' ? (
-									<RadioForm
-										radio_props={option.options}
-										initial={0}
-										onPress={(value) => {
-											this.setState({value:value}
-											)}}
-									/>
-								) : (
-									option.options.map((opt, i) => (
-										<CheckBoxForm
-											key={i}
-											style={styles}
-											object={opt}
-											onPress={(value) => {
-												this.setState({value:value}
-												)}}
-										/>
-									))
-								)
-								}
-							</List>
-						</View>
-					))}
+					{this._renderOptionList()}
+
 				</ParallaxScrollView>
 				<View style={{position:'absolute',bottom:0,flexDirection:'row',alignItems:'center',justifyContent:'space-around'}}>
-					<TouchableOpacity style={[product.detailsBtnFullWidth, css.backgroundColor]} onPress={Actions.restaurant}>
+					<TouchableOpacity style={[product.detailsBtnFullWidth, css.backgroundColor]} onPress={this._addToCart}>
 						<Text style={[product.detailsBtnTxt,{color:'white'}]}>ADD TO CART</Text>
 					</TouchableOpacity>
 				</View>

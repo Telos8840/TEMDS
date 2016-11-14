@@ -20,6 +20,7 @@ import {
 	StyleSheet
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import AppEventEmitter from "../../Services/AppEventEmitter";
 
 export default class MenuOption extends Component {
 	constructor(props) {
@@ -35,7 +36,7 @@ export default class MenuOption extends Component {
 			isChecked: !this.state.isChecked
 		});
 
-		this.props.onPress(this.props.object);
+		this.props.onPress(this.props.object, this.props.optionId, !this.state.isChecked);
 	}
 
 	render() {
