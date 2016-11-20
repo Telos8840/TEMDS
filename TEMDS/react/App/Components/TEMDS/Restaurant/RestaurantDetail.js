@@ -77,6 +77,7 @@ class RestaurantDetail extends Component {
 							<RadioForm
 								radio_props={option.options}
 								initial={0}
+								optionId={option.id}
 								onPress={this._handleRadioPress}
 							/>
 						) : (
@@ -98,30 +99,20 @@ class RestaurantDetail extends Component {
 		return listView;
 	}
 
-	_handleRadioPress(option, id) {
-		console.log('radio press', option, id);
-		selectedRadios.push(option);
-		let newRadio =
-			_.chain(selectedRadios)
-			.assign(selectedRadios, option)
-			.uniqBy(selectedRadios, 'id')
-			.value();
-
-		console.log('new radio', newRadio);
-
+	_handleRadioPress(option, id, optionId) {
+		selectedRadios[optionId] = option;
 	}
 
 	_handleCheckboxPress(option, id, isChecked) {
-		console.log('check press', option, id, isChecked);
 		if (isChecked) {
 			_.isArray(selectedChecks[id]) ?
 				selectedChecks[id].push(option) :
 				selectedChecks[id] = [option];
 		} else {
-			
+			selectedChecks[id] = _.remove(selectedChecks[id], (check) => {
+				return check.id == option.id;
+			});
 		}
-
-		console.log(selectedChecks);
 	}
 
 	_addToCart() {

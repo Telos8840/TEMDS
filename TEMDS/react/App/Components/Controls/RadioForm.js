@@ -47,8 +47,9 @@ var RadioForm = React.createClass({
 				obj={obj}
 				key={i}
 				index={i}
-				onPress={(value, index) => {
-					this.props.onPress(value, index);
+				optionId={this.props.optionId}
+				onPress={(value, index, optionId) => {
+					this.props.onPress(value, index, optionId);
 					this.setState({is_active_index: index});
 				}}
 			/>
@@ -128,7 +129,9 @@ export class RadioButtonInput extends React.Component {
 			<View style={this.props.buttonWrapStyle} >
 				<TouchableOpacity
 					style={Style.menuContainer}
-					onPress={() => { this.props.onPress( this.props.obj, this.props.index) }
+					onPress={() => {
+						this.props.onPress( this.props.obj, this.props.index, this.props.optionId)
+					}
 					}>
 					<Icon
 						name={this.props.isSelected ? 'check-circle' : 'circle-thin'}
@@ -150,7 +153,9 @@ export class RadioButtonLabel extends React.Component {
 	render () {
 		return (
 			<TouchableWithoutFeedback
-				onPress={() => {this.props.onPress( this.props.obj, this.props.index)}}>
+				onPress={() => {
+					this.props.onPress( this.props.obj, this.props.index, this.props.optionId)
+				}}>
 				<View style={[
 					this.props.labelWrapStyle,
 					Style.textContainer,
