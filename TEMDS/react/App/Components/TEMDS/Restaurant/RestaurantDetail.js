@@ -39,7 +39,7 @@ let _ = require('lodash');
 
 let deviceWidth = Dimensions.get('window').width,
 	details = null,
-	selectedRadios = [],
+	selectedRadios = {},
 	selectedChecks = {};
 
 class RestaurantDetail extends Component {
