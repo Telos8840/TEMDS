@@ -1,20 +1,20 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
+ * @flow
  */
 
-import React, { Component } from 'react';
-import { AppRegistry,  StatusBar} from 'react-native';
+'use strict';
+import React, {Component} from 'react';
+import {AppRegistry} from 'react-native';
 
-StatusBar.setBarStyle('light-content');
-import RootRouter from './App/Components/RootRouter';
+import RootRouter from './app/RootRouter';
 
-class eCommerce extends Component {
+class MStore extends Component {
     render() {
-        return (
-            <RootRouter />
-        );
+        return <RootRouter />
     }
 }
 
-AppRegistry.registerComponent('eCommerce', () => eCommerce);
+AppRegistry.registerComponent('MStore', () => MStore);
+

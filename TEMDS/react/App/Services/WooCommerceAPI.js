@@ -1,8 +1,12 @@
+/*
+ * WooCommerce API
+ * DO NOT TOUCH!
+ */
 'use strict';
 
 import OAuth from "oauth-1.0a";
 
-module.exports = WooCommerceAPI;
+export default WooCommerceAPI;
 
 /**
  * WooCommerce REST API wrapper
@@ -191,37 +195,54 @@ WooCommerceAPI.prototype._request = function (method, endpoint, data, callback) 
         }
     }
     else {
-        params.qs = this._getOAuth().authorize({
-            url: url,
-            method: method,
-            data: data
-        });
+        if (method == 'GET') {
+            params.qs = this._getOAuth().authorize({
+                url: url,
+                method: method,
+                data: data
+            });
+        } else if (method == 'POST') {
+            params.qs = this._getOAuth().authorize({
+                url: url,
+                method: method,
+            });
+        }
     }
 
     // encode the oauth_signature to make sure it not remove + charactor
     params.qs.oauth_signature = encodeURIComponent(params.qs.oauth_signature);
     var requestUrl = params.url + '?' + this.join(params.qs, '&');
 
-    // extra data info for paging
-    if (data) {
-        requestUrl += '&' + this.join(data, '&');
+    var _header;
+    var _body;
+    if (method == 'GET') {
+        _header = {'Cache-Control': 'no-cache'};
+    }
+    else if (method == 'POST') {
+        _header = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        };
+        _body = JSON.stringify(data);
     }
 
     // console.log('encode', params.qs.oauth_signature);
-    // console.log(requestUrl);
+    console.log(requestUrl);
+    // alert(requestUrl);
 
     return fetch(requestUrl, {
-        headers: {
-            'Cache-Control': 'no-cache'
-        }
+        method: method,
+        headers: _header,
+        body: _body,
     })
         .then((response) => response.json())
         .then((responseData) => {
             if (typeof callback == 'function') {
                 callback();
             }
+            console.log(responseData);
             return responseData
-        });
+        }).catch((error) => console.warn(error));
 };
 
 /**

@@ -1,16 +1,26 @@
 /**
- * Created by Saul on 10/18/16.
+ * Created by Luan on 10/21/2016.
  */
-
 import {combineReducers} from 'redux';
-import home from './HomeReducer';
-import auth from './AuthReducer'
-import restaurant from './RestaurantReducer'
+import routes from './routes';
+import Category  from './Category/index';
+import Product  from './Product/index';
+import Cart  from './Cart/index';
+import WishList  from './WishList/index';
+import Customer  from './Customer/index';
+import Language  from './Language/index';
+import Country  from './Country/index';
+// ... other reducers
 
-const rootReducer = combineReducers({
-	home,
-	auth,
-	restaurant
+
+export default combineReducers({
+    routes,
+    Category,
+    Product,
+    Cart,
+    WishList,
+    Customer,
+    Language,
+    Country,
+    // ... other reducers
 });
-
-export default rootReducer;

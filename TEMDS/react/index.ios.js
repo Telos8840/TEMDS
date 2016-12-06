@@ -1,28 +1,19 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
+ * @flow
  */
 
 'use strict';
-import React, { Component } from 'react';
-import { AppRegistry,  StatusBar} from 'react-native';
-import { Provider } from 'react-redux';
-import configureStore from './App/Components/store';
-import RootRouter from './App/Components/RootRouter';
-import {loadRestaurants} from './App/actions/HomeAction';
+import React, {Component} from 'react';
+import {AppRegistry} from 'react-native';
 
-StatusBar.setBarStyle('light-content');
-const store = configureStore();
-store.dispatch(loadRestaurants());
+import RootRouter from './app/RootRouter';
 
-class eCommerce extends Component {
+class MStore extends Component {
     render() {
-        return (
-            <Provider store={store}>
-                <RootRouter />
-            </Provider>
-        );
+        return <RootRouter />
     }
 }
 
-AppRegistry.registerComponent('eCommerce', () => eCommerce);
+AppRegistry.registerComponent('MStore', () => MStore);

@@ -1,9 +1,8 @@
 import WordpressApi from "./WordpressApi"
-import Constants from './../Common/Constants';
 
 var ApiNews = new WordpressApi({
-    url: Constants.URL.root,
-    logo: Constants.URL.logo
+    url: 'http://beostore.io',
+    logo: 'http://beostore.io/wp-content/uploads/2015/05/logoback.png'
 });
 
 export default ApiNews;
