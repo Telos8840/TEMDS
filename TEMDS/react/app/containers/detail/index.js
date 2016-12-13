@@ -32,7 +32,7 @@ import {List, Text} from 'native-base';
 
 import {connect} from 'react-redux';
 
-let _ = require('lodash');
+import _ from 'lodash';
 
 let details = null,
 	selectedRadios = {},
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
 		fontSize: 22,
 	},
 	productItem: {
-		flex: 1,
+		//flex: 1,
 		width: Constants.Dimension.ScreenWidth(),
 		height: (Constants.Dimension.ScreenHeight()-40)*962/875,
 		// "width": width-30,
@@ -178,19 +178,24 @@ class Detail extends Component {
 		super(props);
 
 		this.state = {
-			isWaiting: true
+			isWaiting: true,
+			isFetching: true
 		};
+
+		console.log('det cons', props);
 	}
 
 	componentWillMount() {
-		TimerMixin.setTimeout(() => this.props.fetchProductDetailById(this.props.productId, () => this.setState({isWaiting: false})), 500);
+		this.props.fetchProductDetailById(this.props.productId, () => this.setState({isWaiting: false}));
+		//TimerMixin.setTimeout(() => this.props.fetchProductDetailById(this.props.productId, () => this.setState({isWaiting: false})), 500);
 	}
 
 	componentDidMount() {
-		EventEmitter.addListener('cart.click', this._addToCart.bind(this));
+		//EventEmitter.addListener('cart.click', this._addToCart.bind(this));
 	}
 
 	componentWillReceiveProps(nextProps) {
+		console.log('next prop', nextProps);
 		if (nextProps.detail !== undefined) {
 			details = nextProps.detail;
 		}
@@ -261,7 +266,7 @@ class Detail extends Component {
 				<ParallaxScrollView
 					backgroundColor="white"
 					contentBackgroundColor="white"
-					parallaxHeaderHeight={deviceWidth}
+					parallaxHeaderHeight={Constants.Dimension.ScreenWidth()}
 					renderFixedHeader={() => (
 						<Toolbar {...this.props}/>
 					)}
@@ -296,8 +301,8 @@ class Detail extends Component {
 const mapStateToProps = (state) => {
 	console.log('detail state', state);
 	return {
-		currentProduct: state.Product.currentProduct,
-		product: state.Product.currentProduct.product,
+		currentDetail: state.Detail.currentProductDetail,
+		detail: state.Detail.currentProductDetail.detail,
 		Cart: state.Cart,
 	}
 };

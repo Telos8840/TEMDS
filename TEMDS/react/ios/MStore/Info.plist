@@ -41,6 +41,7 @@
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>FontAwesome.ttf</string>
 		<string>Ionicons.ttf</string>
 		<string>BodoniBold.ttf</string>
 		<string>SFUBodoni.ttf</string>

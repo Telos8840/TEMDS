@@ -19,7 +19,7 @@ import {
 	DeviceEventEmitter,
 	StyleSheet
 } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export default class MenuOption extends Component {
 	constructor(props) {
@@ -42,7 +42,7 @@ export default class MenuOption extends Component {
 		return (
 			<View style={[Style.radioWrap, Style.rowStyle]}>
 				<TouchableOpacity style={Style.menuContainer} onPress={this.onChange.bind(this)}>
-					<Icon name={this.state.isChecked ? 'checkbox-out' : 'square-outline'} style={Style.icon}/>
+					<Icon name={this.state.isChecked ? 'check-square' : 'square-o'} style={Style.icon}/>
 				</TouchableOpacity>
 				<TouchableWithoutFeedback style={Style.textContainer} onPress={this.onChange.bind(this)}>
 					<View style={Style.textContainer}>

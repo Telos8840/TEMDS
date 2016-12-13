@@ -32,7 +32,6 @@ class Product extends Component {
 		};
 
 		this.updatePrice = (props) => this.setState({price: props.price});
-		console.log('props', props);
 	}
 
 	static propTypes = {
@@ -155,7 +154,6 @@ class Product extends Component {
 
 
 const mapStateToProps = (state) => {
-	console.log('state', state);
 	return {
 		currentProduct: state.Product.currentProduct,
 		product: state.Product.currentProduct.product,

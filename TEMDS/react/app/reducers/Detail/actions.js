@@ -39,6 +39,7 @@ export function fetchProductDetailById(productId, _callback) {
 		return TemdsAPI.getRestaurantDetail(productId).then(detail => {
 			dispatch(receiveDetail(detail));
 			_callback();
+			console.log('api', detail);
 		}).catch(error => {
 			dispatch(detailFailure(error));
 		});

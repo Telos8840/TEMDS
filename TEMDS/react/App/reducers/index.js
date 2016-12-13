@@ -5,6 +5,7 @@ import {combineReducers} from 'redux';
 import routes from './routes';
 import Category  from './Category/index';
 import Product  from './Product/index';
+import Detail  from './Detail/index';
 import Cart  from './Cart/index';
 import WishList  from './WishList/index';
 import Customer  from './Customer/index';
@@ -17,6 +18,7 @@ export default combineReducers({
     routes,
     Category,
     Product,
+    Detail,
     Cart,
     WishList,
     Customer,

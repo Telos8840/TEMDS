@@ -14,7 +14,7 @@ var {
 	LayoutAnimation,
 	StyleSheet
 } = ReactNative;
-import Icon from "react-native-vector-icons/Ionicons";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 var RadioForm = React.createClass({
 	getInitialState: function () {
@@ -60,6 +60,7 @@ var RadioForm = React.createClass({
 		var render_content = false;
 		if (this.props.radio_props.length) {
 			render_content = this.props.radio_props.map(this._renderButton);
+			console.log('radio', this.props.radio_props);
 		}
 
 		return (
@@ -126,14 +127,14 @@ export class RadioButtonInput extends React.Component {
 
 	render () {
 		return (
-			<View style={this.props.buttonWrapStyle} >
+			<View>
 				<TouchableOpacity
 					style={Style.menuContainer}
 					onPress={() => {
 						this.props.onPress( this.props.obj, this.props.index, this.props.optionId)
 					}
 					}>
-					<Icon name={this.props.isSelected ? 'radio-button-on' : 'radio-button-off'} style={Style.icon}/>
+					<Icon name={this.props.isSelected ? 'check-circle' : 'circle-thin'} style={Style.icon}/>
 				</TouchableOpacity>
 			</View>
 		)
@@ -181,13 +182,9 @@ const Style = StyleSheet.create({
 	radio: {
 		justifyContent: 'center',
 		alignItems: 'center',
-
 		width: 30,
 		height: 30,
-
-
 		alignSelf: 'center',
-
 		borderColor: '#2196f3',
 		borderRadius: 30,
 	},
