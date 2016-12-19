@@ -62,7 +62,6 @@ export default class MenuOption extends Component {
 
 const Style = StyleSheet.create({
 	radioWrap: {
-		flex: 1,
 		flexDirection: 'row',
 		alignItems: 'center',
 		alignSelf: 'center',

@@ -3,6 +3,7 @@
  */
 
 import {
+	SELECT_DETAIL,
 	REQUEST_DETAIL,
 	RECEIVE_DETAIL,
 	DETAIL_FAILURE,
@@ -11,6 +12,8 @@ import {
 
 function productDetailReducer(state = {isFetching: false, detail: undefined}, action) {
 	switch (action.type) {
+		case SELECT_DETAIL:
+			return Object.assign({}, state, {selectedDetail: action.selectedDetail});
 		case REQUEST_DETAIL:
 			return state;
 		case RECEIVE_DETAIL:
@@ -24,7 +27,12 @@ function productDetailReducer(state = {isFetching: false, detail: undefined}, ac
 	}
 }
 
-export default function Detail(state = {isFetching: false, detail: {}, stillFetch: true,}, action) {
+export default function Detail(state = {
+	isFetching: false,
+	detail: {},
+	stillFetch: true,
+	selectedDetail: ''
+}, action) {
 	return {
 		currentProductDetail: productDetailReducer(state.currentProductDetail, action)
 	}

@@ -22,8 +22,8 @@ export default class ToolbarIcon extends Component {
             number_background: {
                 backgroundColor: 'red',
                 position: 'absolute',
-                top: 5,
-                right: 0,
+                top: 0,
+                right: 6,
                 height: 16,
                 width: 16,
                 borderRadius: 8,

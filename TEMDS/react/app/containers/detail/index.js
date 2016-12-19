@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
 	productItem: {
 		//flex: 1,
 		width: Constants.Dimension.ScreenWidth(),
-		height: (Constants.Dimension.ScreenHeight()-40)*962/875,
+		height: (Constants.Dimension.ScreenHeight())/1.75,
 		// "width": width-30,
 		// "height":  (width-20)*962/875,
 		//"marginTop": 5,
@@ -181,8 +181,7 @@ class Detail extends Component {
 			isWaiting: true,
 			isFetching: true
 		};
-
-		console.log('det cons', props);
+		console.log('detail props', props);
 	}
 
 	componentWillMount() {
@@ -195,11 +194,9 @@ class Detail extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log('next prop', nextProps);
 		if (nextProps.detail !== undefined) {
 			details = nextProps.detail;
 		}
-
 	}
 
 	_renderOptionList() {
@@ -255,6 +252,7 @@ class Detail extends Component {
 
 	_addToCart() {
 		console.log('cart', selectedRadios, selectedChecks);
+		this.props.addCartItem(this.props.product);
 	}
 
 	render() {
@@ -289,7 +287,7 @@ class Detail extends Component {
 
 				</ParallaxScrollView>
 				<View style={styles.cartRow}>
-					<TouchableOpacity style={styles.detailButton} onPress={this._addToCart}>
+					<TouchableOpacity style={styles.detailButton} onPress={this._addToCart.bind(this)}>
 						<Text style={styles.detailsBtnTxt}>ADD TO CART</Text>
 					</TouchableOpacity>
 				</View>
@@ -303,7 +301,8 @@ const mapStateToProps = (state) => {
 	return {
 		currentDetail: state.Detail.currentProductDetail,
 		detail: state.Detail.currentProductDetail.detail,
-		Cart: state.Cart,
+		product: state.Product.currentProduct.product,
+		Cart: state.Cart
 	}
 };
 

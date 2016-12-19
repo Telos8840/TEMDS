@@ -60,7 +60,6 @@ var RadioForm = React.createClass({
 		var render_content = false;
 		if (this.props.radio_props.length) {
 			render_content = this.props.radio_props.map(this._renderButton);
-			console.log('radio', this.props.radio_props);
 		}
 
 		return (
@@ -172,7 +171,6 @@ const Style = StyleSheet.create({
 	},
 
 	radioWrap: {
-		flex: 1,
 		flexDirection: 'row',
 		alignItems: 'center',
 		alignSelf: 'center',

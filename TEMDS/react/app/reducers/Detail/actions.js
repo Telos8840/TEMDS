@@ -4,10 +4,18 @@
 
 import TemdsAPI from "../../services/TemdsApi";
 
+export const SELECT_DETAIL = 'SELECT_DETAIL';
 export const REQUEST_DETAIL = 'REQUEST_DETAIL';
 export const RECEIVE_DETAIL = 'RECEIVE_DETAIL';
 export const DETAIL_FAILURE = 'DETAIL_FAILURE';
 export const CLEAR_DETAIL = 'CLEAR_DETAIL';
+
+export function selectDetail(selectedDetail) {
+	return {
+		type: SELECT_DETAIL,
+		selectedDetail,
+	}
+}
 
 export function requestDetail() {
 	return {

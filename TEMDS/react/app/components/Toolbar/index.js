@@ -32,7 +32,7 @@ class Toolbar extends Component {
 				justifyContent: "space-between",
 				paddingLeft: 15,
 				paddingTop: 13,
-				//paddingRight: 15,
+				paddingRight: 45,
 				height: 40,
 				width: Constants.Dimension.ScreenWidth(),
 			},

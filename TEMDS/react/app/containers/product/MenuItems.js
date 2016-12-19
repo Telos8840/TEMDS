@@ -4,7 +4,7 @@
 
 import React, {Component} from "react";
 import {View, Image, ScrollView} from "react-native";
-import Product from './Product';
+import Item from './Item';
 
 import styles from './styles';
 
@@ -17,7 +17,13 @@ const MenuItems = (props) => {
 
 			<View style={{flexDirection:'row'}}>
 				{props.items.map((item, i) => (
-					<Product key={i} id={item.id} name={item.name} price={item.price} image={item.image} />
+					<Item
+						key={i}
+						id={item.id}
+						name={item.name}
+						price={item.price}
+						image={item.image}
+						selectDetail={props.selectDetail} />
 				))}
 			</View>
 		</ScrollView>

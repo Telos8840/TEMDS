@@ -11,10 +11,11 @@ import MenuItems from './MenuItems';
 import Toolbar from "./../../components/Toolbar";
 import LogoSpinner from "./../../components/LogoSpinner";
 import {fetchProductById} from '../../reducers/Product/actions';
+import {selectDetail} from '../../reducers/Detail/actions'
 import EventEmitter from './../../utils/AppEventEmitter';
 import TimerMixin from 'react-timer-mixin';
 import Constants from './../../Constants';
-
+import {Actions} from "react-native-router-flux";
 import {connect} from 'react-redux';
 
 let offset = 0,
@@ -31,7 +32,8 @@ class Product extends Component {
 			isRefreshing: false
 		};
 
-		this.updatePrice = (props) => this.setState({price: props.price});
+		//this.updatePrice = (props) => this.setState({price: props.price});
+		console.log('prod props', props);
 	}
 
 	static propTypes = {
@@ -43,11 +45,11 @@ class Product extends Component {
 	}
 
 	componentWillUnmount() {
-		this.productChangePrice.remove();
+		//this.productChangePrice.remove();
 	}
 
 	componentDidMount() {
-		this.productChangePrice = EventEmitter.addListener(Constants.EmitCode.ProductPriceChanged, this.updatePrice.bind(this));
+		//this.productChangePrice = EventEmitter.addListener(Constants.EmitCode.ProductPriceChanged, this.updatePrice.bind(this));
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -109,6 +111,11 @@ class Product extends Component {
 		}, 1000);
 	};
 
+	goToDetail(id, name) {
+		this.props.selectDetail(id, name);
+		Actions.detail({productId: id, title: name});
+	}
+
 	render() {
 		if (this.state.isWaiting)
 			return <LogoSpinner fullStretch/>;
@@ -141,7 +148,7 @@ class Product extends Component {
 								<View>
 									<Text style={styles.title}>{menu.title}</Text>
 								</View>
-								<MenuItems items={menu.items}/>
+								<MenuItems items={menu.items} selectDetail={this.goToDetail.bind(this)} />
 							</View>
 						))
 					}
@@ -156,7 +163,7 @@ class Product extends Component {
 const mapStateToProps = (state) => {
 	return {
 		currentProduct: state.Product.currentProduct,
-		product: state.Product.currentProduct.product,
+		product: state.Product.currentProduct.product
 	}
 };
 
@@ -164,7 +171,10 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		fetchProductById: (productId, callback) => {
 			dispatch(fetchProductById(productId, callback));
-		}
+		},
+		selectDetail: (selectedDetailId, selectedDetailName) => {
+			dispatch(selectDetail(selectedDetailId, selectedDetailName));
+		},
 	}
 };
 
