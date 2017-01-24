@@ -253,10 +253,36 @@ let ITECH = {
 let ITECH_DETAIL = {
 	id: '0',
 	restaurantId: '0',
-	name: 'Hawaiian',
+	itemName: 'Hawaiian',
 	image: 'https://www.itechpizza.com/wp-content/uploads/2015/03/pic-pizza-hawaiian.jpg',
 	price: '8.99',
 	description: 'Consists of a cheese and tomato base with pieces of ham and pineapple',
+	defaultOptions: [
+		{
+			id: '0',
+			title: 'Size',
+			type: 'required',
+			options: [
+				{
+					id: '0',
+					option: '9 Inches',
+					price: '0.00',
+				}
+			]
+		},
+		{
+			id: '2',
+			title: 'Size',
+			type: 'required',
+			options: [
+				{
+					id: '0',
+					option: '9 CM',
+					price: '0.00',
+				}
+			]
+		}
+	],
 	menuOptions: [
 		{
 			id: '0',
@@ -283,10 +309,15 @@ let ITECH_DETAIL = {
 				{
 					id: '0',
 					option: '99 Feet',
-					price: '0.00',
+					price: '1.00',
 				},
 				{
 					id: '1',
+					option: '110 Feet',
+					price: '2.00',
+				},
+				{
+					id: '2',
 					option: '122 Feet',
 					price: '3.00',
 				}
@@ -317,7 +348,7 @@ let ITECH_DETAIL = {
 				{
 					id: '0',
 					option: '99 MM',
-					price: '0.00',
+					price: '2.00',
 				},
 				{
 					id: '1',
@@ -325,7 +356,8 @@ let ITECH_DETAIL = {
 					price: '3.00',
 				}
 			]
-		}]
+		}
+		]
 };
 
 class TemdsApi {

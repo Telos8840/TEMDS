@@ -25,7 +25,7 @@ import CheckBoxForm from "../../components/Checkbox";
 import Constants from './../../Constants';
 import TimerMixin from 'react-timer-mixin';
 import LogoSpinner from "./../../components/LogoSpinner";
-import {addCartItem} from '../../reducers/Cart/actions';
+import {addCartItem, emptyCart} from '../../reducers/Cart/actions';
 import {fetchProductDetailById} from '../../reducers/Detail/actions';
 
 import {List, Text} from 'native-base';
@@ -181,6 +181,7 @@ class Detail extends Component {
 			isWaiting: true,
 			isFetching: true
 		};
+
 		console.log('detail props', props);
 	}
 
@@ -200,7 +201,7 @@ class Detail extends Component {
 	}
 
 	_renderOptionList() {
-		let listView = details.menuOptions.map((option, i) => (
+		return details.menuOptions.map((option, i) => (
 			<View key={i}>
 				<List>
 					<View style={styles.section}>
@@ -230,8 +231,6 @@ class Detail extends Component {
 				</List>
 			</View>
 		));
-
-		return listView;
 	}
 
 	_handleRadioPress(option, id, optionId) {
@@ -251,13 +250,64 @@ class Detail extends Component {
 	}
 
 	_addToCart() {
-		console.log('cart', selectedRadios, selectedChecks);
-		this.props.addCartItem(this.props.product);
+		let product = this._createProduct();
+		product.price = this._calculateTotal();
+
+		console.log('product', product);
+		this.props.addCartItem(product);
+		//this.props.emptyCart();
+		Actions.pop();
+	}
+
+	_calculateTotal() {
+		let total = parseFloat(this.props.detail.price);
+
+		_.each(selectedRadios, function(value, key){
+			total += parseFloat(value.price);
+		});
+
+		_.each(selectedChecks, function(value, key){
+			_.each(value, function(value, key){
+				total += parseFloat(value.price);
+			});
+		});
+
+		return total.toFixed(2);
+	}
+
+	_createProduct() {
+		let tempProd = _.omit(this.props.product, ['menu']);
+		let tempDet = _.omit(this.props.detail, ['id', 'image', 'description', 'defaultOptions', 'menuOptions', 'restaurantId']);
+
+		let options = [];
+		_.each(selectedRadios, function(value, key){
+			options.push(value);
+		});
+
+		_.each(selectedChecks, function(value, key){
+			_.each(value, function(value, key){
+				options.push(value);
+			});
+		});
+
+		let product = _.assign({}, tempProd, tempDet);
+		product.options = options;
+
+		return product;
+	}
+
+	_addDefaultOptions(options) {
+		_.forEach(options, (option) => {
+			selectedRadios[option.id] = option.options[0];
+		});
 	}
 
 	render() {
 		if (this.state.isWaiting)
 			return <LogoSpinner fullStretch/>;
+
+		if (this.props.detail.defaultOptions)
+			this._addDefaultOptions(this.props.detail.defaultOptions);
 
 		return (
 			<View style={styles.container}>
@@ -276,7 +326,7 @@ class Detail extends Component {
 					renderForeground={() => (
 						<View style={styles.detailPanel}>
 							<View style={styles.detailBlock}>
-								<Text style={styles.detailName}>{details.name}</Text>
+								<Text style={styles.detailName}>{details.itemName}</Text>
 								<Text style={styles.detailDesc}>{details.description}</Text>
 								<Text style={styles.detailPrice}>${details.price}</Text>
 							</View>
@@ -310,6 +360,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		addCartItem: (product, variation) => {
 			dispatch(addCartItem(product, variation));
+		},
+		emptyCart: () => {
+			dispatch(emptyCart());
 		},
 		fetchProductDetailById: (productId, callback) => {
 			dispatch(fetchProductDetailById(productId, callback));

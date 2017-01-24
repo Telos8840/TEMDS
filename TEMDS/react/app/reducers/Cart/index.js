@@ -17,10 +17,10 @@ const cartItem = (state = {product: undefined, quantity: 1, variation: undefined
             return state.product === undefined ?
                 Object.assign({}, state, {product: action.product, variation: action.variation}) :
                 !compareCartItem(state, action) ? state :
-                    Object.assign({}, state, {quantity: state.quantity + 1})
+                    Object.assign({}, state, {quantity: state.quantity + 1});
         case REMOVE_CART_ITEM:
             return !compareCartItem(state, action) ? state :
-                Object.assign({}, state, {quantity: state.quantity - 1})
+                Object.assign({}, state, {quantity: state.quantity - 1});
         default:
             return state
     }
