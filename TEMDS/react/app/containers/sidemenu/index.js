@@ -95,14 +95,13 @@ class SideMenu extends Component {
                     <Image
                         source={Constants.Image.AvatarBackground}
                         style={this.styles.avatar_background}
-                        resizeMode='cover'
-                    >
+                        resizeMode='cover'>
                         <Image source={picture} style={this.styles.avatar}/>
                         <Text style={this.styles.fullName}>{fullName}</Text>
                         <Text style={this.styles.email}>{email}</Text>
                     </Image>}
                 <ScrollView style={{padding: 20}}>
-                    {this.props.customer.email == undefined ? renderSignIn() : renderSignOut()}
+                    {/*{this.props.customer.email == undefined ? renderSignIn() : renderSignOut()}*/}
                     <TouchableOpacity
                         style={this.styles.menuRow}
                         underlayColor="#2D2D30"
@@ -110,13 +109,13 @@ class SideMenu extends Component {
                         <Icon name={Constants.Icon.Home} color={Constants.Color.SideMenuIcon} style={css.icon}/>
                         <Text style={css.menuLink}>{Languages.Home}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
+                    {/*<TouchableOpacity
                         style={this.styles.menuRow}
                         underlayColor="#2D2D30"
                         onPress={() => this.dispatchWrapper(() => Actions.wishlist())}>
                         <Icon name={Constants.Icon.Wishlist} color={Constants.Color.SideMenuIcon} style={css.icon}/>
                         <Text style={css.menuLink}>{Languages.WishList}</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity>*/}
                     <TouchableOpacity
                         style={this.styles.menuRow}
                         underlayColor="#2D2D30"
@@ -124,13 +123,13 @@ class SideMenu extends Component {
                         <Icon name={Constants.Icon.MyOrder} color={Constants.Color.SideMenuIcon} style={css.icon}/>
                         <Text style={css.menuLink}>{Languages.MyOrder}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
+                    {/*<TouchableOpacity
                         style={this.styles.menuRow}
                         underlayColor="#2D2D30"
                         onPress={() => this.dispatchWrapper(() => Actions.news())}>
                         <Icon name={Constants.Icon.News} color={Constants.Color.SideMenuIcon} style={css.icon}/>
                         <Text style={css.menuLink}>{Languages.News}</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity>*/}
                     <TouchableOpacity
                         style={this.styles.menuRow}
                         underlayColor="#2D2D30"

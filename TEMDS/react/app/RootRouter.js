@@ -117,7 +117,7 @@ export default class RootRouter extends Component {
                 <Scene key="cart" component={Cart} title={Languages.Cart} back={true} />
                 <Scene key="wishlist" component={WishList} title={Languages.WishList} back={true} cart={true}/>
                 <Scene key="checkout" component={Checkout} title={Languages.Checkout} back={true}/>
-                <Scene key="myorder" component={MyOrder} title={Languages.MyOrder} cart={true} back={true}/>
+                <Scene key="myorder" component={MyOrder} title={Languages.MyOrder} cart={true} />
                 <Scene key="news" component={News} title={Languages.News} back={true}/>
                 <Scene key="postDetails" component={PostDetails} title={Languages.PostDetails} back={true}/>
                 <Scene key="settings" component={Settings} title={Languages.Settings}/>

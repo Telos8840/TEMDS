@@ -45,7 +45,7 @@ export function fetchAllCategories() {
 	// }
 	return dispatch => {
 		dispatch(requestCategories());
-		return TemdsAPI.getAllRRestaurants().then(restaurants => {
+		return TemdsAPI.getAllProducts().then(restaurants => {
 			dispatch(receiveCategories(restaurants));
 		}).catch(error => {
 			dispatch(categoriesFailure(error));

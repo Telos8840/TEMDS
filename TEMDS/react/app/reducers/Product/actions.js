@@ -76,7 +76,7 @@ export function clearProducts() {
 export function fetchProductById(productId, _callback) {
 	return dispatch => {
 		dispatch(requestProduct());
-		return TemdsAPI.getRestaurantInfo(productId).then(restaurant => {
+		return TemdsAPI.getProductMenu(productId).then(restaurant => {
 			dispatch(receiveProduct(restaurant));
 			_callback();
 		}).catch(error => {

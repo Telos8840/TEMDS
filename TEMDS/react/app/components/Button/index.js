@@ -75,7 +75,7 @@ export default class Button extends Component {
                             <Text style={[styles.text, {
                                 position: 'absolute', left: 9, top: 3,
                                 fontSize: 12, color: this.props.overlayColor
-                            }]}>{this.props.children}</Text>
+                            }]}>{this.props.text}</Text>
                         </View>)}
             </TouchableOpacity>
         )

@@ -8,7 +8,7 @@ import Tcomb from'tcomb-form-native';
 import css from "./form-css";
 import Validator from "../../utils/Validator";
 import Languages from './../../Languages';
-Languages.setLanguage(Languages.getLanguage())
+Languages.setLanguage(Languages.getLanguage());
 
 const Form = Tcomb.form.Form;
 
@@ -21,15 +21,16 @@ export default class DeliveryInfoForm extends Component {
                 address_1: '',
                 state: '',
                 postcode: '',
-                country: '',
+                // country: '',
                 email: '', phone: '',
                 note: ''
             },
-        }
+        };
+
         this.onChange = (value) => this.setState({value: value});
         this.onPress = () => this.refs.form.getValue();
 
-        const Countries = Tcomb.enums(this.props.countries);
+        // const Countries = Tcomb.enums(this.props.countries);
         //override the validate method of Tcomb lib for multi validate requirement.
         const Email = Tcomb.refinement(Tcomb.String, s => Validator.checkEmail(s) === undefined);
         Email.getValidationErrorMessage = (s) => Validator.checkEmail(s);
@@ -41,7 +42,7 @@ export default class DeliveryInfoForm extends Component {
             first_name: Tcomb.String,       // normal string
             last_name: Tcomb.String,
             address_1: Tcomb.String,
-            country: Countries,
+            // country: Countries,
             state: Tcomb.String,                //combobox
             postcode: Tcomb.String,
             email: Email,                   // string input with custom validate
@@ -80,7 +81,7 @@ export default class DeliveryInfoForm extends Component {
                     error: Languages.EmptyError,
                     underlineColorAndroid: 'transparent',
                 },
-                country: {
+                /*country: {
                     nullOption: {value: '', text: Languages.Country},
                     error: Languages.NotSelectedError,
                     styles: {
@@ -88,7 +89,7 @@ export default class DeliveryInfoForm extends Component {
                         borderWidth: 1,
                         backgroundColor: 'pink',
                     }
-                },
+                },*/
                 email: {
                     placeholder: Languages.Email,
                     underlineColorAndroid: 'transparent',
@@ -117,7 +118,7 @@ export default class DeliveryInfoForm extends Component {
                     address_1: customer.billing.address_1,
                     state: customer.billing.state,
                     postcode: customer.billing.postcode,
-                    country: customer.billing.country,
+                    // country: customer.billing.country,
                     phone: customer.billing.phone
                 },
             });

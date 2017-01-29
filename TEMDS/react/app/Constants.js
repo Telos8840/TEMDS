@@ -51,7 +51,7 @@ const Constants = {
         },
     },
     Image: {
-        Logo: require('./images/logo.png'),
+        Logo: require('./images/spinner.gif'),
         SplashScreen: require('./images/splash_screen.png'),
         CategoryPlaceholder: require('./images/category_placehodler.png'),
         DefaultAvatar: require('./images/default_avatar.jpg'),
@@ -63,6 +63,7 @@ const Constants = {
         PayPal: require('./images/PayPal.png'),
         CashOnDelivery: require('./images/cash_on_delivery.png'),
         PlaceHolder: require('./images/placeholderImage.png'),
+        TEMDS: require('./images/temds_icon_no_bg.png')
     },
     Icon: { //App's icons. Checkout http://fontawesome.io/icons/ for more icons.
         Menu: 'ios-menu',

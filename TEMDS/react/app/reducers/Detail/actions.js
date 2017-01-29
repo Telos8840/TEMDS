@@ -44,7 +44,7 @@ export function clearDetail() {
 export function fetchProductDetailById(productId, _callback) {
 	return dispatch => {
 		dispatch(requestDetail());
-		return TemdsAPI.getRestaurantDetail(productId).then(detail => {
+		return TemdsAPI.getProductMenuDetail(productId).then(detail => {
 			dispatch(receiveDetail(detail));
 			_callback();
 			console.log('api', detail);

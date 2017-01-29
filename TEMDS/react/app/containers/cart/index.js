@@ -74,8 +74,7 @@ class Cart extends Component {
                         autoMargin={false}
                         style={{marginBottom: Constants.Dimension.ScreenWidth(0.05)}}
                         borderLess
-                    >
-                        {Languages.Checkout}
+                        text="Checkout">
                     </Button>
                 </View>
             </View>
