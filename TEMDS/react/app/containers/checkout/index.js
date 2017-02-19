@@ -151,7 +151,9 @@ class Checkout extends Component {
 					paddingTop: 10,
 					marginLeft: 20,
 					marginRight: 20,
-					marginBottom: 10
+					marginBottom: 10,
+					paddingLeft: 10,
+					paddingRight: 10
 				}}>
 					<DeliveryInfoForm ref="deliveryForm" customer={this.props.customer} countries={this.props.Country}/>
 				</View>
@@ -287,6 +289,7 @@ class Checkout extends Component {
 						placeholderTextColor={Constants.Color.TextLight}
 						style={{
 							borderWidth: 1, borderColor: Constants.Color.ViewBorder, height: 40, marginBottom: 5,
+							paddingLeft: 10, borderRadius: 4
 						}}/>
 					<Text>Card Name*</Text>
 					<TextInput
@@ -296,6 +299,7 @@ class Checkout extends Component {
 						placeholderTextColor={Constants.Color.TextLight}
 						style={{
 							borderWidth: 1, borderColor: Constants.Color.ViewBorder, height: 40, marginBottom: 5,
+							paddingLeft: 10, borderRadius: 4
 						}}/>
 					<View style={{flexDirection: 'row', justifyContent: 'space-between',}}>
 						<View style={{flexDirection: 'row'}}>
@@ -311,6 +315,7 @@ class Checkout extends Component {
 										height: 40,
 										width: 50,
 										marginRight: 10,
+										paddingLeft: 10, borderRadius: 4
 									}}/>
 							</View>
 							<View >
@@ -324,6 +329,7 @@ class Checkout extends Component {
 										borderColor: Constants.Color.ViewBorder,
 										height: 40,
 										width: 50,
+										paddingLeft: 10, borderRadius: 4
 									}}/>
 							</View>
 						</View>
@@ -335,6 +341,7 @@ class Checkout extends Component {
 								maxLength={3}
 								style={{
 									borderWidth: 1, borderColor: Constants.Color.ViewBorder, height: 40, width: 50,
+									paddingLeft: 10, borderRadius: 4
 								}}/>
 						</View>
 					</View>
@@ -421,6 +428,7 @@ class Checkout extends Component {
 					style={{
 						width: Constants.Dimension.ScreenWidth(0.6),
 						borderWidth: 1, borderColor: Constants.Color.ViewBorder, height: 40,
+						paddingLeft: 10, borderRadius: 4
 					}}/>
 				<Button autoMargin={false}
 				        onPress={() => alert("Coupon is not valid")}

@@ -27,12 +27,10 @@ import TimerMixin from 'react-timer-mixin';
 import LogoSpinner from "./../../components/LogoSpinner";
 import {addCartItem, emptyCart} from '../../reducers/Cart/actions';
 import {fetchProductDetailById} from '../../reducers/Detail/actions';
-
 import {List, Text} from 'native-base';
-
 import {connect} from 'react-redux';
-
 import _ from 'lodash';
+import uuid from 'react-native-uuid';
 
 let details = null,
 	selectedRadios = {},
@@ -200,6 +198,12 @@ class Detail extends Component {
 		}
 	}
 
+	componentWillUnmount() {
+		console.log('unmounted');
+		selectedRadios = {};
+		selectedChecks = {};
+	}
+
 	_renderOptionList() {
 		return details.menuOptions.map((option, i) => (
 			<View key={i}>
@@ -210,23 +214,23 @@ class Detail extends Component {
 					</View>
 					{
 						option.type === 'required' ? (
-							<RadioForm
-								radio_props={option.options}
-								initial={0}
-								optionId={option.id}
-								onPress={this._handleRadioPress}
-							/>
-						) : (
-							option.options.map((opt, i) => (
-								<CheckBoxForm
-									key={i}
-									style={styles}
-									object={opt}
+								<RadioForm
+									radio_props={option.options}
+									initial={0}
 									optionId={option.id}
-									onPress={this._handleCheckboxPress}
+									onPress={this._handleRadioPress}
 								/>
-							))
-						)
+							) : (
+								option.options.map((opt, i) => (
+									<CheckBoxForm
+										key={i}
+										style={styles}
+										object={opt}
+										optionId={option.id}
+										onPress={this._handleCheckboxPress}
+									/>
+								))
+							)
 					}
 				</List>
 			</View>
@@ -276,8 +280,8 @@ class Detail extends Component {
 	}
 
 	_createProduct() {
-		let tempProd = _.omit(this.props.product, ['menu']);
-		let tempDet = _.omit(this.props.detail, ['id', 'image', 'description', 'defaultOptions', 'menuOptions', 'restaurantId']);
+		let tempProd = _.omit(this.props.product, ['id', 'menu', 'mainImage']);
+		let tempDet = _.omit(this.props.detail, ['id', 'description', 'defaultOptions', 'menuOptions', 'restaurantId']);
 
 		let options = [];
 		_.each(selectedRadios, function(value, key){
@@ -292,6 +296,7 @@ class Detail extends Component {
 
 		let product = _.assign({}, tempProd, tempDet);
 		product.options = options;
+		product.id = uuid.v1();
 
 		return product;
 	}

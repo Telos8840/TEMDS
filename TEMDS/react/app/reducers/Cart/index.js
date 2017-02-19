@@ -29,15 +29,22 @@ const cartItem = (state = {product: undefined, quantity: 1, variation: undefined
 export default function Cart(state = {cartItems: [], total: 0, totalPrice: 0}, action) {
     switch (action.type) {
         case ADD_CART_ITEM:
-            const isExisted = state.cartItems.some((cartItem) => compareCartItem(cartItem, action));
-            return Object.assign({}, state, isExisted ?
-                {cartItems: state.cartItems.map(item=> cartItem(item, action))} :
-                {cartItems: [...state.cartItems, cartItem(undefined, action)]},
-                {
-                    total: state.total + 1,
-                    totalPrice: state.totalPrice + Number(action.variation === undefined ? action.product.price : action.variation.price)
-                }
-            );
+            // const isExisted = state.cartItems.some((cartItem) => compareCartItem(cartItem, action));
+            // return Object.assign({}, state, isExisted ?
+            //     {cartItems: state.cartItems.map(item=> cartItem(item, action))} :
+            //     {cartItems: [...state.cartItems, cartItem(undefined, action)]},
+            //     {
+            //         total: state.total + 1,
+            //         totalPrice: state.totalPrice + Number(action.variation === undefined ? action.product.price : action.variation.price)
+            //     }
+            // );
+	        return Object.assign({}, state,
+			        {cartItems: [...state.cartItems, cartItem(undefined, action)]},
+		        {
+			        total: state.total + 1,
+			        totalPrice: state.totalPrice + Number(action.variation === undefined ? action.product.price : action.variation.price)
+		        }
+	        );
         case REMOVE_CART_ITEM:
             const index = state.cartItems.findIndex((cartItem) => compareCartItem(cartItem, action)); // check if existed
             return index == -1 ? state : //This should not happen, but catch anyway

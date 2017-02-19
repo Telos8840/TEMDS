@@ -52,7 +52,7 @@ export default class RootRouter extends Component {
         super(props);
         this.state = {
             isLoading: true,
-        }
+        };
         this.introFlag = true; // change this after mock
     }
 
@@ -60,7 +60,7 @@ export default class RootRouter extends Component {
         TimerMixin.setTimeout(
             () => {
                 AsyncStorage.getItem(Constants.AsyncCode.Intro, (error, result) => {
-                    if (error) console.log(error)
+                    if (error) console.log(error);
                     else this.introFlag = (result != 'done');
                     this.setState({isLoading: false});
                 });

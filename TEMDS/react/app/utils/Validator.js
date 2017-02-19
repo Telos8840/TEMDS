@@ -52,6 +52,15 @@ var passwordConstraints = {
     }
 };
 
+const stateConstraints = {
+	foo: {
+		presence: {
+			presence: true,
+			message: "This field is empty"
+		}
+	},
+};
+
 var confirmPasswordConstraints = {
     foo2: {
         equality: "foo"
@@ -90,6 +99,10 @@ class Validator extends Component {
      */
     checkPhone(input) {
         return facade(phoneConstraints, input);
+    }
+
+    checkState(input) {
+        return facade(stateConstraints, input);
     }
 
     checkPassword(password) {

@@ -2,7 +2,7 @@
  * Created by Luan on 10/28/2016.
  */
 import React, {Component, PropTypes} from 'react';
-import {Alert, Text, View, TouchableOpacity, Image} from 'react-native';
+import {Alert, Text, View, TouchableOpacity, Image, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
 
@@ -22,6 +22,14 @@ class CartItemRow extends Component {
 				borderWidth: 1,
 				flexDirection: 'row',
 				marginTop: 10,
+			},
+			optionsContainer: {
+				flexDirection: 'column',
+				justifyContent: 'space-around',
+				flexWrap: 'wrap',
+				maxHeight: 85,
+				maxWidth: 120,
+				marginLeft: 15,
 			},
 			row_center: {
 				flexDirection: 'row',
@@ -65,6 +73,7 @@ class CartItemRow extends Component {
 				marginLeft: 10,
 			},
 		}
+		console.log('car row', props);
 	}
 
 	static propTypes = {
@@ -82,7 +91,7 @@ class CartItemRow extends Component {
 		this.isInWishList = this.props.wishLists.find((item) => item.product.id == _product.id) != undefined;
 
 		const productImage = (<Image
-			source={_product.mainImage != undefined ? {uri: _product.mainImage} : Constants.Image.PlaceHolder}
+			source={_product.image != undefined ? {uri: _product.image} : Constants.Image.PlaceHolder}
 			style={this.styles.image}
 			resizeMode="cover"
 		/>);
@@ -92,7 +101,7 @@ class CartItemRow extends Component {
 			numberOfLines={2}
 			style={this.styles.product_name}
 		>
-			{_product.name}
+			{_product.name} - {_product.itemName}
 		</Text>);
 
 		const productVariations = (<Text
@@ -109,9 +118,19 @@ class CartItemRow extends Component {
 				<View style={{flex: 1}}>
 					<View style={this.styles.row_center}>
 						{productName}
-						{/*{this.renderPriceGroup(_variation == undefined ? _product : _variation)}*/}
+
 					</View>
-					{productVariations}
+
+					<ScrollView style={{height: 90}}>
+						<View style={this.styles.optionsContainer}>
+						{_product.options.map((opt, i) => {
+							return (
+								<Text key={i}>{opt.option}</Text>
+							);
+						})}
+
+						</View>
+					</ScrollView>
 					{this.renderButtonsGroup()}
 				</View>
 			</View>
@@ -127,39 +146,6 @@ class CartItemRow extends Component {
 		return s;
 	}
 
-	renderPriceGroup(_product) {
-		const styles = {
-			row: {
-				flexDirection: 'row',
-			},
-			price: {
-				color: Constants.Color.ProductPrice,
-				fontSize: 14,
-				fontWeight: "bold",
-				marginRight: 10,
-				paddingTop: 5,
-				paddingBottom: 5,
-			},
-			sale_price: {
-				textDecorationLine: 'line-through',
-				color: Constants.Color.TextLight,
-				fontWeight: "normal",
-			},
-			sale_off: {
-				color: Constants.Color.TextLight,
-				fontWeight: "normal",
-			}
-		};
-
-		return (
-			<View>
-				<Text style={[styles.price]}>
-					{Constants.Formatter.currency(_product.price) }
-				</Text>
-			</View>
-		)
-	}
-
 	renderButtonsGroup() {
 		const styles = {
 			row: {
@@ -167,7 +153,7 @@ class CartItemRow extends Component {
 			},
 			row_end: {
 				flexDirection: 'row',
-				justifyContent: 'flex-end',
+				justifyContent: 'space-between',
 			},
 			buttonLeft: {
 				justifyContent: 'center',
@@ -223,31 +209,11 @@ class CartItemRow extends Component {
 		};
 
 		return (<View style={this.styles.buttons_wrapper}>
-			<View
-				style={styles.row_end}>
-				{/*<View style={styles.row}>*/}
-				{/*<TouchableOpacity*/}
-				{/*style={styles.buttonLeft}*/}
-				{/*onPress={() => {*/}
-				{/*if (!hitBottomLimit) this.props.removeCartItem(product, variation)*/}
-				{/*}}>*/}
-				{/*<Text*/}
-				{/*style={{color: hitBottomLimit ? Constants.Color.DirtyBackground : Constants.Color.TextLight}}>-</Text>*/}
-				{/*</TouchableOpacity>*/}
-				{/*<View style={styles.buttonMiddle}>*/}
-				{/*<Text>{quantity}</Text>*/}
-				{/*</View>*/}
-				{/*<TouchableOpacity*/}
-				{/*style={styles.buttonRight}*/}
-				{/*onPress={() => {*/}
-				{/*if (!hitTopLimit) this.props.addCartItem(product, variation)*/}
-				{/*}}>*/}
-				{/*<Text*/}
-				{/*style={{color: hitTopLimit ? Constants.Color.DirtyBackground : Constants.Color.TextLight}}>+</Text>*/}
-				{/*</TouchableOpacity>*/}
-				{/*</View>*/}
-				<View style={styles.row}>
-					{/*{this.renderIconButton(this.isInWishList ? Constants.Icon.Wishlist : Constants.Icon.WishlistEmpty, pnPressWishList)}*/}
+			<View style={styles.row_end}>
+				<View>
+					<Text>${product.price}</Text>
+				</View>
+				<View>
 					{this.renderIconButton(Constants.Icon.Delete, onPressDelete)}
 				</View>
 			</View>

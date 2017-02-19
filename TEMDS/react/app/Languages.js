@@ -52,7 +52,7 @@ const Languages = new LocalizedStrings({
         ProductLimitWaring: 'You can\'t add more than 5 product',
 
         //Cart
-        NoCartItem: 'There is no product in cart',
+        NoCartItem: 'There are no items in your cart',
         Total: 'Total',
         Checkout: 'Checkout',
         EmptyCheckout: 'Sorry, you can\'t check out an empty cart',
@@ -131,6 +131,7 @@ const Languages = new LocalizedStrings({
         FirstName: 'First Name',
         LastName: 'Last Name',
         Address: 'Address',
+        Address2: 'Apt/Unit',
         State: 'State/City',
         NotSelectedError: 'Please choose one',
         Postcode: 'Postcode',

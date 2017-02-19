@@ -36,14 +36,20 @@ export default class DeliveryInfoForm extends Component {
         Email.getValidationErrorMessage = (s) => Validator.checkEmail(s);
         const Phone = Tcomb.refinement(Tcomb.String, s => Validator.checkPhone(s) === undefined);
         Phone.getValidationErrorMessage = (s) => Validator.checkPhone(s);
+        const States = Tcomb.enums({
+	        'CA': 'California',
+        }, 'State');
+        States.getValidationErrorMessage = (s) => Validator.checkState(s);
 
         //define customer form
         this.Customer = Tcomb.struct({
             first_name: Tcomb.String,       // normal string
             last_name: Tcomb.String,
             address_1: Tcomb.String,
+            address_2: Tcomb.maybe(Tcomb.String),
             // country: Countries,
-            state: Tcomb.String,                //combobox
+            //state: Tcomb.String,                //combobox
+            state: States,                //combobox
             postcode: Tcomb.String,
             email: Email,                   // string input with custom validate
             phone: Phone,                   // same ^
@@ -71,8 +77,12 @@ export default class DeliveryInfoForm extends Component {
                     error: Languages.EmptyError,
                     underlineColorAndroid: 'transparent',
                 },
+	            address_2: {
+		            placeholder: Languages.Address2,
+		            underlineColorAndroid: 'transparent',
+	            },
                 state: {
-                    placeholder: Languages.State,
+	                nullOption: {value: '', text: "State"},
                     error: Languages.EmptyError,
                     underlineColorAndroid: 'transparent',
                 },
@@ -116,6 +126,7 @@ export default class DeliveryInfoForm extends Component {
                     last_name: customer.billing.last_name == '' ? customer.last_name : customer.billing.last_name,
                     email: customer.email.first_name == '' ? customer.email : customer.billing.email,
                     address_1: customer.billing.address_1,
+                    address_2: customer.billing.address_2,
                     state: customer.billing.state,
                     postcode: customer.billing.postcode,
                     // country: customer.billing.country,

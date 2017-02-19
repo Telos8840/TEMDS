@@ -40,6 +40,58 @@ const ITECH_DETAIL1 = {
 					price: '3.00',
 				}
 			]
+		},
+		{
+			id: '1',
+			title: 'Testing',
+			type: 'optional',
+			options: [
+				{
+					id: '0',
+					option: '9"',
+					price: '0.00',
+				},
+				{
+					id: '1',
+					option: '12"',
+					price: '1.00',
+				},
+				{
+					id: '2',
+					option: '12"',
+					price: '2.00',
+				},
+				{
+					id: '3',
+					option: '12"',
+					price: '3.00',
+				},
+				{
+					id: '4',
+					option: '12"',
+					price: '4.00',
+				},
+				{
+					id: '5',
+					option: '12"',
+					price: '5.00',
+				},
+				{
+					id: '6',
+					option: '12"',
+					price: '6.00',
+				},
+				{
+					id: '7',
+					option: '12"',
+					price: '7.00',
+				},
+				{
+					id: '8',
+					option: '12"',
+					price: '8.00',
+				}
+			]
 		}
 	]
 };
