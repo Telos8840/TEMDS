@@ -97,7 +97,7 @@ const Languages = new LocalizedStrings({
         Complete: "Complete",
 
         //myorder
-        MyOrder: 'My Order',
+        MyOrder: 'My Orders',
 
         News: 'News',
         PostDetails: "Post Details",

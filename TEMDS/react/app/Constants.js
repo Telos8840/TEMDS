@@ -22,8 +22,8 @@ const Constants = {
         RootCategoryId: 0,
     },
     Auth0: {
-        clientId: 'Hgz4NiteanyqWYVCP3k7iP83Du0Ydv4A',
-        domain: 'piksal.auth0.com',
+        clientId: 'HGyi36GcDvePV4zIdwlHUACUFFEj1EQn',
+        domain: 'temds.auth0.com',
     },
     Firebase: {
         apiKey: "AIzaSyAnKONYwru11yWAA8F4F023kdVCknBbliA",
@@ -55,7 +55,7 @@ const Constants = {
         SplashScreen: require('./images/splash_screen.png'),
         CategoryPlaceholder: require('./images/category_placehodler.png'),
         DefaultAvatar: require('./images/default_avatar.jpg'),
-        AvatarBackground: require('./images/avatar_background.jpg'),
+        AvatarBackground: require('./images/avatar_background.png'),
         CheckoutStep1: require('./images/line-1.png'),
         CheckoutStep2: require('./images/line-2.png'),
         CheckoutStep3: require('./images/line-3.png'),
@@ -147,7 +147,7 @@ const Constants = {
         ProductPrice: ThemeColor2,
 
         //sidemenu
-        SideMenu: '#34BC99',
+        SideMenu: '#3475C7',
         SideMenuText: 'white',
         SideMenuIcon: 'white,'
     },

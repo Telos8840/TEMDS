@@ -10,6 +10,7 @@ import {connect, Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose} from 'redux';
 import {persistStore, autoRehydrate} from 'redux-persist'
 import thunk from 'redux-thunk';
+import {composeWithDevTools} from 'remote-redux-devtools';
 
 
 import reducers from './reducers';
@@ -22,9 +23,11 @@ import Languages from './Languages';
 import AppEventEmitter from './utils/AppEventEmitter';
 import FCM from 'react-native-fcm';
 import firebaseApp from './services/Firebase';
+import AuthService from './services/Auth0';
 
 //Scenes
 import Intro from "./containers/intro";
+import LogIn from "./containers/login";
 import Home from "./containers/home";
 import Category from "./containers/category";
 import Product from "./containers/product";
@@ -43,9 +46,11 @@ import Test from "./containers/test";
 const RouterWithRedux = connect()(Router);
 const middleware = [thunk];
 const store = compose(
-    applyMiddleware(...middleware),
+	composeWithDevTools(applyMiddleware(...middleware)),
     autoRehydrate())(createStore)(reducers);
-persistStore(store, {storage: AsyncStorage, blacklist: ['Category', 'Product']})
+persistStore(store, {storage: AsyncStorage, blacklist: ['Category', 'Product']});
+
+const auth = new AuthService(Constants.Auth0.clientId, Constants.Auth0.domain);
 
 export default class RootRouter extends Component {
     constructor(props) {
@@ -108,9 +113,10 @@ export default class RootRouter extends Component {
 
         const scenes = Actions.create(
             <Scene key="scene">
+                {/*<Scene key="intro" component={Intro} title={Languages.Intro} initial={this.introFlag}/>*/}
+                <Scene key="login" component={LogIn} title="Login" initial={this.introFlag} auth={auth}/>
                 <Scene key="home" component={Home} title="TEMDS" cart={true} search={true}
                        type={ActionConst.RESET}/>
-                <Scene key="intro" component={Intro} title={Languages.Intro} initial={this.introFlag}/>
                 <Scene key="category" component={Category} cart={true} back={true} search={true}/>
                 <Scene key="product" component={Product} title={Languages.Product} cart={true} back={true} />
                 <Scene key="detail" component={Detail} cart={true} back={true} />

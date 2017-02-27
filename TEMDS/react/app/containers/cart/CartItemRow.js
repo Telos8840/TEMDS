@@ -153,7 +153,7 @@ class CartItemRow extends Component {
 			},
 			row_end: {
 				flexDirection: 'row',
-				justifyContent: 'space-between',
+				justifyContent: 'space-between'
 			},
 			buttonLeft: {
 				justifyContent: 'center',
