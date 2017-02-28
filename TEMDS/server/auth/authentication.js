@@ -307,8 +307,11 @@ module.exports = function (server, db) {
   server.post('api/auth/signIn', function (req, res, next) {
     console.log("\n *** User logging in *** \n");
 
-    var email     = req.params.email,
-        rawPass   = req.params.rawPass;
+    var json = JSON.parse(req.body);
+    console.log('json', json);
+
+    var email     = json.email,
+        rawPass   = json.rawPass;
 
     if(_.size(email.trim()) == 0 || _.size(rawPass.trim()) == 0) {
       response.error(res, "Invalid email");
