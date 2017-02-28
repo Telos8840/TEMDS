@@ -26,6 +26,7 @@
 		65BB1B61E1B24CC2DA9663E9 /* libPods-MStoreTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DE0012D42B68E64C48FEA58 /* libPods-MStoreTests.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8FBB9F051CEA21755DEFBDCB /* libPods-MStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9B974A389A0753194352520 /* libPods-MStore.a */; };
+		C723E1391E6558CE00F7BA55 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C77EE7771DFE916D0055C370 /* libRCTAnimation.a */; };
 		C77EE77B1DFE945A0055C370 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C77EE7771DFE916D0055C370 /* libRCTAnimation.a */; };
 		CDB2DCB35B634780B63B6323 /* libA0RNLock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA95A067B8B543EC863AD057 /* libA0RNLock.a */; };
 		EA17F6081DD1C7F900521430 /* libReactNativeLocalization.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA17F6071DD1C7E300521430 /* libReactNativeLocalization.a */; };
@@ -279,6 +280,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C723E1391E6558CE00F7BA55 /* libRCTAnimation.a in Frameworks */,
 				2751B0311DEE8580004544D4 /* libRCTRestart.a in Frameworks */,
 				EA17F6081DD1C7F900521430 /* libReactNativeLocalization.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
