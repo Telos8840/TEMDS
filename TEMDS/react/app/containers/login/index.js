@@ -39,38 +39,22 @@ class LoginIn extends Component {
 	_onShowLock() {
 		this.props.auth.login((err, profile, token) => {
 			this.setState({isLoading: true});
-			console.log('error ',err);
-			console.log('profile ',profile);
-			console.log('token ',token);
-
-			this.props.auth.lock.authenticationAPI()
-				.userInfo(token.accessToken)
-				.then(fullProfile => {
-					console.log('profile', fullProfile);
-					const _customer = Object.assign({}, fullProfile, {
-						avatar_url: fullProfile.picture_large ? fullProfile.picture_large : fullProfile.picture
-					});
-					this.props.signIn(_customer);
-					this.props.auth.setToken(token);
-					Actions.home({type: "reset"});
-				})
-				.catch(error => console.log(error));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			if (err != null || profile == null || token == null) {
+				alert(JSON.stringify(err));
+				this.setState({isLoading: false});
+			} else {
+				this.props.auth.lock.authenticationAPI()
+					.userInfo(token.accessToken)
+					.then(fullProfile => {
+						const _customer = Object.assign({}, fullProfile, {
+							avatar_url: fullProfile.picture_large ? fullProfile.picture_large : fullProfile.picture
+						});
+						this.props.signIn(_customer);
+						this.props.auth.setToken(token);
+						Actions.home({type: "reset"});
+					})
+					.catch(error => console.log(error));
+			}
 
 			// if (err != null || profile == null || token == null) {
 			// 	alert(JSON.stringify(err));
