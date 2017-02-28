@@ -1,6 +1,13 @@
 <div id="navigation" class="grid-content menu-group">
      <div class="menu-group-left">
           <ul class="menu-bar">
+              <li class="show-for-small-only">
+                  <a zf-open="menu">
+                    <span>
+                        <i class="fa fa-bars fa-fw"></i>
+                    </span>
+                  </a>
+              </li>
                <li>
                     <a ui-sref="home"><strong>TEMDS Tools</strong></a>
                </li>
@@ -37,6 +44,15 @@
                          <!--</span>-->
                     <!--</a>-->
                <!--</li>-->
+
+              <li data-ng-if="auth.checkRole('driver')">
+                  <a ui-sref="deliveries">
+                         <span>
+                              <i class="fa fa-car fa-fw"></i>My Orders
+                         </span>
+                  </a>
+              </li>
+
               <li data-ng-if="auth.checkRole('admin')">
                   <a ui-sref="venues">
                          <span>

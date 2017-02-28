@@ -1,9 +1,7 @@
 'use strict';
 
-
-
 angular.module('user')
-    .factory('UserFactory', function (API_URL, $http, NotificationFactory, $q, helper, path, appParams) {
+    .factory('UserFactory', function (API_URL, $http, NotificationFactory, $q, helper, path, appParams, _) {
         var notification = new NotificationFactory({
             id: 'userNotification',
             position: 'top-middle'
@@ -17,6 +15,29 @@ angular.module('user')
                 }, function error() {
                     deferred.reject({
                         message: 'unable to resolve userlist'
+                    });
+                });
+            return deferred.promise;
+        }
+
+        function getDrivers() {
+            var deferred = $q.defer();
+            $http.get(API_URL + '/user/users')
+                .then(function success(response) {
+                    var drivers = [];
+
+                    _.each(response.data, function (user) {
+                       _.each(user.roles, function (value) {
+                           if (value === 'driver') {
+                               drivers.push(user);
+                           }
+                       })
+                    });
+
+                    deferred.resolve(drivers);
+                }, function error() {
+                    deferred.reject({
+                        message: 'unable to resolve drivers'
                     });
                 });
             return deferred.promise;
@@ -81,9 +102,10 @@ angular.module('user')
 
         return {
             getUsers: getUsers,
+            getDrivers: getDrivers,
             updateUser: updateUser,
             getUserDetailById: getUserDetailById,
             getUserById: getUserById,
-            roles: ['registered', 'user', 'editor', 'admin', 'manager']
+            roles: ['registered', 'user', 'editor', 'admin', 'manager', 'driver']
         };
     });
