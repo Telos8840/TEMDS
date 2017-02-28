@@ -15,7 +15,7 @@ import Constants from "./../../Constants";
 import Languages from "./../../Languages";
 import ItemRow from "./ItemRow";
 import AppEventEmitter from './../../utils/AppEventEmitter';
-import WooWorker from './../../services/WooWorker';
+import WooWorker from '../../services/WooWorker';
 // import {selectCategory} from '../../reducers/Category/actions'
 
 class SearchPanel extends Component {

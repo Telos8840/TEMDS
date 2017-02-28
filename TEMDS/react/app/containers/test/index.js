@@ -22,7 +22,7 @@ import Button from "../../components/Button/index";
 import TextInputWrapper from './Form/TextInputWrapper'
 
 import Constants from './../../Constants';
-import CountryWorker from './../../services/CountryWorker'
+import CountryWorker from '../../services/CountryWorker'
 
 class Test extends Component {
     constructor(props) {

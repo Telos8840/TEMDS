@@ -9,7 +9,7 @@ import Spinner from "./../../components/Spinner"
 import Constants from './../../Constants';
 import Languages from './../../Languages';
 
-import WooWorker from './../../services/WooWorker';
+import WooWorker from '../../services/WooWorker';
 import moment from 'moment';
 
 

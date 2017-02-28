@@ -7,8 +7,8 @@ import {connect} from 'react-redux';
 import Icon from "react-native-vector-icons/Ionicons";
 
 import Spinner from './../../components/Spinner';
-import Lock, {LOCK_OPTIONS} from "./../../services/Auth0";
-import WooWorker from "./../../services/WooWorker";
+import Lock, {LOCK_OPTIONS} from "../../services/Auth0";
+import WooWorker from "../../services/WooWorker";
 import {signIn, signOut} from './../../reducers/Customer/actions';
 
 import css from "./css";

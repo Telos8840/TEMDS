@@ -5,7 +5,7 @@
 import React, {Component, PropTypes} from "react";
 import {Actions, ActionConst} from "react-native-router-flux";
 import {connect} from 'react-redux';
-import Lock, {LOCK_OPTIONS} from "./../../services/Auth0";
+import Lock, {LOCK_OPTIONS} from "../../services/Auth0";
 import {signIn, signOut} from './../../reducers/Customer/actions';
 import LogoSpinner from "./../../components/LogoSpinner";
 import {

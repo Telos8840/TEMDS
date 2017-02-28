@@ -10,7 +10,7 @@ import Banner from "./Widget/Banner";
 import news from "./style";
 
 import css from "./style_2";
-import ApiNews from "./../../services/ApiNews";
+import ApiNews from "../../services/ApiNews";
 import EventEmitter from "./../../utils/AppEventEmitter";
 
 

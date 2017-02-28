@@ -21,7 +21,7 @@ const Constants = {
 }
 import Languages from "./../../Languages";
 
-import ApiNews from "./../../services/ApiNews";
+import ApiNews from "../../services/ApiNews";
 
 export default class PostHome extends Component {
 

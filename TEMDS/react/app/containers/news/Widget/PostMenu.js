@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {View, Text, Animated, ScrollView, TouchableOpacity} from "react-native";
 import Toolbar from "./../../../components/Toolbar"
 import css from "./../style_2";
-import ApiNews from "./../../../services/ApiNews";
+import ApiNews from "../../../services/ApiNews";
 import EventEmitter from "./../../../utils/AppEventEmitter";
 import news from "./../style";
 import {Actions} from "react-native-router-flux";

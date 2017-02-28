@@ -6,7 +6,7 @@ import {Actions} from "react-native-router-flux";
 import Swiper from "react-native-swiper";
 import TimeAgo from "react-native-timeago";
 import news from "./../style";
-import ApiNews from "./../../../services/ApiNews";
+import ApiNews from "../../../services/ApiNews";
 import EventEmitter from "./../../../utils/AppEventEmitter";
 
 export default class Banner extends Component {

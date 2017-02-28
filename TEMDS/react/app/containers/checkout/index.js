@@ -11,14 +11,14 @@ import {Actions} from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
 import * as Animatable from "react-native-animatable";
 
-import WooWorker from './../../services/WooWorker';
+import WooWorker from '../../services/WooWorker';
 import Constants from './../../Constants';
 import Languages from './../../Languages';
 import Toolbar from "./../../components/Toolbar";
 import Button from "./../../components/Button";
 import LogoSpinner from "./../../components/LogoSpinner";
 import DeliveryInfoForm from './DeliveryInfoForm';
-import CountryWorker from './../../services/CountryWorker'
+import CountryWorker from '../../services/CountryWorker'
 import {emptyCart} from './../../reducers/Cart/actions';
 import {setCountries} from './../../reducers/Country/actions';
 

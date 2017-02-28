@@ -9,7 +9,7 @@ import Toolbar from "./../../components/Toolbar";
 import LogoSpinner from "./../../components/LogoSpinner";
 import Constants from './../../Constants';
 import Languages from './../../Languages';
-import WooWorker from './../../services/WooWorker'
+import WooWorker from '../../services/WooWorker'
 
 const cardMargin = Constants.Dimension.ScreenWidth(0.05);
 
