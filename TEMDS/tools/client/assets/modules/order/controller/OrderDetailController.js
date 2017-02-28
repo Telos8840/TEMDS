@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('order')
-    .controller('OrderDetailController', function($scope, $timeout, NotificationFactory, OrderFactory, VenueFactory, UserFactory, helper, $stateParams, appParams) {
+    .controller('OrderDetailController', function($scope, $timeout, NotificationFactory, OrderFactory, VenueFactory, UserFactory, helper, $stateParams, appParams, drivers) {
         var orderId = $stateParams.orderId,
             notification = new NotificationFactory({
                 id: 'orderDetailNotification',
@@ -14,8 +14,18 @@ angular.module('order')
         // ViewData
         $scope.order = {};
         $scope.user = {};
-        $scope.orderStatusOptions = appParams.OrderStatus;
+        $scope.orderStatusOptions = [];
         $scope.usStates = appParams.USStates;
+	    $scope.drivers = drivers;
+        $scope.selectedDriver = null;
+
+        // creating new array to keep original enum order
+        angular.forEach(appParams.OrderStatus, function(value, key) {
+            $scope.orderStatusOptions.push({
+                key: value,
+                status: key
+            });
+        });
 
         // Private Methods
 
@@ -38,11 +48,14 @@ angular.module('order')
             OrderFactory.GetOrderDetail(orderId)
                 .then(function(data) {
                     $scope.order = data;
+                    if (!$scope.order.driver) {
+                        $scope.order.driver = {username: 'None'};
+                    }
                     getUser($scope.order.uId);
 
                     // fetch venue details
                     angular.forEach($scope.order.orders, function(o) {
-                        VenueFactory.getVenueById(o.vId)
+                        VenueFactory.getVenueById(o.venue._id)
                             .then(function(data) {
                                 o.v = data;
                             });
@@ -58,6 +71,10 @@ angular.module('order')
          * @returns {*}
          */
         $scope.getStatusDescription = function(statusCode) {
+            if (statusCode && isNaN(statusCode)) {
+                // weird bug that popped up because of sorting above
+                statusCode = appParams.OrderStatus[statusCode.replace(/ /g,'')];
+            }
             return OrderFactory.GetOrderStatusDescription(statusCode);
         };
 
@@ -69,6 +86,12 @@ angular.module('order')
          * @returns {*}
          */
         $scope.updateOrder= function(data, property, id) {
+
+            if (property === 'status') {
+                // to account for new data because of sorting issues above
+                data = appParams.OrderStatus[data.replace(/ /g,'')];
+            }
+
             var request = { id: id };
             request[property] = data;
             return OrderFactory.UpdateOrder(request)

@@ -11,7 +11,8 @@ var logger = rq('morgan')('tiny'),
     dotenv = rq('dotenv'),
     bodyParser = rq('body-parser'),
     mongoose = rq('mongoose'),
-    multer = rq('multer');
+    multer = rq('multer'),
+    Promise = rq('bluebird');;
 
 //load Enviromentvariables
 dotenv.load();
@@ -21,9 +22,11 @@ var app = express();
 
 // MongoDB
 mongoose.set('debug', false);
-mongoose.connect(process.env.DATABASE);
-mongoose.connection.on('error', function () {
-    debug('Mongoose connection error');
+mongoose.connect(process.env.DATABASE, {
+    promiseLibrary: Promise
+});
+mongoose.connection.on('error', function (err) {
+    debug('Mongoose connection error', err);
 });
 mongoose.connection.once('open', function callback() {
     debug('Mongoose connected to the database');
@@ -66,6 +69,7 @@ app.use('/api/user', rq('userRoutes'));
 app.use('/api/venue', rq('venueRoutes'));
 app.use('/api/order', rq('orderRoutes'));
 app.use('/api/media', rq('mediaRoutes'));
+app.use('/api/delivery', rq('deliveryRoutes'));
 
 //Enable HTML5-Mode
 app.all('/*', function (req, res) {

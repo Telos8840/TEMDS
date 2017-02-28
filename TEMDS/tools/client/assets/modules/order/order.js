@@ -26,7 +26,11 @@ angular.module('order', ['ui.router'])
                 data: {
                     requiresLogin: true
                 },
-                resolve: { },
+                resolve: {
+	                drivers: function (UserFactory) {
+		                return UserFactory.getDrivers();
+	                }
+                },
                 animation: {
                     enter: 'slideInRight',
                     leave: 'slideOutLeft'

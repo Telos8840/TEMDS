@@ -2,7 +2,7 @@
     <div class="header">
         <h1>Orders</h1>
     </div>
-    <div id="content" class="grid-block vertical">
+    <zf-action-sheet id="content" class="grid-block vertical">
 
         <div id="toolbox" class="contain-to-grid vertical">
             <div class="grid-block">
@@ -21,7 +21,7 @@
                     </span>
                 </div>
             </div>
-            <div id="filter" class="grid-block">
+            <div id="filter" class="grid-block hide-for-small-only">
                 <span class="inline-label">
                     <span class="form-label">Filter by status:</span>
                     <a class="button"
@@ -30,6 +30,7 @@
                        ng-click="setFilter($index)">{{s.status}}</a>
                 </span>
             </div>
+
         </div>
 
         <div class="grid-content" id="orderHeader">
@@ -114,5 +115,5 @@
             </div>
         </div>
 
-    </div>
+</div>
 </div>

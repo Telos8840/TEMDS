@@ -1,23 +1,73 @@
 <!doctype html>
 <html lang="en" ng-app="application">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TEMDS TOOLS</title>
-    <link href="/assets/css/app.css" rel="stylesheet" type="text/css">
-    <link href="/assets/css/xeditable.css" rel="stylesheet" type="text/css">
-    <script src="/assets/js/vendor.js"></script>
-    <script src="/assets/js/routes.js"></script>
-    <script src="/assets/js/app.js"></script>
-  </head>
-  <body>
-    <div id="app" class="grid-frame vertical">
-      <div class="grid-block shrink" data-ng-controller="NavigationController" data-ng-include="'/templates/core/navigation.html'"></div>
-      
-      <div id="view-container" class="grid-block">
-        <div class="grid-block" ui-view></div>
-      </div>
-    </div>
-  </div>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>TEMDS TOOLS</title>
+	<link href="/assets/css/app.css" rel="stylesheet" type="text/css">
+	<link href="/assets/css/xeditable.css" rel="stylesheet" type="text/css">
+	<script src="/assets/js/vendor.js"></script>
+	<script src="/assets/js/routes.js"></script>
+	<script src="/assets/js/app.js"></script>
+</head>
+<body>
+<zf-offcanvas id="menu" position="left">
+	<div class="grid-content ng-scope" data-ng-controller="NavigationController">
+		<a href="#" zf-close="" class="close-button">×</a>
+		<ul class="vertical menu-bar icon-left">
+			<li data-ng-if="auth.checkRole('driver')">
+				<a ui-sref="deliveries">
+                         <span>
+                              <i class="fa fa-car fa-fw"></i>My Orders
+                         </span>
+				</a>
+			</li>
+			<li data-ng-if="auth.checkRole('admin')">
+				<a ui-sref="venues">
+                         <span>
+                              <i class="fa fa-building-o fa-fw"></i>Venues
+                         </span>
+				</a>
+			</li>
+			<li data-ng-if="auth.checkRole('admin')">
+				<a ui-sref="media">
+                         <span>
+                              <i class="fa fa-camera-retro fa-fw"></i>Media
+                         </span>
+				</a>
+			</li>
+			<li data-ng-if="auth.checkRole('admin')">
+				<a ui-sref="orders">
+                         <span>
+                              <i class="fa fa-truck fa-fw"></i>Orders
+                         </span>
+				</a>
+			</li>
+			<li data-ng-if="!auth.user">
+				<a ui-sref="login">
+                         <span>
+                              <i class="fa fa-sign-in fa-fw"></i>Login
+                         </span>
+				</a>
+			</li>
+			<li data-ng-if="auth.user">
+				<a data-ng-click="auth.logout()">
+                         <span>
+                              <i class="fa fa-sign-out fa-fw"></i>Logout
+                         </span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</zf-offcanvas>
+<div id="app" class="grid-frame vertical">
+
+	<div class="grid-block shrink" data-ng-controller="NavigationController" data-ng-include="'/templates/core/navigation.html'"></div>
+
+	<div id="view-container" class="grid-block">
+		<div class="grid-block" ui-view></div>
+	</div>
+</div>
+</div>
 </body>
 </html>

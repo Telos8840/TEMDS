@@ -31,7 +31,7 @@ var ToolsUserSchema = new Schema({
     roles: {
         type: [{
             type: String,
-            enum: ['registered', 'user', 'editor', 'manager', 'admin']
+            enum: ['registered', 'user', 'editor', 'manager', 'admin', 'driver']
         }],
         default: ['registered']
     },

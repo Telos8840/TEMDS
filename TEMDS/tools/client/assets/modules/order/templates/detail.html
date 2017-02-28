@@ -1,6 +1,12 @@
 <div id="orderdetail" class="contain-to-grid ">
-    <div class="header">
-        <h1>Order #{{order.confirmationNumber}}</h1>
+    <div class="grid-block large-up-3 align-center shrink header">
+        <div class="grid-content">
+            <h2>
+                <a ui-sref="orders"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a>
+            </h2>
+        </div>
+        <div class="grid-content"><h2 class="text-center">Order #{{order.confirmationNumber}}</h2></div>
+        <div class="grid-content"></div>
     </div>
 
     <div class="row section">
@@ -16,19 +22,19 @@
                 </div>
                 <div class="row">
                     <label>Email</label>
-                            <span>
+                    <span>
                                 <a href="mailto:{{user.email}}">{{user.email}}</a>
                             </span>
                 </div>
                 <div class="row">
                     <label>Phone Number</label>
-                            <span>
+                    <span>
                                 {{user.phoneNum}}
                             </span>
                 </div>
                 <div class="row">
                     <label>Birth Date</label>
-                            <span>
+                    <span>
                                 {{user.bDay}}
                             </span>
                 </div>
@@ -36,7 +42,7 @@
 
             <div class="row title">
                 <i class="fa fa-truck"></i>
-                <span>Delivery Information</span>
+                <span>Delivery Information (Click text to edit then green checkmark to update)</span>
             </div>
             <div class="row content">
                 <div class="row">
@@ -97,12 +103,21 @@
                         </div>
                     </form>
                 </div>
+                <!--e-ng-options="getStatusDescription(v) for (k,v) in orderStatusOptions"-->
                 <div class="row">
                     <label>Status</label>
                     <span editable-select="order.status"
-                          e-ng-options="getStatusDescription(v) for (k,v) in orderStatusOptions"
-                          onbeforesave="updateOrder($data,'status', order._id)">
+                    e-ng-options="getStatusDescription(opt.key) as opt.status for opt in orderStatusOptions"
+                          onbeforesave="updateOrder($data, 'status', order._id)">
                         {{ getStatusDescription(order.status) }}
+                    </span>
+                </div>
+                <div class="row">
+                    <label>Driver</label>
+                    <span editable-select="order.driver"
+                          e-ng-options="driver as driver.username for driver in drivers track by driver.username"
+                          onbeforesave="updateOrder($data, 'driver', order._id)">
+                        {{ order.driver.username }}
                     </span>
                 </div>
             </div>
