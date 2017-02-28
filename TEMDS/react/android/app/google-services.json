@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "264726880299",
+    "firebase_url": "https://mstore-1d7eb.firebaseio.com",
+    "project_id": "mstore-1d7eb",
+    "storage_bucket": "mstore-1d7eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:264726880299:android:8ca6e2cf6417b457",
+        "android_client_info": {
+          "package_name": "com.piksal.mstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "264726880299-t52gmfj4p5kl2sjeeoaa0sl2e3i0v62n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.piksal.mstore",
+            "certificate_hash": "5F93290075A3A58C71DACBD8A14020620508015F"
+          }
+        },
+        {
+          "client_id": "264726880299-koc7alni74v37u9e9tucvg36abaprblf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxWeGngD5btwaakkdUEloTWPjhPJuxdcU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "264726880299-er88qcoeq41r0b5ihb4j8itkte6qsq1a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.piksal.mstore"
+              }
+            },
+            {
+              "client_id": "264726880299-koc7alni74v37u9e9tucvg36abaprblf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
