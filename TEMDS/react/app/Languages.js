@@ -85,7 +85,7 @@ const Languages = new LocalizedStrings({
         PayWithPayPal: 'Your purchase will be pay with PayPal',
         PayWithStripe: 'Your purchase will be pay with Stripe',
         ApplyCoupon: 'Apply Coupon',
-        CouponPlaceholder: 'COUPON CODE',
+        CouponPlaceholder: 'Coupon Code',
         APPLY: 'APPLY',
         CardNamePlaceholder: 'Name written on card',
         BackToHome: 'Back to Home',

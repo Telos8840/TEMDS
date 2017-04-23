@@ -9,6 +9,7 @@ import Lock, {LOCK_OPTIONS} from "../../services/Auth0";
 import {signIn, signOut} from './../../reducers/Customer/actions';
 import LogoSpinner from "./../../components/LogoSpinner";
 import {
+	Alert,
 	AppRegistry,
 	StyleSheet,
 	Text,
@@ -40,7 +41,10 @@ class LoginIn extends Component {
 		this.props.auth.login((err, profile, token) => {
 			this.setState({isLoading: true});
 			if (err != null || profile == null || token == null) {
-				alert(JSON.stringify(err));
+				Alert.alert(
+					'Login Failed',
+					JSON.stringify(err)
+				);
 				this.setState({isLoading: false});
 			} else {
 				this.props.auth.lock.authenticationAPI()

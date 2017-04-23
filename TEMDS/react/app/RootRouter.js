@@ -114,6 +114,7 @@ export default class RootRouter extends Component {
         const scenes = Actions.create(
             <Scene key="scene">
                 {/*<Scene key="intro" component={Intro} title={Languages.Intro} initial={this.introFlag}/>*/}
+                <Scene key="checkout" component={Checkout} title={Languages.Checkout} back={true}/>
                 <Scene key="login" component={LogIn} title="Login" initial={this.introFlag} auth={auth}/>
                 <Scene key="home" component={Home} title="TEMDS" cart={true} search={true}
                        type={ActionConst.RESET}/>
@@ -122,7 +123,7 @@ export default class RootRouter extends Component {
                 <Scene key="detail" component={Detail} cart={true} back={true} />
                 <Scene key="cart" component={Cart} title={Languages.Cart} back={true} />
                 <Scene key="wishlist" component={WishList} title={Languages.WishList} back={true} cart={true}/>
-                <Scene key="checkout" component={Checkout} title={Languages.Checkout} back={true}/>
+
                 <Scene key="myorder" component={MyOrder} title={Languages.MyOrder} cart={true} />
                 <Scene key="news" component={News} title={Languages.News} back={true}/>
                 <Scene key="postDetails" component={PostDetails} title={Languages.PostDetails} back={true}/>

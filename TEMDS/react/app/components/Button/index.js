@@ -19,7 +19,7 @@ export default class Button extends Component {
         autoMargin: PropTypes.bool,
         color: PropTypes.string,
         overlayColor: PropTypes.string,
-        iconName: PropTypes.string,
+        iconName: PropTypes.string
     };
 
     static defaultProps = {
@@ -60,7 +60,7 @@ export default class Button extends Component {
                 fontWeight: 'bold',
                 color: this.props.color,
             }
-        }
+        };
 
         return (
             <TouchableOpacity
