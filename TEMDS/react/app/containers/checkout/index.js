@@ -4,7 +4,7 @@
 'use strict';
 
 import React, {Component, PropTypes} from 'react';
-import {Image, ScrollView, Text, View, TextInput} from 'react-native';
+import {Alert, Image, ScrollView, Text, View, TextInput} from 'react-native';
 import {connect} from 'react-redux';
 import t from 'tcomb-form-native';
 import {Actions} from "react-native-router-flux";
@@ -22,6 +22,16 @@ import CountryWorker from '../../services/CountryWorker'
 import {emptyCart} from './../../reducers/Cart/actions';
 import {setCountries} from './../../reducers/Country/actions';
 
+import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-input";
+
+import stripe from 'tipsi-stripe';
+import { PaymentCardTextField } from 'tipsi-stripe';
+
+stripe.init({
+	publishableKey: 'pk_test_l52b81HvLSniFvYgiEHy31z4',
+	//merchantId: '<MERCHANT_ID>',
+});
+
 class Checkout extends Component {
 	constructor(props) {
 		super(props);
@@ -30,6 +40,8 @@ class Checkout extends Component {
 			value: {
 				payment_method: '',
 			},
+			isValid: true,
+			creditInfo: {}
 		};
 
 		this.styles = {
@@ -57,47 +69,61 @@ class Checkout extends Component {
 		};
 
 		this.purchase = () => {
-			const result = this.refs.paymentForm.getValue();
+			stripe.createTokenWithCard(this.state.params).then(response => {
+				console.log('res', response);
+				return response;
+			}).catch(err => {
+				console.log('err', err);
+			});
 
-			if (result !== null) {
-
-				let line_items = [];
-				this.props.Cart.cartItems.forEach((item) => {
-					line_items.push({
-						"product_id": item.product.id,
-						"quantity": item.quantity,
-						"variation_id": item.variation == undefined ? '' : item.variation.id,
-					});
-				}, this);
-
-				let body = {
-					customer_id: this.props.customer.id,
-					payment_method: result.payment_method,
-					customer_note: this.deliveryInfo.note,
-					billing: this.deliveryInfo,
-					shipping: this.deliveryInfo,
-					line_items: line_items,
-				};
-				// console.log(JSON.stringify(body))
-				// alert(JSON.stringify(body))
-
-				this.setState({isLoading: true});
-				// WooWorker.createOrder(body, (responseData) => {
-				// 	this.setState({
-				// 		stage: 2,
-				// 		orderID: responseData.id,
-				// 		isLoading: false,
-				// 	})
-				// 	this.props.emptyCart();
-				// });
-				this.setState({
-					stage: 2,
-					orderID: 0,
-					isLoading: false,
-				});
-
-				this.props.emptyCart();
-			}
+			// const result = this.refs.paymentForm.getValue();
+			//
+			// if (!this.state.isValid) {
+			// 	Alert.alert(
+			// 		'Invalid Credit Card',
+			// 		'Please complete all fields',
+			// 	);
+			// }
+			//
+			// if (result !== null && this.state.isValid) {
+			//
+			// 	let line_items = [];
+			// 	this.props.Cart.cartItems.forEach((item) => {
+			// 		line_items.push({
+			// 			"product_id": item.product.id,
+			// 			"quantity": item.quantity,
+			// 			"variation_id": item.variation == undefined ? '' : item.variation.id,
+			// 		});
+			// 	}, this);
+			//
+			// 	let body = {
+			// 		customer_id: this.props.customer.id,
+			// 		payment_method: result.payment_method,
+			// 		customer_note: this.deliveryInfo.note,
+			// 		billing: this.deliveryInfo,
+			// 		shipping: this.deliveryInfo,
+			// 		line_items: line_items,
+			// 	};
+			// 	// console.log(JSON.stringify(body))
+			// 	// alert(JSON.stringify(body))
+			//
+			// 	this.setState({isLoading: true});
+			// 	// WooWorker.createOrder(body, (responseData) => {
+			// 	// 	this.setState({
+			// 	// 		stage: 2,
+			// 	// 		orderID: responseData.id,
+			// 	// 		isLoading: false,
+			// 	// 	})
+			// 	// 	this.props.emptyCart();
+			// 	// });
+			// 	this.setState({
+			// 		stage: 2,
+			// 		orderID: 0,
+			// 		isLoading: false,
+			// 	});
+			//
+			// 	this.props.emptyCart();
+			//}
 		};
 
 		this.onChange = (value) => this.setState({value: value});
@@ -121,7 +147,7 @@ class Checkout extends Component {
 				payment_method: {
 					nullOption: {value: '', text: Languages.PaymentMethod},
 					error: Languages.PaymentMethodError,
-				},
+				}
 			}
 		}
 	}
@@ -175,7 +201,8 @@ class Checkout extends Component {
 					        style={{marginTop: Constants.Dimension.ScreenWidth(0.05)}}
 					        borderLess
 					        isLoading={this.state.isLoading}
-					        text="Complete Order">
+					        text="Complete Order"
+							disabled={true}>
 					</Button>
 				</View>
 			</ScrollView>);
@@ -191,11 +218,11 @@ class Checkout extends Component {
 				</View>
 				<View style={{flex: 1, backgroundColor: 'white'}}>
 					{/*<Icon name={'ios-happy-outline'}
-					      style={{
-						      textAlign: "center",
-						      fontSize: 200,
-						      color: Constants.Color.ButtonBackground,
-					      }}/>*/}
+					 style={{
+					 textAlign: "center",
+					 fontSize: 200,
+					 color: Constants.Color.ButtonBackground,
+					 }}/>*/}
 					<Animatable.View animation="lightSpeedIn" easing="ease-out" style={{justifyContent: 'center',  alignItems: 'center', marginTop: 10}}>
 						<Image source={Constants.Image.TEMDS} style={{width: 200, height: 200}}/>
 					</Animatable.View>
@@ -219,20 +246,38 @@ class Checkout extends Component {
 
 				<Button onPress={() => Actions.myorder()}
 					//onPress={() => Actions.home({type: "reset"})}
-				        borderLess
-				        style={{marginBottom: 10}}
-				        text="My Orders">
+					    borderLess
+					    style={{marginBottom: 10}}
+					    text="My Orders">
 				</Button>
 			</View>);
+
+
 
 		return (
 			<View style={[this.styles.container, {backgroundColor: this.state.stage == 2 ? 'white' : '#F0F0F0'}]}>
 				<Toolbar{...this.props}/>
-				{this.state.stage == 0 ? renderPhaseOne() :
-					this.state.stage == 1 ? renderPhaseTwo() : renderPhaseThree()}
+				{renderPhaseTwo()}
+				{/*{this.state.stage == 0 ? renderPhaseOne() :*/}
+					{/*this.state.stage == 1 ? renderPhaseTwo() : renderPhaseThree()}*/}
 			</View>
 		);
 	}
+
+	onCreditCardChange(form) {
+		console.log('form', form);
+		// this.setState({
+		// 	isValid: form.valid
+		// });
+	}
+
+	handleFieldParamsChange = (valid, params) => {
+		this.setState({
+			valid,
+			params,
+		});
+		console.log('card', this.state);
+	};
 
 	renderNavigatorBar(stage) {
 		let image = Constants.Image.CheckoutStep1;
@@ -280,72 +325,90 @@ class Checkout extends Component {
 	renderPaymentDetails() {
 		switch (this.state.value.payment_method) {
 			case 'bacs':
-				return <View style={this.styles.card}>
-					<Text>Card Number*</Text>
-					<TextInput
-						underlineColorAndroid='transparent'
-						placeholder='0000-0000-0000-0000'
-						defaultValue={''}
-						placeholderTextColor={Constants.Color.TextLight}
-						style={{
-							borderWidth: 1, borderColor: Constants.Color.ViewBorder, height: 40, marginBottom: 5,
-							paddingLeft: 10, borderRadius: 4
-						}}/>
-					<Text>Card Name*</Text>
-					<TextInput
-						underlineColorAndroid='transparent'
-						placeholder={Languages.CardNamePlaceholder}
-						defaultValue={''}
-						placeholderTextColor={Constants.Color.TextLight}
-						style={{
-							borderWidth: 1, borderColor: Constants.Color.ViewBorder, height: 40, marginBottom: 5,
-							paddingLeft: 10, borderRadius: 4
-						}}/>
-					<View style={{flexDirection: 'row', justifyContent: 'space-between',}}>
-						<View style={{flexDirection: 'row'}}>
-							<View >
-								<Text>MM</Text>
+				return (
+					<View style={this.styles.card}>
+						<PaymentCardTextField
+							accessible={false}
+							style={{
+								width: 300,
+								color: '#449aeb',
+								borderColor: '#000',
+								borderWidth: 0,
+								borderRadius: 5,
+							}}
+							onParamsChange={this.handleFieldParamsChange}
+
+						/>
+
+						{/*<LiteCreditCardInput onChange={this.onCreditCardChange} />*/}
+
+
+						{/*<Text>Card Number*</Text>
+						<TextInput
+							underlineColorAndroid='transparent'
+							placeholder='0000-0000-0000-0000'
+							defaultValue={''}
+							placeholderTextColor={Constants.Color.TextLight}
+							style={{
+								borderWidth: 1, borderColor: Constants.Color.ViewBorder, height: 40, marginBottom: 5,
+								paddingLeft: 10, borderRadius: 4
+							}}/>
+						<Text>Card Name*</Text>
+						<TextInput
+							underlineColorAndroid='transparent'
+							placeholder={Languages.CardNamePlaceholder}
+							defaultValue={''}
+							placeholderTextColor={Constants.Color.TextLight}
+							style={{
+								borderWidth: 1, borderColor: Constants.Color.ViewBorder, height: 40, marginBottom: 5,
+								paddingLeft: 10, borderRadius: 4
+							}}/>
+						<View style={{flexDirection: 'row', justifyContent: 'space-between',}}>
+							<View style={{flexDirection: 'row'}}>
+								<View >
+									<Text>MM</Text>
+									<TextInput
+										underlineColorAndroid='transparent'
+										maxLength={2}
+										defaultValue={''}
+										style={{
+											borderWidth: 1,
+											borderColor: Constants.Color.ViewBorder,
+											height: 40,
+											width: 50,
+											marginRight: 10,
+											paddingLeft: 10, borderRadius: 4
+										}}/>
+								</View>
+								<View >
+									<Text>YY</Text>
+									<TextInput
+										underlineColorAndroid='transparent'
+										defaultValue={''}
+										maxLength={2}
+										style={{
+											borderWidth: 1,
+											borderColor: Constants.Color.ViewBorder,
+											height: 40,
+											width: 50,
+											paddingLeft: 10, borderRadius: 4
+										}}/>
+								</View>
+							</View>
+							<View>
+								<Text>CVV</Text>
 								<TextInput
 									underlineColorAndroid='transparent'
-									maxLength={2}
 									defaultValue={''}
+									maxLength={3}
 									style={{
-										borderWidth: 1,
-										borderColor: Constants.Color.ViewBorder,
-										height: 40,
-										width: 50,
-										marginRight: 10,
+										borderWidth: 1, borderColor: Constants.Color.ViewBorder, height: 40, width: 50,
 										paddingLeft: 10, borderRadius: 4
 									}}/>
 							</View>
-							<View >
-								<Text>YY</Text>
-								<TextInput
-									underlineColorAndroid='transparent'
-									defaultValue={''}
-									maxLength={2}
-									style={{
-										borderWidth: 1,
-										borderColor: Constants.Color.ViewBorder,
-										height: 40,
-										width: 50,
-										paddingLeft: 10, borderRadius: 4
-									}}/>
-							</View>
-						</View>
-						<View>
-							<Text>CVV</Text>
-							<TextInput
-								underlineColorAndroid='transparent'
-								defaultValue={''}
-								maxLength={3}
-								style={{
-									borderWidth: 1, borderColor: Constants.Color.ViewBorder, height: 40, width: 50,
-									paddingLeft: 10, borderRadius: 4
-								}}/>
-						</View>
+						</View>*/}
 					</View>
-				</View>;
+				);
 
 			case 'cod':
 				return <View style={[this.styles.card, {flexDirection: 'row'}]}>
@@ -403,7 +466,10 @@ class Checkout extends Component {
 	renderPayments() {
 		const onChange = (value) => {
 			this.refs.paymentForm.validate();
-			this.setState({value: value});
+			this.setState({
+				value,
+				isValid: value.payment_method !== 'bacs'
+			});
 		};
 
 		return (<View style={this.styles.card}>

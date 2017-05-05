@@ -41,6 +41,7 @@
 		EA17F6511DD1D6BC00521430 /* BodoniBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA17F64F1DD1D6BC00521430 /* BodoniBold.ttf */; };
 		EA17F6521DD1D6BC00521430 /* SFUBodoni.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA17F6501DD1D6BC00521430 /* SFUBodoni.ttf */; };
 		EAEEC2721DD2AF7500D0E6E7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAEEC2711DD2AF7500D0E6E7 /* GoogleService-Info.plist */; };
+		F22C8C0CDEB94DAD9B9DB54D /* libTPSStripe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFFAE3B1E2E8429481F4987E /* libTPSStripe.a */; };
 		FDB8D4A5370F4EAB9E7C4D06 /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D05CBD681DC94F24B2AE4D6F /* libRNFIRMessaging.a */; };
 /* End PBXBuildFile section */
 
@@ -192,6 +193,13 @@
 			remoteGlobalIDString = 2D2A28201D9B03D100D4039D;
 			remoteInfo = "RCTAnimation-tvOS";
 		};
+		C7F8C6FC1EADD4FE005A913B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C26EDA6280240EDBF3EF7F4 /* TPSStripe.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3A3A7F1A1DC27B520030F9DC;
+			remoteInfo = TPSStripe;
+		};
 		EA17F5D51DD1C67400521430 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 498520F53278476CAEC3E5B1 /* A0RNLock.xcodeproj */;
@@ -235,6 +243,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MStore/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MStore/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1C26EDA6280240EDBF3EF7F4 /* TPSStripe.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = TPSStripe.xcodeproj; path = "../node_modules/tipsi-stripe/ios/TPSStripe.xcodeproj"; sourceTree = "<group>"; };
 		2751B02B1DEE8538004544D4 /* RCTRestart.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTRestart.xcodeproj; path = "../node_modules/react-native-restart/ios/RCTRestart.xcodeproj"; sourceTree = "<group>"; };
 		44DC0E9191474573B546AA27 /* RNFIRMessaging.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFIRMessaging.xcodeproj; path = "../node_modules/react-native-fcm/ios/RNFIRMessaging.xcodeproj"; sourceTree = "<group>"; };
 		498520F53278476CAEC3E5B1 /* A0RNLock.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = A0RNLock.xcodeproj; path = "../node_modules/react-native-lock/ios/A0RNLock.xcodeproj"; sourceTree = "<group>"; };
@@ -263,6 +272,7 @@
 		EA17F6841DD1F98800521430 /* MStore.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MStore.entitlements; path = MStore/MStore.entitlements; sourceTree = "<group>"; };
 		EAEEC2711DD2AF7500D0E6E7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EAEEC2731DD2BB7B00D0E6E7 /* Firebase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
+		FFFAE3B1E2E8429481F4987E /* libTPSStripe.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libTPSStripe.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,6 +306,7 @@
 				CDB2DCB35B634780B63B6323 /* libA0RNLock.a in Frameworks */,
 				8FBB9F051CEA21755DEFBDCB /* libPods-MStore.a in Frameworks */,
 				FDB8D4A5370F4EAB9E7C4D06 /* libRNFIRMessaging.a in Frameworks */,
+				F22C8C0CDEB94DAD9B9DB54D /* libTPSStripe.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +471,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				498520F53278476CAEC3E5B1 /* A0RNLock.xcodeproj */,
 				44DC0E9191474573B546AA27 /* RNFIRMessaging.xcodeproj */,
+				1C26EDA6280240EDBF3EF7F4 /* TPSStripe.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -502,6 +514,14 @@
 			children = (
 				C77EE7771DFE916D0055C370 /* libRCTAnimation.a */,
 				C77EE7791DFE916D0055C370 /* libRCTAnimation-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C7F8C6E21EADD4FE005A913B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C7F8C6FD1EADD4FE005A913B /* libTPSStripe.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -691,6 +711,10 @@
 					ProductGroup = EAEEC2601DD2AEC900D0E6E7 /* Products */;
 					ProjectRef = 44DC0E9191474573B546AA27 /* RNFIRMessaging.xcodeproj */;
 				},
+				{
+					ProductGroup = C7F8C6E21EADD4FE005A913B /* Products */;
+					ProjectRef = 1C26EDA6280240EDBF3EF7F4 /* TPSStripe.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -841,6 +865,13 @@
 			remoteRef = C77EE7781DFE916D0055C370 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		C7F8C6FD1EADD4FE005A913B /* libTPSStripe.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libTPSStripe.a;
+			remoteRef = C7F8C6FC1EADD4FE005A913B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		EA17F5D61DD1C67400521430 /* libA0RNLock.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -966,7 +997,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		B7EAAE7BFAF068BB4D1A8287 /* [CP] Check Pods Manifest.lock */ = {
@@ -981,7 +1012,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		BF5585FA87C93F5CDD35D603 /* [CP] Copy Pods Resources */ = {
@@ -1058,6 +1089,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1076,6 +1108,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1108,6 +1141,7 @@
 					"$(SRCROOT)/../node_modules/react-native-lock/ios/A0RNLock/**",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-restart/**",
+					"$(SRCROOT)/../node_modules/tipsi-stripe/ios/TPSStripe",
 				);
 				INFOPLIST_FILE = MStore/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1148,6 +1182,7 @@
 					"$(SRCROOT)/../node_modules/react-native-lock/ios/A0RNLock/**",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-restart/**",
+					"$(SRCROOT)/../node_modules/tipsi-stripe/ios/TPSStripe",
 				);
 				INFOPLIST_FILE = MStore/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1207,6 +1242,7 @@
 					"$(SRCROOT)/../node_modules/react-native-lock/ios/A0RNLock/**",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
+					"$(SRCROOT)/../node_modules/tipsi-stripe/ios/TPSStripe",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1250,6 +1286,7 @@
 					"$(SRCROOT)/../node_modules/react-native-lock/ios/A0RNLock/**",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
+					"$(SRCROOT)/../node_modules/tipsi-stripe/ios/TPSStripe",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
