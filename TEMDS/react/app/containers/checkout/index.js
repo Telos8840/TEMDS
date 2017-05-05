@@ -24,6 +24,14 @@ import {setCountries} from './../../reducers/Country/actions';
 
 import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-input";
 
+import stripe from 'tipsi-stripe';
+import { PaymentCardTextField } from 'tipsi-stripe';
+
+stripe.init({
+	publishableKey: 'pk_test_l52b81HvLSniFvYgiEHy31z4',
+	//merchantId: '<MERCHANT_ID>',
+});
+
 class Checkout extends Component {
 	constructor(props) {
 		super(props);
@@ -61,54 +69,61 @@ class Checkout extends Component {
 		};
 
 		this.purchase = () => {
-			const result = this.refs.paymentForm.getValue();
+			stripe.createTokenWithCard(this.state.params).then(response => {
+				console.log('res', response);
+				return response;
+			}).catch(err => {
+				console.log('err', err);
+			});
 
-			if (!this.state.isValid) {
-				Alert.alert(
-					'Invalid Credit Card',
-					'Please complete all fields',
-				);
-			}
-
-			if (result !== null && this.state.isValid) {
-
-				let line_items = [];
-				this.props.Cart.cartItems.forEach((item) => {
-					line_items.push({
-						"product_id": item.product.id,
-						"quantity": item.quantity,
-						"variation_id": item.variation == undefined ? '' : item.variation.id,
-					});
-				}, this);
-
-				let body = {
-					customer_id: this.props.customer.id,
-					payment_method: result.payment_method,
-					customer_note: this.deliveryInfo.note,
-					billing: this.deliveryInfo,
-					shipping: this.deliveryInfo,
-					line_items: line_items,
-				};
-				// console.log(JSON.stringify(body))
-				// alert(JSON.stringify(body))
-
-				this.setState({isLoading: true});
-				// WooWorker.createOrder(body, (responseData) => {
-				// 	this.setState({
-				// 		stage: 2,
-				// 		orderID: responseData.id,
-				// 		isLoading: false,
-				// 	})
-				// 	this.props.emptyCart();
-				// });
-				this.setState({
-					stage: 2,
-					orderID: 0,
-					isLoading: false,
-				});
-
-				this.props.emptyCart();
-			}
+			// const result = this.refs.paymentForm.getValue();
+			//
+			// if (!this.state.isValid) {
+			// 	Alert.alert(
+			// 		'Invalid Credit Card',
+			// 		'Please complete all fields',
+			// 	);
+			// }
+			//
+			// if (result !== null && this.state.isValid) {
+			//
+			// 	let line_items = [];
+			// 	this.props.Cart.cartItems.forEach((item) => {
+			// 		line_items.push({
+			// 			"product_id": item.product.id,
+			// 			"quantity": item.quantity,
+			// 			"variation_id": item.variation == undefined ? '' : item.variation.id,
+			// 		});
+			// 	}, this);
+			//
+			// 	let body = {
+			// 		customer_id: this.props.customer.id,
+			// 		payment_method: result.payment_method,
+			// 		customer_note: this.deliveryInfo.note,
+			// 		billing: this.deliveryInfo,
+			// 		shipping: this.deliveryInfo,
+			// 		line_items: line_items,
+			// 	};
+			// 	// console.log(JSON.stringify(body))
+			// 	// alert(JSON.stringify(body))
+			//
+			// 	this.setState({isLoading: true});
+			// 	// WooWorker.createOrder(body, (responseData) => {
+			// 	// 	this.setState({
+			// 	// 		stage: 2,
+			// 	// 		orderID: responseData.id,
+			// 	// 		isLoading: false,
+			// 	// 	})
+			// 	// 	this.props.emptyCart();
+			// 	// });
+			// 	this.setState({
+			// 		stage: 2,
+			// 		orderID: 0,
+			// 		isLoading: false,
+			// 	});
+			//
+			// 	this.props.emptyCart();
+			//}
 		};
 
 		this.onChange = (value) => this.setState({value: value});
@@ -256,6 +271,14 @@ class Checkout extends Component {
 		// });
 	}
 
+	handleFieldParamsChange = (valid, params) => {
+		this.setState({
+			valid,
+			params,
+		});
+		console.log('card', this.state);
+	};
+
 	renderNavigatorBar(stage) {
 		let image = Constants.Image.CheckoutStep1;
 		switch (stage) {
@@ -304,7 +327,22 @@ class Checkout extends Component {
 			case 'bacs':
 				return (
 					<View style={this.styles.card}>
-						<LiteCreditCardInput onChange={this.onCreditCardChange} />
+						<PaymentCardTextField
+							accessible={false}
+							style={{
+								width: 300,
+								color: '#449aeb',
+								borderColor: '#000',
+								borderWidth: 0,
+								borderRadius: 5,
+							}}
+							onParamsChange={this.handleFieldParamsChange}
+
+						/>
+
+						{/*<LiteCreditCardInput onChange={this.onCreditCardChange} />*/}
+
+
 						{/*<Text>Card Number*</Text>
 						<TextInput
 							underlineColorAndroid='transparent'
